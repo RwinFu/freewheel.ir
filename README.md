@@ -18,16 +18,29 @@
 | فرمان | کار |
 | --- | --- |
 | `npm run dev` | سرور توسعه |
-| `npm run build` / `npm start` | بیلد و اجرای نسخهٔ تولید |
+| `npm run build` | بیلد نسخهٔ تولید (خروجی استاتیک در `out/`) |
 | `npm run lint` | ESLint |
 | `npm run font` | ساخت دوبارهٔ subset فونت (`scripts/build-font.mjs`) |
-| `npm run serve` | بیلد + ری‌استارت سرور روی پورت ۳۰۰۰ |
+| `npm run serve` | بیلد + سرو استاتیک `out/` روی پورت ۳۰۰۰ |
 | `npm run shoot` | اسکن خودکار همهٔ مسیرها در دو ویوپورت (`screens/report.json`) |
 | `npm run slices` | اسکرین‌شات تکه‌به‌تکه برای بازبینی چشمی |
 | `node scripts/probe.mjs <route> <width>` | پیدا کردن عنصری که سرریز افقی می‌سازد |
 
 ابزارهای `shoot` / `slices` / `probe` به `@sparticuz/chromium` نیاز دارند؛ خروجی
 `screens/` در گیت نیست.
+
+## دیپلوی — GitHub Pages
+
+سایت یک خروجی کاملاً استاتیک است (`output: 'export'`) و با هر پوش به `main`
+از طریق ورک‌فلوی `.github/workflows/deploy.yml` روی GitHub Pages منتشر می‌شود:
+
+- نشانی: <https://rwinfu.github.io/freewheel.ir/>
+- در بیلدِ دیپلوی متغیر `DEPLOY_TARGET=github-pages` روشن می‌شود و `basePath`
+  و `trailingSlash` را فعال می‌کند؛ بیلد محلی بدون آن ساده می‌ماند.
+- فرم تماس سرور ندارد: اعتبارسنجی با zod در مرورگر انجام می‌شود و نتیجه یا به
+  `NEXT_PUBLIC_ENQUIRY_WEBHOOK` پست می‌شود یا به‌صورت متن آماده/`mailto` به کاربر
+  داده می‌شود.
+- `next/image` بهینه‌سازی نمی‌شود (`images.unoptimized`) چون هاست استاتیک است.
 
 ## ساختار
 

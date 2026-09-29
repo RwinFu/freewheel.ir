@@ -1,14 +1,14 @@
 'use client'
 
-import { useActionState, useEffect, useRef, useState } from 'react'
-import { useFormStatus } from 'react-dom'
+import { useEffect, useRef, useState } from 'react'
 import { submitEnquiry, type EnquiryState } from '@/app/contact/actions'
 import { cn } from '@/lib/utils'
 
 const initial: EnquiryState = { status: 'idle' }
 
 export function EnquiryForm() {
-  const [state, action] = useActionState(submitEnquiry, initial)
+  const [state, setState] = useState<EnquiryState>(initial)
+  const [pending, setPending] = useState(false)
   const [copied, setCopied] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -17,6 +17,17 @@ export function EnquiryForm() {
       formRef.current?.scrollIntoView({ block: 'nearest' })
     }
   }, [state.status])
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (pending) return
+    setPending(true)
+    try {
+      setState(await submitEnquiry(new FormData(e.currentTarget)))
+    } finally {
+      setPending(false)
+    }
+  }
 
   return (
     <div>
@@ -73,7 +84,7 @@ export function EnquiryForm() {
         </ResultPanel>
       )}
 
-      <form ref={formRef} action={action} className="mt-8" noValidate>
+      <form ref={formRef} onSubmit={onSubmit} className="mt-8" noValidate>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field
             name="name"
@@ -144,7 +155,7 @@ export function EnquiryForm() {
         </div>
 
         <div className="mt-7 flex flex-wrap items-center gap-4">
-          <SubmitButton />
+          <SubmitButton pending={pending} />
           <p className="text-xs leading-6 text-fg-dim">
             اطلاعات شما فقط برای پاسخ به همین درخواست استفاده می‌شود.
           </p>
@@ -154,8 +165,7 @@ export function EnquiryForm() {
   )
 }
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
+function SubmitButton({ pending }: { pending: boolean }) {
   return (
     <button
       type="submit"

@@ -1,14 +1,13 @@
-'use server'
-
 import { z } from 'zod'
 
 /**
  * Enquiry handler.
  *
- * Delivery is intentionally pluggable because we do not know where this
- * will be hosted from. Set `ENQUIRY_WEBHOOK` to any endpoint that accepts
- * a JSON POST (Formspree, a Zapier/Make bridge, a small serverless
- * function) and the form posts straight to it.
+ * The site ships as a static export (GitHub Pages), so there is no server
+ * to receive the form — everything here runs in the browser. Delivery is
+ * intentionally pluggable: set `NEXT_PUBLIC_ENQUIRY_WEBHOOK` to any
+ * endpoint that accepts a JSON POST (Formspree, a Zapier/Make bridge, a
+ * serverless function) and the form posts straight to it from the client.
  *
  * With no webhook configured we do not silently pretend the message was
  * delivered: the client is handed a formatted summary it can copy or
@@ -39,10 +38,7 @@ export type EnquiryState =
   | { status: 'delivered' }
   | { status: 'prepared'; summary: string; mailto: string }
 
-export async function submitEnquiry(
-  _prev: EnquiryState,
-  formData: FormData,
-): Promise<EnquiryState> {
+export async function submitEnquiry(formData: FormData): Promise<EnquiryState> {
   const raw = Object.fromEntries(formData)
   const parsed = Enquiry.safeParse(raw)
 
@@ -73,7 +69,7 @@ export async function submitEnquiry(
 
   const summary = lines.join('\n')
 
-  const webhook = process.env.ENQUIRY_WEBHOOK
+  const webhook = process.env.NEXT_PUBLIC_ENQUIRY_WEBHOOK
   if (webhook) {
     try {
       const res = await fetch(webhook, {
@@ -88,7 +84,7 @@ export async function submitEnquiry(
     }
   }
 
-  const to = process.env.ENQUIRY_EMAIL ?? 'info@freewheel.ir'
+  const to = process.env.NEXT_PUBLIC_ENQUIRY_EMAIL ?? 'info@freewheel.ir'
   return {
     status: 'prepared',
     summary,
