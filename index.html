@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>فری‌ویل | کلاچ یک‌طرفه، بک‌استاپ و فری‌ویل صنعتی</title>
+<meta name="description" content="تأمین تخصصی کلاچ‌های یک‌طرفه (فری‌ویل)، بک‌استاپ، اورران و ایندکسینگ برای صنایع ایران. ثبت سفارش از طریق پرشیا ربات و بلبرینگ آنلاین.">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader-num"><span id="ldn">0</span>٪</div><div class="loader-bar"><i id="ldb"></i></div></div>
+<div class="cursor" id="cursor"></div>
+<div class="grain"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="logo"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /><circle cx="20" cy="20" r="7"/><path d="M20 3v6M20 31v6M3 20h6M31 20h6"/></svg><b>فری‌ویل</b><small>FREEWHEEL.IR</small></a>
+  <nav><a href="#how">عملکرد</a><a href="#products">محصولات</a><a href="#apps">کاربردها</a><a href="#order">ثبت سفارش</a></nav>
+  <a href="#order" class="btn btn-sm magnetic">استعلام قیمت</a>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow reveal">کلاچ یک‌طرفه · بک‌استاپ · اورران</p>
+    <h1 class="split">حرکت فقط<br><em>در یک جهت.</em></h1>
+    <p class="lead reveal">فری‌ویل‌های صنعتی برای جایی که برگشت، یعنی توقف خط تولید. انتخاب، مشاوره فنی و تأمین سری‌های رولری و اسپراگ برای نوار نقاله، پمپ، گیربکس و ماشین‌آلات بسته‌بندی.</p>
+    <div class="hero-cta reveal">
+      <a href="#order" class="btn magnetic">ثبت سفارش <span>←</span></a>
+      <a href="#products" class="btn btn-ghost magnetic">مشاهده سری‌ها</a>
+    </div>
+    <dl class="stats reveal">
+      <div><dt><span class="count" data-to="250000">0</span></dt><dd>حداکثر گشتاور<br>قابل تأمین (Nm)</dd></div>
+      <div><dt><span class="count" data-to="14">0</span></dt><dd>سری مختلف<br>کلاچ یک‌طرفه</dd></div>
+      <div><dt><span class="count" data-to="48">0</span>h</dt><dd>پاسخ استعلام<br>فنی و قیمت</dd></div>
+    </dl>
+  </div>
+  <div class="hero-visual" id="heroVisual">
+    <svg viewBox="-220 -220 440 440" class="clutch" id="clutch">
+      <defs>
+        <radialGradient id="gOuter" cx="30%" cy="25%"><stop offset="0" stop-color="#4a4f57"/><stop offset=".6" stop-color="#1c1f24"/><stop offset="1" stop-color="#0f1114"/></radialGradient>
+        <linearGradient id="gSprag" x1="0" x2="1"><stop offset="0" stop-color="#ff7a1a"/><stop offset="1" stop-color="#c24a00"/></linearGradient>
+        <radialGradient id="gInner" cx="35%" cy="30%"><stop offset="0" stop-color="#9aa1ab"/><stop offset="1" stop-color="#2b2f35"/></radialGradient>
+      </defs>
+      <g id="outerRing"><circle r="200" fill="url(#gOuter)" stroke="#2c3036" stroke-width="2"/><circle r="200" fill="none" stroke="#ff6a00" stroke-opacity=".25" stroke-dasharray="2 10" stroke-width="6"/><circle r="150" fill="#0b0c0e" stroke="#3a3f47" stroke-width="2"/></g>
+      <g id="sprags"></g>
+      <g id="innerRing"><circle r="100" fill="url(#gInner)" stroke="#5a616b" stroke-width="2"/><circle r="42" fill="#0b0c0e"/><rect x="-8" y="-52" width="16" height="14" fill="#0b0c0e"/><g id="innerTicks"></g></g>
+    </svg>
+    <div class="hud hud-a"><i></i>جهت درگیر: <b id="hudDir">قفل</b></div>
+    <div class="hud hud-b"><i></i>RPM <b id="hudRpm">0</b></div>
+    <p class="hint">روی قطعه کلیک کنید تا جهت عوض شود</p>
+  </div>
+  <div class="scroll-cue"><span></span>اسکرول</div>
+</section>
+
+<div class="marquee"><div class="marquee-track">
+  <span>SPRAG</span><b>✺</b><span>ROLLER</span><b>✺</b><span>BACKSTOP</span><b>✺</b><span>OVERRUNNING</span><b>✺</b><span>INDEXING</span><b>✺</b><span>CAM CLUTCH</span><b>✺</b>
+  <span>SPRAG</span><b>✺</b><span>ROLLER</span><b>✺</b><span>BACKSTOP</span><b>✺</b><span>OVERRUNNING</span><b>✺</b><span>INDEXING</span><b>✺</b><span>CAM CLUTCH</span><b>✺</b>
+</div></div>
+
+<section class="how" id="how">
+  <div class="sticky-wrap">
+    <div class="how-head">
+      <p class="eyebrow">۰۱ — اصل کار</p>
+      <h2 class="split">سه حالت،<br>یک قطعه.</h2>
+    </div>
+    <ol class="modes">
+      <li class="mode"><span class="mode-n">A</span><h3>بک‌استاپ</h3><p>جلوگیری از چرخش معکوس. نوار نقاله شیب‌دار یا بالابر، هنگام قطع برق عقب نمی‌رود.</p><small>Backstop / Holdback</small></li>
+      <li class="mode"><span class="mode-n">B</span><h3>اورران</h3><p>جداکردن خودکار محرک وقتی سرعت خروجی بیشتر شود. مثل موتور کمکی و موتور اصلی روی یک شفت.</p><small>Overrunning</small></li>
+      <li class="mode"><span class="mode-n">C</span><h3>ایندکسینگ</h3><p>تبدیل حرکت رفت‌وبرگشتی به دوران گام‌به‌گام. برای تغذیه‌کن‌ها و ماشین‌های بسته‌بندی.</p><small>Indexing</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="sec-head">
+    <p class="eyebrow">۰۲ — سبد محصول</p>
+    <h2 class="split">سری‌هایی که<br>معمولاً می‌پرسند.</h2>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">همه</button><button data-f="sprag">اسپراگ</button><button data-f="roller">رولری</button><button data-f="back">بک‌استاپ</button>
+    </div>
+  </div>
+  <div class="grid" id="grid">
+    <article class="card" data-t="sprag roller"><div class="card-top"><span class="tag">بلبرینگی</span><span class="code">CSK / CSK‑PP</span></div><h3>فری‌ویل بلبرینگی</h3><p>ابعاد سری ۶۲ بلبرینگ، نصب پرسی، با یا بدون جای خار. پرمصرف‌ترین سری.</p><ul><li><b>Ø</b> ۸ تا ۴۰ mm</li><li><b>T</b> تا ۳۲۵ Nm</li></ul><span class="card-go">←</span></article>
+    <article class="card" data-t="sprag"><div class="card-top"><span class="tag">اسپراگ</span><span class="code">AS / ASNU</span></div><h3>کلاچ اسپراگ یک‌تکه</h3><p>ساختار ساده بدون یاتاقان داخلی، برای نصب بین دو شفت با یاتاقان‌بندی جدا.</p><ul><li><b>Ø</b> ۸ تا ۱۵۰ mm</li><li><b>T</b> تا ۶۸٬۰۰۰ Nm</li></ul><span class="card-go">←</span></article>
+    <article class="card" data-t="roller"><div class="card-top"><span class="tag">رولری</span><span class="code">AL / ALP</span></div><h3>کلاچ رولری فلنج‌دار</h3><p>رولر و فنر، قابلیت اتصال فلنجی به چرخ‌دنده یا پولی، روان‌کاری روغنی.</p><ul><li><b>Ø</b> ۱۲ تا ۱۵۰ mm</li><li><b>T</b> تا ۴۵٬۰۰۰ Nm</li></ul><span class="card-go">←</span></article>
+    <article class="card" data-t="back sprag"><div class="card-top"><span class="tag">بک‌استاپ</span><span class="code">RSBW / RIZ</span></div><h3>بک‌استاپ نوار نقاله</h3><p>بلندکننده سرعت (Lift‑off) برای کارکرد بی‌سایش در دور بالا، مخصوص معادن و سیمان.</p><ul><li><b>Ø</b> ۲۰ تا ۲۴۰ mm</li><li><b>T</b> تا ۲۵۰٬۰۰۰ Nm</li></ul><span class="card-go">←</span></article>
+    <article class="card" data-t="sprag"><div class="card-top"><span class="tag">یاتاقان‌دار</span><span class="code">GFR / GFRN</span></div><h3>فری‌ویل کامل با یاتاقان</h3><p>بلبرینگ داخلی و آب‌بندی، آماده نصب با فلنج و درپوش؛ مناسب اورران و ایندکس.</p><ul><li><b>Ø</b> ۱۲ تا ۱۵۰ mm</li><li><b>T</b> تا ۶۸٬۰۰۰ Nm</li></ul><span class="card-go">←</span></article>
+    <article class="card" data-t="back roller"><div class="card-top"><span class="tag">پمپ و فن</span><span class="code">FA / FAA</span></div><h3>بک‌استاپ پمپ</h3><p>جلوگیری از چرخش معکوس پمپ‌ها و فن‌ها در توقف، با بدنه بازوی گشتاور.</p><ul><li><b>Ø</b> ۲۰ تا ۱۰۰ mm</li><li><b>T</b> تا ۸٬۵۰۰ Nm</li></ul><span class="card-go">←</span></article>
+  </div>
+  <p class="note">کدها صرفاً برای مرجع و تطبیق مشخصات هستند. معادل مستقیم برندهای Stieber، Ringspann، Tsubaki و GMN قابل تأمین است.</p>
+</section>
+
+<section class="apps" id="apps">
+  <div class="sec-head"><p class="eyebrow">۰۳ — کاربرد</p><h2 class="split">هر جا که<br>برگشت ممنوع است.</h2></div>
+  <div class="apps-track" id="appsTrack">
+    <div class="app"><i>۰۱</i><h3>معدن و سیمان</h3><p>نوار نقاله‌های شیب‌دار، بالابر سطلی، آسیاب‌ها</p></div>
+    <div class="app"><i>۰۲</i><h3>پمپ و فن</h3><p>جلوگیری از چرخش معکوس در توقف و بک‌فلو</p></div>
+    <div class="app"><i>۰۳</i><h3>بسته‌بندی</h3><p>ایندکسینگ دقیق و تغذیه‌کن‌های پله‌ای</p></div>
+    <div class="app"><i>۰۴</i><h3>خودرو و موتور</h3><p>استارتر، دینام و سیستم‌های دوموتوره</p></div>
+    <div class="app"><i>۰۵</i><h3>نساجی و چاپ</h3><p>کنترل کشش و حرکت یک‌طرفه غلتک‌ها</p></div>
+    <div class="app"><i>۰۶</i><h3>رباتیک</h3><p>مکانیزم‌های ایمنی و نگهدارنده بار در بازوها</p></div>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="sec-head"><p class="eyebrow">۰۴ — ثبت سفارش</p><h2 class="split">سفارش از<br>فروشگاه‌های ما.</h2>
+  <p class="lead">فری‌ویل بخش تخصصی مجموعه است. ثبت سفارش، پرداخت و ارسال از طریق دو فروشگاه رسمی ما انجام می‌شود.</p></div>
+  <div class="shops">
+    <a class="shop tilt" href="https://persiarobot.com" target="_blank" rel="noopener">
+      <span class="shop-idx">فروشگاه ۱</span>
+      <h3>PersiaRobot<small>پرشیا ربات</small></h3>
+      <p>قطعات رباتیک، انتقال قدرت و مکاترونیک؛ فری‌ویل‌های سایز کوچک، CSK و کلاچ‌های مینیاتوری.</p>
+      <span class="shop-url">persiarobot.com <b>↖</b></span>
+    </a>
+    <a class="shop tilt" href="https://bearingonline.ir" target="_blank" rel="noopener">
+      <span class="shop-idx">فروشگاه ۲</span>
+      <h3>BearingOnline<small>بلبرینگ آنلاین</small></h3>
+      <p>انواع بلبرینگ و یاتاقان صنعتی؛ فری‌ویل‌های بلبرینگی، بک‌استاپ‌ها و سری‌های سنگین صنعتی.</p>
+      <span class="shop-url">bearingonline.ir <b>↖</b></span>
+    </a>
+  </div>
+  <form class="quote" id="quote">
+    <h3>کد را نمی‌دانید؟ مشخصات را بفرستید.</h3>
+    <div class="fields">
+      <label><input required placeholder=" "><span>نام و شرکت</span></label>
+      <label><input required placeholder=" " inputmode="tel"><span>شماره تماس</span></label>
+      <label><input placeholder=" "><span>قطر شفت / گشتاور</span></label>
+      <label><input placeholder=" "><span>کاربرد (مثلاً نوار نقاله)</span></label>
+    </div>
+    <button class="btn magnetic" type="submit">ارسال درخواست <span>←</span></button>
+    <p class="form-ok" id="formOk">درخواست ثبت شد. کارشناس ما تماس می‌گیرد.</p>
+  </form>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-big">FREEWHEEL</div>
+  <div class="foot-row"><span>© ۱۴۰۵ فری‌ویل — freewheel.ir</span><span><a href="https://persiarobot.com">persiarobot.com</a> · <a href="https://bearingonline.ir">bearingonline.ir</a></span></div>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>
