@@ -1,4 +1,7 @@
 import type { MetadataRoute } from 'next'
+
+/** Static export: emit the file at build time into `out/`. */
+export const dynamic = 'force-static'
 import { BASE_URL } from '@/lib/seo'
 
 export default function robots(): MetadataRoute.Robots {

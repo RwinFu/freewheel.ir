@@ -6,6 +6,9 @@ export const alt = 'freewheel.ir — راهنمای فنی فری‌ویل و ک
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
+/** Static export: render the card once at build time into `out/`. */
+export const dynamic = 'force-static'
+
 /**
  * The social card is a drawing, not a poster: the same face view of a
  * roller freewheel that runs through the site, with the wordmark and a
