@@ -1,0 +1,21 @@
+#!/bin/sh
+# Rebuild and restart the preview server on :3000. The sandbox has no
+# process manager, so this is the whole deploy loop.
+set -e
+cd "$(dirname "$0")/.."
+pkill -9 -f "next-server" 2>/dev/null || true
+sleep 1
+if [ "$1" != "--no-build" ]; then
+  npx next build > /tmp/build.log 2>&1 || { tail -40 /tmp/build.log; exit 1; }
+fi
+nohup npx next start -p 3000 -H 0.0.0.0 > /tmp/next.log 2>&1 &
+for i in $(seq 1 40); do
+  sleep 0.5
+  if curl -sf -o /dev/null http://localhost:3000/; then
+    echo "ready on :3000"
+    exit 0
+  fi
+done
+echo "server did not come up"
+tail -20 /tmp/next.log
+exit 1
