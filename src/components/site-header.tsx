@@ -130,7 +130,7 @@ export function SiteHeader() {
                   </Link>
 
                   {item.children ? (
-                    <div className="invisible absolute right-0 top-full w-[300px] translate-y-1 border border-line bg-panel-2 opacity-0 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.9)] transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="invisible absolute right-0 top-full w-[300px] translate-y-1 border border-line bg-panel-2 opacity-0 shadow-[0_18px_40px_-20px_rgba(23,36,48,0.3)] transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                       <ul className="py-1.5">
                         {item.children.map((child) => (
                           <li key={child.href}>

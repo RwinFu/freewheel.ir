@@ -108,7 +108,7 @@ export function PartSearch({ className }: { className?: string }) {
       </div>
 
       {open && query.trim().length >= 2 ? (
-        <div className="absolute inset-x-0 top-full z-50 mt-1 border border-line bg-panel-2 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.95)]">
+        <div className="absolute inset-x-0 top-full z-50 mt-1 border border-line bg-panel-2 shadow-[0_20px_50px_-24px_rgba(23,36,48,0.35)]">
           {state === "error" ? (
             <p className="px-4 py-4 text-[13px] leading-7 text-fg-muted">
               جست‌وجوی کاتالوگ فعلاً در دسترس نیست. کد قطعه را در{" "}

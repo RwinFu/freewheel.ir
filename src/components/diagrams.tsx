@@ -1,9 +1,10 @@
 type SvgProps = { className?: string };
 
 const LINE = "#39434c";
-const LINE_SOFT = "#242c33";
-const ACCENT = "#ff6a13";
-const LABEL = "#7d878f";
+const LINE_SOFT = "#9aa4ad";
+const ACCENT = "#ea580c";
+const LABEL = "#5c6770";
+const LABEL_STRONG = "#2c353e";
 
 /** نقاشی خطی برش فری‌ویل اسپراگ — انیمیشن قفل و رها شدن */
 export function FreewheelHero({ className }: SvgProps) {
@@ -185,7 +186,7 @@ export function ExplodedView({ className }: SvgProps) {
           <text x="78" y={part.y + 4} textAnchor="end" fontSize="12" fill={LABEL} direction="ltr">
             {part.code}
           </text>
-          <text x="326" y={part.y - 6} fontSize="13" fill="#c9d0d5" textAnchor="end">
+          <text x="326" y={part.y - 6} fontSize="13" fill={LABEL_STRONG} textAnchor="end">
             {part.label}
           </text>
           <line
@@ -361,7 +362,7 @@ export function BackstopSchematic({ className }: SvgProps) {
       <rect x="24" y="96" width="86" height="86" fill="none" stroke={LINE} strokeWidth="1.4" />
       <circle cx="67" cy="139" r="26" fill="none" stroke={LINE_SOFT} strokeWidth="1.2" />
       <line x1="67" y1="113" x2="67" y2="165" stroke={LINE_SOFT} strokeWidth="1" />
-      <text x="67" y="204" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="67" y="204" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         موتور
       </text>
 
@@ -371,7 +372,7 @@ export function BackstopSchematic({ className }: SvgProps) {
       {/* گیربکس */}
       <path d="M 152 96 L 226 96 L 226 182 L 152 182 Z" fill="none" stroke={LINE} strokeWidth="1.4" />
       <circle cx="189" cy="139" r="18" fill="none" stroke={LINE_SOFT} strokeWidth="1.2" />
-      <text x="189" y="204" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="189" y="204" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         گیربکس کاهنده
       </text>
 
@@ -395,10 +396,10 @@ export function BackstopSchematic({ className }: SvgProps) {
       {/* اهرم */}
       <path d="M 330 139 L 382 62 L 470 62" fill="none" stroke={ACCENT} strokeWidth="1.6" />
       <rect x="470" y="48" width="54" height="28" fill="none" stroke={LINE} strokeWidth="1.2" />
-      <text x="497" y="40" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="497" y="40" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         پایه‌ی صلب
       </text>
-      <text x="330" y="212" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="330" y="212" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         فری‌ویل + اهرم
       </text>
 
@@ -411,10 +412,10 @@ export function BackstopSchematic({ className }: SvgProps) {
         stroke={LINE}
         strokeWidth="1.6"
       />
-      <text x="640" y="56" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="640" y="56" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         تسمه‌ی نوار
       </text>
-      <text x="560" y="244" fontSize="12" fill="#c9d0d5" textAnchor="middle">
+      <text x="560" y="244" fontSize="12" fill={LABEL_STRONG} textAnchor="middle">
         پولی درایو
       </text>
 
