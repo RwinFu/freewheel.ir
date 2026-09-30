@@ -1,27 +1,24 @@
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-/** Latin digits, grouped — for part numbers and codes. */
-export function num(n: number) {
-  return n.toLocaleString('en-US')
+/** ۶۸۰۰۰ → 68,000 — اعداد فنی با ارقام لاتین و tabular-nums */
+export function num(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  return new Intl.NumberFormat("en-US").format(value);
 }
 
-/** Persian digits, grouped — for anything a Persian reader scans as prose. */
-export function faNum(n: number) {
-  return n.toLocaleString('fa-IR')
+export function mm(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "—";
+  return `${num(value)}`;
 }
 
-/**
- * Technical values are read column-wise, so they stay in Latin digits
- * with thin grouping. A spec table that mixes `۱٬۰۰۰` and `1,000` in
- * the same row looks like a typo; picking one convention and holding it
- * is what makes the table scannable.
- */
-export function spec(n: number, unit?: string) {
-  const s = n.toLocaleString('en-US', { maximumFractionDigits: 2 })
-  return unit ? `${s} ${unit}` : s
+export function anchorId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
 }

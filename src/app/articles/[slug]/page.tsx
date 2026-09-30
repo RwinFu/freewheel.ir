@@ -1,217 +1,219 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowUpLeft } from "lucide-react";
 
-import { ARTICLES, getArticle, type Block } from '@/data/articles'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { ShopRoute } from '@/components/ui/ShopRoute'
-import { JsonLd } from '@/components/seo/JsonLd'
-import { MagneticLink } from '@/components/motion/MagneticButton'
-import { buildMetadata, toEnDigits, BASE_URL } from '@/lib/seo'
-import { spec } from '@/lib/utils'
+import { Reveal } from "@/components/motion";
+import { InquiryForm } from "@/components/inquiry-form";
+import { BuyNote, Breadcrumbs, Callout, Panel, RobotNote } from "@/components/ui";
+import { ARTICLES, getArticle } from "@/content/articles";
+import { SHOPS } from "@/content/site";
 
-export function generateStaticParams() {
-  return ARTICLES.map((a) => ({ slug: a.slug }))
+type Params = { slug: string };
+
+export function generateStaticParams(): Params[] {
+  return ARTICLES.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<Params>;
 }): Promise<Metadata> {
-  const { slug } = await params
-  const a = getArticle(slug)
-  if (!a) return {}
-  return buildMetadata({
-    title: a.title,
-    description: a.excerpt,
-    path: `/articles/${a.slug}`,
-    type: 'article',
-  })
+  const { slug } = await params;
+  const article = getArticle(slug);
+  if (!article) return { title: "مقاله پیدا نشد" };
+
+  return {
+    title: article.title,
+    description: article.dek,
+    alternates: { canonical: `/articles/${article.slug}` },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.dek,
+      url: `https://freewheel.ir/articles/${article.slug}`,
+    },
+  };
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const article = getArticle(slug)
-  if (!article) notFound()
+export default async function ArticlePage({ params }: { params: Promise<Params> }) {
+  const { slug } = await params;
+  const article = getArticle(slug);
+  if (!article) notFound();
 
-  const others = ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 4)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: article.title,
+    description: article.dek,
+    inLanguage: "fa-IR",
+    articleSection: article.tag,
+    author: { "@type": "Organization", name: "freewheel.ir" },
+    publisher: { "@type": "Organization", name: "freewheel.ir" },
+  };
+
+  const others = ARTICLES.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
     <>
-      <PageHeader
-        eyebrow={article.category}
-        breadcrumb={[
-          { href: '/', label: 'خانه' },
-          { href: '/articles', label: 'مقالات' },
-          { label: article.title },
-        ]}
-        title={article.title}
-        lead={article.excerpt}
-        specs={[
-          { label: 'تاریخ', value: article.date },
-          { label: 'زمان مطالعه', value: article.readingTime },
-          { label: 'دسته', value: article.category },
-        ]}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="shell py-16">
-        <div className="grid gap-12 lg:grid-cols-12 [&>*]:min-w-0">
-          <div className="lg:col-span-8">
-            <div className="prose-ir">
-              {article.body.map((block, i) => (
-                <BlockRenderer key={i} block={block} />
+      <article className="mx-auto max-w-[1240px] px-6 py-14">
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "خانه" },
+            { href: "/articles", label: "مقالات فنی" },
+            { href: `/articles/${article.slug}`, label: article.title },
+          ]}
+        />
+
+        <header className="border-b border-line pb-10">
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-3 text-[12px] text-fg-dim">
+              <span className="text-accent">{article.tag}</span>
+              <span className="tnum">{article.date}</span>
+              <span className="tnum">{article.readingMinutes} دقیقه مطالعه</span>
+            </div>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="mt-5 max-w-3xl text-[30px] leading-tight text-fg sm:text-[38px]">
+              {article.title}
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-5 max-w-2xl text-[16px] leading-8 text-fg-muted">{article.dek}</p>
+          </Reveal>
+        </header>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1.35fr_0.65fr]">
+          <div>
+            {article.keyNumbers ? (
+              <Reveal>
+                <dl className="mb-10 grid gap-4 border border-line bg-panel p-5 sm:grid-cols-2">
+                  {article.keyNumbers.map((item) => (
+                    <div key={item.label} className="border-r-2 border-line-2 pr-4">
+                      <dt className="text-[11.5px] text-fg-dim">{item.label}</dt>
+                      <dd className="mt-1.5 text-[14px] leading-7 text-fg">{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+            ) : null}
+
+            <div className="space-y-12">
+              {article.sections.map((section, index) => (
+                <Reveal key={section.heading} delay={index * 0.02}>
+                  <section>
+                    <h2 className="text-[22px] leading-tight text-fg">{section.heading}</h2>
+                    <div className="mt-4 space-y-4">
+                      {section.paragraphs.map((paragraph, pIndex) => (
+                        <p key={pIndex} className="text-[15px] leading-8 text-fg-muted">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    {section.list ? (
+                      <ul className="mt-5 space-y-2.5 border border-line bg-panel p-5">
+                        {section.list.map((item) => (
+                          <li key={item} className="flex gap-3 text-[13.5px] leading-7 text-fg-muted">
+                            <span className="mt-2.5 h-1 w-1 shrink-0 bg-accent" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </section>
+                </Reveal>
               ))}
             </div>
 
-            <div className="mt-14">
-              <ShopRoute to="bearing" variant="band" />
-            </div>
+            <Reveal className="mt-12">
+              <div className="border border-line bg-panel p-6">
+                <h2 className="text-[16px] text-fg">ادامه‌ی مسیر</h2>
+                <ul className="mt-4 space-y-3">
+                  {article.related.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="group flex items-center justify-between gap-4 text-[14px] leading-7 text-fg-muted transition-colors hover:text-accent"
+                      >
+                        {item.label}
+                        <ArrowUpLeft className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <a
+                      href={SHOPS.bearing.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-4 text-[14px] leading-7 text-accent"
+                    >
+                      استعلام قیمت در {SHOPS.bearing.name}
+                      <ArrowUpLeft className="h-3.5 w-3.5 shrink-0" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </Reveal>
           </div>
 
-          <aside className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <p className="text-[0.7rem] tracking-widest text-fg-dim">مقالات دیگر</p>
-              <ul className="mt-4 space-y-px border border-line bg-line">
-                {others.map((a) => (
-                  <li key={a.slug} className="bg-surface">
-                    <Link
-                      href={`/articles/${a.slug}`}
-                      className="group block p-4 transition-colors hover:bg-surface-2"
-                    >
-                      <p className="text-[0.68rem] text-fg-dim">{a.category}</p>
-                      <p className="mt-1.5 text-sm leading-7 text-fg-muted transition-colors group-hover:text-accent">
-                        {a.title}
-                      </p>
-                      <p className="tnum mt-2 text-[0.68rem] text-fg-dim">{a.readingTime}</p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-6 border border-line bg-surface p-5">
-                <p className="text-sm font-semibold text-fg">سؤال باقی‌مانده دارید؟</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">
-                  اگر چیزی در این مقاله نبود که به درد کارتان بخورد، بپرسید. معمولاً با دو سه
-                  سؤال به جواب می‌رسیم.
+          <aside className="space-y-5">
+            <Reveal>
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">سایز می‌خواهید؟</h2>
+                <p className="mt-3 text-[13px] leading-7 text-fg-muted">
+                  مشخصات پروژه را بفرستید؛ گشتاور و دور را حساب می‌کنیم و کد قطعه‌ی دقیق را
+                  می‌دهیم.
                 </p>
-                <MagneticLink
-                  href="/contact"
-                  className="mt-5 w-full border border-line-strong text-fg hover:border-accent hover:text-accent"
-                >
-                  پرسیدن سؤال
-                </MagneticLink>
-              </div>
-            </div>
+              </Panel>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <InquiryForm source="article" compact />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <BuyNote compact />
+            </Reveal>
+            <Reveal delay={0.15}>
+              <Callout title="یادآوری">
+                اعداد این متن مقادیر کاتالوگی است؛ قبل از سایزبندی نهایی، آخرین نسخه‌ی دیتاشیت
+                سازنده را کنترل کنید.
+              </Callout>
+            </Reveal>
           </aside>
+        </div>
+
+        <div className="mt-16 border-t border-line pt-10">
+          <h2 className="text-[17px] text-fg">مقالات دیگر</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {others.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/articles/${item.slug}`}
+                className="group border border-line bg-panel p-5 transition-colors hover:border-accent/50"
+              >
+                <div className="text-[12px] text-accent">{item.tag}</div>
+                <h3 className="mt-2.5 text-[15.5px] leading-7 text-fg transition-colors group-hover:text-accent">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[12.5px] leading-6 text-fg-dim">{item.dek}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </article>
 
-      <JsonLd
-        data={{
-          '@type': 'Article',
-          '@id': `${BASE_URL}/articles/${article.slug}#article`,
-          headline: toEnDigits(article.title),
-          description: toEnDigits(article.excerpt),
-          inLanguage: 'fa-IR',
-          articleSection: article.category,
-          datePublished: toLatinDate(article.date),
-          author: { '@type': 'Organization', name: 'freewheel.ir', url: BASE_URL },
-          publisher: {
-            '@type': 'Organization',
-            name: 'freewheel.ir',
-            url: BASE_URL,
-            '@id': `${BASE_URL}/#organization`,
-          },
-          mainEntityOfPage: `${BASE_URL}/articles/${article.slug}`,
-        }}
-      />
+      {article.slug === "backstop-mounting" || article.slug === "why-textile-conveyor-burned" ? (
+        <section className="border-t border-line bg-panel/40">
+          <div className="mx-auto max-w-[1240px] px-6 py-12">
+            <RobotNote />
+          </div>
+        </section>
+      ) : null}
     </>
-  )
-}
-
-function toLatinDate(fa: string) {
-  const [y, m, d] = fa.split('/')
-  return `${toEnDigits(y)}-${toEnDigits(m).padStart(2, '0')}-${toEnDigits(d).padStart(2, '0')}`
-}
-
-function BlockRenderer({ block }: { block: Block }) {
-  switch (block.type) {
-    case 'h2':
-      return <h2>{block.text}</h2>
-    case 'h3':
-      return <h3>{block.text}</h3>
-    case 'p':
-      return <p>{block.text}</p>
-    case 'ul':
-      return (
-        <ul>
-          {block.items.map((i) => (
-            <li key={i}>{i}</li>
-          ))}
-        </ul>
-      )
-    case 'ol':
-      return (
-        <ol className="[list-style:decimal]">
-          {block.items.map((i) => (
-            <li key={i}>{i}</li>
-          ))}
-        </ol>
-      )
-    case 'note':
-      return (
-        <aside className="my-7 border border-line bg-surface">
-          <div className="hatch h-1 w-full" aria-hidden />
-          <p className="p-4 text-sm leading-8 text-fg-muted">{block.text}</p>
-        </aside>
-      )
-    case 'formula':
-      return (
-        <figure className="my-7 border border-line bg-surface-2 p-5">
-          <p className="text-[0.7rem] tracking-wide text-fg-dim">{block.label}</p>
-          <p dir="ltr" className="tnum mt-3 text-start text-lg font-semibold text-accent">
-            {block.expr}
-          </p>
-          <figcaption className="mt-2 text-xs leading-6 text-fg-dim">{block.gloss}</figcaption>
-        </figure>
-      )
-    case 'table':
-      return (
-        <figure className="my-8 -mx-5 overflow-x-auto md:mx-0">
-          <table className="w-full min-w-[34rem] border-collapse">
-            <caption className="pb-3 text-start text-xs text-fg-dim">{block.caption}</caption>
-            <thead>
-              <tr className="border-y border-line">
-                {block.head.map((h) => (
-                  <th
-                    key={h}
-                    scope="col"
-                    className="bg-surface px-3 py-2.5 text-start text-[0.72rem] font-medium text-fg-dim"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {block.rows.map((row, ri) => (
-                <tr key={ri} className="border-b border-line">
-                  {row.map((cell, ci) => (
-                    <td
-                      key={ci}
-                      className={`tnum px-3 py-3 text-sm ${ci === 0 ? 'text-fg' : 'text-fg-muted'}`}
-                    >
-                      {typeof cell === 'number' ? spec(cell) : cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </figure>
-      )
-    default:
-      return null
-  }
+  );
 }

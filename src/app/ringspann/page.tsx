@@ -1,226 +1,227 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpLeft, MoveUpLeft } from "lucide-react";
 
-import { R_SERIES, R_NOTES, BD_R_SERIES } from '@/data/ringspann'
-import { RingspannSection } from '@/components/sections/RingspannSection'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { SpecTable } from '@/components/ui/SpecTable'
-import { ShopRoute } from '@/components/ui/ShopRoute'
-import { FaqSection } from '@/components/sections/FaqSection'
-import { Reveal } from '@/components/motion/Reveal'
-import { MagneticLink } from '@/components/motion/MagneticButton'
-import { buildMetadata } from '@/lib/seo'
-import { spec } from '@/lib/utils'
+import { Reveal } from "@/components/motion";
+import { BuyNote, Callout, Panel, SectionHeading, SpecTable } from "@/components/ui";
+import {
+  RINGSPANN_OTHER_SERIES,
+  RINGSPANN_SERIES,
+} from "@/content/ringspann";
+import { SHOPS } from "@/content/site";
+import { num } from "@/lib/utils";
 
-export const metadata: Metadata = buildMetadata({
-  title: 'Ringspann سری R — جدول کامل مشخصات و ابعاد',
+export const metadata: Metadata = {
+  title: "فری‌ویل RINGSPANN — سری FGR … R و سایر سری‌ها",
   description:
-    'جدول کامل سری R رینگسپان (FGR … R A1A2): گشتاور اسمی، دور آزادچرخش، قطر شفت، ابعاد نصب و وزن برای همهٔ سایزها — از R12 تا R150. نقشهٔ فنی مقیاس‌دار و راهنمای نصب.',
-  path: '/ringspann',
-})
+    "معرفی سری‌های فری‌ویل RINGSPANN: FGR … R از سایز ۱۲ تا ۱۵۰ میلی‌متر تا ۶۸٫۰۰۰ نیوتن‌متر، سری FZ، BM … R، FB، FRHN، FKh و FA/FAV با مشخصات کاتالوگی.",
+  alternates: { canonical: "/ringspann" },
+};
 
 export default function RingspannPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Ringspann"
-        breadcrumb={[{ href: '/', label: 'خانه' }, { label: 'Ringspann' }]}
-        title="Ringspann"
-        subtitle="FGR … R A1A2 — Complete Freewheels, with mounting flange, with rollers"
-        lead="کاتالوگ رینگسپان بیش از سی سری دارد. ما روی سری R تمرکز کرده‌ایم چون در عمل، همین خط پاسخ بیشتر کارهای صنعتی ایران را می‌دهد: رولری، بلبرینگ، آب‌بند و روان‌کار روغنی، همه در یک قطعهٔ آمادهٔ نصب."
-        specs={[
-          { label: 'گشتاور اسمی', value: '۵۵ – ۶۸٬۰۰۰', unit: 'N·m' },
-          { label: 'قطر شفت', value: '۱۲ – ۱۵۰', unit: 'mm' },
-          { label: 'تعداد سایز', value: String(R_SERIES.length) },
-          { label: 'حداکثر وزن', value: '۱۸۷', unit: 'kg' },
-        ]}
-      />
+      <section className="relative border-b border-line">
+        <div className="blueprint absolute inset-x-0 top-0 h-64 opacity-60" aria-hidden />
+        <div className="relative mx-auto max-w-[1240px] px-6 py-16">
+          <nav className="mb-6 flex items-center gap-2 text-[12px] text-fg-dim">
+            <Link href="/" className="hover:text-accent">
+              خانه
+            </Link>
+            <span className="text-line-2">/</span>
+            <span className="text-fg-muted">RINGSPANN</span>
+          </nav>
 
-      {/* How the series is put together */}
-      <section className="shell py-16">
-        <div className="grid gap-10 lg:grid-cols-12 [&>*]:min-w-0">
-          <Reveal className="lg:col-span-7">
-            <h2 className="text-2xl font-bold">این سری از چه چیزی ساخته شده</h2>
-            <div className="prose-ir mt-4 max-w-none">
-              <p>
-                چهار قطعه داخل یک بدنهٔ فلنج‌دار: رینگ بیرونی با شیب‌های تراش‌خورده برای رولری‌ها،
-                رینگ داخلی که به شفت شما می‌نشیند، دو بلبرینگ که بار شعاعی را می‌گیرند، و دو کاسه‌نمد
-                که روغن را داخل نگه می‌دارند. روغن باید پیش از راه‌اندازی ریخته شود؛ کاتالوگ
-                تأکید می‌کند که کارکرد صحیح بدون آن قابل انتظار نیست.
-              </p>
-              <p>
-                دو پیکربندی نصب دارید. فلنج <strong>A1</strong> می‌گوید قطعهٔ شما روی قطر بیرونی
-                D متمرکز و از روی صفحه پیچ شود. فلنج <strong>A7</strong> می‌گوید روی پایوتینگ R
-                بنشیند. برای زمانی که چرخ‌دنده یا چین‌سککت شما کوچک و باریک است، A7 انتخاب درست
-                است چون سطح تکیه‌گاه کوچک‌تری می‌خواهد.
-              </p>
-            </div>
-
-            <div className="mt-8 grid gap-px border border-line bg-line sm:grid-cols-2">
-              <div className="bg-surface p-5">
-                <p className="text-sm font-semibold text-fg">پیکربندی A1A2</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">
-                  تکیه‌گاه روی قطر بیرونی <span className="tnum">D</span>. برای قطعاتی که سطح
-                  پیشانی بزرگ دارند: پولی، فلنج، هاوب.
-                </p>
-                <p className="tnum mt-3 text-xs text-fg-dim">L = {spec(R_SERIES[6].L, 'mm')} در R35</p>
-              </div>
-              <div className="bg-surface p-5">
-                <p className="text-sm font-semibold text-fg">پیکربندی A2A7</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">
-                  تکیه‌گاه روی پایوتینگ <span className="tnum">R</span>. برای چرخ‌دنده و
-                  چین‌سککت کوچک که جای زیادی ندارند.
-                </p>
-                <p className="tnum mt-3 text-xs text-fg-dim">L1 = {spec(R_SERIES[6].L1, 'mm')} در R35</p>
-              </div>
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-2 text-[11.5px] text-fg-dim">
+              <span className="border border-accent/50 px-2 py-[3px] text-accent">سازنده‌ی اصلی</span>
+              <span className="border border-line-2 px-2 py-[3px]">RINGSPANN GmbH — Bad Homburg, Germany</span>
             </div>
           </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="mt-6 max-w-3xl text-[34px] leading-tight text-fg sm:text-[42px]">
+              فری‌ویل RINGSPANN: سری‌ها، محدوده‌ها و جدول مشخصات
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-2xl text-[15.5px] leading-8 text-fg-muted">
+              برنامه‌ی RINGSPANN از فری‌ویل داخلی کوچک تا بک‌استاپ ۳۲۰ میلی‌متری را پوشش می‌دهد.
+              این‌جا سری‌هایی را آورده‌ایم که در بازار ایران قابل تأمین‌اند و برایشان استعلام
+              می‌گیریم. اعداد همه از کاتالوگ سازنده نقل شده است.
+            </p>
+          </Reveal>
 
-          <Reveal className="lg:col-span-5">
-            <div className="border border-line bg-surface p-5">
-              <h2 className="text-sm font-semibold text-fg">مشخصات نصب، بدون استثنا</h2>
-              <dl className="mt-4 divide-y divide-line">
-                {[
-                  ['تلورانس شفت', R_NOTES.shaftTolerance],
-                  ['تلورانس پایوتینگ قطعهٔ مقابل', R_NOTES.pilotTolerance],
-                  ['استاندارد کلید', 'DIN 6885 صفحهٔ ۱'],
-                  ['تلورانس عرض کلید', 'JS10'],
-                  ['روان‌کار', R_NOTES.lubrication],
-                  ['جهت آزادچرخش', R_NOTES.freewheelDirection],
-                ].map(([k, v]) => (
-                  <div key={k} className="flex justify-between gap-4 py-2.5 text-sm">
-                    <dt className="text-fg-dim">{k}</dt>
-                    <dd className="text-end text-fg-muted">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-4 border-t border-line pt-4 text-xs leading-6 text-fg-dim">
-                هنگام سفارش حتماً جهت آزادچرخش را هم مشخص کنید. بدون آن، مونتاژ اشتباه است و قطعه
-                در جهت اشتباه قفل می‌شود.
-              </p>
-            </div>
-
-            <div className="mt-4 border border-line bg-surface-2 p-5">
-              <p className="text-sm font-semibold text-fg">سرهای دیگر که ممکن است لازم شود</p>
-              <ul className="mt-3 space-y-2 text-sm leading-7 text-fg-muted">
-                <li>
-                  <span className="text-fg">BD … R</span> — همان رولری، اما پیچیده می‌شود به صفحهٔ
-                  قطعهٔ شما به‌جای فلنج.
-                </li>
-                <li>
-                  <span className="text-fg">FGR … SF</span> — نسخهٔ سپراگ، برای وقتی که دقت
-                  موقعیت‌دهی اولویت دارد.
-                </li>
-                <li>
-                  <span className="text-fg">FXM / FON</span> — فری‌ویل یکپارچهٔ بزرگ برای شفت‌های
-                  خیلی درشت.
-                </li>
-              </ul>
-            </div>
+          <Reveal delay={0.15}>
+            <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-line pt-8 sm:grid-cols-4">
+              <div>
+                <dt className="text-[11.5px] text-fg-dim">سری فعال در این صفحه</dt>
+                <dd className="tnum mt-1 text-[24px] font-semibold">{RINGSPANN_SERIES.length}</dd>
+              </div>
+              <div>
+                <dt className="text-[11.5px] text-fg-dim">بیشترین گشتاور (FRHN)</dt>
+                <dd className="tnum mt-1 text-[24px] font-semibold" dir="ltr">
+                  {num(503550)}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11.5px] text-fg-dim">بیشترین قطر شفت (FRHN)</dt>
+                <dd className="tnum mt-1 text-[24px] font-semibold" dir="ltr">
+                  320 mm
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11.5px] text-fg-dim">سایز سری FGR … R</dt>
+                <dd className="tnum mt-1 text-[24px] font-semibold" dir="ltr">
+                  12 → 150
+                </dd>
+              </div>
+            </dl>
           </Reveal>
         </div>
       </section>
 
-      {/* Main size table */}
-      <RingspannSection />
+      <section className="mx-auto max-w-[1240px] px-6 py-16">
+        <SectionHeading
+          kicker="مقایسه‌ی سری‌ها"
+          title="کدام سری برای کار شما؟"
+          desc="سه ستون مهم: نوع المان، حداکثر گشتاور و حداکثر قطر شفت. اگر بین دو سری مردد هستید، نوع نصب و دور آزاد را تعیین‌کننده کنید."
+        />
 
-      {/* Full table including small sizes */}
-      <section className="shell pb-20">
-        <Reveal>
-          <h2 className="text-2xl font-bold">سایزهای زیر R35</h2>
-          <p className="mt-3 max-w-3xl leading-8 text-fg-muted">
-            این‌ها در همان خانواده‌اند و همان جدول را دارند؛ فقط در بلوک اصلی سایت نیامدند چون
-            کاربردشان محدودتر است. اگر شفت شما زیر ۳۵ میلی‌متر است، سایز درست احتمالاً همین‌جاست.
-          </p>
+        <Reveal className="mt-8">
           <SpecTable
-            className="mt-6 border border-line"
-            caption="FGR … R A1A2 — سایزهای کوچک"
             columns={[
-              { key: 'code', label: 'سایز' },
-              { key: 'order', label: 'کد سفارش' },
-              { key: 'torque', label: 'گشتاور اسمی', unit: 'N·m', strong: true },
-              { key: 'bore', label: 'قطر شفت', unit: 'mm' },
-              { key: 'nInner', label: 'دور آزاد — داخلی', unit: 'min⁻¹' },
-              { key: 'nOuter', label: 'دور آزاد — بیرونی', unit: 'min⁻¹' },
-              { key: 'D', label: 'قطر بیرونی', unit: 'mm' },
-              { key: 'L', label: 'طول', unit: 'mm' },
-              { key: 'weight', label: 'وزن', unit: 'kg' },
+              "سری",
+              "خانواده",
+              "المان",
+              "حداکثر گشتاور (N·m)",
+              "حداکثر قطر شفت (mm)",
+              "تعداد سایز ثبت‌شده",
             ]}
-            rows={R_SERIES.filter((s) => s.bore < 35).map((s) => ({
-              code: s.code,
-              order: s.order,
-              torque: spec(s.torqueNm),
-              bore: spec(s.bore),
-              nInner: spec(s.nInner),
-              nOuter: spec(s.nOuter),
-              D: spec(s.D),
-              L: spec(s.L),
-              weight: spec(s.weight),
-            }))}
-            hrefFor={(r) => `/ringspann/${String(r.code).toLowerCase()}`}
+            rows={RINGSPANN_SERIES.map((series) => [
+              series.designation,
+              series.family,
+              series.element === "roller" ? "رولری" : "اسپراگ",
+              num(series.maxTorqueNm),
+              series.maxBoreMm,
+              series.sizes.length > 0 ? series.sizes.length : "—",
+            ])}
+            caption="مقادیر از کاتالوگ RINGSPANN؛ برای ابعاد هر سایز به صفحه‌ی همان سری بروید."
           />
         </Reveal>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          {RINGSPANN_SERIES.map((series, index) => (
+            <Reveal key={series.slug} delay={index * 0.03}>
+              <Link
+                href={`/ringspann/${series.slug}`}
+                className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
+              >
+                <div>
+                  <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                    {series.designation}
+                  </span>
+                  <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
+                  <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{series.tagline}</p>
+                </div>
+                <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
+                  مشخصات و جدول ابعاد
+                  <ArrowUpLeft className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      {/* BD R — the face-mount alternative */}
-      <section className="border-y border-line bg-surface">
-        <div className="shell py-20">
+      <section className="border-y border-line bg-panel/40">
+        <div className="mx-auto grid max-w-[1240px] gap-6 px-6 py-16 lg:grid-cols-[1.15fr_0.85fr]">
           <Reveal>
-            <h2 className="text-2xl font-bold">
-              اگر فلنج جا نمی‌شود: <span className="tnum" dir="ltr">BD … R</span>
-            </h2>
-            <p className="mt-3 max-w-3xl leading-8 text-fg-muted">
-              سری BD همان رولری و همان بلبرینگ است، اما به‌جای فلنج، مستقیم به صفحهٔ قطعهٔ شما پیچ
-              می‌شود. یعنی چند میلی‌متر کوتاه‌تر. اگر در حال جانمایی روی شفت هستید و طول موجود
-              کم است، این را قبل از آنکه سایز را عوض کنید بررسی کنید.
-            </p>
-            <SpecTable
-              className="mt-6 border border-line"
-              dense
-              caption="BD … R — فری‌ویل رولری با پیچش روی صفحه"
-              columns={[
-                { key: 'code', label: 'سایز' },
-                { key: 'torque', label: 'گشتاور اسمی', unit: 'N·m', strong: true },
-                { key: 'bores', label: 'قطرهای شفت', unit: 'mm' },
-                { key: 'nInner', label: 'دور آزاد — داخلی', unit: 'min⁻¹' },
-                { key: 'nOuter', label: 'دور آزاد — بیرونی', unit: 'min⁻¹' },
-                { key: 'L', label: 'طول', unit: 'mm' },
-                { key: 'weight', label: 'وزن', unit: 'kg' },
-              ]}
-              rows={BD_R_SERIES.map((s) => ({
-                code: s.code,
-                torque: spec(s.torqueNm),
-                bores: s.bores.join(' / '),
-                nInner: spec(s.nInner),
-                nOuter: spec(s.nOuter),
-                L: spec(s.L),
-                weight: spec(s.weight),
-              }))}
-            />
+            <Panel className="h-full p-7">
+              <h2 className="text-[22px] text-fg">درباره‌ی کد «R» که در بازار می‌شنوید</h2>
+              <div className="mt-4 space-y-4 text-[14.5px] leading-8 text-fg-muted">
+                <p>
+                  خیلی‌ها این قطعه را با کد کوتاه می‌خوانند؛ مثلاً می‌گویند «فری‌ویل R35». کد کامل
+                  کاتالوگی همان <span dir="ltr" className="text-fg">FGR 35 R</span> است و عدد
+                  بعد از FGR، قطر سوراخ به میلی‌متر است. سری FGR … R تا سایز ۱۵۰ می‌رود؛ بالاتر
+                  از آن چیزی به اسم R160 یا R220 در این سری وجود ندارد.
+                </p>
+                <p>
+                  اگر قطر شفت شما بالای ۱۵۰ میلی‌متر است، مسیر درست این است:{" "}
+                  <Link href="/ringspann/fb" className="text-accent hover:underline">
+                    سری FB
+                  </Link>{" "}
+                  تا ۳۰۰ میلی‌متر و ۱۶۰٫۰۰۰ نیوتن‌متر، یا{" "}
+                  <Link href="/ringspann/frhn" className="text-accent hover:underline">
+                    سری FRHN
+                  </Link>{" "}
+                  تا ۳۲۰ میلی‌متر و ۵۰۳٫۵۵۰ نیوتن‌متر.
+                </p>
+                <p>
+                  در استعلام، کد کامل و جهت چرخش را بنویسید. این دو مورد رایج‌ترین دلیل برگشت
+                  قطعه از پروژه است.
+                </p>
+              </div>
+            </Panel>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <div className="flex h-full flex-col gap-5">
+              <Callout title="اعداد کاتالوگی، نه تخمینی">
+                اعدادی که در این سایت آمده از دیتاشیت سازنده نقل شده است. وزن چند سایز را که
+                تأیید نکرده‌ایم، خالی گذاشته‌ایم تا عدد نادرست جلوی چشم شما نباشد. قبل از
+                سفارش، آخرین نسخه‌ی دیتاشیت را کنترل می‌کنیم.
+              </Callout>
+              <BuyNote compact />
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <FaqSection
-        index="—"
-        eyebrow="قبل از انتخاب"
-        title="چند سؤال که برای همین سری پرتکرار است"
-      />
+      <section className="mx-auto max-w-[1240px] px-6 py-16">
+        <SectionHeading
+          kicker="خارج از فهرست بالا"
+          title="سری‌های تکمیلی RINGSPANN"
+          desc="این‌ها را در صفحه‌ی جداگانه نیاورده‌ایم چون تعداد درخواستشان کم است؛ اما در دسترس‌اند و برای بعضی کاربردها دقیقاً جواب می‌دهند."
+        />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {RINGSPANN_OTHER_SERIES.map((series, index) => (
+            <Reveal key={series.designation} delay={index * 0.03}>
+              <Panel className="h-full p-5">
+                <div dir="ltr" className="text-[15px] font-semibold text-fg">
+                  {series.designation}
+                </div>
+                <div className="mt-2 text-[13px] text-fg-muted">{series.title}</div>
+                <p className="mt-2 text-[12.5px] leading-6 text-fg-dim">{series.note}</p>
+              </Panel>
+            </Reveal>
+          ))}
+        </div>
 
-      <section className="shell pb-24">
-        <Reveal className="panel flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-          <div>
-            <h2 className="text-2xl font-bold">سایز دقیق را نمی‌دانید؟</h2>
-            <p className="mt-2 max-w-lg leading-8 text-fg-muted">
-              قطر شفت و توان موتور را بفرستید. ما جدول بالا را برایتان به یک پیشنهاد مشخص تبدیل
-              می‌کنیم و اگر بین دو سایز مردد بودیم، دلیلش را هم می‌نویسیم.
-            </p>
+        <Reveal className="mt-10">
+          <div className="flex flex-wrap items-center justify-between gap-5 border border-line bg-panel p-7">
+            <div>
+              <h2 className="text-[20px] text-fg">خرید و استعلام قیمت</h2>
+              <p className="mt-2 max-w-xl text-[14px] leading-7 text-fg-muted">
+                خرید قطعه در فروشگاه آنلاین{" "}
+                <span dir="ltr" className="font-semibold text-fg">
+                  {SHOPS.bearing.name}
+                </span>{" "}
+                انجام می‌شود. برای سایزبندی و انتخاب نسخه (استاندارد، X، با اهرم، با فلنج) فرم
+                سایت را پر کنید یا تماس بگیرید.
+              </p>
+            </div>
+            <a
+              href={SHOPS.bearing.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-accent px-5 py-3 text-[14px] font-semibold text-accent-ink transition-colors hover:bg-accent-soft"
+            >
+              ورود به فروشگاه
+              <MoveUpLeft className="h-4 w-4" />
+            </a>
           </div>
-          <MagneticLink href="/contact" className="flex-none bg-accent text-ink hover:bg-accent-hot">
-            درخواست سایزبندی
-          </MagneticLink>
         </Reveal>
-        <ShopRoute to="bearing" variant="band" className="mt-6" />
       </section>
     </>
-  )
+  );
 }
