@@ -1,138 +1,187 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { MoveUpLeft } from "lucide-react";
 
-import { site, SHOPS } from '@/data/site'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { EnquiryForm } from '@/components/sections/EnquiryForm'
-import { Reveal } from '@/components/motion/Reveal'
-import { buildMetadata } from '@/lib/seo'
+import { Reveal } from "@/components/motion";
+import { InquiryForm } from "@/components/inquiry-form";
+import { Callout, Panel, SectionHeading } from "@/components/ui";
+import { CONTACT, SHOPS } from "@/content/site";
 
-export const metadata: Metadata = buildMetadata({
-  title: 'تماس و درخواست سایزبندی',
+export const metadata: Metadata = {
+  title: "تماس و استعلام سایز",
   description:
-    'قطر شفت و توان موتور را بفرستید تا سایز فری‌ویل مناسب را پیشنهاد دهیم. سایزبندی رایگان است و تعهدی برای خرید ندارد. قیمت و موجودی از فروشگاه آنلاین بلبرینگ.',
-  path: '/contact',
-})
+    "برای سایزبندی فری‌ویل و انتخاب سری RINGSPANN با ما تماس بگیرید. خرید و استعلام قیمت در فروشگاه آنلاین bearingonline.ir انجام می‌شود.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="تماس"
-        breadcrumb={[{ href: '/', label: 'خانه' }, { label: 'تماس' }]}
-        title="درخواست سایزبندی"
-        subtitle="Send us a shaft diameter and a motor power"
-        lead="حداقل چیزی که لازم داریم، قطر شفت و توان موتور است. هرچه بیشتر بنویسید، پیشنهاد ما دقیق‌تر. سایزبندی رایگان است."
-      />
-
-      <div className="shell py-16">
-        <div className="grid gap-12 lg:grid-cols-12 [&>*]:min-w-0">
-          <Reveal className="lg:col-span-7">
-            <h2 className="text-xl font-bold">فرم درخواست</h2>
-            <p className="mt-3 max-w-xl leading-8 text-fg-muted">
-              دو ستون اول کافی است تا شروع کنیم. بقیه هرچه در دست دارید بنویسید.
-            </p>
-            <EnquiryForm />
-          </Reveal>
-
-          <Reveal className="lg:col-span-5">
-            <div className="border border-line bg-surface p-6">
-              <h2 className="text-sm font-semibold text-fg">تماس مستقیم</h2>
-              <address className="mt-4 space-y-3 not-italic text-sm leading-7 text-fg-muted">
-                <div>
-                  <p className="text-xs text-fg-dim">تلفن</p>
-                  <p className="tnum mt-0.5 text-fg">{site.contact.phone}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-fg-dim">ایمیل</p>
-                  <p dir="ltr" className="mt-0.5 text-start text-fg">
-                    {site.contact.email}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-fg-dim">نشانی</p>
-                  <p className="mt-0.5">{site.contact.address}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-fg-dim">ساعات کاری</p>
-                  <p className="mt-0.5">{site.contact.hours}</p>
-                </div>
-              </address>
-            </div>
-
-            <div className="mt-4 border border-line bg-surface p-6">
-              <h2 className="text-sm font-semibold text-fg">قبل از اینکه بنویسید</h2>
-              <p className="mt-3 text-sm leading-7 text-fg-muted">
-                اگر مطمئن نیستید کدام کاربرد است، دو سؤال را از خودتان بپرسید:
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-fg-muted">
-                <li className="flex gap-3">
-                  <span className="text-accent">۱.</span>
-                  <span>
-                    هر وقت بار یا محور برمی‌گردد، <strong className="text-fg">بک‌استاپ</strong> می‌خواهید.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent">۲.</span>
-                  <span>
-                    چند موتور روی یک محور هستند و باید یکی قطع و دیگری وصل شود،{' '}
-                    <strong className="text-fg">کلاچ یک‌طرفه</strong> می‌خواهید.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-accent">۳.</span>
-                  <span>
-                    محور باید هر بار دقیقاً یک پله جلو برود،{' '}
-                    <strong className="text-fg">فری‌ویل ایندکسینگ</strong> می‌خواهید.
-                  </span>
-                </li>
-              </ul>
-              <Link
-                href="/articles/sizing-what-we-need"
-                className="mt-5 inline-flex items-center gap-2 text-sm text-accent transition-colors hover:text-accent-hot"
-              >
-                راهنمای کامل سایزبندی
-                <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>
-                  <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" />
-                </svg>
+      <section className="border-b border-line">
+        <div className="relative mx-auto max-w-[1240px] px-6 py-16">
+          <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
+          <div className="relative">
+            <nav className="mb-6 flex items-center gap-2 text-[12px] text-fg-dim">
+              <Link href="/" className="hover:text-accent">
+                خانه
               </Link>
-            </div>
-
-            <div className="mt-4 border border-line bg-surface-2 p-6">
-              <h2 className="text-sm font-semibold text-fg">اگر عجله دارید</h2>
-              <p className="mt-3 text-sm leading-7 text-fg-muted">
-                قیمت و موجودی را از فروشگاه آنلاین بلبرینگ بگیرید؛ برای سیستم نوار نقاله هم شرکت
-                اتوماسیون پاسخگوست.
-              </p>
-              <div className="mt-4 space-y-2">
-                {[
-                  { h: SHOPS.bearing.href, t: SHOPS.bearing.host, k: 'قیمت و خرید' },
-                  { h: SHOPS.automation.href, t: SHOPS.automation.host, k: 'طراحی خط' },
-                ].map((s) => (
-                  <a
-                    key={s.t}
-                    href={s.h}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="flex items-center justify-between gap-3 border border-line bg-surface px-4 py-3 transition-colors hover:border-accent"
-                  >
-                    <span>
-                      <span className="block text-[0.68rem] text-fg-dim">{s.k}</span>
-                      <span dir="ltr" className="mt-0.5 block text-start text-sm text-fg">
-                        {s.t}
-                      </span>
-                    </span>
-                    <svg viewBox="0 0 20 20" className="size-3.5 flex-none text-fg-dim" fill="none" aria-hidden>
-                      <path d="M7 4H4.5A1.5 1.5 0 003 5.5v10A1.5 1.5 0 004.5 17h10a1.5 1.5 0 001.5-1.5V13" stroke="currentColor" strokeWidth="1.3" />
-                      <path d="M11 3h6v6M17 3l-8 8" stroke="currentColor" strokeWidth="1.3" />
-                    </svg>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </Reveal>
+              <span className="text-line-2">/</span>
+              <span className="text-fg-muted">تماس</span>
+            </nav>
+            <h1 className="max-w-3xl text-[32px] leading-tight text-fg sm:text-[40px]">
+              تماس و استعلام سایز
+            </h1>
+            <p className="mt-6 max-w-2xl text-[15px] leading-8 text-fg-muted">
+              فرم پایین را پر کنید؛ مشخصات را بررسی می‌کنیم و کد قطعه‌ی دقیق را با شما در میان
+              می‌گذاریم. اگر کار فوری است، تلفن سریع‌ترین راه است.
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-6 py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <Reveal>
+              <InquiryForm source="contact" />
+            </Reveal>
+          </div>
+
+          <div className="space-y-5">
+            <Reveal>
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">اطلاعات تماس</h2>
+                <dl className="mt-4 space-y-4">
+                  <div className="flex justify-between gap-4 border-b border-line pb-3">
+                    <dt className="text-[12.5px] text-fg-dim">تلفن</dt>
+                    <dd dir="ltr" className="tnum text-[14px] text-fg">
+                      {CONTACT.phone}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between gap-4 border-b border-line pb-3">
+                    <dt className="text-[12.5px] text-fg-dim">موبایل</dt>
+                    <dd dir="ltr" className="tnum text-[14px] text-fg">
+                      {CONTACT.mobile}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between gap-4 border-b border-line pb-3">
+                    <dt className="text-[12.5px] text-fg-dim">ایمیل</dt>
+                    <dd dir="ltr" className="text-[14px] text-fg">
+                      {CONTACT.email}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[12.5px] text-fg-dim">ساعات کاری</dt>
+                    <dd className="mt-1.5 text-[13.5px] leading-7 text-fg-muted">
+                      {CONTACT.hours}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[12.5px] text-fg-dim">نشانی</dt>
+                    <dd className="mt-1.5 text-[13.5px] leading-7 text-fg-muted">
+                      {CONTACT.address}
+                    </dd>
+                  </div>
+                </dl>
+              </Panel>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">خرید قطعه</h2>
+                <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
+                  برای استعلام قیمت و خرید، به فروشگاه آنلاین بلبرینگ{" "}
+                  <a
+                    href={SHOPS.bearing.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-accent underline decoration-accent/40 underline-offset-4"
+                  >
+                    {SHOPS.bearing.name}
+                  </a>{" "}
+                  مراجعه کنید.
+                </p>
+                <a
+                  href={SHOPS.bearing.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 bg-accent px-4 py-2.5 text-[13px] font-semibold text-accent-ink transition-colors hover:bg-accent-soft"
+                >
+                  ورود به فروشگاه
+                  <MoveUpLeft className="h-4 w-4" />
+                </a>
+              </Panel>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">پروژه‌ی نوار نقاله</h2>
+                <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
+                  برای طراحی و ارتقای سیستم نوار نقاله، شرکت اتوماسیون{" "}
+                  <a
+                    href={SHOPS.robot.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-accent underline decoration-accent/40 underline-offset-4"
+                  >
+                    {SHOPS.robot.name}
+                  </a>{" "}
+                  تجربه‌ی پروژه‌های مشابه را دارد.
+                </p>
+                <a
+                  href={SHOPS.robot.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 border border-line-2 px-4 py-2.5 text-[13px] text-fg-muted transition-colors hover:border-accent hover:text-accent"
+                >
+                  مشاوره‌ی پروژه
+                  <MoveUpLeft className="h-4 w-4" />
+                </a>
+              </Panel>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <Callout title="چه بفرستم؟">
+                کد قطعه اگر می‌دانید؛ اگر نمی‌دانید، قطر شفت، توان یا گشتاور محرک، دور کاری و جهت
+                چرخش. با همین چهار مورد معمولاً در یک رفت‌وبرگشت به جواب می‌رسیم.
+              </Callout>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-panel/40">
+        <div className="mx-auto max-w-[1240px] px-6 py-14">
+          <SectionHeading
+            kicker="قبل از تماس"
+            title="سه چیزی که جواب را سریع‌تر می‌کند"
+            desc="بیشتر رفت‌وبرگشت‌ها برای همین سه مورد است."
+          />
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                title: "جهت چرخش",
+                body: "فری‌ویل راست‌گرد و چپ‌گرد دو کد متفاوت‌اند. روی بدنه‌ی قطعه‌ی قبلی معمولاً فلش حک شده است.",
+              },
+              {
+                title: "کدام حلقه آزاد می‌چرخد",
+                body: "در بک‌استاپ معمولاً حلقه‌ی داخلی روی شفت است و حلقه‌ی خارجی با اهرم به پایه بسته می‌شود. در اوررانینگ برعکس.",
+              },
+              {
+                title: "پروفایل کاری",
+                body: "چند ساعت در شبانه‌روز آزاد می‌چرخد؟ همین عدد تعیین می‌کند نسخه‌ی استاندارد کافی است یا لیفت‌آف لازم است.",
+              },
+            ].map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.04}>
+                <Panel className="h-full p-6">
+                  <h3 className="text-[16px] text-fg">{item.title}</h3>
+                  <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{item.body}</p>
+                </Panel>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }

@@ -1,27 +1,24 @@
-# Build the static export and publish it to GitHub Pages.
-# After merging to main the site is live at:
-#   https://rwinfu.github.io/freewheel.ir/
-name: Deploy to GitHub Pages
+# The app uses server-side API routes and PostgreSQL, so GitHub Pages cannot
+# serve this build. Until a Node.js deployment target is configured, validate
+# every change without attempting a static Pages deployment.
+name: Validate Next.js app
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: app-validation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DEPLOY_TARGET: github-pages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,17 +26,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4

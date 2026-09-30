@@ -1,59 +1,47 @@
 # freewheel.ir
 
-مرجع تخصصی و راهنمای خرید کلاچ یک‌طرفه (فری‌ویل) — فارسی، راست‌به‌چپ.
+مرجع فنی فارسی و راست‌به‌چپ برای فری‌ویل و کلاچ یک‌طرفهٔ صنعتی. سورس اصلی رابط و مسیرهای سایت از آرشیو `industrial-freewheel-website-development.zip` استخراج شده است.
 
-مرجع اصلی محتوا سری **Ringspann R** (فری‌ویل کامل رولری با فلنج نصب، `FGR … R A1A2`)
-است؛ سایر برندها به‌عنوان مقایسه در کنار آن آمده‌اند. اعداد و ابعاد از کاتالوگ
-رینگسپان گرفته شده‌اند، نه از حدس.
+## اجرا
 
-## Stack
+نیازمندی‌ها: Node.js 22+ و npm.
 
-- Next.js 16 (App Router) + TypeScript + Tailwind CSS v4
-- GSAP / ScrollTrigger برای ریل‌ویل و بخش چسبانده، Motion برای بقیه
-- Lenis برای اسکرول نرم
-- فونت Vazirmatn به‌صورت self-hosted و subset (بدون Google Fonts)
+```bash
+npm ci
+npm run dev
+```
 
-## Scripts
+برای ساخت نسخهٔ production و اجرای آن:
 
-| فرمان | کار |
-| --- | --- |
-| `npm run dev` | سرور توسعه |
-| `npm run build` | بیلد نسخهٔ تولید (خروجی استاتیک در `out/`) |
-| `npm run lint` | ESLint |
-| `npm run font` | ساخت دوبارهٔ subset فونت (`scripts/build-font.mjs`) |
-| `npm run serve` | بیلد + سرو استاتیک `out/` روی پورت ۳۰۰۰ |
-| `npm run shoot` | اسکن خودکار همهٔ مسیرها در دو ویوپورت (`screens/report.json`) |
-| `npm run slices` | اسکرین‌شات تکه‌به‌تکه برای بازبینی چشمی |
-| `node scripts/probe.mjs <route> <width>` | پیدا کردن عنصری که سرریز افقی می‌سازد |
+```bash
+npm run build
+npm start
+```
 
-ابزارهای `shoot` / `slices` / `probe` به `@sparticuz/chromium` نیاز دارند؛ خروجی
-`screens/` در گیت نیست.
+بررسی کد:
 
-## دیپلوی — GitHub Pages
+```bash
+npm run lint
+npm run typecheck
+```
 
-سایت یک خروجی کاملاً استاتیک است (`output: 'export'`) و با هر پوش به `main`
-از طریق ورک‌فلوی `.github/workflows/deploy.yml` روی GitHub Pages منتشر می‌شود:
+## فناوری‌ها
 
-- نشانی: <https://rwinfu.github.io/freewheel.ir/>
-- در بیلدِ دیپلوی متغیر `DEPLOY_TARGET=github-pages` روشن می‌شود و `basePath`
-  و `trailingSlash` را فعال می‌کند؛ بیلد محلی بدون آن ساده می‌ماند.
-- فرم تماس سرور ندارد: اعتبارسنجی با zod در مرورگر انجام می‌شود و نتیجه یا به
-  `NEXT_PUBLIC_ENQUIRY_WEBHOOK` پست می‌شود یا به‌صورت متن آماده/`mailto` به کاربر
-  داده می‌شود.
-- `next/image` بهینه‌سازی نمی‌شود (`images.unoptimized`) چون هاست استاتیک است.
+- Next.js App Router، React و TypeScript
+- Tailwind CSS v4، GSAP/ScrollTrigger، Motion و Lenis
+- فونت Vazirmatn به‌صورت محلی در `public/fonts/`
+- Drizzle ORM و PostgreSQL برای APIهای جستجو و ثبت درخواست
 
-## ساختار
+## پایگاه داده
 
-- `src/app/` — مسیرها؛ مدل‌های رینگسپان با `generateStaticParams` به‌صورت SSG
-- `src/components/visual/` — نقشه‌های فنی SVG (هیرو، سه نوع کلاچ، چرخهٔ کاری، ابعاد)
-- `src/components/sections/` — بخش‌های محتوایی
-- `src/data/` — کاتالوگ، برندها، کاربردها، مقالات
-- `src/lib/utils.ts` — قالب‌بندی عدد و تاریخ
+صفحه‌های محتوایی بدون دیتابیس هم اجرا می‌شوند. برای فعال شدن جستجو و ثبت فرم‌ها، متغیر `DATABASE_URL` را به یک PostgreSQL قابل‌دسترسی تنظیم کنید. در نبود دیتابیس، `/api/health` وضعیت `database: down` می‌دهد و APIهای وابسته به دیتابیس کار نمی‌کنند.
 
-## نکته‌های محتوا
+مسیرهای API:
 
-- قیمت و خرید واقعی روی `bearingonline.ir` انجام می‌شود؛ طراحی و ارتقای سیستم
-  نقاله با `persiarobot.ir`. لینک هر دو در `ShopRoute` متمرکز است.
-- آدرس و تلفن فوتر عمداً `[آدرس واقعی]` است و باید توسط صاحب سایت پر شود.
-- ارقام با ارقام لاتین و `tabular-nums` نوشته می‌شوند؛ ترکیب عدد فارسی با واحد
-  لاتین داخل متن راست‌به‌چپ با کلاس `.num` ایزوله می‌شود تا ترتیب بصری به هم نریزد.
+- `GET /api/health`
+- `GET /api/search?q=...`
+- `POST /api/inquiry`
+
+## استقرار
+
+این نسخه از Next.js از APIهای Node.js و PostgreSQL استفاده می‌کند و خروجی استاتیک GitHub Pages نیست. برای انتشار عمومی به میزبانی سازگار با Next.js/Node و تنظیم `DATABASE_URL` نیاز است. تا مشخص شدن مقصد استقرار، ورک‌فلو فقط lint، typecheck و build را اعتبارسنجی می‌کند و deploy انجام نمی‌دهد.

@@ -1,192 +1,221 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowUpLeft } from "lucide-react";
 
-import { BRANDS, getBrand } from '@/data/brands'
-import { R_SERIES_MAIN } from '@/data/ringspann'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { SpecTable } from '@/components/ui/SpecTable'
-import { ShopRoute } from '@/components/ui/ShopRoute'
-import { JsonLd } from '@/components/seo/JsonLd'
-import { Reveal } from '@/components/motion/Reveal'
-import { MagneticLink } from '@/components/motion/MagneticButton'
-import { buildMetadata, toEnDigits, BASE_URL } from '@/lib/seo'
-import { spec } from '@/lib/utils'
+import { Reveal } from "@/components/motion";
+import { InquiryForm } from "@/components/inquiry-form";
+import { BuyNote, Breadcrumbs, Callout, Panel, SectionHeading } from "@/components/ui";
+import { BRANDS, getBrand } from "@/content/brands";
+import { ARTICLES } from "@/content/articles";
+import { RINGSPANN_SERIES } from "@/content/ringspann";
+import { cn } from "@/lib/utils";
 
-export function generateStaticParams() {
-  return BRANDS.map((b) => ({ slug: b.slug }))
+type Params = { slug: string };
+
+export function generateStaticParams(): Params[] {
+  return BRANDS.map((brand) => ({ slug: brand.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<Params>;
 }): Promise<Metadata> {
-  const { slug } = await params
-  const brand = getBrand(slug)
-  if (!brand) return {}
-  return buildMetadata({
-    title: `${brand.name} — فری‌ویل و کلاچ یک‌طرفه`,
-    description: `${brand.tagline}. ${toEnDigits(brand.body[0].slice(0, 150))}…`,
-    path: `/brands/${brand.slug}`,
-  })
+  const { slug } = await params;
+  const brand = getBrand(slug);
+  if (!brand) return { title: "برند پیدا نشد" };
+
+  const title = `فری‌ویل ${brand.name}`;
+  return {
+    title,
+    description: `${brand.tagline} — ${brand.country}. نکات انتخاب، سری‌ها و راهنمای جایگزینی فری‌ویل ${brand.name}.`,
+    alternates: { canonical: `/brands/${brand.slug}` },
+  };
 }
 
-export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const brand = getBrand(slug)
-  if (!brand) notFound()
+export default async function BrandPage({ params }: { params: Promise<Params> }) {
+  const { slug } = await params;
+  const brand = getBrand(slug);
+  if (!brand) notFound();
 
-  const others = BRANDS.filter((b) => b.slug !== brand.slug)
+  const related = ARTICLES.filter((article) =>
+    brand.slug === "ina" || brand.slug === "stieber"
+      ? article.slug === "sprag-vs-roller"
+      : article.slug === "freewheel-sizing",
+  ).slice(0, 2);
 
   return (
     <>
-      <PageHeader
-        eyebrow={`برند — ${brand.country}`}
-        breadcrumb={[
-          { href: '/', label: 'خانه' },
-          { href: '/brands', label: 'برندها' },
-          { label: brand.name },
-        ]}
-        title={brand.name}
-        subtitle={brand.tagline}
-        lead={brand.body[0]}
-      />
+      <section className="border-b border-line">
+        <div className="relative mx-auto max-w-[1240px] px-6 py-14">
+          <div className="blueprint absolute inset-x-0 top-0 h-52 opacity-60" aria-hidden />
+          <div className="relative">
+            <Breadcrumbs
+              items={[
+                { href: "/", label: "خانه" },
+                { href: "/brands", label: "برندها" },
+                { href: `/brands/${brand.slug}`, label: brand.name },
+              ]}
+            />
 
-      <div className="shell py-16">
-        <div className="grid gap-12 lg:grid-cols-12 [&>*]:min-w-0">
-          <Reveal className="lg:col-span-7">
-            <h2 className="text-2xl font-bold">در عمل چطور است</h2>
-            <div className="prose-ir mt-4 max-w-none">
-              {brand.body.slice(1).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 dir="ltr" className="text-[34px] font-semibold leading-tight tracking-tight text-fg sm:text-[42px]">
+                {brand.name}
+              </h1>
+              {brand.tier === 1 ? (
+                <span className="border border-accent/50 px-2.5 py-1 text-[11.5px] text-accent">
+                  محور اصلی
+                </span>
+              ) : null}
             </div>
+            <p className="mt-3 text-[13px] text-fg-dim">{brand.country}</p>
+            <p className="mt-6 max-w-2xl text-[16px] leading-8 text-fg-muted">{brand.tagline}</p>
+          </div>
+        </div>
+      </section>
 
-            {brand.note && (
-              <div className="mt-8 border-s-2 border-accent bg-surface p-5">
-                <p className="text-xs tracking-wide text-fg-dim">نکتهٔ فنی</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">{brand.note}</p>
-              </div>
-            )}
-          </Reveal>
+      <section className="mx-auto max-w-[1240px] px-6 py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
+          <div className="space-y-5">
+            {brand.summary.map((paragraph, index) => (
+              <Reveal key={index} delay={index * 0.03}>
+                <p className="text-[15px] leading-8 text-fg-muted">{paragraph}</p>
+              </Reveal>
+            ))}
+          </div>
 
-          <Reveal className="lg:col-span-5">
-            <div className="border border-line bg-surface p-5">
-              <h2 className="text-sm font-semibold text-fg">پوشش کاتالوگ</h2>
-              <dl className="mt-4 divide-y divide-line">
-                {brand.envelope.map((e) => (
-                  <div key={e.label} className="flex justify-between gap-4 py-3 text-sm">
-                    <dt className="text-fg-dim">{e.label}</dt>
-                    <dd className="tnum text-end text-fg-muted">{e.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
-            <div className="mt-4 grid gap-4">
-              <div className="border border-line bg-surface p-5">
-                <p className="text-[0.7rem] tracking-wide text-ok">مناسب</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">{brand.fit}</p>
-              </div>
-              <div className="border border-line bg-surface p-5">
-                <p className="text-[0.7rem] tracking-wide text-warn">مناسب نیست</p>
-                <p className="mt-2 text-sm leading-7 text-fg-muted">{brand.notFit}</p>
-              </div>
+          <Reveal delay={0.05}>
+            <div className="space-y-5">
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">نقاط قوت</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {brand.strengths.map((item) => (
+                    <li key={item} className="flex gap-3 text-[13.5px] leading-7 text-fg-muted">
+                      <span className="mt-2.5 h-1 w-1 shrink-0 bg-accent" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+              <Panel className="p-6">
+                <h2 className="text-[15px] font-semibold text-fg">مراقب این‌ها باشید</h2>
+                <ul className="mt-4 space-y-2.5">
+                  {brand.watchOut.map((item) => (
+                    <li key={item} className="flex gap-3 text-[13.5px] leading-7 text-fg-muted">
+                      <span className="mt-2.5 h-1 w-1 shrink-0 bg-line-2" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
             </div>
           </Reveal>
         </div>
+      </section>
 
-        {/* Ringspann gets the size table; the others get a route. */}
-        {brand.slug === 'ringspann' ? (
-          <section className="mt-20">
-            <h2 className="text-2xl font-bold">سایزهای پرکاربرد سری R</h2>
-            <p className="mt-3 max-w-3xl leading-8 text-fg-muted">
-              جدول کامل همهٔ سایزها در صفحهٔ <Link href="/ringspann" className="text-accent underline underline-offset-4">Ringspann</Link> هست.
-              اینجا دوازده سایز اصلی را می‌آوریم:
-            </p>
-            <SpecTable
-              className="mt-6 border border-line"
-              dense
-              columns={[
-                { key: 'code', label: 'سایز' },
-                { key: 'torque', label: 'گشتاور اسمی', unit: 'N·m', strong: true },
-                { key: 'bore', label: 'قطر شفت', unit: 'mm' },
-                { key: 'nOuter', label: 'دور آزاد — بیرونی', unit: 'min⁻¹' },
-                { key: 'weight', label: 'وزن', unit: 'kg' },
-              ]}
-              rows={R_SERIES_MAIN.map((s) => ({
-                code: s.code,
-                torque: spec(s.torqueNm),
-                bore: spec(s.bore),
-                nOuter: spec(s.nOuter),
-                weight: spec(s.weight),
-              }))}
-              hrefFor={(r) => `/ringspann/${String(r.code).toLowerCase()}`}
-            />
-          </section>
-        ) : (
-          <section className="mt-20">
-            <h2 className="text-2xl font-bold">اگر {brand.name} را می‌خواهید</h2>
-            <div className="prose-ir mt-4 max-w-3xl">
-              <p>
-                اگر شمارهٔ قطعه‌ای از این برند دارید، همان را برای ما بفرستید. اگر شماره ندارید و
-                فقط می‌دانید قطر شفت و توان موتور چقدر است، باز هم بفرستید؛ معمولاً سه چهار مدل به
-                شما پیشنهاد می‌دهیم و دلیل هرکدام را می‌نویسیم.
-              </p>
-              <p>
-                اگر هنوز بین این برند و رینگسپان مردد هستید، راه درست این است که ببینید روی
-                شفت شما چه چیزی سوار است و در تعمیرات بعدی کدام قطعات در دسترس خواهند بود. عوض
-                کردن برند در تعمیر، معمولاً گران‌تر از همان انتخاب اولیهٔ درست است.
-              </p>
+      <section className="border-y border-line bg-panel/40">
+        <div className="mx-auto max-w-[1240px] px-6 py-14">
+          <SectionHeading kicker="برنامه‌ی محصول" title="سری‌ها و رده‌ها" />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {brand.series.map((item, index) => (
+              <Reveal key={item.designation} delay={index * 0.03}>
+                <Panel className="h-full p-5">
+                  <div dir="ltr" className="text-[15px] font-semibold text-fg">
+                    {item.designation}
+                  </div>
+                  <p className="mt-2 text-[13px] leading-7 text-fg-muted">{item.note}</p>
+                </Panel>
+              </Reveal>
+            ))}
+          </div>
+
+          {brand.slug === "ringspann" ? (
+            <Reveal className="mt-8">
+              <Panel className="p-6">
+                <h3 className="text-[16px] text-fg">صفحه‌ی اختصاصی هر سری</h3>
+                <div className="mt-4 flex flex-wrap gap-2.5">
+                  {RINGSPANN_SERIES.map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={`/ringspann/${item.slug}`}
+                      className="border border-line-2 px-3 py-1.5 text-[13px] text-fg-muted transition-colors hover:border-accent hover:text-accent"
+                      dir="ltr"
+                    >
+                      {item.designation}
+                    </Link>
+                  ))}
+                </div>
+              </Panel>
+            </Reveal>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-6 py-14">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <SectionHeading kicker="نکات عملی" title="برای استعلام این برند" />
+            <div className="mt-8 space-y-4">
+              {brand.notes.map((note, index) => (
+                <Reveal key={index} delay={index * 0.04}>
+                  <Callout>{note}</Callout>
+                </Reveal>
+              ))}
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <MagneticLink href="/contact" className="bg-accent text-ink hover:bg-accent-hot">
-                ارسال شمارهٔ قطعه
-              </MagneticLink>
-              <MagneticLink
-                href="/ringspann"
-                className="border border-line-strong text-fg hover:border-accent hover:text-accent"
-              >
-                دیدن سری R رینگسپان
-              </MagneticLink>
-            </div>
-          </section>
-        )}
 
-        <ShopRoute to="bearing" variant="band" className="mt-12" />
+            <Reveal className="mt-8">
+              <Panel className="p-6">
+                <h3 className="text-[15px] font-semibold text-fg">مطالب مرتبط</h3>
+                <ul className="mt-4 space-y-3">
+                  {related.map((article) => (
+                    <li key={article.slug}>
+                      <Link
+                        href={`/articles/${article.slug}`}
+                        className="group flex items-center justify-between gap-4 text-[13.5px] leading-7 text-fg-muted transition-colors hover:text-accent"
+                      >
+                        {article.title}
+                        <ArrowUpLeft className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+            </Reveal>
+          </div>
 
-        {/* Other brands */}
-        <section className="mt-20">
-          <h2 className="text-lg font-bold text-fg">برندهای دیگر</h2>
-          <div className="mt-5 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
-            {others.map((b) => (
+          <div>
+            <Reveal>
+              <BuyNote partNumber={brand.name} />
+            </Reveal>
+            <Reveal delay={0.05} className="mt-5">
+              <InquiryForm source="brand" partNumber={brand.name} compact />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-panel/40">
+        <div className="mx-auto max-w-[1240px] px-6 py-12">
+          <h2 className="text-[16px] text-fg">سایر برندها</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {BRANDS.filter((item) => item.slug !== brand.slug).map((item) => (
               <Link
-                key={b.slug}
-                href={`/brands/${b.slug}`}
-                className="group bg-surface p-5 transition-colors hover:bg-surface-2"
+                key={item.slug}
+                href={`/brands/${item.slug}`}
+                className={cn(
+                  "group flex items-center justify-between border border-line bg-panel px-5 py-4 transition-colors hover:border-accent/50",
+                )}
               >
-                <p className="tnum text-sm font-semibold text-fg transition-colors group-hover:text-accent">
-                  {b.name}
-                </p>
-                <p className="mt-1 text-xs text-fg-dim">{b.country}</p>
-                <p className="mt-3 line-clamp-3 text-xs leading-6 text-fg-muted">{b.tagline}</p>
+                <span dir="ltr" className="text-[14.5px] font-semibold text-fg">
+                  {item.name}
+                </span>
+                <ArrowUpLeft className="h-3.5 w-3.5 text-fg-dim transition-colors group-hover:text-accent" />
               </Link>
             ))}
           </div>
-        </section>
-      </div>
-
-      <JsonLd
-        data={{
-          '@type': 'Brand',
-          '@id': `${BASE_URL}/brands/${brand.slug}#brand`,
-          name: brand.name,
-          description: toEnDigits(brand.tagline),
-          url: `${BASE_URL}/brands/${brand.slug}`,
-          country: brand.country,
-        }}
-      />
+        </div>
+      </section>
     </>
-  )
+  );
 }

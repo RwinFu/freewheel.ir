@@ -1,308 +1,336 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-/* ------------------------------------------------------------------ *
- * freewheel.ir — design tokens
- *
- * Industrial / engineering identity: graphite ground, hairline rules,
- * exactly one accent (safety orange). No gradients-as-decoration, no
- * glass. Depth comes from surface steps and 1px borders, the way a
- * German parts catalogue does it.
- * ------------------------------------------------------------------ */
-
-@theme {
-  /* Surfaces — four steps, each ~2–3% lighter than the last */
-  --color-ink: #0e1012; /* page ground */
-  --color-surface: #15181b; /* panels, table headers */
-  --color-surface-2: #1b1f23; /* raised cards, inputs */
-  --color-surface-3: #22272c; /* hover state, chips */
-
-  /* Rules */
-  --color-line: #262c31;
-  --color-line-strong: #38414a;
-
-  /* Type */
-  --color-fg: #e9ebed;
-  --color-fg-muted: #a2aab1;
-  --color-fg-dim: #79828a;
-
-  /* The single accent */
-  --color-accent: #ff6b00;
-  --color-accent-hot: #ff8a33;
-  --color-accent-deep: #b34b00;
-  --color-accent-wash: #ff6b0014;
-
-  /* Semantic — used sparingly, only where meaning demands it */
-  --color-ok: #4ea87a;
-  --color-warn: #e0a92b;
-  --color-alert: #d4453c;
-
-  /* next/font/local defines these on <html>; everything resolves at use
-     time, so a missing face degrades to system-ui rather than to a
-     silent default. */
-  --font-sans: var(--font-vazir-text), system-ui, 'Segoe UI', Tahoma, sans-serif;
-  --font-display: var(--font-vazir-display), var(--font-vazir-text), system-ui, Tahoma, sans-serif;
-
-  --radius-card: 2px;
-
-  --breakpoint-xs: 26rem;
+@theme inline {
+  --font-sans: var(--font-vazir), "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-vazir), ui-monospace, "SFMono-Regular", monospace;
 }
 
-/* ------------------------------------------------------------------ *
- * Self-hosted Vazirmatn (SIL OFL 1.1). The @font-face rules live in
- * layout.tsx via next/font/local so the woff2 is hashed, preloaded and
- * fingerprinted; the family names are bound here.
- * ------------------------------------------------------------------ */
+@theme {
+  --color-base: #08090b;
+  --color-panel: #0f1214;
+  --color-panel-2: #14181b;
+  --color-panel-3: #191e22;
+  --color-line: #232a30;
+  --color-line-2: #303941;
+  --color-fg: #e5e8ea;
+  --color-fg-muted: #98a2aa;
+  --color-fg-dim: #6d767e;
+  --color-accent: #ff6a13;
+  --color-accent-soft: #ff8a45;
+  --color-accent-ink: #2a1204;
 
-/* ------------------------------------------------------------------ *
- * Base
- * ------------------------------------------------------------------ */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.1rem;
+}
+
 @layer base {
+  :root {
+    color-scheme: dark;
+  }
+
   * {
     border-color: var(--color-line);
   }
 
   html {
-    color-scheme: dark;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5.5rem;
+    scroll-behavior: smooth;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   body {
-    background-color: var(--color-ink);
+    background-color: var(--color-base);
     color: var(--color-fg);
-    font-family: var(--font-vazir-text), system-ui, 'Segoe UI', Tahoma, sans-serif;
-    font-size: 1rem;
-    line-height: 1.8;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01" off;
+    letter-spacing: 0;
     text-rendering: optimizeLegibility;
-    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #0a0a0a;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-vazir-display), var(--font-vazir-text), system-ui, sans-serif;
-    font-weight: 700;
-    line-height: 1.35;
+    font-weight: 600;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
-  /* Persian reads better with a touch more leading than Latin. */
   p {
     text-wrap: pretty;
   }
 
-  /* Every technical figure on the site uses tabular digits so columns
-     of torque/rpm/weight line up and never reflow on hover states. */
-  .tnum,
-  table,
-  time {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum' 1;
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
   }
-
-  /* A value plus its unit ("۶۸٬۰۰۰ N·m", "۱۲ – ۱۵۰ mm") is a Latin
-     fragment inside Persian prose. Without isolation the bidi algorithm
-     reorders it to "N·m ۶۸٬۰۰۰", which is not a number anyone writes.
-     `isolate` gives the run its own embedding context. */
-  .num {
-    unicode-bidi: isolate;
-    white-space: nowrap;
+  ::-webkit-scrollbar-track {
+    background: #0b0d0f;
   }
-
-  :focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-    border-radius: 1px;
+  ::-webkit-scrollbar-thumb {
+    background: #262e35;
+    border: 2px solid #0b0d0f;
   }
-
-  ::selection {
-    background: var(--color-accent);
-    color: #0e1012;
-  }
-
-  /* Lenis owns the scroll; smooth-scroll would fight it. */
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-stopped {
-    overflow: clip;
+  ::-webkit-scrollbar-thumb:hover {
+    background: #36414a;
   }
 }
 
-/* ------------------------------------------------------------------ *
- * Components
- * ------------------------------------------------------------------ */
-@layer components {
-  /* Page shell. One max width, generous gutters. */
-  .shell {
-    width: 100%;
-    max-width: 82rem;
-    margin-inline: auto;
-    padding-inline: 1.25rem;
-  }
-  @media (min-width: 48rem) {
-    .shell {
-      padding-inline: 2rem;
-    }
-  }
-  @media (min-width: 80rem) {
-    .shell {
-      padding-inline: 2.5rem;
-    }
-  }
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
 
-  /* Eyebrow / section index label — the small mono-ish tag above headings */
-  .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-  }
-  .eyebrow::before {
-    content: '';
-    width: 1.75rem;
-    height: 1px;
-    background: var(--color-accent);
-    opacity: 0.55;
-    flex: none;
-  }
+/* فنی: پس‌زمینه‌ی شبکه‌ی نقشه‌کشی */
+@utility blueprint {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
 
-  /* Engineering panel: hairline box, no radius, no shadow */
-  .panel {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
-  }
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.055) 0 1px,
+    transparent 1px 7px
+  );
+}
 
-  /* Faint machined grid used behind technical sections. */
-  .grid-etch {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
+@utility stroke-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  fill: #7d878f;
+}
 
-  /* Diagonal hazard hatch, safety-orange, for callout strips */
-  .hatch {
-    background-image: repeating-linear-gradient(
-      -45deg,
-      color-mix(in srgb, var(--color-accent) 16%, transparent) 0 2px,
-      transparent 2px 9px
-    );
+/* ---------- انیمیشن هیرو: قفل و رها شدن ---------- */
+/* دور درایو: ۴٫۸ ثانیه در هر دور — ثابت و خطی */
+@keyframes fwDrive {
+  from {
+    transform: rotate(0deg);
   }
-
-  .prose-ir p {
-    margin-block: 0 1.15em;
-    line-height: 2;
-    color: var(--color-fg-muted);
-  }
-  .prose-ir p:last-child {
-    margin-bottom: 0;
-  }
-  .prose-ir strong {
-    color: var(--color-fg);
-    font-weight: 600;
-  }
-  .prose-ir h2 {
-    font-size: 1.5rem;
-    margin-block: 2.4em 0.7em;
-    color: var(--color-fg);
-  }
-  .prose-ir h3 {
-    font-size: 1.125rem;
-    margin-block: 1.9em 0.6em;
-    color: var(--color-fg);
-  }
-  .prose-ir ul {
-    margin-block: 0 1.15em;
-    padding-inline-start: 0;
-    list-style: none;
-  }
-  .prose-ir li {
-    position: relative;
-    padding-inline-start: 1.15rem;
-    margin-block-end: 0.5rem;
-    line-height: 2;
-    color: var(--color-fg-muted);
-  }
-  .prose-ir li::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    top: 0.95em;
-    width: 5px;
-    height: 1px;
-    background: var(--color-accent);
-  }
-  .prose-ir a {
-    color: var(--color-fg);
-    text-decoration: underline;
-    text-decoration-color: var(--color-accent);
-    text-underline-offset: 5px;
-    text-decoration-thickness: 1px;
-  }
-  .prose-ir a:hover {
-    color: var(--color-accent);
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* ------------------------------------------------------------------ *
- * Motion — everything respects the OS setting. Components opt in by
- * using the class hooks below; when motion is reduced they render at
- * their final state with no transition at all.
- * ------------------------------------------------------------------ */
+/* چرخه‌ی کامل ۹٫۶ ثانیه: ۴۰٪ آزاد، ۵۰٪ قفل (دقیقاً یک دور درایو)، ۱۰٪ رها */
+@keyframes fwCoupled {
+  0%,
+  40% {
+    transform: rotate(0deg);
+  }
+  90%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fwSpragTilt {
+  0%,
+  39% {
+    transform: rotate(0deg);
+  }
+  46%,
+  88% {
+    transform: rotate(-12deg);
+  }
+  95%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes fwLockFlash {
+  0%,
+  39% {
+    opacity: 0;
+  }
+  46%,
+  88% {
+    opacity: 1;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fwRollerOut {
+  0%,
+  39% {
+    transform: translateX(0);
+  }
+  46%,
+  88% {
+    transform: translateX(1.6px);
+  }
+  95%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fwFlow {
+  0% {
+    stroke-dashoffset: 220;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-drive {
+  animation: fwDrive 4.8s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.animate-coupled {
+  animation: fwCoupled 9.6s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.animate-sprag {
+  animation: fwSpragTilt 9.6s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+}
+
+.animate-lock {
+  animation: fwLockFlash 9.6s linear infinite;
+}
+
+.animate-roller {
+  animation: fwRollerOut 9.6s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+}
+
+.animate-flow {
+  stroke-dasharray: 14 10;
+  animation: fwFlow 4s linear infinite;
+}
+
+.marquee-track {
+  animation: marquee-rtl 42s linear infinite;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 18px));
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-item.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* اگر اسکریپت لود نشد، محتوا مخفی نماند */
+html:not(.lenis) .reveal-item {
+  animation: reveal-fallback 0.01s 1.6s forwards;
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
   }
-}
-
-/* Route-change signal, driven by PageTransition */
-@keyframes route-out {
-  from {
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-  to {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-}
-@keyframes route-back {
-  from {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  to {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-}
-
-/* Counters settle rather than snap */
-@keyframes tick-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.4em);
-  }
-  to {
+  .reveal-item {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
+  .marquee-track {
+    transform: none;
+  }
+}
+
+/* ---------- جدول مشخصات ---------- */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.spec-table th,
+.spec-table td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.6rem 0.75rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.spec-table thead th {
+  position: sticky;
+  top: 0;
+  background: #12161a;
+  color: var(--color-fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+.spec-table tbody tr:hover {
+  background: rgba(255, 106, 19, 0.045);
+}
+
+.spec-table tbody tr.is-current {
+  background: rgba(255, 106, 19, 0.09);
+}
+
+.spec-table td.num {
+  direction: ltr;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
 }

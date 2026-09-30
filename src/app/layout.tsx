@@ -1,132 +1,108 @@
-import type { Metadata, Viewport } from 'next'
-import localFont from 'next/font/local'
-import './globals.css'
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import type { ReactNode } from "react";
 
-import { TopBanner } from '@/components/layout/TopBanner'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { SmoothScroll } from '@/components/motion/SmoothScroll'
-import { PageTransition } from '@/components/motion/PageTransition'
-import { JsonLd } from '@/components/seo/JsonLd'
-import { AppErrorBoundary } from '@/components/AppErrorBoundary'
-import { site, SHOPS } from '@/data/site'
-import { BASE_URL, ORG_ID, WEBSITE_ID } from '@/lib/seo'
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { SITE } from "@/content/site";
+import "./globals.css";
 
-/* Self-hosted, subset. `npm run fonts` regenerates the woff2 cuts from
-   the upstream variable font — no Google Fonts request is ever made. */
-const vazirText = localFont({
-  src: [{ path: '../../public/fonts/Vazirmatn-Text.woff2', weight: '100 700', style: 'normal' }],
-  variable: '--font-vazir-text',
-  display: 'swap',
+const vazir = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Vazirmatn-Text.woff2",
+      weight: "100 700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-vazir",
+  display: "swap",
   preload: true,
-  fallback: ['system-ui', 'Segoe UI', 'Tahoma', 'sans-serif'],
-  adjustFontFallback: 'Arial',
-})
-
-const vazirDisplay = localFont({
-  src: [{ path: '../../public/fonts/Vazirmatn-Display.woff2', weight: '700 900', style: 'normal' }],
-  variable: '--font-vazir-display',
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'Segoe UI', 'Tahoma', 'sans-serif'],
-  adjustFontFallback: 'Arial',
-})
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: site.title,
-    template: `%s | ${site.shortTitle}`,
+    default: SITE.title,
+    template: "%s | freewheel.ir",
   },
-  description: site.description,
-  applicationName: site.name,
-  authors: [{ name: site.name, url: BASE_URL }],
-  creator: site.name,
-  alternates: { canonical: '/' },
-  formatDetection: { telephone: false },
-  openGraph: {
-    type: 'website',
-    locale: site.locale,
-    url: BASE_URL,
-    siteName: site.name,
-    title: site.title,
-    description: site.description,
+  description: SITE.description,
+  applicationName: "freewheel.ir",
+  keywords: [
+    "فری‌ویل",
+    "کلچ یک‌سره",
+    "RINGSPANN",
+    "FGR R",
+    "بک‌استاپ",
+    "نوار نقاله",
+    "بلبرینگ",
+    "freewheel",
+  ],
+  alternates: { canonical: "/" },
+    openGraph: {
+    type: "website",
+    locale: SITE.locale,
+    siteName: "freewheel.ir",
+    title: SITE.title,
+    description: SITE.description,
+    url: SITE.url,
+    images: [
+      {
+        url: "/og-freewheel.jpg",
+        width: 1200,
+        height: 630,
+        alt: "نقاشی خطی فری‌ویل اسپراگ — نمای انفجادی",
+      },
+    ],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.title,
+    description: SITE.description,
+    images: ["/opengraph-image"],
+  },
   robots: { index: true, follow: true },
-  category: 'industrial',
-}
+};
 
 export const viewport: Viewport = {
-  themeColor: '#0e1012',
-  colorScheme: 'dark',
-  width: 'device-width',
-  initialScale: 1,
-}
+  themeColor: "#08090b",
+  colorScheme: "dark",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "freewheel.ir",
+    url: SITE.url,
+    inLanguage: "fa-IR",
+    description: SITE.description,
+    publisher: {
+      "@type": "Organization",
+      name: "freewheel.ir",
+      url: SITE.url,
+    },
+  };
+
   return (
-    <html
-      lang="fa"
-      dir="rtl"
-      className={`${vazirText.variable} ${vazirDisplay.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-dvh antialiased">
+    <html lang="fa" dir="rtl" className={vazir.variable}>
+      <body className="min-h-dvh bg-base font-sans text-fg antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <SmoothScroll />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[100] focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink"
         >
-          پرش به محتوای اصلی
+          رفتن به محتوای اصلی
         </a>
-
-        <SmoothScroll />
-        <PageTransition />
-        <TopBanner />
-        <Header />
-        <AppErrorBoundary>
-          <main id="main">{children}</main>
-        </AppErrorBoundary>
-        <Footer />
-
-        <JsonLd
-          data={[
-            {
-              '@type': 'Organization',
-              '@id': ORG_ID,
-              name: site.name,
-              url: BASE_URL,
-              description: site.description,
-              areaServed: 'IR',
-              knowsAbout: ['Freewheel', 'Overrunning clutch', 'Backstop', 'Indexing freewheel'],
-              contactPoint: [
-                {
-                  '@type': 'ContactPoint',
-                  contactType: 'sales',
-                  areaServed: 'IR',
-                  url: `${BASE_URL}/contact`,
-                },
-              ],
-            },
-            {
-              '@type': 'WebSite',
-              '@id': WEBSITE_ID,
-              url: BASE_URL,
-              name: site.name,
-              inLanguage: 'fa-IR',
-              publisher: { '@id': ORG_ID },
-            },
-            {
-              '@type': 'ItemList',
-              name: 'فروشگاه‌های مرتبط',
-              itemListElement: [
-                { '@type': 'WebSite', name: SHOPS.bearing.host, url: SHOPS.bearing.href },
-                { '@type': 'WebSite', name: SHOPS.automation.host, url: SHOPS.automation.href },
-              ],
-            },
-          ]}
-        />
+        <SiteHeader />
+        <main id="main">{children}</main>
+        <SiteFooter />
       </body>
     </html>
-  )
+  );
 }
