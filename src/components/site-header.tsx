@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Menu, MoveUpLeft, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { PartSearch } from "@/components/part-search";
 import { NAV, SHOPS } from "@/content/site";
@@ -70,12 +70,22 @@ function ShopStrip({ compact = false }: { compact?: boolean }) {
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [renderedPath, setRenderedPath] = useState(pathname);
 
-  if (pathname !== renderedPath) {
-    setRenderedPath(pathname);
-    if (open) setOpen(false);
-  }
+  // با منوی باز: اسکرول صفحه قفل و کلید Escape منو را می‌بندد.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      root.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50">
@@ -156,6 +166,7 @@ export function SiteHeader() {
             className="grid h-10 w-10 place-items-center border border-line-2 text-fg-muted lg:hidden"
             aria-label={open ? "بستن منو" : "باز کردن منو"}
             aria-expanded={open}
+            aria-controls="mobile-nav"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -169,44 +180,53 @@ export function SiteHeader() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            id="mobile-nav"
             className="overflow-hidden border-b border-line bg-panel lg:hidden"
+            // با کلیک روی هر لینک داخل منو، منو بسته می‌شود.
+            onClick={(event) => {
+              if ((event.target as HTMLElement).closest("a")) setOpen(false);
+            }}
           >
-            <div className="mx-auto max-w-[1240px] px-6 py-5">
-              <div className="mb-5 space-y-4 border-b border-line pb-5">
-                <PartSearch className="relative" />
-                <ShopStrip compact />
-              </div>
-              <ul className="space-y-1">
-                {NAV.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="flex items-center justify-between border-b border-line/70 py-3 text-[15px] text-fg"
-                    >
-                      {item.label}
+            {/* منو روی موبایل بلندتر از صفحه می‌شود؛ داخل خودش اسکرول می‌خورد
+                تا آیتم‌های پایین (مقالات، تماس) هم در دسترس بمانند. */}
+            <div className="max-h-[calc(100dvh-64px)] overflow-y-auto overscroll-contain">
+              <div className="mx-auto max-w-[1240px] px-6 py-5">
+                <div className="mb-5 space-y-4 border-b border-line pb-5">
+                  <PartSearch className="relative" />
+                  <ShopStrip compact />
+                </div>
+                <ul className="space-y-1">
+                  {NAV.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="flex items-center justify-between border-b border-line/70 py-3 text-[15px] text-fg"
+                      >
+                        {item.label}
+                        {item.children ? (
+                          <span className="text-[11px] text-fg-dim">
+                            {item.children.length} بخش
+                          </span>
+                        ) : null}
+                      </Link>
                       {item.children ? (
-                        <span className="text-[11px] text-fg-dim">
-                          {item.children.length} بخش
-                        </span>
+                        <ul className="grid gap-1 py-2">
+                          {item.children.map((child) => (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
+                                className="block py-1.5 pr-3 text-[13px] text-fg-muted"
+                              >
+                                — {child.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       ) : null}
-                    </Link>
-                    {item.children ? (
-                      <ul className="grid gap-1 py-2">
-                        {item.children.map((child) => (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              className="block py-1.5 pr-3 text-[13px] text-fg-muted"
-                            >
-                              — {child.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         ) : null}

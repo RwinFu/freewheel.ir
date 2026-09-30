@@ -9,14 +9,14 @@ type Result = {
   seriesName: string;
   seriesSlug: string;
   boreMm: number | null;
-  torqueNm: string | null;
+  torqueNm: number | null;
   href: string;
 };
 
 export function PartSearch({ className }: { className?: string }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Result[]>([]);
-  const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+  const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,11 +38,20 @@ export function PartSearch({ className }: { className?: string }) {
         });
         const data = (await response.json()) as { ok: boolean; items: Result[] };
         if (controller.signal.aborted) return;
-        setResults(data.items ?? []);
-        setState("done");
+        // «نتیجه‌ای نیست» با «جست‌وجو کار نمی‌کند» فرق دارد؛ پیام‌ها جداست.
+        if (!response.ok || !data.ok) {
+          setResults([]);
+          setState("error");
+        } else {
+          setResults(data.items ?? []);
+          setState("done");
+        }
         setOpen(true);
       } catch {
-        if (!controller.signal.aborted) setState("done");
+        if (controller.signal.aborted) return;
+        setResults([]);
+        setState("error");
+        setOpen(true);
       }
     }, short ? 0 : 260);
 
@@ -100,7 +109,15 @@ export function PartSearch({ className }: { className?: string }) {
 
       {open && query.trim().length >= 2 ? (
         <div className="absolute inset-x-0 top-full z-50 mt-1 border border-line bg-panel-2 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.95)]">
-          {results.length === 0 ? (
+          {state === "error" ? (
+            <p className="px-4 py-4 text-[13px] leading-7 text-fg-muted">
+              جست‌وجوی کاتالوگ فعلاً در دسترس نیست. کد قطعه را در{" "}
+              <Link href="/ringspann" className="text-accent hover:underline">
+                جدول سری‌ها
+              </Link>{" "}
+              ببینید یا کد را برای ما بفرستید.
+            </p>
+          ) : results.length === 0 ? (
             <p className="px-4 py-4 text-[13px] leading-7 text-fg-muted">
               چیزی پیدا نشد. کد کامل را بنویسید یا{" "}
               <Link href="/contact" className="text-accent hover:underline">
@@ -127,7 +144,7 @@ export function PartSearch({ className }: { className?: string }) {
                     </span>
                     <span className="shrink-0 text-end">
                       <span className="tnum block text-[12.5px] text-fg-muted" dir="ltr">
-                        {item.torqueNm ? `${Number(item.torqueNm).toLocaleString("en-US")} N·m` : "—"}
+                        {item.torqueNm ? `${item.torqueNm.toLocaleString("en-US")} N·m` : "—"}
                       </span>
                       <span className="tnum mt-1 block text-[11.5px] text-fg-dim" dir="ltr">
                         {item.boreMm ? `Ø ${item.boreMm} mm` : ""}

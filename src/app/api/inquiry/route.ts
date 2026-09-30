@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 
-import { db } from "@/db";
+import { db, hasDatabase } from "@/db";
 import { ensureDatabase } from "@/db/bootstrap";
 import { inquiries } from "@/db/schema";
+import { SHOPS } from "@/content/site";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -47,6 +48,20 @@ export async function POST(request: Request) {
     );
   }
 
+  // بدون پایگاه داده، فرم نمی‌تواند چیزی ذخیره کند؛ به‌جای خطای مبهم،
+  // مسیر جایگزین (فروشگاه آنلاین) را به کاربر نشان می‌دهیم.
+  if (!hasDatabase) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "ثبت آنلاین درخواست در حال حاضر فعال نیست. استعلام قیمت را از فروشگاه آنلاین بفرستید؛ برای سایزبندی هم می‌توانید تلفنی تماس بگیرید.",
+        fallback: { label: SHOPS.bearing.label, url: SHOPS.bearing.url },
+      },
+      { status: 503 },
+    );
+  }
+
   try {
     await ensureDatabase();
     const [row] = await db
@@ -68,8 +83,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, id: row?.id ?? null });
   } catch {
     return NextResponse.json(
-      { ok: false, error: "ثبت درخواست انجام نشد. لطفاً تلفنی تماس بگیرید." },
-      { status: 500 },
+      {
+        ok: false,
+        error:
+          "ثبت درخواست انجام نشد. لطفاً دوباره تلاش کنید یا استعلام را از فروشگاه آنلاین بفرستید.",
+        fallback: { label: SHOPS.bearing.label, url: SHOPS.bearing.url },
+      },
+      { status: 503 },
     );
   }
 }
