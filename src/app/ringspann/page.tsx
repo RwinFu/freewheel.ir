@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpLeft, MoveUpLeft } from "lucide-react";
 
+import { PartSearch } from "@/components/part-search";
 import { Reveal } from "@/components/motion";
 import { BuyNote, Callout, Panel, SectionHeading, SpecTable } from "@/components/ui";
 import {
@@ -50,6 +51,10 @@ export default function RingspannPage() {
               می‌گیریم. اعداد همه از کاتالوگ سازنده نقل شده است.
             </p>
           </Reveal>
+
+          <div className="mt-7 max-w-xl">
+            <PartSearch className="relative w-full" />
+          </div>
 
           <Reveal delay={0.15}>
             <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-line pt-8 sm:grid-cols-4">

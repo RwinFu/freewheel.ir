@@ -1,8 +1,8 @@
 export const SITE = {
   name: "freewheel.ir",
-  title: "freewheel.ir | مرجع فنی فری‌ویل و کلچ یک‌سره صنعتی",
+  title: "freewheel.ir | فری‌ویل صنعتی به زبان ساده",
   description:
-    "مرجع فنی فری‌ویل (کلچ یک‌سره) صنعتی؛ مشخصات کاتالوگی RINGSPANN سری FGR … R و سایر برندها، راهنمای سایزبندی و انتخاب برای نوار نقاله، نساجی، بسته‌بندی و چاپ.",
+    "فری‌ویل یا کلاچ یک‌طرفه چیست و چطور کار می‌کند؟ آشنایی ساده با سازوکار، کاربردها، انواع و راهنمای انتخاب فری‌ویل صنعتی.",
   locale: "fa_IR",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://freewheel.ir",
 } as const;

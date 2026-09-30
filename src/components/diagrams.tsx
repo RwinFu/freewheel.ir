@@ -1,10 +1,10 @@
-type SvgProps = { className?: string };
+type SvgProps = { className?: string; animate?: boolean };
 
-const LINE = "#39434c";
-const LINE_SOFT = "#9aa4ad";
-const ACCENT = "#ea580c";
-const LABEL = "#5c6770";
-const LABEL_STRONG = "#2c353e";
+const LINE = "#36515a";
+const LINE_SOFT = "#8da4a7";
+const ACCENT = "#b84d35";
+const LABEL = "#597076";
+const LABEL_STRONG = "#233c43";
 
 /** نقاشی خطی برش فری‌ویل اسپراگ — انیمیشن قفل و رها شدن */
 export function FreewheelHero({ className }: SvgProps) {
@@ -230,7 +230,7 @@ export function ExplodedView({ className }: SvgProps) {
 }
 
 /** سه تیپ فری‌ویل — دیاگرام‌های متحرک */
-export function SpragTypeDiagram({ className }: SvgProps) {
+export function SpragTypeDiagram({ className, animate = true }: SvgProps) {
   return (
     <svg viewBox="0 0 360 260" className={className} role="img" aria-label="فری‌ویل اسپراگ">
       <defs>
@@ -244,7 +244,7 @@ export function SpragTypeDiagram({ className }: SvgProps) {
 
       {Array.from({ length: 6 }, (_, i) => i * 60).map((deg) => (
         <g key={deg} transform={`rotate(${deg} 120 130)`}>
-          <g className="animate-sprag">
+          <g className={animate ? "animate-sprag" : undefined}>
             <path
               d="M 109 66 L 131 66 L 127 96 L 113 96 Z"
               fill="#101417"
@@ -269,7 +269,7 @@ export function SpragTypeDiagram({ className }: SvgProps) {
   );
 }
 
-export function RollerTypeDiagram({ className }: SvgProps) {
+export function RollerTypeDiagram({ className, animate = true }: SvgProps) {
   return (
     <svg viewBox="0 0 360 260" className={className} role="img" aria-label="فری‌ویل رولری">
       <defs>
@@ -280,20 +280,20 @@ export function RollerTypeDiagram({ className }: SvgProps) {
       {/* سطح گوه‌ای */}
       <path d="M 60 200 L 300 200 L 300 150 Z" fill="none" stroke={LINE} strokeWidth="1.3" />
       <line x1="60" y1="200" x2="300" y2="200" stroke={LINE} strokeWidth="1.3" />
-      <circle className="animate-roller" cx="112" cy="182" r="17" fill="#101417" stroke={ACCENT} strokeWidth="1.4" />
+      <circle className={animate ? "animate-roller" : undefined} cx="112" cy="182" r="17" fill="#101417" stroke={ACCENT} strokeWidth="1.4" />
       <text x="112" y="228" fontSize="11" fill={LABEL} textAnchor="middle">
         رولر
       </text>
 
       <path d="M 100 132 L 300 132" stroke={LINE_SOFT} strokeWidth="1.1" strokeDasharray="6 4" />
       <path d="M 60 200 L 300 150" stroke={ACCENT} strokeWidth="0.9" opacity="0.5" strokeDasharray="4 4" />
-      <text x="316" y="154" fontSize="11" fill={LABEL} textAnchor="end">
+      <text x="305" y="154" fontSize="11" fill={LABEL} textAnchor="start" direction="rtl">
         فضای گوه‌ای
       </text>
-      <text x="316" y="70" fontSize="11" fill={LABEL} textAnchor="end">
-        قفل: رولر در دهانه‌ی باریک می‌رود
+      <text x="305" y="70" fontSize="11" fill={LABEL} textAnchor="start" direction="rtl">
+        رولر در دهانه‌ی گوه قفل می‌شود
       </text>
-      <path d="M 130 176 L 210 176" stroke={ACCENT} strokeWidth="1.2" markerEnd="url(#sp-arrow)" />
+      <path d="M 130 176 L 210 176" stroke={ACCENT} strokeWidth="1.2" markerEnd="url(#rl-arrow)" />
     </svg>
   );
 }
