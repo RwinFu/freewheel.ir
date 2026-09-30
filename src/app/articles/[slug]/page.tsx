@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion";
 import { InquiryForm } from "@/components/inquiry-form";
 import { BuyNote, Breadcrumbs, Callout, Panel, RobotNote } from "@/components/ui";
 import { ARTICLES, getArticle } from "@/content/articles";
-import { SHOPS } from "@/content/site";
+import { SHOPS, SITE } from "@/content/site";
 
 type Params = { slug: string };
 
@@ -32,7 +32,7 @@ export async function generateMetadata({
       type: "article",
       title: article.title,
       description: article.dek,
-      url: `https://freewheel.ir/articles/${article.slug}`,
+      url: `${SITE.url}/articles/${article.slug}`,
     },
   };
 }
