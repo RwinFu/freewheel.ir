@@ -4,6 +4,8 @@ import { Loader2, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { searchCatalog } from "@/lib/catalog";
+
 type Result = {
   designation: string;
   seriesName: string;
@@ -33,6 +35,13 @@ export function PartSearch({ className }: { className?: string }) {
       }
       setState("loading");
       try {
+        if (process.env.NEXT_PUBLIC_STATIC_SITE === "1") {
+          // GitHub Pages has no API; use the same catalog as the Node fallback.
+          setResults(searchCatalog(term));
+          setState("done");
+          setOpen(true);
+          return;
+        }
         const response = await fetch(`/api/search?q=${encodeURIComponent(term)}`, {
           signal: controller.signal,
         });

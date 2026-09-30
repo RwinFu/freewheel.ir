@@ -1,7 +1,4 @@
-# The app uses server-side API routes and PostgreSQL, so GitHub Pages cannot
-# serve this build. Until a Node.js deployment target is configured, validate
-# every change without attempting a static Pages deployment.
-name: Validate Next.js app
+name: Validate and deploy site
 
 on:
   push:
@@ -13,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: app-validation-${{ github.ref }}
+  group: site-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -29,3 +26,31 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+      - run: npm run build:pages
+
+  deploy:
+    # Allow a maintainer to publish a reviewed branch manually before merging.
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/configure-pages@v5
+      - run: npm run build:pages
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: pages-out
+      - id: deployment
+        uses: actions/deploy-pages@v4

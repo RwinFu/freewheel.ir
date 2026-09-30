@@ -4,7 +4,7 @@ export const SITE = {
   description:
     "مرجع فنی فری‌ویل (کلچ یک‌سره) صنعتی؛ مشخصات کاتالوگی RINGSPANN سری FGR … R و سایر برندها، راهنمای سایزبندی و انتخاب برای نوار نقاله، نساجی، بسته‌بندی و چاپ.",
   locale: "fa_IR",
-  url: "https://freewheel.ir",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://freewheel.ir",
 } as const;
 
 export const SHOPS = {

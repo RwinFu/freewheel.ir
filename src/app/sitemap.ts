@@ -6,6 +6,8 @@ import { BRANDS } from "@/content/brands";
 import { RINGSPANN_SERIES } from "@/content/ringspann";
 import { SITE } from "@/content/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;
   const now = new Date();

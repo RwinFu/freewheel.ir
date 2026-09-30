@@ -3,6 +3,7 @@
 import { Check, Loader2 } from "lucide-react";
 import { useState } from "react";
 
+import { SHOPS } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 type State = "idle" | "sending" | "done" | "error";
@@ -71,6 +72,26 @@ export function InquiryForm({
       setError("ارتباط با سرور برقرار نشد. لطفاً تلفنی تماس بگیرید.");
       setState("error");
     }
+  }
+
+  if (process.env.NEXT_PUBLIC_STATIC_SITE === "1") {
+    return (
+      <div className="border border-line bg-panel px-6 py-8">
+        <h3 className="text-[16px] text-fg">درخواست قطعه و سایزبندی</h3>
+        <p className="mt-3 max-w-xl text-[13.5px] leading-7 text-fg-muted">
+          این نسخهٔ نمایشی روی GitHub Pages فرم ثبت درخواست ندارد و اطلاعاتی دریافت نمی‌کند.
+          برای استعلام قیمت و هماهنگی، به فروشگاه آنلاین مراجعه کنید.
+        </p>
+        <a
+          href={SHOPS.bearing.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex bg-accent px-5 py-2.5 text-[13px] font-semibold text-accent-ink hover:bg-accent-soft"
+        >
+          {SHOPS.bearing.label}
+        </a>
+      </div>
+    );
   }
 
   if (state === "done") {
