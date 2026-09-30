@@ -6,17 +6,17 @@
 }
 
 @theme {
-  --color-base: #08090b;
-  --color-panel: #0f1214;
-  --color-panel-2: #14181b;
-  --color-panel-3: #191e22;
-  --color-line: #232a30;
-  --color-line-2: #303941;
-  --color-fg: #e5e8ea;
-  --color-fg-muted: #98a2aa;
-  --color-fg-dim: #6d767e;
-  --color-accent: #ff6a13;
-  --color-accent-soft: #ff8a45;
+  --color-base: #f4f5f7;
+  --color-panel: #ffffff;
+  --color-panel-2: #eef1f3;
+  --color-panel-3: #e6eaed;
+  --color-line: #d9dee3;
+  --color-line-2: #c2cad2;
+  --color-fg: #171c21;
+  --color-fg-muted: #48525b;
+  --color-fg-dim: #707b85;
+  --color-accent: #ea580c;
+  --color-accent-soft: #ff6a13;
   --color-accent-ink: #2a1204;
 
   --text-2xs: 0.6875rem;
@@ -25,7 +25,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   * {
@@ -73,7 +73,7 @@
 
   ::selection {
     background: var(--color-accent);
-    color: #0a0a0a;
+    color: #ffffff;
   }
 
   :focus-visible {
@@ -99,14 +99,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0d0f;
+    background: #eceef1;
   }
   ::-webkit-scrollbar-thumb {
-    background: #262e35;
-    border: 2px solid #0b0d0f;
+    background: #c5ccd3;
+    border: 2px solid #eceef1;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #36414a;
+    background: #a9b3bc;
   }
 }
 
@@ -118,15 +118,15 @@
 /* فنی: پس‌زمینه‌ی شبکه‌ی نقشه‌کشی */
 @utility blueprint {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    linear-gradient(to right, rgba(23, 36, 48, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 36, 48, 0.06) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
 @utility hatch {
   background-image: repeating-linear-gradient(
     -45deg,
-    rgba(255, 255, 255, 0.055) 0 1px,
+    rgba(23, 36, 48, 0.09) 0 1px,
     transparent 1px 7px
   );
 }
@@ -325,7 +325,7 @@ html:not(.lenis) .reveal-item {
 .spec-table thead th {
   position: sticky;
   top: 0;
-  background: #12161a;
+  background: #eef1f4;
   color: var(--color-fg-muted);
   font-size: 0.75rem;
   font-weight: 500;
@@ -334,11 +334,11 @@ html:not(.lenis) .reveal-item {
 }
 
 .spec-table tbody tr:hover {
-  background: rgba(255, 106, 19, 0.045);
+  background: rgba(234, 88, 12, 0.06);
 }
 
 .spec-table tbody tr.is-current {
-  background: rgba(255, 106, 19, 0.09);
+  background: rgba(234, 88, 12, 0.12);
 }
 
 .spec-table td.num {

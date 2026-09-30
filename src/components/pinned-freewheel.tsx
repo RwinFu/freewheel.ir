@@ -113,7 +113,7 @@ export function PinnedFreewheel() {
                     strokeWidth="1"
                     strokeDasharray="18 6 3 6"
                   />
-                  <text x="30" y="40" fontSize="12" fill="#7d878f" letterSpacing="1.5" direction="ltr">
+                  <text x="30" y="40" fontSize="12" fill="#5c6770" letterSpacing="1.5" direction="ltr">
                     ROT {degrees}°
                   </text>
                 </svg>
