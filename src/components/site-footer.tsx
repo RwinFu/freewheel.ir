@@ -1,149 +1,74 @@
 import Link from "next/link";
+import { MoveUpLeft } from "lucide-react";
 
-import { APPLICATIONS } from "@/content/applications";
-import { CONTACT, FOOTER_NOTE, SHOPS } from "@/content/site";
-import { RINGSPANN_SERIES } from "@/content/ringspann";
-import { ARTICLES } from "@/content/articles";
+import { FOOTER_NOTE, SHOPS } from "@/content/site";
+
+const FOOTER_LINKS = [
+  { href: "/ringspann", label: "مدل‌ها و کاتالوگ" },
+  { href: "/applications", label: "کاربردهای صنعتی" },
+  { href: "/brands", label: "برندها" },
+  { href: "/articles", label: "راهنما و مقاله‌ها" },
+  { href: "/about", label: "درباره‌ی مرجع" },
+  { href: "/contact", label: "تماس و استعلام" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-panel">
-      <div className="mx-auto max-w-[1240px] px-6 py-14">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <svg viewBox="0 0 36 36" className="h-7 w-7" aria-hidden>
-                <circle cx="18" cy="18" r="16" fill="none" stroke="#39434c" strokeWidth="1.2" />
-                <circle cx="18" cy="18" r="9.5" fill="none" stroke="#39434c" strokeWidth="1.2" />
-                <circle cx="18" cy="18" r="3.4" fill="none" stroke="#ff6a13" strokeWidth="1.4" />
+    <footer className="bg-ocean text-white">
+      <div className="mx-auto grid max-w-[1240px] gap-10 px-6 py-14 md:grid-cols-[1.2fr_0.8fr_1fr] md:gap-14 md:px-8 md:py-16">
+        <div>
+          <Link href="/" className="inline-flex items-center gap-3" aria-label="صفحه‌ی اصلی freewheel.ir">
+            <span className="grid h-10 w-10 place-items-center rounded-[13px] border border-white/15 bg-white/5">
+              <svg viewBox="0 0 40 40" className="h-7 w-7" aria-hidden="true">
+                <circle cx="20" cy="20" r="15" fill="none" stroke="#B8CFD1" strokeWidth="2" />
+                <circle cx="20" cy="20" r="8" fill="none" stroke="#72DED2" strokeWidth="2" />
+                <path d="M20 4v7M36 20h-7M20 36v-7M4 20h7" stroke="#EE7958" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="20" cy="20" r="2.5" fill="#EE7958" />
               </svg>
-              <span dir="ltr" className="text-[15px] font-semibold tracking-tight">
-                freewheel.ir
-              </span>
-            </div>
-            <p className="mt-4 max-w-sm text-[13.5px] leading-7 text-fg-muted">
-              این سایت مرجع فنی فری‌ویل و کلچ یک‌سره صنعتی است: مشخصات کاتالوگی، راهنمای انتخاب
-              و سایزبندی. خرید و استعلام قیمت در فروشگاه آنلاین انجام می‌شود.
-            </p>
-
-            <div className="mt-6 space-y-3">
-              <a
-                href={SHOPS.bearing.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between border border-line-2 bg-panel-2 px-4 py-3 transition-colors hover:border-accent/60"
-              >
-                <span className="text-[13px] text-fg-muted">{SHOPS.bearing.label}</span>
-                <span dir="ltr" className="text-[13.5px] font-semibold text-accent">
-                  {SHOPS.bearing.name}
-                </span>
-              </a>
-              <a
-                href={SHOPS.robot.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between border border-line-2 bg-panel-2 px-4 py-3 transition-colors hover:border-accent/60"
-              >
-                <span className="text-[13px] text-fg-muted">{SHOPS.robot.label}</span>
-                <span dir="ltr" className="text-[13.5px] font-semibold text-accent">
-                  {SHOPS.robot.name}
-                </span>
-              </a>
-            </div>
-          </div>
-
-          <nav aria-label="سری‌های RINGSPANN">
-            <h3 className="text-[13px] font-semibold text-fg">RINGSPANN</h3>
-            <ul className="mt-4 space-y-2.5">
-              {RINGSPANN_SERIES.map((series) => (
-                <li key={series.slug}>
-                  <Link
-                    href={`/ringspann/${series.slug}`}
-                    className="text-[13px] text-fg-muted transition-colors hover:text-accent"
-                  >
-                    <span dir="ltr">{series.designation}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <nav aria-label="کاربردها">
-            <h3 className="text-[13px] font-semibold text-fg">کاربردها</h3>
-            <ul className="mt-4 space-y-2.5">
-              {APPLICATIONS.map((application) => (
-                <li key={application.slug}>
-                  <Link
-                    href={`/applications/${application.slug}`}
-                    className="text-[13px] text-fg-muted transition-colors hover:text-accent"
-                  >
-                    {application.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div>
-            <h3 className="text-[13px] font-semibold text-fg">مقالات و تماس</h3>
-            <ul className="mt-4 space-y-2.5">
-              {ARTICLES.slice(0, 3).map((article) => (
-                <li key={article.slug}>
-                  <Link
-                    href={`/articles/${article.slug}`}
-                    className="text-[13px] text-fg-muted transition-colors hover:text-accent"
-                  >
-                    {article.title.length > 42 ? `${article.title.slice(0, 42)}…` : article.title}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link href="/articles" className="text-[13px] text-fg-muted hover:text-accent">
-                  همه‌ی مقالات فنی
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-[13px] text-fg-muted hover:text-accent">
-                  درباره ما
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-[13px] text-fg-muted hover:text-accent">
-                  تماس و استعلام
-                </Link>
-              </li>
-              <li>
-                <Link href="/sitemap.xml" className="text-[13px] text-fg-muted hover:text-accent">
-                  نقشه‌ی سایت
-                </Link>
-              </li>
-            </ul>
-
-            <dl className="mt-6 space-y-2 border-t border-line pt-5 text-[12.5px] text-fg-muted">
-              <div className="flex gap-2">
-                <dt className="text-fg-dim">تلفن:</dt>
-                <dd dir="ltr" className="tnum">
-                  {CONTACT.phone}
-                </dd>
-              </div>
-              <div className="flex gap-2">
-                <dt className="text-fg-dim">ایمیل:</dt>
-                <dd dir="ltr">{CONTACT.email}</dd>
-              </div>
-              <div className="flex gap-2">
-                <dt className="text-fg-dim">نشانی:</dt>
-                <dd>{CONTACT.address}</dd>
-              </div>
-            </dl>
-          </div>
+            </span>
+            <span dir="ltr" className="text-[16px] font-bold tracking-tight text-white">
+              freewheel.ir
+            </span>
+          </Link>
+          <p className="mt-5 max-w-md text-[13.5px] leading-7 text-white/70">
+            فری‌ویل صنعتی را ساده بشناسید؛ از سازوکار و کاربردها تا مدل‌ها و راهنمای انتخاب.
+          </p>
         </div>
 
-        <div className="mt-12 border-t border-line pt-6">
-          <p className="text-[12.5px] leading-6 text-fg-dim">{FOOTER_NOTE}</p>
-          <p className="mt-4 flex flex-wrap items-center justify-between gap-3 text-[12px] text-fg-dim">
-            <span>© ۱۴۰۴ — freewheel.ir</span>
-            <span>RINGSPANN® نشان ثبت‌شده‌ی RINGSPANN GmbH است؛ این سایت فروش رسمی آن نیست.</span>
+        <nav aria-label="لینک‌های مفید">
+          <h2 className="text-[13px] font-semibold text-white">برای ادامه</h2>
+          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
+            {FOOTER_LINKS.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-[12.5px] text-white/65 transition-colors hover:text-mint">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <h2 className="text-[13px] font-semibold text-white">قطعه را پیدا کرده‌اید؟</h2>
+          <p className="mt-3 text-[12.5px] leading-6 text-white/65">
+            برای موجودی و قیمت، مستقیم از فروشگاه آنلاین استعلام بگیرید. برای انتخاب سایز و بررسی پروژه، با ما در تماس باشید.
           </p>
+          <a
+            href={SHOPS.bearing.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-semibold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          >
+            {SHOPS.bearing.name}
+            <MoveUpLeft className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-6 py-5 text-[11.5px] leading-6 text-white/50 sm:flex-row sm:items-center sm:justify-between md:px-8">
+          <p>{FOOTER_NOTE}</p>
+          <p className="shrink-0">© ۱۴۰۵ freewheel.ir</p>
         </div>
       </div>
     </footer>

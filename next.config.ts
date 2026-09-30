@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   ...(staticPreview ? { output: "export", basePath: "/freewheel.ir", trailingSlash: true } as const : {}),
   // Allow the sandbox's proxied preview hostname to load Next dev assets.
   allowedDevOrigins: ["**.e2b.app"],
+  // Keep the development-only Next.js badge out of the public-facing preview.
+  devIndicators: false,
   images: {
     ...(staticPreview ? { unoptimized: true } : {}),
     // تصاویر کاربردها به‌صورت فایل محلی در `src/assets/images` هستند؛ هیچ

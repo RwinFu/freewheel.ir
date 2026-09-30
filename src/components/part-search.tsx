@@ -90,13 +90,17 @@ export function PartSearch({ className }: { className?: string }) {
       <div className="flex items-center gap-2 border border-line-2 bg-panel-2 px-3 py-2 transition-colors focus-within:border-accent">
         <Search className="h-4 w-4 shrink-0 text-fg-dim" />
         <input
+          type="search"
+          name="partNumber"
+          autoComplete="off"
+          spellCheck={false}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           onFocus={() => results.length > 0 && setOpen(true)}
-          placeholder="جستجوی کد قطعه، مثلاً FGR 45"
+          placeholder="جست‌وجوی کد، مثل FGR 45…"
           dir="ltr"
           className="tnum w-full bg-transparent text-[13px] text-fg outline-none placeholder:text-fg-dim"
-          aria-label="جستجوی کد قطعه در کاتالوگ"
+          aria-label="جست‌وجوی کد قطعه در کاتالوگ"
         />
         {state === "loading" ? (
           <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin text-fg-dim" />

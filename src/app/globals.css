@@ -6,18 +6,23 @@
 }
 
 @theme {
-  --color-base: #f4f5f7;
+  --color-base: #f2f6f5;
   --color-panel: #ffffff;
-  --color-panel-2: #eef1f3;
-  --color-panel-3: #e6eaed;
-  --color-line: #d9dee3;
-  --color-line-2: #c2cad2;
-  --color-fg: #171c21;
-  --color-fg-muted: #48525b;
-  --color-fg-dim: #707b85;
-  --color-accent: #ea580c;
-  --color-accent-soft: #ff6a13;
-  --color-accent-ink: #2a1204;
+  --color-panel-2: #e8f0ef;
+  --color-panel-3: #d9e6e4;
+  --color-line: #d6e2e0;
+  --color-line-2: #a8bfbc;
+  --color-fg: #17343a;
+  --color-fg-muted: #4d686c;
+  --color-fg-dim: #5d7478;
+  --color-accent: #b84d35;
+  --color-accent-soft: #ee7958;
+  --color-accent-ink: #17343a;
+  --color-ocean: #102f3b;
+  --color-ocean-light: #1b4b56;
+  --color-mint: #72ded2;
+  --color-coral: #ee7958;
+  --color-steel: #b8cfd1;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.1rem;
@@ -115,11 +120,11 @@
   font-feature-settings: "tnum";
 }
 
-/* فنی: پس‌زمینه‌ی شبکه‌ی نقشه‌کشی */
+/* شبکه‌ی کم‌رنگ نقشه‌کشی فنی */
 @utility blueprint {
   background-image:
-    linear-gradient(to right, rgba(23, 36, 48, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(23, 36, 48, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(16, 47, 59, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 47, 59, 0.055) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -345,4 +350,98 @@ html:not(.lenis) .reveal-item {
   direction: ltr;
   text-align: left;
   font-variant-numeric: tabular-nums;
+}
+
+/* ---------- صفحه‌ی معرفی فری‌ویل ---------- */
+.hero-surface {
+  background-color: var(--color-ocean);
+  background-image:
+    radial-gradient(circle at 73% 42%, rgba(62, 165, 168, 0.2), transparent 25rem),
+    linear-gradient(135deg, #102f3b 0%, #153e49 56%, #102f3b 100%);
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(197, 226, 224, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 226, 224, 0.055) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(115deg, transparent 4%, #000 54%, transparent 100%);
+  opacity: 0.58;
+}
+
+.freewheel-demo {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 1.55rem);
+  overflow: hidden;
+  border: 1px solid rgba(218, 240, 237, 0.16);
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(76, 191, 188, 0.13), transparent 58%),
+    linear-gradient(145deg, rgba(28, 75, 84, 0.95), rgba(16, 47, 59, 0.98));
+  box-shadow: 0 30px 80px -42px rgba(0, 0, 0, 0.8);
+}
+
+.demo-outer,
+.demo-inner {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.demo-outer.is-locked,
+.demo-inner.is-locked {
+  transform: rotate(-10deg);
+}
+
+.demo-inner.is-free {
+  transform: rotate(10deg);
+}
+
+.home-type-card {
+  min-width: 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--color-line);
+  border-radius: 1.35rem;
+  background: var(--color-panel);
+}
+
+.home-type-art {
+  display: grid;
+  min-height: 12rem;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 30% 45%, rgba(114, 222, 210, 0.19), transparent 40%),
+    var(--color-panel-2);
+}
+
+.home-type-art svg {
+  max-height: 17rem;
+}
+
+.selection-panel {
+  background:
+    radial-gradient(circle at 11% 85%, rgba(57, 159, 166, 0.2), transparent 22rem),
+    linear-gradient(135deg, #102f3b 0%, #17424c 54%, #12343f 100%);
+}
+
+.selection-panel::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(225, 245, 240, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225, 245, 240, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  content: "";
+  mask-image: linear-gradient(270deg, #000, transparent 70%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-outer,
+  .demo-inner {
+    transition: none;
+  }
 }
