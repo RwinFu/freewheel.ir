@@ -9,10 +9,10 @@ sleep 1
 if [ "$1" != "--no-build" ]; then
   npx next build > /tmp/build.log 2>&1 || { tail -40 /tmp/build.log; exit 1; }
 fi
-# Static export: `next start` does not apply. Serve the generated `out/`
-# directory with the tiny dependency-free static server instead.
-nohup node scripts/static-server.mjs > /tmp/next.log 2>&1 &
-for i in $(seq 1 40); do
+# The app has server-side API routes (`/api/*`) and database-backed forms, so
+# it is served by the Next.js Node server, not by the static file server.
+HOSTNAME=0.0.0.0 nohup npx next start -p 3000 > /tmp/next.log 2>&1 &
+for i in $(seq 1 60); do
   sleep 0.5
   if curl -sf -o /dev/null http://localhost:3000/; then
     echo "ready on :3000"

@@ -292,7 +292,7 @@ export default function HomePage() {
                 })}
               </ul>
               <p className="mt-4 text-[11.5px] text-fg-dim">
-                محور افقت: گشتاور اسمی (N·m) — مقیاس لگاریتمی
+                محور افقی: گشتاور اسمی (N·m) — مقیاس لگاریتمی
               </p>
             </Panel>
           </Reveal>

@@ -40,21 +40,14 @@ export const metadata: Metadata = {
     "freewheel",
   ],
   alternates: { canonical: "/" },
-    openGraph: {
+  openGraph: {
     type: "website",
     locale: SITE.locale,
     siteName: "freewheel.ir",
     title: SITE.title,
     description: SITE.description,
     url: SITE.url,
-    images: [
-      {
-        url: "/og-freewheel.jpg",
-        width: 1200,
-        height: 630,
-        alt: "نقاشی خطی فری‌ویل اسپراگ — نمای انفجادی",
-      },
-    ],
+    // تصویر شاخص را `src/app/opengraph-image.tsx` می‌سازد؛ فایل jpg جدا لازم نیست.
   },
   twitter: {
     card: "summary_large_image",

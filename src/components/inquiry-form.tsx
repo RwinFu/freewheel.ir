@@ -22,6 +22,7 @@ export function InquiryForm({
 }) {
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState("");
+  const [fallback, setFallback] = useState<{ label: string; url: string } | null>(null);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -39,8 +40,10 @@ export function InquiryForm({
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (state === "sending") return;
     setState("sending");
     setError("");
+    setFallback(null);
 
     try {
       const response = await fetch("/api/inquiry", {
@@ -52,9 +55,14 @@ export function InquiryForm({
           pagePath: typeof window !== "undefined" ? window.location.pathname : "/",
         }),
       });
-      const data = (await response.json()) as { ok: boolean; error?: string };
+      const data = (await response.json()) as {
+        ok: boolean;
+        error?: string;
+        fallback?: { label: string; url: string };
+      };
       if (!response.ok || !data.ok) {
         setError(data.error ?? "ثبت درخواست انجام نشد.");
+        setFallback(data.fallback ?? null);
         setState("error");
         return;
       }
@@ -191,7 +199,24 @@ export function InquiryForm({
           {state === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {state === "sending" ? "در حال ارسال" : "ارسال درخواست"}
         </button>
-        {state === "error" ? <span className="text-[12.5px] text-accent">{error}</span> : null}
+        {state === "error" ? (
+          <span role="alert" className="text-[12.5px] leading-6 text-accent">
+            {error}
+            {fallback ? (
+              <>
+                {" "}
+                <a
+                  href={fallback.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-accent/40 underline-offset-4"
+                >
+                  {fallback.label}
+                </a>
+              </>
+            ) : null}
+          </span>
+        ) : null}
         <span className="text-[12px] text-fg-dim">
           مشخصات شما فقط برای پاسخ به همین درخواست استفاده می‌شود.
         </span>

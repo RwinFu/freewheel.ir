@@ -56,7 +56,7 @@ async function seedCatalog() {
       brand: "RINGSPANN",
       designation: size.designation,
       seriesSlug: series.slug,
-      seriesName: series.designation,
+      seriesName: `RINGSPANN ${series.designation}`,
       boreMm: size.bore,
       torqueNm: String(size.torqueNm),
       speedInner: size.speedInner,

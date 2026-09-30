@@ -1,8 +1,17 @@
+import type { StaticImageData } from "next/image";
+
+import conveyorMill from "@/assets/images/conveyor-mill.jpg";
+import foodProcessing from "@/assets/images/food-processing.jpg";
+import packagingLine from "@/assets/images/packaging-line.jpg";
+import printingPress from "@/assets/images/printing-press.jpg";
+import quarryConveyor from "@/assets/images/quarry-conveyor.jpg";
+import textileMill from "@/assets/images/textile-mill.jpg";
+
 export type Application = {
   slug: string;
   title: string;
   kicker: string;
-  image: { src: string; alt: string; credit: string };
+  image: { src: StaticImageData; alt: string; credit: string };
   intro: string[];
   scenario: { title: string; body: string }[];
   recommended: string[];
@@ -18,9 +27,9 @@ export const APPLICATIONS: Application[] = [
     title: "نوار نقاله و بک‌استاپ",
     kicker: "کاربرد اصلی",
     image: {
-      src: "https://images.pexels.com/photos/11679684/pexels-photo-11679684.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "نوار نقاله در سالن صنعتی",
-      credit: "Pexels / Mark Stebnicki",
+      src: quarryConveyor,
+      alt: "نوار نقاله‌های شیب‌دار در واحد دانه‌بندی و دپوی مواد",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "نوار نقاله‌ی شیب‌دار وقتی خاموش می‌شود، به‌خاطر وزن مواد روی آن به سمت پایین می‌غلتد. اگر جلوی این برگشت گرفته نشود، مواد روی سر پولی ریخته می‌شود، تسمه جابه‌جا می‌شود و در بدترین حالت کابل یا اورلود آسیب می‌بیند.",
@@ -63,9 +72,9 @@ export const APPLICATIONS: Application[] = [
     title: "نساجی و ریسندگی",
     kicker: "پرتکرارترین درخواست ما",
     image: {
-      src: "https://images.pexels.com/photos/8246480/pexels-photo-8246480.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "خط تولید نخ در کارخانه نساجی",
-      credit: "Pexels / Rajesh Kumar Verma",
+      src: textileMill,
+      alt: "خط بافندگی با نخ‌کشی و غلتک‌های ماشین نساجی",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "در نساجی، فری‌ویل دو کار انجام می‌دهد: در مکانیزم‌های ایندکسینگ حرکت پله‌ای می‌سازد و در درایوهای غلتکی، اجازه می‌دهد غلتک با اینرسی خودش آزاد بایستد بدون اینکه به موتور فشار بیاورد.",
@@ -108,9 +117,9 @@ export const APPLICATIONS: Application[] = [
     title: "صنایع غذایی و نوشیدنی",
     kicker: "الزام بهبه‌داشت",
     image: {
-      src: "https://images.pexels.com/photos/18631424/pexels-photo-18631424.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "بطری‌های آب روی نوار نقاله در کارخانه",
-      credit: "Pexels / Vladimir Srajber",
+      src: foodProcessing,
+      alt: "مخازن و خط تولید استیل در کارخانه‌ی صنایع غذایی",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "در خطوط پرکن و بطری‌کن، فری‌ویل در مکانیزم‌های ایندکسینگ و در جداسازی درایو اصلی از درایو کمکی به کار می‌رود. نکته‌ی تعیین‌کننده، شست‌وشوی روزانه با محلول و کف است.",
@@ -153,9 +162,9 @@ export const APPLICATIONS: Application[] = [
     title: "بسته‌بندی و پالتیزه",
     kicker: "حرکت پله‌ای دقیق",
     image: {
-      src: "https://images.pexels.com/photos/5532664/pexels-photo-5532664.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "خط بسته‌بندی قوطی‌های نوشیدنی",
-      credit: "Pexels / cottonbro studio",
+      src: packagingLine,
+      alt: "خط بسته‌بندی و نوار نقاله‌ی استیل در سالن تمیز",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "در بسته‌بندی، فری‌ویل بیشتر به‌عنوان کلاچ ایندکسینگ و به‌عنوان جداکننده‌ی دو محرک دیده می‌شود. هر پله باید در جای خودش بایستد؛ اگر فری‌ویل خزش داشته باشد، بسته‌ی بعدی کج می‌چسبد.",
@@ -194,9 +203,9 @@ export const APPLICATIONS: Application[] = [
     title: "چاپ و تبدیل کاغذ",
     kicker: "کنترل کشش",
     image: {
-      src: "https://images.pexels.com/photos/37394506/pexels-photo-37394506.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "چاپخانه و ماشین چاپ",
-      credit: "Pexels / Bornil Sarker",
+      src: printingPress,
+      alt: "رول‌ها و غلتک‌های ماشین چاپ افست",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "در خطوط چاپ و تبدیل، فری‌ویل روی کنترل کشش رول و روی مکانیزم‌های تغذیه‌ی ورق کار می‌کند. قطع کشش در لحظه‌ی تعویض رول یعنی خط چاپ و ضایعات.",
@@ -235,9 +244,9 @@ export const APPLICATIONS: Application[] = [
     title: "معدن و سنگ‌شکن",
     kicker: "سنگین‌ترین کاربرد",
     image: {
-      src: "https://images.pexels.com/photos/17320062/pexels-photo-17320062.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1280",
-      alt: "سنگ‌شکن در معدن",
-      credit: "Pexels / marcin studio",
+      src: conveyorMill,
+      alt: "سالن صنعتی سنگین با تجهیزات خط تولید و سازه‌ی فلزی",
+      credit: "آرشیو تصاویر freewheel.ir",
     },
     intro: [
       "سنگ‌شکن و نوار نقاله‌ی معدن، سنگین‌ترین سناریو برای بک‌استاپ هستند. گشتاور برگشت بالا، گرد و غبار فراوان و دمای محیط سخت. اینجا اشتباه در سایزبندی فقط هزینه‌ی یک قطعه نیست؛ توقف خط چند روز هزینه دارد.",
