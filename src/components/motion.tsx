@@ -19,7 +19,14 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/** آشکارسازی بخش‌ها با اسکرول (GSAP ScrollTrigger) */
+/**
+ * آشکارسازی بخش‌ها با اسکرول.
+ *
+ * عمداً از IntersectionObserver استفاده می‌کند، نه ScrollTrigger: لنیس اسکرول
+ * نرم را خودش مدیریت می‌کند و پرش‌های برنامه‌ای (لنگر، بازگشت از تاریخچه)
+ * می‌توانند رویداد اسکرول را از دست بدهند. نتیجه‌اش محتوایی است که با
+ * `opacity: 0` جا می‌ماند. IntersectionObserver به منبع اسکرول وابسته نیست.
+ */
 export function Reveal({
   children,
   as: Tag = "div",
@@ -34,22 +41,26 @@ export function Reveal({
   y?: number;
 }) {
   const ref = useRef<HTMLElement | null>(null);
-  useGsap();
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || typeof IntersectionObserver === "undefined") {
       el.classList.add("is-in");
       return;
     }
-    const trigger = ScrollTrigger.create({
-      trigger: el,
-      start: "top 88%",
-      once: true,
-      onEnter: () => el.classList.add("is-in"),
-    });
-    return () => trigger.kill();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          el.classList.add("is-in");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [y]);
 
   return (

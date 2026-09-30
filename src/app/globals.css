@@ -2,27 +2,38 @@
 
 @theme inline {
   --font-sans: var(--font-vazir), "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-vazir), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-vazir-display), var(--font-vazir), "Vazirmatn", ui-sans-serif, sans-serif;
 }
 
+/* ------------------------------------------------------------------
+   پالت «فولاد و نقشه‌کشی»
+   رنگ‌ها معنا دارند، نه فقط تزئین:
+   • ink / ocean  → ساختار، تیتر، سطوح پرکننده
+   • mint / accent→ حالت آزاد، لینک، کنش اصلی
+   • coral / lock → حالت قفل، هشدار، خطر
+------------------------------------------------------------------ */
 @theme {
-  --color-base: #f2f6f5;
+  --color-base: #eaeff0;
+  --color-paper: #f6f8f8;
   --color-panel: #ffffff;
-  --color-panel-2: #e8f0ef;
-  --color-panel-3: #d9e6e4;
-  --color-line: #d6e2e0;
-  --color-line-2: #a8bfbc;
-  --color-fg: #17343a;
-  --color-fg-muted: #4d686c;
-  --color-fg-dim: #5d7478;
-  --color-accent: #b84d35;
-  --color-accent-soft: #ee7958;
-  --color-accent-ink: #17343a;
-  --color-ocean: #102f3b;
-  --color-ocean-light: #1b4b56;
-  --color-mint: #72ded2;
+  --color-panel-2: #e2eaea;
+  --color-panel-3: #d2dede;
+  --color-line: #d3dede;
+  --color-line-2: #9db4b5;
+  --color-fg: #0f2a31;
+  --color-fg-muted: #415c61;
+  --color-fg-dim: #577175;
+  --color-accent: #0e7568;
+  --color-accent-soft: #1fb6a6;
+  --color-accent-ink: #f1fbf9;
+  --color-ocean: #0f2a31;
+  --color-ocean-2: #143942;
+  --color-ocean-light: #1c4b54;
+  --color-mint: #5fd8c6;
+  --color-mint-deep: #0e7568;
   --color-coral: #ee7958;
-  --color-steel: #b8cfd1;
+  --color-lock: #bc4a2c;
+  --color-steel: #a9c1c3;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.1rem;
@@ -70,15 +81,14 @@
   body {
     background-color: var(--color-base);
     color: var(--color-fg);
-    font-feature-settings: "ss01" off;
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: #ffffff;
+    background: var(--color-accent-soft);
+    color: #08302c;
   }
 
   :focus-visible {
@@ -90,8 +100,10 @@
   h2,
   h3,
   h4 {
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.42;
     text-wrap: balance;
   }
 
@@ -104,20 +116,30 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #eceef1;
+    background: #e6edee;
   }
   ::-webkit-scrollbar-thumb {
-    background: #c5ccd3;
-    border: 2px solid #eceef1;
+    background: #c0cfd0;
+    border: 2px solid #e6edee;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #a9b3bc;
+    background: #a4b8ba;
   }
 }
+
+/* ---------------- utilities ---------------- */
 
 @utility tnum {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+}
+
+/* کدهای فنی لاتین: یکنواخت، خوانا و بدون قاطی‌شدن با متن فارسی */
+@utility code {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
 }
 
 /* شبکه‌ی کم‌رنگ نقشه‌کشی فنی */
@@ -142,8 +164,57 @@
   fill: #7d878f;
 }
 
-/* ---------- انیمیشن هیرو: قفل و رها شدن ---------- */
-/* دور درایو: ۴٫۸ ثانیه در هر دور — ثابت و خطی */
+/* سرصفحه‌ی بخش‌ها: یک خط مویی + برچسب فنی، شبیه کادر نقشه‌ها */
+@utility rule-frame {
+  border-top: 1px solid var(--color-line);
+}
+
+/* ---------------- رسانه‌ی محصول ---------------- */
+/*
+ * رندرهای محصول روی پس‌زمینه‌ی اوشن‌رنگ تولید شده‌اند؛ پس «قاب» آن‌ها هم
+ * همان اوشن است تا عکس و کارت یک تکه دیده شوند، نه عکسِ چسبانده‌شده.
+ */
+.plate-shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 38%, #17414b 0%, #0f2a31 68%);
+}
+
+.plate-shot img {
+  transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1), filter 420ms ease;
+}
+
+.group:hover .plate-shot img,
+.group:focus-visible .plate-shot img {
+  transform: scale(1.035);
+}
+
+/* خط اندازه‌گیری گوشه‌ی قاب: نشان می‌دهد این تصویر «قطعه» است نه تصویر تزئینی */
+.plate-ticks::before,
+.plate-ticks::after {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(214, 238, 235, 0.5);
+  content: "";
+  pointer-events: none;
+}
+.plate-ticks::before {
+  top: 12px;
+  right: 12px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+.plate-ticks::after {
+  bottom: 12px;
+  left: 12px;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+/* ---------------- انیمیشن ---------------- */
+
 @keyframes fwDrive {
   from {
     transform: rotate(0deg);
@@ -153,7 +224,211 @@
   }
 }
 
-/* چرخه‌ی کامل ۹٫۶ ثانیه: ۴۰٪ آزاد، ۵۰٪ قفل (دقیقاً یک دور درایو)، ۱۰٪ رها */
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.marquee-track {
+  animation: marquee-rtl 46s linear infinite;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 16px));
+  transition:
+    opacity 0.66s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.66s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-item.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* توالی ورود هیرو: یک پرده‌ی واحد، نه انیمیشن پخش‌وپلا در هر بخش */
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes heroShot {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: heroRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-shot {
+  animation: heroShot 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* اگر اسکریپت لود نشد، محتوا مخفی نماند */
+html:not(.lenis) .reveal-item {
+  animation: reveal-fallback 0.01s 1.6s forwards;
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+  .marquee-track {
+    transform: none;
+  }
+  .hero-rise,
+  .hero-shot {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------- جدول مشخصات ---------------- */
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.spec-table th,
+.spec-table td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.65rem 0.85rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.spec-table thead th {
+  position: sticky;
+  top: 0;
+  background: #eef3f3;
+  color: var(--color-fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+.spec-table tbody tr {
+  transition: background-color 160ms ease;
+}
+
+.spec-table tbody tr:hover {
+  background: rgba(31, 182, 166, 0.09);
+}
+
+.spec-table tbody tr.is-current {
+  background: rgba(31, 182, 166, 0.16);
+  box-shadow: inset 3px 0 0 var(--color-accent-soft);
+}
+
+.spec-table td.num {
+  direction: ltr;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- هیرو ---------------- */
+
+.hero-instrument {
+  background:
+    radial-gradient(circle at 78% 30%, rgba(95, 216, 198, 0.16), transparent 30rem),
+    linear-gradient(160deg, #0f2a31 0%, #123842 58%, #0d242b 100%);
+}
+
+.hero-instrument::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(214, 238, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 238, 235, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(120% 90% at 82% 20%, #000 10%, transparent 72%);
+  content: "";
+  pointer-events: none;
+}
+
+.selection-panel {
+  background:
+    radial-gradient(circle at 12% 86%, rgba(31, 182, 166, 0.18), transparent 22rem),
+    linear-gradient(135deg, #0f2a31 0%, #16414b 54%, #102c34 100%);
+}
+
+.selection-panel::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(225, 245, 240, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225, 245, 240, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  content: "";
+  mask-image: linear-gradient(270deg, #000, transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------------- انیمیشن سامانه‌ی SVG قطعه ----------------
+ * این کلاس‌ها به گرافیک‌های داخل `src/components/diagrams.tsx` وصل‌اند:
+ * هر گروه SVG با همین نام‌ها می‌چرخد و قفل/رها می‌شود.
+ * چرخه ۹.۶ ثانیه: ۴۰٪ آزاد، ۵۰٪ قفل (یک دور کامل درایو)، ۱۰٪ رها.
+ */
+
 @keyframes fwCoupled {
   0%,
   40% {
@@ -219,15 +494,6 @@
   }
 }
 
-@keyframes marquee-rtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 .animate-drive {
   animation: fwDrive 4.8s linear infinite;
   transform-box: fill-box;
@@ -259,127 +525,30 @@
   animation: fwFlow 4s linear infinite;
 }
 
-.marquee-track {
-  animation: marquee-rtl 42s linear infinite;
-}
-
-.marquee-wrap:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-.reveal-item {
-  opacity: 0;
-  transform: translateY(var(--reveal-y, 18px));
-  transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal-item.is-in {
-  opacity: 1;
-  transform: none;
-}
-
-/* اگر اسکریپت لود نشد، محتوا مخفی نماند */
-html:not(.lenis) .reveal-item {
-  animation: reveal-fallback 0.01s 1.6s forwards;
-}
-
-@keyframes reveal-fallback {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-  .reveal-item {
-    opacity: 1;
-    transform: none;
-  }
-  .marquee-track {
-    transform: none;
-  }
-}
-
-/* ---------- جدول مشخصات ---------- */
-.spec-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
-}
-
-.spec-table th,
-.spec-table td {
-  border-bottom: 1px solid var(--color-line);
-  padding: 0.6rem 0.75rem;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.spec-table thead th {
-  position: sticky;
-  top: 0;
-  background: #eef1f4;
-  color: var(--color-fg-muted);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  z-index: 2;
-}
-
-.spec-table tbody tr:hover {
-  background: rgba(234, 88, 12, 0.06);
-}
-
-.spec-table tbody tr.is-current {
-  background: rgba(234, 88, 12, 0.12);
-}
-
-.spec-table td.num {
-  direction: ltr;
-  text-align: left;
-  font-variant-numeric: tabular-nums;
-}
-
-/* ---------- صفحه‌ی معرفی فری‌ویل ---------- */
-.hero-surface {
-  background-color: var(--color-ocean);
-  background-image:
-    radial-gradient(circle at 73% 42%, rgba(62, 165, 168, 0.2), transparent 25rem),
-    linear-gradient(135deg, #102f3b 0%, #153e49 56%, #102f3b 100%);
-}
-
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(197, 226, 224, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(197, 226, 224, 0.055) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(115deg, transparent 4%, #000 54%, transparent 100%);
-  opacity: 0.58;
-}
-
-.freewheel-demo {
+/* ---------------- پنل ابزار: نمایشگر حالت فری‌ویل ----------------
+ * سطح تیره‌ی «ابزار اندازه‌گیری» با خطوط مدرج، تا از کارت‌های سفید
+ * صفحه جدا باشد و رنگ‌های سیگنال (مینت/کورال) روی آن خوانا بمانند.
+ */
+.instrument-panel {
   position: relative;
-  min-width: 0;
-  padding: clamp(1rem, 3vw, 1.55rem);
   overflow: hidden;
-  border: 1px solid rgba(218, 240, 237, 0.16);
-  border-radius: 1.75rem;
+  border: 1px solid rgba(214, 238, 235, 0.14);
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 50% 45%, rgba(76, 191, 188, 0.13), transparent 58%),
-    linear-gradient(145deg, rgba(28, 75, 84, 0.95), rgba(16, 47, 59, 0.98));
-  box-shadow: 0 30px 80px -42px rgba(0, 0, 0, 0.8);
+    radial-gradient(circle at 50% 42%, rgba(95, 216, 198, 0.14), transparent 62%),
+    linear-gradient(150deg, #123842 0%, #0f2a31 100%);
+  box-shadow: 0 26px 60px -46px rgba(8, 30, 36, 0.9);
+}
+
+.instrument-panel::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(214, 238, 235, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 238, 235, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  content: "";
+  pointer-events: none;
 }
 
 .demo-outer,
@@ -396,47 +565,6 @@ html:not(.lenis) .reveal-item {
 
 .demo-inner.is-free {
   transform: rotate(10deg);
-}
-
-.home-type-card {
-  min-width: 0;
-  padding: clamp(1rem, 2.5vw, 1.5rem);
-  border: 1px solid var(--color-line);
-  border-radius: 1.35rem;
-  background: var(--color-panel);
-}
-
-.home-type-art {
-  display: grid;
-  min-height: 12rem;
-  place-items: center;
-  overflow: hidden;
-  border-radius: 1rem;
-  background:
-    radial-gradient(circle at 30% 45%, rgba(114, 222, 210, 0.19), transparent 40%),
-    var(--color-panel-2);
-}
-
-.home-type-art svg {
-  max-height: 17rem;
-}
-
-.selection-panel {
-  background:
-    radial-gradient(circle at 11% 85%, rgba(57, 159, 166, 0.2), transparent 22rem),
-    linear-gradient(135deg, #102f3b 0%, #17424c 54%, #12343f 100%);
-}
-
-.selection-panel::before {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(225, 245, 240, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(225, 245, 240, 0.055) 1px, transparent 1px);
-  background-size: 36px 36px;
-  content: "";
-  mask-image: linear-gradient(270deg, #000, transparent 70%);
-  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

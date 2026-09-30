@@ -30,55 +30,9 @@ export const CONTACT = {
   hours: "شنبه تا چهارشنبه، ۸ تا ۱۷ — پنجشنبه ۸ تا ۱۳",
 } as const;
 
-export type NavItem = {
-  href: string;
-  label: string;
-  children?: { href: string; label: string }[];
-};
-
-export const NAV: NavItem[] = [
-  {
-    href: "/ringspann",
-    label: "RINGSPANN",
-    children: [
-      { href: "/ringspann/fgr-r", label: "سری FGR … R (اسپراگ‌دار رولری)" },
-      { href: "/ringspann/fz", label: "فری‌ویل داخلی FZ" },
-      { href: "/ringspann/bm-r", label: "کامل BM … R" },
-      { href: "/ringspann/fb", label: "کامل اسپراگ FB" },
-      { href: "/ringspann/frhn", label: "بک‌استاپ FRHN" },
-      { href: "/ringspann/fkh", label: "لیفت‌آف هیدرودینامیک FKh" },
-      { href: "/ringspann/fa-fav", label: "با اهرم FA / FAV" },
-    ],
-  },
-  {
-    href: "/brands",
-    label: "برندها",
-    children: [
-      { href: "/brands/ringspann", label: "RINGSPANN" },
-      { href: "/brands/ina", label: "INA" },
-      { href: "/brands/skf", label: "SKF" },
-      { href: "/brands/stieber", label: "Stieber" },
-      { href: "/brands/koyo", label: "Koyo" },
-      { href: "/brands/luk", label: "LUK" },
-      { href: "/brands/niko", label: "NIKO" },
-    ],
-  },
-  {
-    href: "/applications",
-    label: "کاربردها",
-    children: [
-      { href: "/applications/conveyor", label: "نوار نقاله و بک‌استاپ" },
-      { href: "/applications/textile", label: "نساجی و ریسندگی" },
-      { href: "/applications/food", label: "صنایع غذایی و نوشیدنی" },
-      { href: "/applications/packaging", label: "بسته‌بندی و پالتیزه" },
-      { href: "/applications/printing", label: "چاپ و تبدیل کاغذ" },
-      { href: "/applications/mining", label: "معدن و سنگ‌شکن" },
-    ],
-  },
-  { href: "/articles", label: "مقالات فنی" },
-  { href: "/about", label: "درباره ما" },
-  { href: "/contact", label: "تماس" },
-];
-
+/**
+ * ناوبری سایت در هدر و فوتر از خود کاتالوگ (`src/content/ringspann.ts`)
+ * ساخته می‌شود تا فهرست سری‌ها یک منبع واحد داشته باشد.
+ */
 export const FOOTER_NOTE =
-  "اعداد و ابعادی که در این سایت آمده از کاتالوگ و دیتاشیت سازنده‌ها نقل شده است. برای خرید قطعه، استعلام قیمت را از فروشگاه آنلاین بگیرید؛ برای پروژه و سایزبندی، با ما تماس بگیرید." as const;
+  "اعداد و ابعادی که در این سایت آمده از کاتالوگ و دیتاشیت سازنده‌ها نقل شده است و تصاویر قطعات، رندر شبیه‌سازی‌شده برای شناختن اجزاست؛ برای تطبیق ظاهری قطعه، عکس قطعه‌ی خودتان را بفرستید. برای خرید قطعه، استعلام قیمت را از فروشگاه آنلاین بگیرید؛ برای پروژه و سایزبندی، با ما تماس بگیرید." as const;

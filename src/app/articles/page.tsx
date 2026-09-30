@@ -29,7 +29,7 @@ export default function ArticlesPage() {
               <span className="text-line-2">/</span>
               <span className="text-fg-muted">مقالات فنی</span>
             </nav>
-            <h1 className="max-w-3xl text-[32px] leading-tight text-fg sm:text-[40px]">
+            <h1 className="font-display max-w-3xl text-[32px] leading-[1.35] text-fg sm:text-[42px]">
               مقالات فنی
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-fg-muted">
@@ -44,7 +44,7 @@ export default function ArticlesPage() {
         <Reveal>
           <Link
             href={`/articles/${lead.slug}`}
-            className="group grid gap-6 border border-line bg-panel p-8 transition-colors hover:border-accent/50 lg:grid-cols-[1.4fr_auto] lg:items-end"
+            className="group grid gap-6 rounded-[18px] border border-line bg-panel p-8 transition-colors hover:border-accent/50 lg:grid-cols-[1.4fr_auto] lg:items-end"
           >
             <div>
               <div className="flex flex-wrap items-center gap-3 text-[12px] text-fg-dim">
@@ -69,7 +69,7 @@ export default function ArticlesPage() {
             <Reveal key={article.slug} delay={index * 0.04}>
               <Link
                 href={`/articles/${article.slug}`}
-                className="group flex h-full flex-col justify-between border border-line bg-panel p-7 transition-colors hover:border-accent/50"
+                className="group flex h-full flex-col justify-between rounded-[16px] border border-line bg-panel p-7 transition-colors hover:border-accent/50"
               >
                 <div>
                   <div className="flex flex-wrap items-center gap-3 text-[12px] text-fg-dim">
@@ -92,7 +92,7 @@ export default function ArticlesPage() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-panel/40">
+      <section className="border-t border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading
             kicker="راهنمای سریع"

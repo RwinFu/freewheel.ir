@@ -35,8 +35,8 @@ export default async function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#102f3b',
-          color: '#f2f6f5',
+          background: '#0f2a31',
+          color: '#f6f8f8',
           padding: '52px 60px',
           fontFamily: 'Vazirmatn',
         }}
@@ -44,19 +44,19 @@ export default async function OpengraphImage() {
         {/* ---- masthead ---- */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <svg width="50" height="50" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="12" stroke="#f2f6f5" strokeWidth="1.5" />
-            <circle cx="14" cy="14" r="5.4" stroke="#f2f6f5" strokeWidth="1.5" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" transform="rotate(60 14 14)" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" transform="rotate(120 14 14)" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" transform="rotate(180 14 14)" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" transform="rotate(240 14 14)" />
-            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#ee7958" transform="rotate(300 14 14)" />
+            <circle cx="14" cy="14" r="12" stroke="#eaeff0" strokeWidth="1.5" />
+            <circle cx="14" cy="14" r="5.4" stroke="#eaeff0" strokeWidth="1.5" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" transform="rotate(60 14 14)" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" transform="rotate(120 14 14)" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" transform="rotate(180 14 14)" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" transform="rotate(240 14 14)" />
+            <rect x="12.8" y="1.6" width="2.4" height="3.2" rx="0.4" fill="#5fd8c6" transform="rotate(300 14 14)" />
           </svg>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
               freewheel
-              <span style={{ color: '#ee7958' }}>.ir</span>
+              <span style={{ color: '#5fd8c6' }}>.ir</span>
             </span>
             <span style={{ fontSize: 16, color: '#a9c0c3', direction: 'ltr' }}>
               Freewheel and one-way clutch reference tables
@@ -67,7 +67,7 @@ export default async function OpengraphImage() {
         {/* ---- headline + drawing ---- */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 48 }}>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <span style={{ fontSize: 19, color: '#ee7958', direction: 'ltr', letterSpacing: '0.14em' }}>
+            <span style={{ fontSize: 19, color: '#5fd8c6', direction: 'ltr', letterSpacing: '0.14em' }}>
               RINGSPANN — SERIE R
             </span>
             <span style={{ fontSize: 50, fontWeight: 700, lineHeight: 1.3, marginTop: 16 }}>
@@ -82,7 +82,7 @@ export default async function OpengraphImage() {
             <circle cx="100" cy="100" r="93" stroke="#31535b" strokeWidth="1.3" />
             <circle cx="100" cy="100" r="84" stroke="#23434c" strokeWidth="1" />
             <circle cx="100" cy="100" r="66" stroke="#8da4a7" strokeWidth="1.6" />
-            <circle cx="100" cy="100" r="23" fill="#102f3b" stroke="#ee7958" strokeWidth="1.8" />
+            <circle cx="100" cy="100" r="23" fill="#0f2a31" stroke="#5fd8c6" strokeWidth="1.8" />
             {Array.from({ length: 12 }, (_, i) => {
               const a = (i * Math.PI) / 6
               return (
@@ -105,7 +105,7 @@ export default async function OpengraphImage() {
                   cx={100 + Math.cos(a) * 77}
                   cy={100 + Math.sin(a) * 77}
                   r="4.5"
-                  fill="#102f3b"
+                  fill="#0f2a31"
                   stroke="#94aaad"
                   strokeWidth="1"
                 />

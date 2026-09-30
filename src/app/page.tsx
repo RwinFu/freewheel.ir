@@ -1,36 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from "lucide-react";
+import {
+  ArrowUpLeft,
+  BadgeCheck,
+  Gauge,
+  Layers,
+  LockKeyhole,
+  MoveUpLeft,
+  RotateCcw,
+  Ruler,
+  Timer,
+} from "lucide-react";
+
+import heroCutaway from "@/assets/images/product/hero-cutaway.jpg";
+import conveyorMill from "@/assets/images/conveyor-mill.jpg";
+import packagingLine from "@/assets/images/packaging-line.jpg";
+import textileMill from "@/assets/images/textile-mill.jpg";
 
 import { FaqList } from "@/components/faq";
-import { FreewheelDemo } from "@/components/freewheel-demo";
-import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
-import { APPLICATIONS } from "@/content/applications";
-
-const FEATURED_APPLICATIONS = APPLICATIONS.filter((application) =>
-  ["conveyor", "textile", "packaging"].includes(application.slug),
-);
-
-const APPLICATION_COPY: Record<string, string> = {
-  conveyor: "وقتی خط می‌ایستد، فری‌ویل جلوی برگشت ناخواسته‌ی نوار را می‌گیرد.",
-  textile: "برای حرکت پله‌ای یا جداکردن دو محرک در ماشین‌آلات نساجی.",
-  packaging: "برای حرکت مرحله‌ای و تکرارپذیر در ماشین‌های بسته‌بندی.",
-};
-
-const WORK_STEPS = [
-  {
-    title: "چرخش در جهت مجاز",
-    text: "فری‌ویل اجازه می‌دهد شفت و اجزای دستگاه آزادانه بچرخند.",
-  },
-  {
-    title: "تغییر جهت یا اختلاف سرعت",
-    text: "المان‌های کوچک داخل قطعه به سمت فضای باریک بین دو حلقه می‌روند.",
-  },
-  {
-    title: "درگیری و انتقال نیرو",
-    text: "دو حلقه قفل می‌شوند؛ برگشت گرفته می‌شود یا نیرو به بخش بعدی می‌رسد.",
-  },
-];
+import { CatalogPlate } from "@/components/catalog-explorer";
+import { MechanismExplorer } from "@/components/mechanism";
+import { PinnedFreewheel } from "@/components/pinned-freewheel";
+import { PartSearch } from "@/components/part-search";
+import { Reveal } from "@/components/motion";
+import { SectionHeading, SectionLink, Tag } from "@/components/ui";
+import { RINGSPANN_SERIES, type SeriesShape } from "@/content/ringspann";
+import { CATALOG_ITEMS, TORQUE_SCALE } from "@/lib/series-view";
+import { num } from "@/lib/utils";
 
 const HOME_FAQ = [
   {
@@ -51,238 +47,351 @@ const HOME_FAQ = [
   },
 ] as const;
 
-const TYPES = [
+/** چهار شکل قطعه در کاتالوگ؛ ستون فقرات دسته‌بندی سایت. */
+const SHAPES: {
+  key: SeriesShape;
+  title: string;
+  lead: string;
+  seriesSlugs: string[];
+  where: string;
+}[] = [
   {
-    name: "اسپراگ",
-    english: "SPRAG",
-    summary: "المان‌های گوه‌ایِ فولادی بین دو حلقه",
-    body: "برای درگیری مطمئن و انتقال گشتاورهای بالا در بسیاری از کاربردهای صنعتی استفاده می‌شود.",
-    diagram: <SpragTypeDiagram animate={false} className="h-auto w-full" />,
+    key: "basic",
+    title: "فری‌ویل پایه",
+    lead: "قطعه‌ی لخت برای مونتاژ داخل پولی، فلنج یا محفظه‌ی ساخت خودتان.",
+    seriesSlugs: ["fgr-r"],
+    where: "فشرده و کم‌هزینه؛ روانکاری و آب‌بندی با شماست.",
   },
   {
-    name: "رولری",
-    english: "ROLLER",
-    summary: "غلتک‌هایی که در فضای گوه‌ای حرکت می‌کنند",
-    body: "ساختاری رایج و فشرده برای کاربردهای عمومی؛ جزئیات انتخاب به سرعت آزاد و شرایط کار بستگی دارد.",
-    diagram: <RollerTypeDiagram animate={false} className="h-auto w-full" />,
+    key: "internal",
+    title: "فری‌ویل داخلی",
+    lead: "همان کار بلبرینگ را هم انجام می‌دهد؛ بار شعاعی را تحمل می‌کند.",
+    seriesSlugs: ["fz"],
+    where: "برای فضای محدود، غلتک نساجی و قطر شفت کوچک.",
+  },
+  {
+    key: "complete",
+    title: "فری‌ویل کامل",
+    lead: "آب‌بندی‌شده و روغن‌پر، آماده‌ی نصب روی شفت.",
+    seriesSlugs: ["bm-r", "fb", "fkh", "fa-fav"],
+    where: "برای نصب سریع، استفاده در محیط گردوغبار و رطوبت.",
+  },
+  {
+    key: "backstop",
+    title: "بک‌استاپ سرعت پایین",
+    lead: "برای گشتاورهای صدها هزار نیوتن‌متر و شفت‌های بزرگ.",
+    seriesSlugs: ["frhn"],
+    where: "پشت گیربکس نوار نقاله‌ی شیب‌دار، بالابر و سنگ‌شکن.",
   },
 ];
 
-function SectionHeading({
-  label,
-  title,
-  description,
-}: {
-  label: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="max-w-2xl">
-      <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
-        <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
-        {label}
-      </p>
-      <h2 className="text-balance text-[28px] font-bold leading-[1.45] text-fg sm:text-[36px]">
-        {title}
-      </h2>
-      <p className="mt-3 text-[14px] leading-7 text-fg-muted sm:text-[15px] sm:leading-8">
-        {description}
-      </p>
-    </div>
-  );
-}
+const FEATURED_APPLICATIONS = [
+  {
+    slug: "conveyor",
+    title: "نوار نقاله و بک‌استاپ",
+    image: conveyorMill,
+    alt: "نوار نقاله‌های شیب‌دار در واحد دانه‌بندی و دپوی مواد",
+    body: "وقتی خط می‌ایستد، فری‌ویل جلوی برگشت ناخواسته‌ی نوار را می‌گیرد.",
+    series: "FRHN · FGR … R A3A4",
+  },
+  {
+    slug: "textile",
+    title: "نساجی و ریسندگی",
+    image: textileMill,
+    alt: "خط بافندگی با نخ‌کشی و غلتک‌های ماشین نساجی",
+    body: "برای حرکت پله‌ای و جداکردن دو محرک در ماشین‌آلات نساجی.",
+    series: "FZ · SM / SMP",
+  },
+  {
+    slug: "packaging",
+    title: "بسته‌بندی و پالتیزه",
+    image: packagingLine,
+    alt: "خط بسته‌بندی و انتقال بسته‌ها روی نوار نقاله",
+    body: "برای حرکت مرحله‌ای و تکرارپذیر در ماشین‌های بسته‌بندی.",
+    series: "FGR … R · FA / FAV",
+  },
+];
+
+const SELECTION_ITEMS = [
+  { title: "قطر شفت", detail: "اندازه‌ی محل نصب", Icon: Ruler },
+  { title: "گشتاور یا توان", detail: "به‌همراه دور موتور", Icon: Gauge },
+  { title: "سرعت چرخش آزاد", detail: "چند دور و چه مدت؟", Icon: Timer },
+  { title: "جهت عملکرد", detail: "وضعیت نصب قطعه", Icon: RotateCcw },
+];
 
 export default function HomePage() {
+  const seriesByShape = (shape: SeriesShape) =>
+    RINGSPANN_SERIES.filter((series) => series.shape === shape);
+  const featuredPlates = CATALOG_ITEMS.filter((item) =>
+    ["fgr-r", "fz", "frhn"].includes(item.slug),
+  );
+
   return (
     <>
-      <section className="hero-surface relative overflow-hidden text-white">
-        <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-[1320px] items-center gap-10 px-5 py-12 sm:px-7 sm:py-16 lg:min-h-[680px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8 lg:py-16">
-          <div className="relative z-10">
+      {/* ---------------- هیرو ---------------- */}
+      <section className="hero-instrument relative overflow-hidden text-white">
+        <div className="relative mx-auto grid max-w-[1320px] items-center gap-10 px-5 pb-12 pt-14 sm:px-7 lg:min-h-[660px] lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:px-8 lg:pb-16 lg:pt-16">
+          <div className="relative z-10 text-left">
             <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] text-white/80">
-              <span className="h-2 w-2 rounded-full bg-mint" aria-hidden="true" />
-              مرجع ساده‌ی فری‌ویل صنعتی
-            </p>
-            <h1 className="mt-6 max-w-3xl text-[clamp(2.65rem,5.6vw,5.25rem)] font-bold leading-[1.27] tracking-tight text-white">
-              فری‌ویل؛
-              <br />
-              <span className="text-mint">آزاد در یک جهت،</span>
-              <br className="hidden sm:block" />
-              قفل در جهت دیگر.
-            </h1>
-            <p className="mt-6 max-w-[590px] text-[15px] leading-8 text-white/75 sm:text-[16px] sm:leading-9">
-              فری‌ویل یا کلاچ یک‌طرفه، اجازه می‌دهد شفت در مسیر درست آزاد بچرخد و به‌محض برگشت، دو بخش را به هم قفل می‌کند؛ بدون برق، سنسور یا فرمان.
+              <span className="h-2 w-2 rounded-full bg-mint animate-pulse-dot" aria-hidden="true" />
+              مرجع فارسی فری‌ویل و کلاچ یک‌طرفه
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <h1 className="hero-rise font-display mt-6 max-w-2xl text-[clamp(2.5rem,5.2vw,4.6rem)] font-black leading-[1.3] tracking-tight text-white">
+              آزاد در یک جهت،
+              <br />
+              <span className="text-mint">قفل در جهت دیگر.</span>
+            </h1>
+
+            <p className="hero-rise mt-6 max-w-[600px] text-[15.5px] leading-9 text-white/75 [animation-delay:120ms]">
+              فری‌ویل — یا کلاچ یک‌طرفه — قطعه‌ای مکانیکی است که در مسیر درست اجازه می‌دهد شفت آزاد
+              بچرخد و به‌محض برگشت، دو حلقه را به هم قفل می‌کند. بدون برق، سنسور و فرمان؛ فقط با
+              شکل المان‌های داخلی.
+            </p>
+
+            <div className="hero-rise mt-8 flex flex-wrap items-center gap-3 [animation-delay:200ms]">
               <Link
-                href="#how"
-                className="inline-flex min-h-12 items-center gap-2 rounded-full bg-mint px-5 text-[13px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                href="#mechanism"
+                className="inline-flex min-h-12 items-center gap-2 rounded-full bg-mint px-5 text-[13.5px] font-bold text-ocean transition-colors hover:bg-white active:scale-[0.98]"
               >
-                اصل کار را ببین
+                سازوکار را ببین
                 <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
                 href="/ringspann"
-                className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/25 px-5 text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/25 px-5 text-[13.5px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
               >
-                مدل‌ها و کاتالوگ
+                کاتالوگ سری‌ها
               </Link>
             </div>
 
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/65">
-              {["عملکرد مکانیکی", "بی‌نیاز از برق", "واکنش سریع به برگشت"].map((item) => (
-                <li key={item} className="inline-flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 text-mint" aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <dl className="hero-rise mt-10 grid max-w-xl grid-cols-2 gap-x-5 gap-y-5 border-t border-white/12 pt-7 sm:grid-cols-4 [animation-delay:280ms]">
+              <div>
+                <dt className="whitespace-nowrap text-[11px] text-white/55">سری فعال</dt>
+                <dd className="code mt-1.5 text-[22px] font-bold text-white" translate="no">
+                  {RINGSPANN_SERIES.length}
+                </dd>
+              </div>
+              <div>
+                <dt className="whitespace-nowrap text-[11px] text-white/55">سقف گشتاور</dt>
+                <dd className="code mt-1.5 text-[22px] font-bold text-white" translate="no">
+                  {num(TORQUE_SCALE.max)}
+                  <span className="ms-1 text-[11px] font-medium text-white/60">N·m</span>
+                </dd>
+              </div>
+              <div>
+                <dt className="whitespace-nowrap text-[11px] text-white/55">سقف قطر شفت</dt>
+                <dd className="code mt-1.5 text-[22px] font-bold text-white" translate="no">
+                  320
+                  <span className="ms-1 text-[11px] font-medium text-white/60">mm</span>
+                </dd>
+              </div>
+              <div>
+                <dt className="whitespace-nowrap text-[11px] text-white/55">بازه‌ی FGR … R</dt>
+                <dd className="code mt-1.5 text-[22px] font-bold text-white" translate="no">
+                  12→150
+                </dd>
+              </div>
+            </dl>
           </div>
 
-          <FreewheelDemo />
-        </div>
-      </section>
-
-      <section id="how" className="scroll-mt-24 border-b border-line bg-base">
-        <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8">
-          <div>
-            <SectionHeading
-              label="اصل کار"
-              title="یک قطعه، دو حالت ساده"
-              description="داخل فری‌ویل، المان‌هایی بین یک حلقه‌ی داخلی و یک حلقه‌ی بیرونی قرار دارند. شکل این المان‌هاست که چرخش آزاد را از قفل‌شدن جدا می‌کند."
-            />
-            <div className="mt-6 rounded-2xl border border-line bg-white px-5 py-4">
-              <p className="text-[11px] font-semibold text-accent">یک مثال آشنا</p>
-              <p className="mt-1.5 text-[13px] leading-7 text-fg-muted">
-                توپی چرخ دوچرخه وقتی رکاب را رها می‌کنی، چرخ را آزاد می‌گذارد؛ در صنعت همین منطق برای کنترل بارهای سنگین به کار می‌رود.
-              </p>
+          {/* قاب تصویر: تصویر خودِ قطعه، نه یک کارت تزئینی */}
+          <figure className="hero-shot relative z-10 [animation-delay:80ms]">
+            <div className="plate-shot plate-ticks overflow-hidden rounded-[20px] border border-white/12">
+              <Image
+                src={heroCutaway}
+                alt="برش رندر‌شده‌ی یک کلاچ یک‌طرفه روی شفت: حلقه‌ی بیرونی، المان‌های گوه‌ای و حلقه‌ی داخلی"
+                priority
+                sizes="(min-width: 1024px) 46vw, 100vw"
+                className="h-auto w-full"
+              />
             </div>
-          </div>
-
-          <ol className="grid content-center gap-3 sm:grid-cols-3 lg:gap-2">
-            {WORK_STEPS.map((step, index) => (
-              <li key={step.title} className="rounded-2xl border border-line bg-white p-5 sm:p-4 lg:p-5">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-panel-2 text-[13px] font-bold text-accent" dir="ltr">
-                  0{index + 1}
-                </span>
-                <h3 className="mt-4 text-[14px] font-bold leading-6 text-fg">{step.title}</h3>
-                <p className="mt-2 text-[12px] leading-6 text-fg-muted">{step.text}</p>
-              </li>
-            ))}
-          </ol>
+            <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-[11.5px] text-white/55">
+              <span>برش شبیه‌سازی‌شده: حلقه‌ی بیرونی، المان‌های قفل‌کننده، حلقه‌ی داخلی روی شفت</span>
+              <span className="code" translate="no">
+                SECTION A–A
+              </span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      <section id="applications" className="scroll-mt-24 bg-white">
-        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <SectionHeading
-              label="کاربردها"
-              title="فری‌ویل کجا به کار می‌آید؟"
-              description="هر جا لازم است چرخش یک‌طرفه کنترل شود، فری‌ویل می‌تواند بخشی از راه‌حل باشد. این‌ها چند نمونه‌ی رایج‌اند."
-            />
-            <Link
-              href="/applications"
-              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            >
-              دیدن همه‌ی کاربردها
-              <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
-            </Link>
+      {/* ---------------- سازوکار ---------------- */}
+      <section id="mechanism" className="scroll-mt-24 border-b border-line bg-base">
+        <div className="mx-auto max-w-[1320px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+          <SectionHeading
+            index="۰۱"
+            kicker="سازوکار"
+            title="داخل قطعه چه خبر است؟"
+            desc="هر فری‌ویل از چند حلقه و یک ردیف المان کوچک ساخته شده. همین المان‌ها هستند که آزادی یک‌طرفه را می‌سازند. سه بخش زیر را به ترتیب ببینید."
+          />
+          <div className="mt-10">
+            <MechanismExplorer />
           </div>
+        </div>
+      </section>
 
-          <div className="mt-9 grid gap-4 md:grid-cols-3">
-            {FEATURED_APPLICATIONS.map((application) => (
-              <Link
-                key={application.slug}
-                href={`/applications/${application.slug}`}
-                className="group overflow-hidden rounded-[22px] border border-line bg-panel transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-              >
-                <div className="relative aspect-[1.35] overflow-hidden bg-panel-2">
-                  <Image
-                    src={application.image.src}
-                    alt={application.image.alt}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ocean/80 via-ocean/5 to-transparent" aria-hidden="true" />
-                  <span className="absolute bottom-4 right-4 rounded-full border border-white/25 bg-ocean/65 px-3 py-1.5 text-[10.5px] text-white backdrop-blur-sm">
-                    {application.kicker}
-                  </span>
-                </div>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-[16px] font-bold text-fg">{application.title}</h3>
-                    <ArrowUpLeft className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" aria-hidden="true" />
+      {/* ---------------- چرخه‌ی کار روی خط (اسکرول‌محور) ---------------- */}
+      <PinnedFreewheel />
+
+      {/* ---------------- انواع / کاتالوگ‌بندی ---------------- */}
+      <section id="types" className="scroll-mt-24 border-b border-line bg-paper">
+        <div className="mx-auto max-w-[1320px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+          <SectionHeading
+            index="۰۳"
+            kicker="کاتالوگ‌بندی"
+            title="چهار شکل قطعه، چهار کار متفاوت"
+            desc="پیش از انتخاب سایز، باید بدانید کدام شکل قطعه در خط شما می‌نشیند: لخت داخل محفظه، داخلی با تحمل بار، کامل و آماده‌ی نصب، یا بک‌استاپ سنگین."
+            action={<SectionLink href="/ringspann">کاتالوگ کامل با جدول ابعاد</SectionLink>}
+          />
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {SHAPES.map((shape, index) => {
+              const series = seriesByShape(shape.key);
+              return (
+                <Reveal key={shape.key} delay={index * 0.04}>
+                  <article className="flex h-full flex-col rounded-[16px] border border-line bg-panel p-5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="text-[17px] font-bold text-fg">{shape.title}</h3>
+                      <span className="code text-[11.5px] text-fg-dim" translate="no">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-[13px] leading-7 text-fg-muted">{shape.lead}</p>
+                    <p className="mt-2 text-[12px] leading-6 text-fg-dim">{shape.where}</p>
+
+                    <ul className="mt-4 flex flex-1 flex-wrap content-start gap-1.5">
+                      {series.map((item) => (
+                        <li key={item.slug}>
+                          <Link href={`/ringspann/${item.slug}`}>
+                            <Tag tone={item.element === "roller" ? "mint" : "lock"}>
+                              <span className="code" translate="no">
+                                {item.designation}
+                              </span>
+                            </Tag>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      href={`/ringspann/${series[0].slug}`}
+                      className="mt-5 inline-flex min-h-10 items-center gap-2 border-t border-line pt-4 text-[12.5px] font-semibold text-accent transition-colors hover:text-fg"
+                    >
+                      مشخصات این خانواده
+                      <MoveUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
+                    </Link>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- کاتالوگ سری‌ها ---------------- */}
+      <section className="border-b border-line bg-base">
+        <div className="mx-auto max-w-[1320px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+          <SectionHeading
+            index="۰۴"
+            kicker="کاتالوگ"
+            title="سری‌ها؛ از ۵۵ تا ۵۰۳٫۵۵۰ نیوتن‌متر"
+            desc="هر سری یک کار را بهتر انجام می‌دهد. نوار گشتاور زیر هر کارت نشان می‌دهد آن سری کجای این بازه می‌نشیند؛ برای دیدن جدول ابعاد، کارت را باز کنید."
+            action={<SectionLink href="/ringspann">همه‌ی سری‌ها و جست‌وجوی کد</SectionLink>}
+          />
+
+          <Reveal className="mt-8 rounded-[16px] border border-line bg-panel px-5 py-5">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h3 className="text-[15px] font-bold text-fg">کد قطعه را می‌دانید؟</h3>
+                <p className="mt-1.5 text-[12.5px] leading-6 text-fg-muted">
+                  کد را بنویسید — مثل <span className="code" translate="no">FGR 45 R</span> — تا
+                  گشتاور، قطر سوراخ و دور مجاز همان سایز را ببینید.
+                </p>
+              </div>
+              <div className="w-full max-w-sm">
+                <PartSearch className="relative w-full" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {featuredPlates.map((item) => (
+              <CatalogPlate key={item.slug} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- کاربردها ---------------- */}
+      <section className="border-b border-line bg-paper">
+        <div className="mx-auto max-w-[1320px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+          <SectionHeading
+            index="۰۵"
+            kicker="کاربردها"
+            title="در خط تولید کجا دیده می‌شود؟"
+            desc="هر جا چرخش باید یک‌طرفه کنترل شود، فری‌ویل بخشی از راه‌حل است: بک‌استاپ نوار شیب‌دار، جداسازی دو محرک، حرکت پله‌ای."
+            action={<SectionLink href="/applications">همه‌ی کاربردها</SectionLink>}
+          />
+
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {FEATURED_APPLICATIONS.map((application, index) => (
+              <Reveal key={application.slug} delay={index * 0.05}>
+                <Link
+                  href={`/applications/${application.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-line bg-panel transition-colors hover:border-accent/55"
+                >
+                  <div className="plate-shot plate-ticks aspect-[4/3]">
+                    <Image
+                      src={application.image}
+                      alt={application.alt}
+                      fill
+                      sizes="(min-width: 1024px) 32vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                    <span className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ocean/80 to-transparent" aria-hidden="true" />
+                    <span className="code absolute bottom-3.5 right-3.5 rounded-md border border-white/20 bg-ocean/55 px-2 py-1 text-[10.5px] text-white/85 backdrop-blur-sm" translate="no">
+                      {application.series}
+                    </span>
                   </div>
-                  <p className="mt-2.5 text-[13px] leading-7 text-fg-muted">
-                    {APPLICATION_COPY[application.slug] ?? application.intro[0]}
-                  </p>
-                </div>
-              </Link>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="text-[16.5px] font-bold text-fg">{application.title}</h3>
+                    <p className="mt-2.5 flex-1 text-[13px] leading-7 text-fg-muted">{application.body}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 border-t border-line pt-4 text-[12.5px] font-semibold text-fg-dim transition-colors group-hover:text-accent">
+                      سناریو و راهنمای انتخاب
+                      <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="types" className="scroll-mt-24 border-y border-line bg-base">
-        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
-          <div className="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
-            <SectionHeading
-              label="انواع رایج"
-              title="دو ساختار را بیشتر می‌بینید"
-              description="فری‌ویل‌ها از نظر شکل المان داخلی تفاوت دارند. این نگاه کلی برای شروع خوب است؛ انتخاب نهایی به شرایط واقعی کار بستگی دارد."
-            />
-            <Link
-              href="/articles/sprag-vs-roller"
-              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            >
-              مقایسه‌ی کامل‌تر
-              <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="mt-9 grid gap-4 lg:grid-cols-2">
-            {TYPES.map((type) => (
-              <article key={type.english} className="home-type-card">
-                <div className="home-type-art">{type.diagram}</div>
-                <div className="mt-3 flex items-center gap-3">
-                  <h3 className="text-[18px] font-bold text-fg">{type.name}</h3>
-                  <span className="rounded-full bg-panel-2 px-2.5 py-1 text-[9px] font-semibold tracking-[0.13em] text-fg-dim" dir="ltr" translate="no">
-                    {type.english}
-                  </span>
-                </div>
-                <p className="mt-2 text-[13px] font-semibold text-fg-muted">{type.summary}</p>
-                <p className="mt-2 text-[12.5px] leading-7 text-fg-dim">{type.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="choose" className="scroll-mt-24 bg-white px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
-        <div className="selection-panel relative mx-auto grid max-w-[1240px] gap-9 overflow-hidden rounded-[28px] px-6 py-8 text-white sm:px-9 sm:py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-12 lg:py-12">
+      {/* ---------------- راهنمای انتخاب ---------------- */}
+      <section className="bg-paper px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+        <div className="selection-panel relative mx-auto grid max-w-[1320px] gap-9 overflow-hidden rounded-[22px] px-6 py-9 text-white sm:px-9 sm:py-11 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-12 lg:py-12">
           <div className="relative z-10">
-            <p className="text-[12px] font-semibold text-mint">راهنمای انتخاب</p>
-            <h2 className="mt-3 max-w-lg text-[27px] font-bold leading-[1.5] text-white sm:text-[34px]">
-              برای شروع انتخاب، چهار چیز را بدان.
+            <p className="text-[12px] font-semibold text-mint">پیش از استعلام</p>
+            <h2 className="font-display mt-3 max-w-lg text-[28px] font-bold leading-[1.45] text-white sm:text-[35px]">
+              برای انتخاب، چهار چیز را بدان.
             </h2>
-            <p className="mt-3 max-w-lg text-[13px] leading-7 text-white/70">
-              لازم نیست از همان اول همه‌چیز را بدانی. این اطلاعات کمک می‌کند مدل مناسب‌تری پیدا کنیم.
+            <p className="mt-3 max-w-lg text-[13.5px] leading-7 text-white/70">
+              لازم نیست از همان اول همه‌چیز را بدانی؛ با همین چهار مورد می‌توان سایز را روی جدول
+              کاتالوگ بست.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-mint px-5 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white active:scale-[0.98]"
               >
                 شروع مشاوره
-                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+                <MoveUpLeft className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
                 href="/articles/freewheel-sizing"
-                className="inline-flex min-h-11 items-center rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                className="inline-flex min-h-11 items-center rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white transition-colors hover:bg-white/10"
               >
                 راهنمای سایزبندی
               </Link>
@@ -290,70 +399,103 @@ export default function HomePage() {
           </div>
 
           <ul className="relative z-10 grid gap-2 sm:grid-cols-2">
-            {[
-              { title: "قطر شفت", detail: "اندازه‌ی محل نصب", Icon: Ruler },
-              { title: "گشتاور یا توان", detail: "به‌همراه دور موتور", Icon: Gauge },
-              { title: "سرعت چرخش آزاد", detail: "چند دور و چه مدت؟", Icon: Timer },
-              { title: "جهت عملکرد", detail: "وضعیت نصب قطعه", Icon: RotateCcw },
-            ].map(({ title, detail, Icon }) => (
-              <li key={title} className="flex min-h-[94px] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-4 sm:px-5">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 text-mint">
+            {SELECTION_ITEMS.map(({ title, detail, Icon }) => (
+              <li
+                key={title}
+                className="flex min-h-[92px] items-center gap-4 rounded-[16px] border border-white/10 bg-white/[0.045] px-4 py-4 sm:px-5"
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] bg-white/10 text-mint">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <span>
-                  <span className="block text-[13px] font-bold text-white">{title}</span>
-                  <span className="mt-1 block text-[11px] text-white/60">{detail}</span>
+                  <span className="block text-[13.5px] font-bold text-white">{title}</span>
+                  <span className="mt-1 block text-[11.5px] text-white/60">{detail}</span>
                 </span>
               </li>
             ))}
           </ul>
 
-          <p className="relative z-10 -mt-3 text-[11.5px] leading-6 text-white/55 sm:col-span-2 lg:-mt-5">
+          <p className="relative z-10 text-[11.5px] leading-6 text-white/55 sm:col-span-2 lg:-mt-4">
             اگر عددها را نداری، عکس پلاک موتور یا کد قطعه‌ی فعلی هم برای شروع مفید است.
           </p>
         </div>
       </section>
 
+      {/* ---------------- پرسش‌های پرتکرار ---------------- */}
       <section className="border-t border-line bg-base">
-        <div className="mx-auto grid max-w-[1240px] gap-9 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
+        <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-8">
           <div>
             <SectionHeading
-              label="سؤالات پرتکرار"
+              index="۰۵"
+              kicker="پرسش‌های پرتکرار"
               title="هنوز سؤالی مانده؟"
-              description="چند جواب کوتاه برای شروع؛ برای بررسی یک کاربرد یا انتخاب سایز، مشخصات پروژه را بفرست."
+              desc="چند جواب کوتاه برای شروع؛ برای بررسی یک کاربرد یا انتخاب سایز، مشخصات پروژه را بفرست."
             />
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-line-2 bg-white px-5 py-3 text-[12.5px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              پرسش از کارشناس
-              <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-2 bg-panel px-5 text-[12.5px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent"
+              >
+                پرسش از کارشناس
+                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/articles"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-2 bg-panel px-5 text-[12.5px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent"
+              >
+                مقالات فنی
+              </Link>
+            </div>
           </div>
           <FaqList items={HOME_FAQ} />
         </div>
       </section>
 
-      <section className="border-t border-line bg-white">
-        <div className="mx-auto flex max-w-[1240px] flex-col gap-5 px-5 py-9 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-8">
+      {/* ---------------- نوار پایانی ---------------- */}
+      <section className="border-t border-line bg-paper">
+        <div className="mx-auto flex max-w-[1320px] flex-col gap-6 px-5 py-9 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-8">
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-panel-2 text-accent">
+            <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-[12px] bg-panel-2 text-accent">
               <LockKeyhole className="h-4 w-4" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="text-[14px] font-bold text-fg">به دنبال مدل یا جدول ابعاد هستی؟</h2>
-              <p className="mt-1 text-[12px] leading-6 text-fg-muted">از کاتالوگ RINGSPANN شروع کن یا همه‌ی برندها را ببین.</p>
+              <h2 className="text-[15px] font-bold text-fg">مدل یا جدول ابعاد را می‌خواهی؟</h2>
+              <p className="mt-1 text-[12.5px] leading-6 text-fg-muted">
+                از کاتالوگ RINGSPANN شروع کن یا فهرست برندها را ببین.
+              </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/ringspann" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-ocean px-4 text-[12px] font-semibold text-white transition-colors hover:bg-ocean-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+            <Link
+              href="/ringspann"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ocean px-5 text-[12.5px] font-semibold text-white transition-colors hover:bg-ocean-light"
+            >
               مدل‌ها و ابعاد
               <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-            <Link href="/brands" className="inline-flex min-h-10 items-center rounded-full border border-line-2 px-4 text-[12px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+            <Link
+              href="/brands"
+              className="inline-flex min-h-11 items-center rounded-full border border-line-2 px-5 text-[12.5px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent"
+            >
               همه‌ی برندها
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* نشان‌های اعتماد محتوایی: داده از کاتالوگ، بدون اغراق */}
+      <section className="border-t border-line bg-base">
+        <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-7 gap-y-3 px-5 py-6 text-[12px] text-fg-dim sm:px-7 lg:px-8">
+          {[
+            { Icon: BadgeCheck, text: "اعداد نقل‌شده از دیتاشیت سازنده" },
+            { Icon: Layers, text: "هفت سری و ۲۳ سایز با جدول مشخصات" },
+            { Icon: RotateCcw, text: "راهنمای انتخاب، نصب و رفع اشکال" },
+          ].map(({ Icon, text }) => (
+            <span key={text} className="inline-flex items-center gap-2">
+              <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
+              {text}
+            </span>
+          ))}
         </div>
       </section>
     </>

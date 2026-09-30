@@ -30,7 +30,7 @@ export default function BrandsPage() {
               <span className="text-line-2">/</span>
               <span className="text-fg-muted">برندها</span>
             </nav>
-            <h1 className="max-w-3xl text-[32px] leading-tight text-fg sm:text-[40px]">
+            <h1 className="font-display max-w-3xl text-[32px] leading-[1.35] text-fg sm:text-[42px]">
               برندهای فری‌ویل و کلچ یک‌سره
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-fg-muted">
@@ -46,7 +46,7 @@ export default function BrandsPage() {
         <Reveal>
           <Link
             href={`/brands/${ringspann.slug}`}
-            className="group grid gap-8 border border-accent/40 bg-accent/4 p-8 transition-colors hover:border-accent lg:grid-cols-[1fr_auto]"
+            className="group grid gap-8 rounded-[18px] border border-accent/40 bg-panel p-8 transition-colors hover:border-accent lg:grid-cols-[1fr_auto]"
           >
             <div>
               <div className="flex flex-wrap items-center gap-3">
@@ -81,7 +81,7 @@ export default function BrandsPage() {
         </Reveal>
       </section>
 
-      <section className="border-y border-line bg-panel/40">
+      <section className="border-y border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading
             kicker="سایر برندها"
@@ -93,7 +93,7 @@ export default function BrandsPage() {
               <Reveal key={brand.slug} delay={index * 0.03}>
                 <Link
                   href={`/brands/${brand.slug}`}
-                  className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
+                  className="group flex h-full flex-col justify-between rounded-[16px] border border-line bg-panel p-6 transition-colors hover:border-accent/50"
                 >
                   <div>
                     <div className="flex items-baseline justify-between gap-2">

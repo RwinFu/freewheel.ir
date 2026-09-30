@@ -1,3 +1,13 @@
+import type { StaticImageData } from "next/image";
+
+import bmRImg from "@/assets/images/product/series-bm-r.jpg";
+import faFavImg from "@/assets/images/product/series-fa-fav.jpg";
+import fbImg from "@/assets/images/product/series-fb.jpg";
+import fgrRImg from "@/assets/images/product/series-fgr-r.jpg";
+import fkhImg from "@/assets/images/product/series-fkh.jpg";
+import frhnImg from "@/assets/images/product/series-frhn.jpg";
+import fzImg from "@/assets/images/product/series-fz.jpg";
+
 export type FreewheelSize = {
   designation: string;
   bore: number;
@@ -9,11 +19,15 @@ export type FreewheelSize = {
   weightKg: number | null;
 };
 
+export type SeriesShape = "basic" | "internal" | "complete" | "backstop";
+
 export type Series = {
   slug: string;
   designation: string;
   family: string;
   element: "roller" | "sprag";
+  /** شکل کلی قطعه؛ مبنای کاتالوگ‌بندی و صافی صفحه‌ی کاتالوگ است. */
+  shape: SeriesShape;
   short: string;
   tagline: string;
   summary: string[];
@@ -21,6 +35,11 @@ export type Series = {
   applications: string[];
   maxTorqueNm: number;
   maxBoreMm: number;
+  /**
+   * رندر شبیه‌سازی‌شده‌ی ساختار سری. قطعه‌ی واقعی به مدل، نسخه و سازنده
+   * بستگی دارد؛ این تصویر برای شناختن اجزاست، نه برای تطبیق ظاهری.
+   */
+  image: { src: StaticImageData; alt: string; caption: string };
   sizes: FreewheelSize[];
   notes: string[];
   extraTable?: {
@@ -34,6 +53,7 @@ export type Series = {
 
 const fgr: Series = {
   slug: "fgr-r",
+  shape: "basic",
   designation: "FGR … R",
   family: "فری‌ویل پایه (Basic Freewheel)",
   element: "roller",
@@ -60,6 +80,11 @@ const fgr: Series = {
   ],
   maxTorqueNm: 68000,
   maxBoreMm: 150,
+  image: {
+    src: fgrRImg,
+    alt: "برش رندر‌شدهٔ فری‌ویل رولری FGR … R",
+    caption: "حلقهٔ خارجی، سوراخ کلید داخلی، ردیف غلتک با فنر و ردیف بلبرینگ سوزنی",
+  },
   notes: [
     "اعداد جدول زیر مقادیر کاتالوگی است؛ قبل از سایزبندی نهایی، حتماً آخرین نسخه‌ی دیتاشیت سازنده را کنترل کنید. سال‌هاست که این اعداد عوض نشده، ولی روی سفارش‌های بزرگ ما همیشه چک می‌کنیم.",
     "ستون «حداکثر دور» دو حالت دارد: وقتی حلقه‌ی داخلی آزاد می‌چرخد و وقتی حلقه‌ی خارجی آزاد می‌چرخد. این دو عدد با هم اشتباه نگیرید؛ در بک‌استاپ نوار نقاله معمولاً حلقه‌ی داخلی روی شفت ثابت است و حلقه‌ی خارجی در حالت آزاد حرکت می‌کند.",
@@ -111,6 +136,7 @@ const fgr: Series = {
 
 const fz: Series = {
   slug: "fz",
+  shape: "internal",
   designation: "FZ …",
   family: "فری‌ویل داخلی (Internal Freewheel)",
   element: "sprag",
@@ -136,6 +162,11 @@ const fz: Series = {
   ],
   maxTorqueNm: 420,
   maxBoreMm: 40,
+  image: {
+    src: fzImg,
+    alt: "رندر فری‌ویل داخلی اسپراگ FZ",
+    caption: "اسپراگ‌های گوه‌ای بین دو رینگ، همراه با ردیف بلبرینگ برای تحمل بار شعاعی",
+  },
   notes: [
     "برای اینکه گشتاورهای جدول منتقل شود، حلقه‌ی خارجی باید در محفظه‌ای با قطر خارجی K (ستون آخر جدول) بنشیند. اگر قطر محفظه کوچک‌تر باشد یا جنس بدنه‌ی محفظه آلومینیوم باشد، گشتاور قابل انتقال پایین می‌آید — این مورد را قبل از سفارش حتماً بگویید.",
     "پهنای سایز FZ 6208 با بلبرینگ 6208 معمولی فرق دارد؛ در نقشه‌ی محفظه این را در نظر بگیرید.",
@@ -174,6 +205,7 @@ const fz: Series = {
 
 const bm: Series = {
   slug: "bm-r",
+  shape: "complete",
   designation: "BM … R",
   family: "فری‌ویل کامل (Complete Freewheel)",
   element: "roller",
@@ -198,6 +230,11 @@ const bm: Series = {
   ],
   maxTorqueNm: 57500,
   maxBoreMm: 150,
+  image: {
+    src: bmRImg,
+    alt: "رندر فری‌ویل کامل BM … R در محفظه",
+    caption: "محفظهٔ ریختگی با فلنج پیچ‌دار، اهرم گشتاور و سوراخ کلید روی شفت",
+  },
   notes: [
     "جدول ابعاد این سری را در صفحه‌ی محصول نمایش نمی‌دهیم چون نسخه‌ها (استاندارد، X، با اهرم، با فلنج) ابعاد متفاوتی دارند. برای هر پروژه، دیتاشیت همان نسخه را می‌فرستیم.",
     "اگر در پروژه‌ی شما دو موتور با دور نزدیک به هم روی یک شفت کار می‌کنند، لیفت‌آف هیدرودینامیک سری FKh را هم ببینید.",
@@ -212,6 +249,7 @@ const bm: Series = {
 
 const fb: Series = {
   slug: "fb",
+  shape: "complete",
   designation: "FB …",
   family: "فری‌ویل کامل اسپراگ",
   element: "sprag",
@@ -234,6 +272,11 @@ const fb: Series = {
   ],
   maxTorqueNm: 160000,
   maxBoreMm: 300,
+  image: {
+    src: fbImg,
+    alt: "رندر فری‌ویل کامل اسپراگ FB",
+    caption: "قطر بزرگ، فلنج پیچ‌دار محیطی و قفسهٔ اسپراگ در بخش برش‌خورده",
+  },
   notes: [
     "برای شفت‌های بالای ۱۵۰ میلی‌متر معمولاً بین FB و FRHN یکی را انتخاب می‌کنیم؛ انتخاب به دور کاری و اینکه آیا نصب روی سر شفت است یا شفت ازدوجزئی، بستگی دارد.",
     "در کار سنگین، همیشه تلرانس و سخت‌کاری سطح شفت را با دیتاشیت تطبیق بدهید. اسپراگ روی شفت نرم قفل مطمئن نمی‌زند.",
@@ -248,6 +291,7 @@ const fb: Series = {
 
 const frhn: Series = {
   slug: "frhn",
+  shape: "backstop",
   designation: "FRHN …",
   family: "بک‌استاپ سرعت پایین (Low Speed Backstop)",
   element: "sprag",
@@ -271,6 +315,11 @@ const frhn: Series = {
   ],
   maxTorqueNm: 503550,
   maxBoreMm: 320,
+  image: {
+    src: frhnImg,
+    alt: "رندر بک‌استاپ سرعت پایین FRHN",
+    caption: "اهرم بلند روی محفظهٔ سنگین و ردیف متراکم اسپراگ برای گشتاورهای صدها هزار نیوتن‌متر",
+  },
   notes: [
     "اهرم باید به پایه‌ای سفت و سیمون‌بسته شود؛ اگر پایه شل باشد، هر بار قفل شدن ضربه می‌خورد و اهرم جا می‌رود.",
     "برای طراحی و ارتقای سیستم نوار نقاله، شرکت اتوماسیون persiarobot.ir تجربه‌ی پروژه‌های مشابه را دارد.",
@@ -285,6 +334,7 @@ const frhn: Series = {
 
 const fkh: Series = {
   slug: "fkh",
+  shape: "complete",
   designation: "FKh …",
   family: "فری‌ویل کامل با لیفت‌آف هیدرودینامیک",
   element: "sprag",
@@ -306,6 +356,11 @@ const fkh: Series = {
   ],
   maxTorqueNm: 14000,
   maxBoreMm: 95,
+  image: {
+    src: fkhImg,
+    alt: "رندر فری‌ویل با لیفت‌آف هیدرودینامیک FKh",
+    caption: "خطوط روغن‌رسانی و شیارهای روانکاری روی رینگ داخلی، برای جداشدن المان‌ها در دور آزاد",
+  },
   notes: [
     "لیفت‌آف هیدرودینامیک به سرعت و به گرانایی روغن وابسته است؛ روغن غیراستاندارد این مکانیزم را از کار می‌اندازد.",
     "در دما و دور پایین، لیفت‌آف کامل اتفاق نمی‌افتد؛ اگر دور آزاد پروژه‌ی شما زیر حد اعلام‌شده است، به‌جای این سری نسخه‌ی X را ببینید.",
@@ -319,6 +374,7 @@ const fkh: Series = {
 
 const fafav: Series = {
   slug: "fa-fav",
+  shape: "complete",
   designation: "FA … / FAV …",
   family: "فری‌ویل کامل با اهرم و بوش",
   element: "sprag",
@@ -341,6 +397,11 @@ const fafav: Series = {
   ],
   maxTorqueNm: 2500,
   maxBoreMm: 85,
+  image: {
+    src: faFavImg,
+    alt: "رندر فری‌ویل با اهرم FA / FAV",
+    caption: "اهرم کوتاه فنری روی حلقهٔ خارجی و بوش برنزی در سوراخ داخلی",
+  },
   notes: [
     "چون روی بوش کار می‌کند، بار شعاعی زیاد را تحمل نمی‌کند؛ اگر غلتک روی خود فری‌ویل بار می‌گذارد، سراغ سری‌های بلبرینگ‌دار بروید.",
   ],

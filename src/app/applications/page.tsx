@@ -28,7 +28,7 @@ export default function ApplicationsPage() {
               <span className="text-line-2">/</span>
               <span className="text-fg-muted">کاربردها</span>
             </nav>
-            <h1 className="max-w-3xl text-[32px] leading-tight text-fg sm:text-[40px]">
+            <h1 className="font-display max-w-3xl text-[32px] leading-[1.35] text-fg sm:text-[42px]">
               فری‌ویل در خط تولید چه کاری انجام می‌دهد؟
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-fg-muted">
@@ -45,18 +45,21 @@ export default function ApplicationsPage() {
             <Reveal key={application.slug} delay={index * 0.04}>
               <Link
                 href={`/applications/${application.slug}`}
-                className="group flex h-full flex-col border border-line bg-panel transition-colors hover:border-accent/50"
+                className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-line bg-panel transition-colors hover:border-accent/50"
               >
-                <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
+                <div className="plate-shot plate-ticks aspect-[16/9]">
                   <Image
                     src={application.image.src}
                     alt={application.image.alt}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
+                    className="object-cover"
                   />
-                  <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-panel to-transparent" />
-                  <span className="absolute bottom-4 right-4 text-[11.5px] tracking-[0.1em] text-fg-muted">
+                  <span
+                    className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ocean/85 to-transparent"
+                    aria-hidden="true"
+                  />
+                  <span className="absolute bottom-3.5 right-3.5 rounded-md border border-white/20 bg-ocean/55 px-2 py-1 text-[10.5px] text-white/90 backdrop-blur-sm">
                     {application.kicker}
                   </span>
                 </div>
@@ -84,7 +87,7 @@ export default function ApplicationsPage() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-panel/40">
+      <section className="border-t border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading
             kicker="از دو طرف"

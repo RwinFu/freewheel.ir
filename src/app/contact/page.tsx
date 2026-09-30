@@ -28,7 +28,7 @@ export default function ContactPage() {
               <span className="text-line-2">/</span>
               <span className="text-fg-muted">تماس</span>
             </nav>
-            <h1 className="max-w-3xl text-[32px] leading-tight text-fg sm:text-[40px]">
+            <h1 className="font-display max-w-3xl text-[32px] leading-[1.35] text-fg sm:text-[42px]">
               تماس و استعلام سایز
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-fg-muted">
@@ -150,7 +150,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-panel/40">
+      <section className="border-t border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading
             kicker="قبل از تماس"

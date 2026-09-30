@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpLeft } from "lucide-react";
 
+import { SHAPE_LABEL } from "@/components/catalog-explorer";
 import { Counter, Reveal } from "@/components/motion";
 import { DimensionDrawing } from "@/components/diagrams";
 import { InquiryForm } from "@/components/inquiry-form";
@@ -10,6 +12,7 @@ import {
   BuyNote,
   Breadcrumbs,
   Callout,
+  MediaFrame,
   Panel,
   RobotNote,
   SectionHeading,
@@ -19,7 +22,7 @@ import {
 } from "@/components/ui";
 import { RINGSPANN_SERIES, getSeries } from "@/content/ringspann";
 import { SHOPS, SITE } from "@/content/site";
-import { anchorId, cn, num } from "@/lib/utils";
+import { anchorId, num } from "@/lib/utils";
 
 type Params = { series: string };
 
@@ -115,8 +118,10 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
                   </div>
                 </Reveal>
                 <Reveal delay={0.05}>
-                  <h1 className="mt-5 text-[32px] leading-tight text-fg sm:text-[40px]">
-                    <span dir="ltr">RINGSPANN {series.designation}</span>
+                  <h1 className="font-display mt-5 text-[32px] leading-[1.35] text-fg sm:text-[42px]">
+                    <span className="code" translate="no">
+                      RINGSPANN {series.designation}
+                    </span>
                   </h1>
                 </Reveal>
                 <Reveal delay={0.1}>
@@ -144,23 +149,35 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
               </div>
 
               <Reveal delay={0.1} y={0}>
-                <div className="border border-line bg-panel-2/60 p-2">
-                  {series.sizes.length > 0 ? (
-                    <DimensionDrawing
-                      bore={series.sizes[0].bore}
-                      outerDiameter={series.sizes[0].outerDiameter}
-                      width={series.sizes[0].width}
-                      className="h-auto w-full"
-                    />
-                  ) : (
-                    <DimensionDrawing
-                      bore={series.maxBoreMm}
-                      outerDiameter={Math.round(series.maxBoreMm * 2.6)}
-                      width={null}
-                      className="h-auto w-full"
-                    />
-                  )}
-                </div>
+                <MediaFrame
+                  code={series.designation}
+                  caption={series.image.caption}
+                  meta="رندر شبیه‌سازی‌شده"
+                  className="mb-4"
+                >
+                  <Image
+                    src={series.image.src}
+                    alt={series.image.alt}
+                    priority
+                    sizes="(min-width: 1024px) 42vw, 100vw"
+                    className="h-auto w-full"
+                  />
+                </MediaFrame>
+
+                <dl className="mt-4 grid grid-cols-2 gap-4 rounded-[14px] border border-line bg-panel px-5 py-4">
+                  <div>
+                    <dt className="text-[11.5px] text-fg-dim">شکل قطعه</dt>
+                    <dd className="mt-1 text-[13.5px] font-semibold text-fg">
+                      {SHAPE_LABEL[series.shape]}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[11.5px] text-fg-dim">نوع المان</dt>
+                    <dd className="mt-1 text-[13.5px] font-semibold text-fg">
+                      {series.element === "roller" ? "رولری" : "اسپراگ"}
+                    </dd>
+                  </div>
+                </dl>
               </Reveal>
             </div>
           </div>
@@ -194,20 +211,48 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
       </section>
 
       {series.sizes.length > 0 ? (
-        <section className="border-y border-line bg-panel/40">
+        <section className="border-y border-line bg-paper">
           <div className="mx-auto max-w-[1240px] px-6 py-14">
             <SectionHeading
+              index="۰۱"
               kicker="جدول مشخصات"
               title={`سایزهای ${series.designation}`}
               desc="روی هر کارت بروید تا نقشه‌ی ابعادی همان سایز را ببینید. ستون وزن در چند سایز عمداً خالی است؛ عددی که تأیید نکرده‌ایم نمایش نمی‌دهیم."
             />
 
-            <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <Reveal className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-[13px] leading-7 text-fg-muted">
+                  نقشه‌ی ابعادی روبه‌رو، نمونه‌ی کوچک‌ترین سایز این سری است: قطر سوراخ، قطر خارجی و
+                  پهنا همان سه عددی است که برای تطبیق قطعه لازم دارید. برای دیدن نقشه‌ی هر سایز،
+                  نشانگر را روی کارت همان سایز نگه دارید.
+                </p>
+              </div>
+              <div className="plate-shot rounded-[14px] border border-line p-2">
+                {series.sizes.length > 0 ? (
+                  <DimensionDrawing
+                    bore={series.sizes[0].bore}
+                    outerDiameter={series.sizes[0].outerDiameter}
+                    width={series.sizes[0].width}
+                    className="mx-auto h-auto w-full max-w-[420px]"
+                  />
+                ) : (
+                  <DimensionDrawing
+                    bore={series.maxBoreMm}
+                    outerDiameter={Math.round(series.maxBoreMm * 2.6)}
+                    width={null}
+                    className="mx-auto h-auto w-full max-w-[420px]"
+                  />
+                )}
+              </div>
+            </Reveal>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {series.sizes.map((size, index) => (
                 <Reveal key={size.designation} delay={index * 0.02}>
                   <div
                     id={anchorId(size.designation)}
-                    className="group relative h-full overflow-hidden border border-line bg-panel p-5 transition-colors hover:border-accent/50"
+                    className="group relative h-full overflow-hidden rounded-[14px] border border-line bg-panel p-5 transition-colors hover:border-accent/50"
                   >
                     <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-base/92 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <DimensionDrawing
@@ -218,7 +263,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
                       />
                     </div>
 
-                    <div dir="ltr" className="text-[16px] font-semibold text-fg">
+                    <div className="code text-[16px] font-semibold text-fg" translate="no">
                       {size.designation}
                     </div>
                     <dl className="mt-4 space-y-2.5">
@@ -295,7 +340,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
           </div>
         </section>
       ) : (
-        <section className="border-y border-line bg-panel/40">
+        <section className="border-y border-line bg-paper">
           <div className="mx-auto max-w-[1240px] px-6 py-14">
             <SectionHeading
               kicker="مشخصات"
@@ -361,7 +406,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
         </div>
       </section>
 
-      <section className="border-t border-line bg-panel/40">
+      <section className="border-t border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading kicker="ادامه‌ی مسیر" title="سری‌های دیگر و مطالب مرتبط" />
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -369,11 +414,9 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
               <Link
                 key={item.slug}
                 href={`/ringspann/${item.slug}`}
-                className={cn(
-                  "group border border-line bg-panel px-5 py-4 transition-colors hover:border-accent/50",
-                )}
+                className="group rounded-[14px] border border-line bg-panel px-5 py-4 transition-colors hover:border-accent/50"
               >
-                <div dir="ltr" className="text-[14.5px] font-semibold text-fg">
+                <div className="code text-[14.5px] font-semibold text-fg" translate="no">
                   {item.designation}
                 </div>
                 <div className="mt-1.5 flex items-center justify-between text-[12px] text-fg-dim">

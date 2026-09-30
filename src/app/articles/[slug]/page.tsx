@@ -80,7 +80,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             </div>
           </Reveal>
           <Reveal delay={0.05}>
-            <h1 className="mt-5 max-w-3xl text-[30px] leading-tight text-fg sm:text-[38px]">
+            <h1 className="font-display mt-5 max-w-3xl text-[30px] leading-[1.35] text-fg sm:text-[38px]">
               {article.title}
             </h1>
           </Reveal>
@@ -93,9 +93,9 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           <div>
             {article.keyNumbers ? (
               <Reveal>
-                <dl className="mb-10 grid gap-4 border border-line bg-panel p-5 sm:grid-cols-2">
+                <dl className="mb-10 grid gap-5 rounded-[16px] border border-line bg-panel p-6 sm:grid-cols-2">
                   {article.keyNumbers.map((item) => (
-                    <div key={item.label} className="border-r-2 border-line-2 pr-4">
+                    <div key={item.label} className="border-r border-line pe-4">
                       <dt className="text-[11.5px] text-fg-dim">{item.label}</dt>
                       <dd className="mt-1.5 text-[14px] leading-7 text-fg">{item.value}</dd>
                     </div>
@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                       ))}
                     </div>
                     {section.list ? (
-                      <ul className="mt-5 space-y-2.5 border border-line bg-panel p-5">
+                      <ul className="mt-5 space-y-2.5 rounded-[14px] border border-line bg-panel p-5">
                         {section.list.map((item) => (
                           <li key={item} className="flex gap-3 text-[13.5px] leading-7 text-fg-muted">
                             <span className="mt-2.5 h-1 w-1 shrink-0 bg-accent" />
@@ -132,8 +132,8 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             </div>
 
             <Reveal className="mt-12">
-              <div className="border border-line bg-panel p-6">
-                <h2 className="text-[16px] text-fg">ادامه‌ی مسیر</h2>
+              <div className="rounded-[16px] border border-line bg-panel p-6">
+                <h2 className="text-[16px] font-bold text-fg">ادامه‌ی مسیر</h2>
                 <ul className="mt-4 space-y-3">
                   {article.related.map((item) => (
                     <li key={item.href}>
@@ -208,7 +208,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
       </article>
 
       {article.slug === "backstop-mounting" || article.slug === "why-textile-conveyor-burned" ? (
-        <section className="border-t border-line bg-panel/40">
+        <section className="border-t border-line bg-paper">
           <div className="mx-auto max-w-[1240px] px-6 py-12">
             <RobotNote />
           </div>

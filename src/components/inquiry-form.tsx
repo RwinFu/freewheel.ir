@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 type State = "idle" | "sending" | "done" | "error";
 
 const fieldClass =
-  "w-full border border-line-2 bg-panel-2 px-3.5 py-2.5 text-[14px] text-fg outline-none transition-colors placeholder:text-fg-dim focus:border-accent";
-const labelClass = "mb-1.5 block text-[12.5px] text-fg-muted";
+  "w-full min-h-11 rounded-[10px] border border-line-2 bg-panel px-3.5 py-2.5 text-[14px] text-fg outline-none transition-colors placeholder:text-fg-dim hover:border-line-2 focus:border-accent focus:ring-2 focus:ring-accent/25";
+const labelClass = "mb-1.5 block text-[12.5px] font-medium text-fg-muted";
 
 export function InquiryForm({
   source = "contact",
@@ -76,7 +76,7 @@ export function InquiryForm({
 
   if (process.env.NEXT_PUBLIC_STATIC_SITE === "1") {
     return (
-      <div className="border border-line bg-panel px-6 py-8">
+      <div className="rounded-[16px] border border-line bg-panel px-6 py-8">
         <h3 className="text-[16px] text-fg">درخواست قطعه و سایزبندی</h3>
         <p className="mt-3 max-w-xl text-[13.5px] leading-7 text-fg-muted">
           این نسخهٔ نمایشی روی GitHub Pages فرم ثبت درخواست ندارد و اطلاعاتی دریافت نمی‌کند.
@@ -96,11 +96,11 @@ export function InquiryForm({
 
   if (state === "done") {
     return (
-      <div className="border border-accent/40 bg-accent/6 px-6 py-10 text-center">
-        <span className="mx-auto grid h-11 w-11 place-items-center border border-accent/50 text-accent">
+      <div className="rounded-[16px] border border-accent/40 bg-panel px-6 py-10 text-center">
+        <span className="mx-auto grid h-11 w-11 place-items-center rounded-full border border-accent/50 text-accent">
           <Check className="h-5 w-5" />
         </span>
-        <h3 className="mt-4 text-[17px] text-fg">درخواست ثبت شد</h3>
+        <h3 className="mt-4 text-[17px] font-bold text-fg">درخواست ثبت شد</h3>
         <p className="mx-auto mt-2 max-w-md text-[13.5px] leading-7 text-fg-muted">
           مشخصات را بررسی می‌کنیم و برای سایزبندی و کد قطعه‌ی دقیق با شما تماس می‌گیریم. اگر
           کار فوری است، در ساعات کاری تلفن بزنید.
@@ -110,9 +110,9 @@ export function InquiryForm({
   }
 
   return (
-    <form onSubmit={submit} className="border border-line bg-panel">
+    <form onSubmit={submit} className="overflow-hidden rounded-[16px] border border-line bg-panel">
       <div className="border-b border-line px-6 py-4">
-        <h3 className="text-[16px] text-fg">فرم سایزبندی و درخواست قطعه</h3>
+        <h3 className="text-[16px] font-bold text-fg">فرم سایزبندی و درخواست قطعه</h3>
         <p className="mt-1.5 text-[12.5px] leading-6 text-fg-dim">
           چهارتای اول کافی است؛ بقیه را اگر دستتان بود پر کنید. هرچه دقیق‌تر بنویسید، جواب
           دقیق‌تری می‌گیرید.
@@ -156,7 +156,7 @@ export function InquiryForm({
             className={fieldClass}
             value={form.partNumber}
             onChange={update("partNumber")}
-            placeholder="مثلاً FGR 45 R"
+            placeholder="FGR 45 R"
             dir="ltr"
           />
         </div>
@@ -215,13 +215,13 @@ export function InquiryForm({
         <button
           type="submit"
           disabled={state === "sending"}
-          className="inline-flex items-center gap-2 bg-accent px-5 py-2.5 text-[13.5px] font-semibold text-accent-ink transition-colors hover:bg-accent-soft disabled:opacity-70"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-[13.5px] font-semibold text-accent-ink transition-colors hover:bg-ocean active:scale-[0.98] disabled:opacity-70"
         >
           {state === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {state === "sending" ? "در حال ارسال" : "ارسال درخواست"}
         </button>
         {state === "error" ? (
-          <span role="alert" className="text-[12.5px] leading-6 text-accent">
+          <span role="alert" className="text-[12.5px] leading-6 text-lock">
             {error}
             {fallback ? (
               <>

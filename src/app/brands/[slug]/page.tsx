@@ -114,7 +114,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
         </div>
       </section>
 
-      <section className="border-y border-line bg-panel/40">
+      <section className="border-y border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <SectionHeading kicker="برنامه‌ی محصول" title="سری‌ها و رده‌ها" />
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -195,7 +195,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
         </div>
       </section>
 
-      <section className="border-t border-line bg-panel/40">
+      <section className="border-t border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-12">
           <h2 className="text-[16px] text-fg">سایر برندها</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

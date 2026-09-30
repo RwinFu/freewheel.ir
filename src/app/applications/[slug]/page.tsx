@@ -66,7 +66,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                 </span>
               </Reveal>
               <Reveal delay={0.05}>
-                <h1 className="mt-4 text-[32px] leading-tight text-fg sm:text-[40px]">
+                <h1 className="font-display mt-4 text-[32px] leading-[1.35] text-fg sm:text-[42px]">
                   فری‌ویل در {application.title}
                 </h1>
               </Reveal>
@@ -117,7 +117,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
         </div>
       </section>
 
-      <section className="border-y border-line bg-panel/40">
+      <section className="border-y border-line bg-paper">
         <div className="mx-auto max-w-[1240px] px-6 py-14">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
@@ -130,7 +130,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                     <Reveal key={seriesSlug}>
                       <Link
                         href={`/ringspann/${series.slug}`}
-                        className="group flex items-start justify-between gap-6 border border-line bg-panel p-5 transition-colors hover:border-accent/50"
+                        className="group flex items-start justify-between gap-6 rounded-[14px] border border-line bg-panel p-5 transition-colors hover:border-accent/50"
                       >
                         <div>
                           <span dir="ltr" className="text-[16px] font-semibold text-fg">

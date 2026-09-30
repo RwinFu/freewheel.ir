@@ -21,6 +21,20 @@ const vazir = localFont({
   preload: true,
 });
 
+// برش نمایشی (۷۰۰ تا ۹۰۰) فقط برای تیترها؛ بدنه‌ی متن همان برش Text است.
+const vazirDisplay = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Vazirmatn-Display.woff2",
+      weight: "700 900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-vazir-display",
+  display: "swap",
+  preload: true,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -79,7 +93,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <html lang="fa" dir="rtl" className={vazir.variable} data-scroll-behavior="smooth">
+    <html
+      lang="fa"
+      dir="rtl"
+      className={`${vazir.variable} ${vazirDisplay.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body className="min-h-dvh bg-base font-sans text-fg antialiased">
         <script
           type="application/ld+json"
