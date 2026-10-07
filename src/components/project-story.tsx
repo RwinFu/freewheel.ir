@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft, Check, ImageIcon } from "lucide-react";
 
-import { DriveTrainFigure } from "@/components/drive-train-figure";
+import { StoryParts } from "@/components/story-parts";
 import { Reveal } from "@/components/motion";
 import { PROJECT_STORY } from "@/content/story";
 import { SHOPS } from "@/content/site";
@@ -10,10 +10,10 @@ import { SHOPS } from "@/content/site";
 /**
  * بخش «داستان پروژه» صفحه‌ی اول.
  *
- * الگو از صفحه‌های کاتالوگ صنعتی آمده است: یک چیدمان واقعی درایو با
- * شماره‌گذاری روی قطعه‌ها. اینجا آن الگو به یک روایت تبدیل شده — از شب اولی که
- * نوار برگشت، تا انتخاب بک‌استاپ و نتیجه‌ی سه سال بعد؛ و در میانه‌اش همان
- * نقشه‌ی شماره‌دار که قطعه‌ها را به صفحه‌های کاتالوگ وصل می‌کند.
+ * الگو از صفحه‌های کاتالوگ صنعتی آمده است: شماره روی قطعه‌ها و توضیح نقش هر
+ * قطعه. اینجا آن الگو به یک روایت تبدیل شده — از شب اولی که نوار برگشت، تا
+ * انتخاب بک‌استاپ و نتیجه‌ی سه سال بعد؛ و در میانه‌اش قطعه‌های شماره‌دار با عکس
+ * واقعی، که هرکدام به صفحه‌ی همان خانواده در کاتالوگ وصل می‌شوند.
  */
 export function ProjectStory() {
   const story = PROJECT_STORY;
@@ -146,14 +146,8 @@ export function ProjectStory() {
           </Reveal>
 
           <Reveal delay={0.08} className="mt-6">
-            <DriveTrainFigure
-              items={story.figure.items}
-              note={story.figure.note}
-              label="نقشه‌ی شماتیک چیدمان درایو نوار نقاله: پولی سر نوار، شفت درایو با بک‌استاپ سرعت پایین، گیربکس کاهنده، اتصال انقباضی، کوپلینگ فلنجی، بک‌استاپ سرعت بالا، ترمز و موتور، و نمای جدا از درایو دوم"
-            />
+            <StoryParts items={story.figure.items} note={story.figure.note} />
           </Reveal>
-
-          <p className="mt-4 text-[11.5px] leading-6 text-white/45">{story.figure.caption}</p>
         </div>
 
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
