@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowUpLeft } from "lucide-react";
 
 import { Counter, Reveal } from "@/components/motion";
-import { DimensionDrawing } from "@/components/diagrams";
+import { DimensionDrawing } from "@/components/dimension-drawing";
 import { InquiryForm } from "@/components/inquiry-form";
 import { SERIES_IMAGE } from "@/content/product-images";
 import {

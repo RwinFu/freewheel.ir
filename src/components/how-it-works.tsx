@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { AxisFreewheel } from "@/components/axis-freewheel";
 import { prefersReducedMotion } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -58,198 +59,9 @@ const FACTS = [
   { Icon: LockKeyhole, title: "قفل مثبت، نه لغزش", detail: "گوه‌شدن المان‌ها بین دو حلقه" },
 ];
 
-function CrossSection({ mode }: { mode: Mode }) {
-  const isFree = mode === "free";
-  const isLocked = mode === "locked";
-  const tilt = isFree ? "0deg" : mode === "engaging" ? "-9deg" : "-13deg";
-  const spragFill = isFree ? "#72DED2" : "#EE7958";
-
-  return (
-    <svg
-      viewBox="0 0 400 400"
-      className="h-full w-full"
-      role="img"
-      aria-label="برش فری‌ویل: حلقه‌ی بیرونی، المان‌های قفل‌کننده و حلقه‌ی داخلی"
-    >
-      <defs>
-        <radialGradient id="how-glow" cx="50%" cy="50%" r="55%">
-          <stop offset="0%" stopColor="#58D7CE" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="#58D7CE" stopOpacity="0" />
-        </radialGradient>
-        <marker
-          id="how-arrow-mint"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto"
-        >
-          <path d="M0 0 L10 5 L0 10 Z" fill="#72DED2" />
-        </marker>
-        <marker
-          id="how-arrow-coral"
-          viewBox="0 0 10 10"
-          refX="8"
-          refY="5"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto"
-        >
-          <path d="M0 0 L10 5 L0 10 Z" fill="#EE7958" />
-        </marker>
-      </defs>
-
-      <circle cx="200" cy="200" r="190" fill="url(#how-glow)" />
-      <circle
-        cx="200"
-        cy="200"
-        r="175"
-        fill="none"
-        stroke="#FFFFFF"
-        strokeOpacity="0.08"
-        strokeWidth="1"
-        strokeDasharray="2 8"
-      />
-
-      {/* حلقه‌ی بیرونی — در حالت قفل با حلقه‌ی داخلی هم‌چرخ است */}
-      <g className={isLocked ? "how-spin-sync" : undefined}>
-        <circle cx="200" cy="200" r="150" fill="#163B45" stroke="#B8CFD1" strokeWidth="17" />
-        <circle
-          cx="200"
-          cy="200"
-          r="166"
-          fill="none"
-          stroke="#DCE9E8"
-          strokeOpacity="0.48"
-          strokeWidth="2"
-        />
-        {Array.from({ length: 24 }, (_, index) => index * 15).map((degree) => (
-          <line
-            key={degree}
-            x1="200"
-            y1="28"
-            x2="200"
-            y2="38"
-            stroke="#DCE9E8"
-            strokeOpacity="0.65"
-            strokeWidth="2"
-            transform={`rotate(${degree} 200 200)`}
-          />
-        ))}
-        {Array.from({ length: 10 }, (_, index) => index * 36).map((degree) => (
-          <g key={degree} transform={`rotate(${degree} 200 200)`}>
-            <path
-              d="M190 71 L210 71 L206 111 L194 111 Z"
-              fill={spragFill}
-              stroke="#F4F8F7"
-              strokeOpacity="0.76"
-              strokeWidth="1.5"
-              className="how-sprag"
-              style={{ ["--tilt" as string]: tilt }}
-            />
-          </g>
-        ))}
-      </g>
-
-      {/* حلقه‌ی داخلی و شفت — سرعت چرخش با هر مرحله عوض می‌شود */}
-      <g
-        className={
-          isLocked ? "how-spin-sync" : isFree ? "how-spin-fast" : "how-spin-creep"
-        }
-      >
-        <circle cx="200" cy="200" r="103" fill="#102F3B" stroke="#72DED2" strokeWidth="8" />
-        <circle
-          cx="200"
-          cy="200"
-          r="84"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeOpacity="0.36"
-          strokeWidth="2"
-        />
-        {Array.from({ length: 6 }, (_, index) => index * 60).map((degree) => (
-          <line
-            key={degree}
-            x1="200"
-            y1="111"
-            x2="200"
-            y2="128"
-            stroke="#B8CFD1"
-            strokeWidth="4"
-            strokeLinecap="round"
-            transform={`rotate(${degree} 200 200)`}
-          />
-        ))}
-        <circle cx="200" cy="200" r="43" fill="#0B2630" stroke="#B8CFD1" strokeWidth="3" />
-        <circle cx="200" cy="200" r="8" fill="#EE7958" />
-      </g>
-
-      {/* موج درگیری — فقط در لحظه‌ی برگشت */}
-      {mode === "engaging" ? (
-        <circle
-          cx="200"
-          cy="200"
-          r="128"
-          fill="none"
-          stroke="#EE7958"
-          strokeWidth="2.5"
-          className="how-ping"
-        />
-      ) : null}
-
-      {/* مسیر گشتاور — فقط در حالت قفل */}
-      <g
-        className="transition-opacity duration-500"
-        opacity={isLocked ? 1 : 0}
-        aria-hidden="true"
-      >
-        <path
-          d="M 264 89 A 128 128 0 0 1 264 311"
-          fill="none"
-          stroke="#EE7958"
-          strokeOpacity="0.22"
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 264 89 A 128 128 0 0 1 264 311"
-          fill="none"
-          stroke="#EE7958"
-          strokeWidth="3"
-          strokeLinecap="round"
-          markerEnd="url(#how-arrow-coral)"
-        />
-      </g>
-
-      {/* پیکان‌های جهت */}
-      <path
-        d="M296 93 A132 132 0 0 1 331 157"
-        fill="none"
-        stroke="#72DED2"
-        strokeWidth="5"
-        strokeLinecap="round"
-        markerEnd="url(#how-arrow-mint)"
-        className="transition-opacity duration-500"
-        opacity={isFree ? 1 : mode === "engaging" ? 0.55 : 0.2}
-      />
-      <path
-        d="M322 268 A132 132 0 0 1 268 322"
-        fill="none"
-        stroke="#EE7958"
-        strokeWidth="5"
-        strokeLinecap="round"
-        markerEnd="url(#how-arrow-coral)"
-        className="transition-opacity duration-500"
-        opacity={isLocked ? 1 : mode === "engaging" ? 0.6 : 0.2}
-      />
-    </svg>
-  );
-}
-
 /**
- * بخش «اصل کار»: به‌جای سه کارت ایستا، یک سازوکار تعاملی که با انتخاب هر
- * مرحله، برش قطعه، وضعیت المان‌ها و معنای عملی‌اش را هم‌زمان نشان می‌دهد.
+ * بخش «اصل کار»: به‌جای سه کارت ایستا، یک سازوکار تعاملی روی عکس واقعی قطعه.
+ * با انتخاب هر مرحله، چرخش هر بخش عوض می‌شود و معنای عملی‌اش کنارش می‌آید.
  */
 export function HowItWorks() {
   const [step, setStep] = useState(0);
@@ -307,8 +119,8 @@ export function HowItWorks() {
               از چرخش آزاد تا قفل، قدم‌به‌قدم
             </h2>
             <p className="mt-3 text-[14px] leading-7 text-white/65 sm:text-[15px] sm:leading-8">
-              به‌جای تعریف خشک، هر مرحله را انتخاب کن و ببین داخل قطعه دقیقاً چه اتفاقی
-              می‌افتد — و در خط تولید یعنی چه.
+              این‌جا قطعه‌ی واقعی است، نه نقاشی: هر حلقه روی محور خودش می‌چرخد. مرحله را
+              عوض کن تا ببینی در هر لحظه کدام بخش می‌گردد و در خط تولید یعنی چه.
             </p>
           </div>
           <div
@@ -330,13 +142,15 @@ export function HowItWorks() {
           {/* برش تعاملی */}
           <div className="rounded-[26px] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-md sm:p-7 lg:sticky lg:top-24">
             <div className="flex items-center justify-between gap-4">
-              <p className="text-[12px] font-medium text-white/55">سازوکار فری‌ویل</p>
+              <p className="text-[12px] font-medium text-white/55">
+                قطعه‌ی واقعی، روبه‌روی محور
+              </p>
               <span className="text-[11px] tracking-[0.18em] text-white/35" dir="ltr">
-                CROSS-SECTION
+                AXIS VIEW · LIVE
               </span>
             </div>
-            <div className="relative mx-auto mt-2 aspect-square w-full max-w-[420px]">
-              <CrossSection mode={current.mode} />
+            <div className="relative mt-2">
+              <AxisFreewheel phase={current.mode} />
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
               {(

@@ -8,8 +8,8 @@ import { FreewheelGallery } from "@/components/freewheel-gallery";
 import { HeroVisual } from "@/components/hero-visual";
 import { HowItWorks } from "@/components/how-it-works";
 import { ScrollBackdrop } from "@/components/scroll-backdrop";
-import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
 import { APPLICATIONS } from "@/content/applications";
+import { PART_IMAGE } from "@/content/product-images";
 import { PageTransition } from "@/components/page-transition";
 
 const FEATURED_APPLICATIONS = APPLICATIONS.filter((application) =>
@@ -47,16 +47,18 @@ const TYPES = [
     english: "SPRAG",
     summary: "المان‌های گوه‌ایِ فولادی بین دو حلقه",
     body: "برای درگیری مطمئن و انتقال گشتاورهای بالا در بسیاری از کاربردهای صنعتی استفاده می‌شود.",
-    diagram: <SpragTypeDiagram animate={false} className="h-auto w-full" />,
+    image: PART_IMAGE.typeSprag,
+    series: { href: "/ringspann/fb", label: "سری FB در کاتالوگ RINGSPANN" },
   },
   {
     name: "رولری",
     english: "ROLLER",
     summary: "غلتک‌هایی که در فضای گوه‌ای حرکت می‌کنند",
     body: "ساختاری رایج و فشرده برای کاربردهای عمومی؛ جزئیات انتخاب به سرعت آزاد و شرایط کار بستگی دارد.",
-    diagram: <RollerTypeDiagram animate={false} className="h-auto w-full" />,
+    image: PART_IMAGE.typeRoller,
+    series: { href: "/ringspann/fgr-r", label: "سری FGR … R در کاتالوگ RINGSPANN" },
   },
-];
+] as const;
 
 function SectionHeading({
   label,
@@ -216,7 +218,7 @@ export default function HomePage() {
             <SectionHeading
               label="انواع رایج"
               title="دو ساختار را بیشتر می‌بینید"
-              description="فری‌ویل‌ها از نظر شکل المان داخلی تفاوت دارند. این نگاه کلی برای شروع خوب است؛ انتخاب نهایی به شرایط واقعی کار بستگی دارد."
+              description="فری‌ویل‌ها از نظر شکل المان داخلی تفاوت دارند. این‌ها عکس واقعی داخل قطعه است؛ انتخاب نهایی به شرایط واقعی کار بستگی دارد."
             />
             <Link
               href="/articles/sprag-vs-roller"
@@ -230,8 +232,19 @@ export default function HomePage() {
           <div className="mt-9 grid gap-4 lg:grid-cols-2">
             {TYPES.map((type) => (
               <article key={type.english} className="home-type-card">
-                <div className="home-type-art">{type.diagram}</div>
-                <div className="mt-3 flex items-center gap-3">
+                <div className="home-type-art">
+                  <Image
+                    src={type.image.src}
+                    alt={type.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 46vw, 92vw"
+                    className="object-cover"
+                  />
+                  <span className="home-type-tag" dir="ltr" translate="no">
+                    {type.english}
+                  </span>
+                </div>
+                <div className="mt-4 flex items-center gap-3">
                   <h3 className="text-[18px] font-bold text-white">{type.name}</h3>
                   <span className="rounded-full bg-white/10 px-2.5 py-1 text-[9px] font-semibold tracking-[0.13em] text-mint" dir="ltr" translate="no">
                     {type.english}
@@ -239,6 +252,13 @@ export default function HomePage() {
                 </div>
                 <p className="mt-2 text-[13px] font-semibold text-white/80">{type.summary}</p>
                 <p className="mt-2 text-[12.5px] leading-7 text-white/55">{type.body}</p>
+                <Link
+                  href={type.series.href}
+                  className="mt-4 inline-flex items-center gap-2 text-[12.5px] font-semibold text-mint transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+                >
+                  {type.series.label}
+                  <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+                </Link>
               </article>
             ))}
           </div>

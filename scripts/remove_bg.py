@@ -1,5 +1,9 @@
 """حذف پس‌زمینه‌ی تصاویر استودیویی فری‌ویل و خروجی PNG شفاف.
 
+این فایل هم به‌صورت اسکریپت اجرا می‌شود و هم قابل import است:
+`scripts/build_freewheel_layers.py` تابع `cut_background` را از همین‌جا
+برمی‌دارد تا منطق برش پس‌زمینه در دو جا تکرار نشود.
+
 چرا: برای بخش «فری‌ویل‌های شناور» صفحه‌ی اول، بعضی تصویرها باید بدون قاب و بدون
 پس‌زمینه روی سطح صفحه شناور باشند.
 
@@ -96,10 +100,15 @@ def cut_background(img: Image.Image) -> Image.Image:
     return rgba
 
 
-for name in sys.argv[1:]:
-    source = images / f"{name}.jpg"
-    target = images / f"{name}.png"
-    with Image.open(source) as im:
-        out = cut_background(im)
-    out.save(target, "PNG", optimize=True)
-    print(f"{name}: {out.size} {out.mode} -> {target.name}")
+def main(names: list[str]) -> None:
+    for name in names:
+        source = images / f"{name}.jpg"
+        target = images / f"{name}.png"
+        with Image.open(source) as im:
+            out = cut_background(im)
+        out.save(target, "PNG", optimize=True)
+        print(f"{name}: {out.size} {out.mode} -> {target.name}")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
