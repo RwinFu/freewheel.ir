@@ -5,8 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
-import heroImage from "@/assets/images/hero-freewheel.jpg";
 import { prefersReducedMotion } from "@/components/motion";
+import { PART_IMAGE } from "@/content/product-images";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -139,12 +139,12 @@ export function HeroVisual() {
         <div ref={frameRef} className="hero-visual-frame relative aspect-[16/11] overflow-hidden rounded-[28px] opacity-0">
           <div ref={imgRef} className="hero-visual-img absolute inset-0 will-change-transform">
             <Image
-              src={heroImage}
-              alt="کلاچ یک‌طرفه‌ی فولادی (فری‌ویل) با المان‌های قفل‌کننده بین دو حلقه"
+              src={PART_IMAGE.axis.src}
+              alt={PART_IMAGE.axis.alt}
               fill
               priority
               sizes="(min-width: 1024px) 46vw, 92vw"
-              className="object-cover object-[62%_50%]"
+              className="object-cover object-center"
               placeholder="blur"
             />
           </div>
@@ -159,7 +159,7 @@ export function HeroVisual() {
 
           {/* حلقه‌ی چرخان روی قطعه */}
           <svg
-            className="hero-visual-orbit pointer-events-none absolute left-[18%] top-1/2 h-[66%] w-auto -translate-y-1/2"
+            className="hero-visual-orbit pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2"
             viewBox="0 0 200 200"
             aria-hidden="true"
           >
