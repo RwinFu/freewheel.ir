@@ -4,6 +4,7 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from 
 
 import { FaqList } from "@/components/faq";
 import { FreewheelDemo } from "@/components/freewheel-demo";
+import { FreewheelGallery } from "@/components/freewheel-gallery";
 import { HeroVisual } from "@/components/hero-visual";
 import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
 import { APPLICATIONS } from "@/content/applications";
@@ -211,7 +212,7 @@ export default function HomePage() {
                     alt={application.image.alt}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="kb-breathe object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ocean/80 via-ocean/5 to-transparent" aria-hidden="true" />
                   <span className="absolute bottom-4 right-4 rounded-full border border-white/25 bg-ocean/65 px-3 py-1.5 text-[10.5px] text-white backdrop-blur-sm">
@@ -232,6 +233,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FreewheelGallery />
 
       <section id="types" className="scroll-mt-24 border-y border-line bg-base">
         <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">

@@ -267,6 +267,36 @@
   animation-play-state: paused;
 }
 
+/* ---------- گالری افقی فری‌ویل ---------- */
+/* حالت بدون‌موشن: پین حذف می‌شود و نوار یک اسکرول افقی معمولی است */
+.gallery-fallback .gallery-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.gallery-fallback .gallery-track {
+  transform: none !important;
+}
+.gallery-fallback [data-gallery-card] {
+  scroll-snap-align: center;
+}
+.gallery-fallback [data-gallery-media] {
+  transform: none !important;
+}
+
+/* تنفس آرام تصویر کارت‌ها (کن‌برنز خیلی ملایم) */
+.kb-breathe {
+  animation: kb-breathe 18s ease-in-out infinite alternate;
+}
+@keyframes kb-breathe {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(0, -2%, 0);
+  }
+}
+
 .reveal-item {
   opacity: 0;
   transform: translateY(var(--reveal-y, 18px));
@@ -323,6 +353,10 @@ html:not(.lenis) .reveal-item {
   .hero-visual-frame,
   .hero-chip {
     opacity: 1;
+  }
+  .kb-breathe {
+    animation: none !important;
+    transform: none;
   }
 }
 

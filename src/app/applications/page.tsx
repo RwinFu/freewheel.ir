@@ -3,12 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
 
-import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
+import {
+  CategoryChips,
+  CategoryFilterProvider,
+  CategoryItem,
+  CategoryTag,
+} from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
 import { PageTransition, SharedElement } from "@/components/page-transition";
 import { BuyNote, RobotNote, SectionHeading } from "@/components/ui";
 import { APPLICATIONS } from "@/content/applications";
-import { APPLICATION_CATEGORIES, applicationCategory, withCounts } from "@/content/taxonomy";
+import {
+  APPLICATION_CATEGORIES,
+  applicationCategory,
+  categoryById,
+  withCounts,
+} from "@/content/taxonomy";
 
 const APPLICATION_CATEGORIES_COUNTED = withCounts(
   APPLICATION_CATEGORIES,
@@ -52,7 +62,12 @@ export default function ApplicationsPage() {
         <CategoryFilterProvider>
           <CategoryChips categories={APPLICATION_CATEGORIES_COUNTED} label="فیلتر کاربردها بر اساس وظیفه‌ی قطعه" />
           <div data-filter-grid className="mt-7 grid gap-6 lg:grid-cols-2">
-          {APPLICATIONS.map((application) => (
+          {APPLICATIONS.map((application) => {
+            const category = categoryById(
+              APPLICATION_CATEGORIES,
+              applicationCategory(application.slug),
+            );
+            return (
             <CategoryItem
               key={application.slug}
               category={applicationCategory(application.slug)}
@@ -70,9 +85,12 @@ export default function ApplicationsPage() {
                       alt={application.image.alt}
                       fill
                       sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
+                      className="kb-breathe object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
                     />
                     <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-panel to-transparent" />
+                    {category ? (
+                      <CategoryTag category={category} className="absolute right-4 top-4" />
+                    ) : null}
                     <span className="absolute bottom-4 right-4 text-[11.5px] tracking-[0.1em] text-fg-muted">
                       {application.kicker}
                     </span>
@@ -98,7 +116,8 @@ export default function ApplicationsPage() {
                 </div>
               </Link>
             </CategoryItem>
-          ))}
+            );
+          })}
           </div>
         </CategoryFilterProvider>
       </section>
