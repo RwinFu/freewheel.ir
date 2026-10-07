@@ -10,6 +10,10 @@ import typeSprag from "@/assets/images/part/type-sprag.jpg";
 import unitBackstop from "@/assets/images/part/unit-backstop.jpg";
 import unitSealed from "@/assets/images/part/unit-sealed.jpg";
 import unitSprag from "@/assets/images/part/unit-sprag.jpg";
+import driveFrame from "@/assets/images/mount/frame.jpg";
+import driveGearbox from "@/assets/images/motors/gearbox.jpg";
+import driveMotor from "@/assets/images/motors/motor.jpg";
+import drivePulley from "@/assets/images/motors/pulley.jpg";
 import fwBackstop from "@/assets/images/fw-backstop.jpg";
 import fwBackstopPng from "@/assets/images/fw-backstop.png";
 import fwLiftoffPng from "@/assets/images/fw-liftoff.png";
@@ -162,6 +166,41 @@ export const PART_IMAGE = {
     alt: "بک‌استاپ کامل روی شفت با اهرم گشتاور پیچ‌شده به حلقه‌ی بیرونی",
     caption: "بک‌استاپ کامل",
     sub: "اهرم گشتاور روی پایه‌ی ثابت، نصب‌شده روی شفت",
+  },
+} as const satisfies Record<string, ProductImage>;
+
+/**
+ * تصاویر لوازم جانبی ایستگاه درایو: موتور و براکت پایه.
+ *
+ * این‌ها خودِ محصول نیستند؛ قطعه‌هایی‌اند که فری‌ویل به آن‌ها می‌بندد یا روی آن‌ها
+ * می‌نشیند. در بخش «ایستگاه درایو» صفحه‌ی اول با شماره روی رندر ایستگاه مشخص
+ * می‌شوند. مثل بقیه‌ی تصاویر ساخته‌شده با مدل تصویرساز، این‌ها هم جای عکس واقعی
+ * خودِ پروژه را می‌گیرند و برای پیش‌نمایش‌اند.
+ */
+export const DRIVE_IMAGE = {
+  motor: {
+    src: driveMotor,
+    alt: "موتور الکتریکی سه‌فاز با بدنه‌ی پره‌دار و جعبه‌ی ترمینال روی سرِ آن",
+    caption: "موتور سه‌فاز",
+    sub: "منبع دور و توان؛ پلاک موتور نقطه‌ی شروع محاسبه‌ی گشتاور است",
+  },
+  gearbox: {
+    src: driveGearbox,
+    alt: "گیربکس کاهنده‌ی هلیکال با پوسته‌ی پره‌دار و شفت توخالی خروجی",
+    caption: "گیربکس کاهنده",
+    sub: "نسبت آن، گشتاور روی شفت سر پولی را می‌سازد",
+  },
+  pulley: {
+    src: drivePulley,
+    alt: "پولی درایو استوانه‌ای فولادی با شفت یک‌تکه و راه‌کلید",
+    caption: "پولی درایو",
+    sub: "گشتاور برگشت از قطر همین پولی و وزن بار می‌آید",
+  },
+  frame: {
+    src: driveFrame,
+    alt: "براکت پایه‌ی جوشی با سطح ماشین‌کاری‌شده و دو سوراخ پیچ برای بستن اهرم",
+    caption: "پایه و براکت",
+    sub: "اهرم گشتاور را به سازه می‌بندد؛ صلب بودنش شرط اول است",
   },
 } as const satisfies Record<string, ProductImage>;
 
