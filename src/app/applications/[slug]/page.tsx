@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpLeft, TriangleAlert } from "lucide-react";
+import { ArrowUpLeft, BookOpen, TriangleAlert } from "lucide-react";
 
 import { Reveal } from "@/components/motion";
 import { InquiryForm } from "@/components/inquiry-form";
@@ -104,6 +104,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
       <section className="mx-auto max-w-[1240px] px-6 py-14">
         <SectionHeading kicker="سناریو" title="در خط تولید چه می‌گذرد؟" />
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
+
           {application.scenario.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.04}>
               <Panel className="h-full p-6">
@@ -116,6 +117,34 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
             </Reveal>
           ))}
         </div>
+
+        {application.slug === "conveyor" ? (
+          <Reveal className="mt-6">
+            <Link
+              href="/#story"
+              className="group flex flex-col gap-3 border border-line bg-panel p-5 transition-colors hover:border-accent/50 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+            >
+              <span>
+                <span className="flex items-center gap-2 text-[12px] tracking-[0.08em] text-accent">
+                  <BookOpen className="h-4 w-4" />
+                  داستان پروژه
+                </span>
+                <span className="mt-2 block text-[15.5px] leading-7 text-fg">
+                  نوار نقاله‌ای که شب‌ها به عقب می‌رفت — از تشخیص در شب اول تا بک‌استاپی که سه سال
+                  تاب آورد.
+                </span>
+                <span className="mt-2 block text-[12.5px] leading-6 text-fg-dim">
+                  روایت کامل با نقشه‌ی شماره‌دار چیدمان درایو و محاسبه‌ی گشتاور برگشت، در صفحه‌ی
+                  اصلی.
+                </span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-fg-muted transition-colors group-hover:text-accent">
+                خواندن داستان
+                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+          </Reveal>
+        ) : null}
       </section>
 
       <section className="border-y border-line bg-panel/40">

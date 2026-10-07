@@ -11,6 +11,7 @@ import { ScrollBackdrop } from "@/components/scroll-backdrop";
 import { APPLICATIONS } from "@/content/applications";
 import { PART_IMAGE } from "@/content/product-images";
 import { PageTransition } from "@/components/page-transition";
+import { ProjectStory } from "@/components/project-story";
 
 const FEATURED_APPLICATIONS = APPLICATIONS.filter((application) =>
   ["conveyor", "textile", "packaging"].includes(application.slug),
@@ -152,6 +153,10 @@ export default function HomePage() {
       </section>
 
       <HowItWorks />
+
+      <div className="home-hairline" aria-hidden="true" />
+
+      <ProjectStory />
 
       <div className="home-hairline" aria-hidden="true" />
 
