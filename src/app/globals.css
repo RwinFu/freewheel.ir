@@ -673,3 +673,184 @@ html:not(.lenis) .reveal-item {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   ترنزیشن صفحه‌ها — View Transition API بومی
+   نام کلاس‌ها در `src/components/page-transition.tsx` استفاده می‌شوند.
+   جهت‌ها برای چیدمان راست‌به‌چپ تنظیم شده‌اند: «رفتن به عمق» از چپ وارد می‌شود.
+   ========================================================================== */
+
+:root {
+  --vt-exit: 150ms;
+  --vt-enter: 210ms;
+  --vt-move: 400ms;
+  --vt-shift: 60px;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--vt-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+/*
+ * ریشه‌ی زنده: بدون این، مرورگر روی هر ناوبری از کل صفحه snapshot می‌گیرد و
+ * هدر/فوتر چسبنده تا پایان انیمیشن «منجمد» می‌مانند (hover و focus کار نمی‌کند).
+ * با غیرفعال کردن انیمیشن ریشه، بخش‌های بی‌نام زنده رندر می‌شوند و فقط
+ * گروه‌های نام‌دار/کلاس‌دار (یعنی خودِ صفحه) انیمیشن می‌گیرند.
+ */
+::view-transition-old(root) {
+  display: none;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* اورلی ترنزیشن کلیک‌ها را می‌بلعد؛ با این، در حین انیمیشن هم کلیک رد می‌شود. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* nav-forward: صفحه‌ی جدید از چپ می‌آید، صفحه‌ی قدیمی به راست می‌رود */
+::view-transition-new(.page-enter-forward) {
+  --vt-offset: calc(-1 * var(--vt-shift));
+  animation:
+    var(--vt-enter) ease-out var(--vt-exit) both vt-fade,
+    var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide;
+}
+
+::view-transition-old(.page-exit-forward) {
+  --vt-offset: var(--vt-shift);
+  animation:
+    var(--vt-exit) ease-in both vt-fade reverse,
+    var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide reverse;
+}
+
+/* nav-back: برعکس — صفحه‌ی جدید از راست می‌آید */
+::view-transition-new(.page-enter-back) {
+  --vt-offset: var(--vt-shift);
+  animation:
+    var(--vt-enter) ease-out var(--vt-exit) both vt-fade,
+    var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide;
+}
+
+::view-transition-old(.page-exit-back) {
+  --vt-offset: calc(-1 * var(--vt-shift));
+  animation:
+    var(--vt-exit) ease-in both vt-fade reverse,
+    var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide reverse;
+}
+
+/* morph عنصر مشترک بین دو صفحه (تصویر کارت → تصویر صفحه‌ی جزئیات) */
+::view-transition-group(.morph) {
+  animation-duration: var(--vt-move);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: vt-morph-blur;
+}
+
+@keyframes vt-morph-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/*
+ * morph متن: snapshot قدیمی raster است و بزرگ‌شدنش روی متن «شبح» می‌سازد،
+ * پس قدیمی را پنهان می‌کنیم و متن جدید را با وضوح کامل نشان می‌دهیم.
+ */
+::view-transition-group(.text-morph) {
+  animation-duration: var(--vt-move);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(.text-morph) {
+  display: none;
+}
+
+::view-transition-new(.text-morph) {
+  animation: none;
+  object-fit: none;
+  object-position: right top;
+}
+
+/*
+ * نشانگر لغزان دسته‌بندی: یک عنصر نام‌دار بین وضعیت‌ها سر می‌خورد.
+ * old/new را خاموش می‌کنیم تا میله‌ی توپُر جابه‌جا شود نه اینکه cross-fade کند.
+ */
+::view-transition-group(.filter-pill) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(.filter-pill),
+::view-transition-new(.filter-pill) {
+  animation: none;
+  height: 100%;
+}
+
+/*
+ * prefers-reduced-motion: قاعده‌ی عمومی `*` پایین‌تر این فایل به
+ * شبه‌عنصرهای view-transition نمی‌رسد، پس اینجا جداگانه صفر می‌شوند.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* آیتم‌های فهرست هنگام فیلتر دسته‌بندی */
+@keyframes vt-scale-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes vt-scale-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+::view-transition-new(.filter-in) {
+  animation: var(--vt-enter) cubic-bezier(0.22, 1, 0.36, 1) both vt-scale-in;
+}
+
+::view-transition-old(.filter-out) {
+  animation: var(--vt-exit) ease-in both vt-scale-out;
+}
+
+::view-transition-group(.filter-in),
+::view-transition-group(.filter-out) {
+  animation-duration: var(--vt-move);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}

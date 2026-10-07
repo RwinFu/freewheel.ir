@@ -3,9 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
 
+import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
+import { PageTransition, SharedElement } from "@/components/page-transition";
 import { BuyNote, RobotNote, SectionHeading } from "@/components/ui";
 import { APPLICATIONS } from "@/content/applications";
+import { APPLICATION_CATEGORIES, applicationCategory, withCounts } from "@/content/taxonomy";
+
+const APPLICATION_CATEGORIES_COUNTED = withCounts(
+  APPLICATION_CATEGORIES,
+  APPLICATIONS.map((application) => application.slug),
+  applicationCategory,
+);
 
 export const metadata: Metadata = {
   title: "کاربردهای فری‌ویل — نوار نقاله، نساجی، غذایی، بسته‌بندی، چاپ، معدن",
@@ -16,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function ApplicationsPage() {
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
           <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
@@ -40,26 +49,35 @@ export default function ApplicationsPage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-6 py-14">
-        <div className="grid gap-6 lg:grid-cols-2">
-          {APPLICATIONS.map((application, index) => (
-            <Reveal key={application.slug} delay={index * 0.04}>
+        <CategoryFilterProvider>
+          <CategoryChips categories={APPLICATION_CATEGORIES_COUNTED} label="فیلتر کاربردها بر اساس وظیفه‌ی قطعه" />
+          <div data-filter-grid className="mt-7 grid gap-6 lg:grid-cols-2">
+          {APPLICATIONS.map((application) => (
+            <CategoryItem
+              key={application.slug}
+              category={applicationCategory(application.slug)}
+            >
               <Link
                 href={`/applications/${application.slug}`}
+                transitionTypes={["nav-forward"]}
+                prefetch
                 className="group flex h-full flex-col border border-line bg-panel transition-colors hover:border-accent/50"
               >
-                <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
-                  <Image
-                    src={application.image.src}
-                    alt={application.image.alt}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
-                  />
-                  <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-panel to-transparent" />
-                  <span className="absolute bottom-4 right-4 text-[11.5px] tracking-[0.1em] text-fg-muted">
-                    {application.kicker}
-                  </span>
-                </div>
+                <SharedElement name={`app-image-${application.slug}`}>
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
+                    <Image
+                      src={application.image.src}
+                      alt={application.image.alt}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
+                    />
+                    <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-panel to-transparent" />
+                    <span className="absolute bottom-4 right-4 text-[11.5px] tracking-[0.1em] text-fg-muted">
+                      {application.kicker}
+                    </span>
+                  </div>
+                </SharedElement>
                 <div className="flex flex-1 flex-col p-6">
                   <h2 className="text-[20px] text-fg">{application.title}</h2>
                   <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{application.intro[0]}</p>
@@ -79,9 +97,10 @@ export default function ApplicationsPage() {
                   </span>
                 </div>
               </Link>
-            </Reveal>
+            </CategoryItem>
           ))}
-        </div>
+          </div>
+        </CategoryFilterProvider>
       </section>
 
       <section className="border-t border-line bg-panel/40">
@@ -101,6 +120,6 @@ export default function ApplicationsPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

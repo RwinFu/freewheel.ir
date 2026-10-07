@@ -18,6 +18,7 @@ import {
 import { APPLICATIONS, getApplication } from "@/content/applications";
 import { ARTICLES } from "@/content/articles";
 import { getSeries } from "@/content/ringspann";
+import { PageTransition, SharedElement } from "@/components/page-transition";
 
 type Params = { slug: string };
 
@@ -48,7 +49,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
   if (!application) notFound();
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-14">
           <Breadcrumbs
@@ -80,7 +81,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                 </div>
               </Reveal>
             </div>
-            <Reveal delay={0.08} y={0}>
+            <SharedElement name={`app-image-${application.slug}`}>
               <div className="relative aspect-[4/3] overflow-hidden border border-line">
                 <Image
                   src={application.image.src}
@@ -95,7 +96,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                   {application.image.credit}
                 </span>
               </div>
-            </Reveal>
+            </SharedElement>
           </div>
         </div>
       </section>
@@ -130,6 +131,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                     <Reveal key={seriesSlug}>
                       <Link
                         href={`/ringspann/${series.slug}`}
+                        transitionTypes={["nav-forward"]}
                         className="group flex items-start justify-between gap-6 border border-line bg-panel p-5 transition-colors hover:border-accent/50"
                       >
                         <div>
@@ -204,6 +206,7 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
                 <li key={article.slug}>
                   <Link
                     href={`/articles/${article.slug}`}
+                    transitionTypes={["nav-forward"]}
                     className="group flex items-center justify-between gap-4 py-4"
                   >
                     <span className="text-[14.5px] leading-7 text-fg-muted transition-colors group-hover:text-accent">
@@ -228,6 +231,6 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

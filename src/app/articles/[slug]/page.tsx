@@ -8,6 +8,7 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { BuyNote, Breadcrumbs, Callout, Panel, RobotNote } from "@/components/ui";
 import { ARTICLES, getArticle } from "@/content/articles";
 import { SHOPS, SITE } from "@/content/site";
+import { PageTransition, SharedText } from "@/components/page-transition";
 
 type Params = { slug: string };
 
@@ -56,7 +57,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   const others = ARTICLES.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
-    <>
+    <PageTransition>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -79,11 +80,11 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <span className="tnum">{article.readingMinutes} دقیقه مطالعه</span>
             </div>
           </Reveal>
-          <Reveal delay={0.05}>
+          <SharedText name={`article-title-${article.slug}`}>
             <h1 className="mt-5 max-w-3xl text-[30px] leading-tight text-fg sm:text-[38px]">
               {article.title}
             </h1>
-          </Reveal>
+          </SharedText>
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl text-[16px] leading-8 text-fg-muted">{article.dek}</p>
           </Reveal>
@@ -194,6 +195,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <Link
                 key={item.slug}
                 href={`/articles/${item.slug}`}
+                transitionTypes={["nav-forward"]}
                 className="group border border-line bg-panel p-5 transition-colors hover:border-accent/50"
               >
                 <div className="text-[12px] text-accent">{item.tag}</div>
@@ -214,6 +216,6 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           </div>
         </section>
       ) : null}
-    </>
+    </PageTransition>
   );
 }

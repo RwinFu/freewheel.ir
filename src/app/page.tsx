@@ -7,6 +7,7 @@ import { FreewheelDemo } from "@/components/freewheel-demo";
 import { HeroVisual } from "@/components/hero-visual";
 import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
 import { APPLICATIONS } from "@/content/applications";
+import { PageTransition } from "@/components/page-transition";
 
 const FEATURED_APPLICATIONS = APPLICATIONS.filter((application) =>
   ["conveyor", "textile", "packaging"].includes(application.slug),
@@ -96,7 +97,7 @@ function SectionHeading({
 
 export default function HomePage() {
   return (
-    <>
+    <PageTransition>
       <section className="hero-surface relative overflow-hidden text-white">
         <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[1320px] items-center gap-10 px-5 py-12 sm:px-7 sm:py-16 lg:min-h-[680px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8 lg:py-16">
@@ -201,6 +202,7 @@ export default function HomePage() {
               <Link
                 key={application.slug}
                 href={`/applications/${application.slug}`}
+                transitionTypes={["nav-forward"]}
                 className="group overflow-hidden rounded-[22px] border border-line bg-panel transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 <div className="relative aspect-[1.35] overflow-hidden bg-panel-2">
@@ -360,6 +362,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

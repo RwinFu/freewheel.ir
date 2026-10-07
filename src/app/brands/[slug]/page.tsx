@@ -10,6 +10,7 @@ import { BRANDS, getBrand } from "@/content/brands";
 import { ARTICLES } from "@/content/articles";
 import { RINGSPANN_SERIES } from "@/content/ringspann";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
 
 type Params = { slug: string };
 
@@ -46,7 +47,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
   ).slice(0, 2);
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-14">
           <div className="blueprint absolute inset-x-0 top-0 h-52 opacity-60" aria-hidden />
@@ -139,6 +140,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
                     <Link
                       key={item.slug}
                       href={`/ringspann/${item.slug}`}
+                      transitionTypes={["nav-forward"]}
                       className="border border-line-2 px-3 py-1.5 text-[13px] text-fg-muted transition-colors hover:border-accent hover:text-accent"
                       dir="ltr"
                     >
@@ -172,6 +174,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
                     <li key={article.slug}>
                       <Link
                         href={`/articles/${article.slug}`}
+                        transitionTypes={["nav-forward"]}
                         className="group flex items-center justify-between gap-4 text-[13.5px] leading-7 text-fg-muted transition-colors hover:text-accent"
                       >
                         {article.title}
@@ -203,6 +206,7 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
               <Link
                 key={item.slug}
                 href={`/brands/${item.slug}`}
+                transitionTypes={["nav-forward"]}
                 className={cn(
                   "group flex items-center justify-between border border-line bg-panel px-5 py-4 transition-colors hover:border-accent/50",
                 )}
@@ -216,6 +220,6 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

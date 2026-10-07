@@ -5,6 +5,7 @@ import { ArrowUpLeft } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { BuyNote, Callout, SectionHeading } from "@/components/ui";
 import { ARTICLES } from "@/content/articles";
+import { PageTransition, SharedText } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "مقالات فنی فری‌ویل — انتخاب، سایزبندی، نصب و روانکاری",
@@ -17,7 +18,7 @@ export default function ArticlesPage() {
   const [lead, ...rest] = ARTICLES;
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
           <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
@@ -44,6 +45,7 @@ export default function ArticlesPage() {
         <Reveal>
           <Link
             href={`/articles/${lead.slug}`}
+            transitionTypes={["nav-forward"]}
             className="group grid gap-6 border border-line bg-panel p-8 transition-colors hover:border-accent/50 lg:grid-cols-[1.4fr_auto] lg:items-end"
           >
             <div>
@@ -52,9 +54,11 @@ export default function ArticlesPage() {
                 <span className="tnum">{lead.date}</span>
                 <span className="tnum">{lead.readingMinutes} دقیقه مطالعه</span>
               </div>
-              <h2 className="mt-4 max-w-2xl text-[26px] leading-tight text-fg transition-colors group-hover:text-accent sm:text-[30px]">
-                {lead.title}
-              </h2>
+              <SharedText name={`article-title-${lead.slug}`}>
+                <h2 className="mt-4 max-w-2xl text-[26px] leading-tight text-fg transition-colors group-hover:text-accent sm:text-[30px]">
+                  {lead.title}
+                </h2>
+              </SharedText>
               <p className="mt-4 max-w-2xl text-[14.5px] leading-8 text-fg-muted">{lead.dek}</p>
             </div>
             <span className="flex items-center gap-2 border border-line-2 px-5 py-3 text-[13px] text-fg-muted transition-colors group-hover:border-accent group-hover:text-accent">
@@ -69,6 +73,7 @@ export default function ArticlesPage() {
             <Reveal key={article.slug} delay={index * 0.04}>
               <Link
                 href={`/articles/${article.slug}`}
+                transitionTypes={["nav-forward"]}
                 className="group flex h-full flex-col justify-between border border-line bg-panel p-7 transition-colors hover:border-accent/50"
               >
                 <div>
@@ -77,9 +82,11 @@ export default function ArticlesPage() {
                     <span className="tnum">{article.date}</span>
                     <span className="tnum">{article.readingMinutes} دقیقه</span>
                   </div>
-                  <h2 className="mt-4 text-[20px] leading-8 text-fg transition-colors group-hover:text-accent">
-                    {article.title}
-                  </h2>
+                  <SharedText name={`article-title-${article.slug}`}>
+                    <h2 className="mt-4 text-[20px] leading-8 text-fg transition-colors group-hover:text-accent">
+                      {article.title}
+                    </h2>
+                  </SharedText>
                   <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{article.dek}</p>
                 </div>
                 <span className="mt-6 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
@@ -111,7 +118,7 @@ export default function ArticlesPage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }
 
