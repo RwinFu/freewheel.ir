@@ -4,6 +4,7 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from 
 
 import { FaqList } from "@/components/faq";
 import { FreewheelDemo } from "@/components/freewheel-demo";
+import { FloatingFreewheels } from "@/components/floating-freewheels";
 import { FreewheelGallery } from "@/components/freewheel-gallery";
 import { HeroVisual } from "@/components/hero-visual";
 import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
@@ -270,6 +271,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FloatingFreewheels />
 
       <section id="choose" className="scroll-mt-24 bg-white px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
         <div className="selection-panel relative mx-auto grid max-w-[1240px] gap-9 overflow-hidden rounded-[28px] px-6 py-8 text-white sm:px-9 sm:py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-12 lg:py-12">

@@ -1,6 +1,10 @@
 import type { StaticImageData } from "next/image";
 
 import fwBackstop from "@/assets/images/fw-backstop.jpg";
+import fwBackstopPng from "@/assets/images/fw-backstop.png";
+import fwLiftoffPng from "@/assets/images/fw-liftoff.png";
+import fwRollerPng from "@/assets/images/fw-roller.png";
+import fwSpragPng from "@/assets/images/fw-sprag.png";
 import fwDrawnCup from "@/assets/images/fw-drawncup.jpg";
 import fwInternal from "@/assets/images/fw-internal.jpg";
 import fwLeverSmall from "@/assets/images/fw-lever-small.jpg";
@@ -100,6 +104,17 @@ export const BRAND_IMAGE: Record<string, ProductImage> = {
   koyo: { ...internalBearing, caption: "کلاچ یک‌سره‌ی ژاپنی", sub: "تجهیزات اصلی و سایزهای کوچک" },
   luk: { ...rollerBasic, caption: "فری‌ویل انتقال قدرت", sub: "پولی آلترناتور و فلایویل دولایه" },
   niko: { ...drawnCup, caption: "فری‌ویل سبک", sub: "کاربردهای کم‌بار و مکانیزم‌های کوچک" },
+};
+
+/**
+ * نسخه‌های بدون پس‌زمینه (PNG شفاف) برای بخش شناور صفحه‌ی اول.
+ * این‌ها با `scripts/remove_bg.py` از روی همان رندرها بریده شده‌اند.
+ */
+export const SERIES_FLOAT: Record<string, StaticImageData> = {
+  "fgr-r": fwRollerPng,
+  fb: fwSpragPng,
+  frhn: fwBackstopPng,
+  fkh: fwLiftoffPng,
 };
 
 /** نوار گالری صفحه‌ی اول: خودِ قطعه از نمای نزدیک */

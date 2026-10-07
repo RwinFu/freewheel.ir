@@ -284,6 +284,17 @@
   transform: none !important;
 }
 
+/* ---------- فری‌ویل‌های شناور (PNG بدون پس‌زمینه) ---------- */
+.floaty-img {
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
+  transition: filter 0.5s ease;
+}
+.floaty-hot .floaty-img {
+  filter:
+    drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 34px rgba(114, 222, 210, 0.28));
+}
+
 /* تنفس آرام تصویر کارت‌ها (کن‌برنز خیلی ملایم) */
 .kb-breathe {
   animation: kb-breathe 18s ease-in-out infinite alternate;
