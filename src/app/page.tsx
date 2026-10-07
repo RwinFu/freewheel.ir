@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from "lucide-react";
 
 import { FaqList } from "@/components/faq";
+import { DriveStationSection } from "@/components/drive-station";
 import { FloatingFreewheels } from "@/components/floating-freewheels";
 import { FreewheelGallery } from "@/components/freewheel-gallery";
 import { HeroVisual } from "@/components/hero-visual";
@@ -157,6 +158,10 @@ export default function HomePage() {
       <div className="home-hairline" aria-hidden="true" />
 
       <ProjectStory />
+
+      <div className="home-hairline" aria-hidden="true" />
+
+      <DriveStationSection />
 
       <div className="home-hairline" aria-hidden="true" />
 

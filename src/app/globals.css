@@ -543,6 +543,33 @@ html:not(.lenis) .reveal-item {
   background: linear-gradient(90deg, transparent, rgba(184, 207, 209, 0.22), transparent);
 }
 
+/* ورود نشانگرهای «ایستگاه درایو» وقتی پیکربندی عوض می‌شود.
+   رنگ و اندازه‌ی نهایی روی خود دکمه است؛ اینجا فقط جای فرود و محو‌شدن.
+   عمداً روی `transform` کار می‌کنیم و نه `translate`/`scale` سی‌اس‌اس: خودِ
+   نشانگر با `-translate-x-1/2 -translate-y-1/2` وسط نقطه می‌نشیند و در حالت
+   فعال `scale-110` می‌گیرد؛ اگر انیمیشن سراغ آن دو ویژگی می‌رفت، آن‌ها را
+   بازنویسی می‌کرد و نشانگر از نقطه بیرون می‌زد. */
+@keyframes drive-marker-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px) scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.drive-marker-in {
+  animation: drive-marker-in 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drive-marker-in {
+    animation-duration: 0.01ms;
+  }
+}
+
 /* بافت فیلم روی کل صفحه‌ی اول؛ زیر هدر (z-50) و بالای محتواست */
 .home-grain {
   position: fixed;

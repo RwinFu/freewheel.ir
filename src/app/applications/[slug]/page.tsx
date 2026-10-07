@@ -145,6 +145,33 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
             </Link>
           </Reveal>
         ) : null}
+
+        {application.slug === "conveyor" ? (
+          <Reveal delay={0.04} className="mt-5">
+            <Link
+              href="/#drive"
+              className="group flex flex-col gap-3 border border-line bg-panel p-5 transition-colors hover:border-accent/50 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+            >
+              <span>
+                <span className="flex items-center gap-2 text-[12px] tracking-[0.08em] text-accent">
+                  <BookOpen className="h-4 w-4" />
+                  ایستگاه درایو، قطعه به قطعه
+                </span>
+                <span className="mt-2 block text-[15.5px] leading-7 text-fg">
+                  روی رندر ایستگاه درایو، شماره‌ی هر قطعه را بزنید و ببینید کجای خط می‌نشیند.
+                </span>
+                <span className="mt-2 block text-[12.5px] leading-6 text-fg-dim">
+                  نوار نقاله و الواتور، با عکس واقعی قطعه‌ها و لینک به سری مربوط؛ الگو گرفته از
+                  صفحه‌های کاتالوگ صنعتی.
+                </span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-fg-muted transition-colors group-hover:text-accent">
+                دیدن ایستگاه
+                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+          </Reveal>
+        ) : null}
       </section>
 
       <section className="border-y border-line bg-panel/40">

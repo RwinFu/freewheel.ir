@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/#how", label: "سازوکار" },
+  { href: "/#drive", label: "ایستگاه درایو" },
   { href: "/#story", label: "داستان پروژه" },
   { href: "/#applications", label: "کاربردها" },
   { href: "/#types", label: "انواع فری‌ویل" },
