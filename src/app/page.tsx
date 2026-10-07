@@ -4,6 +4,7 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from 
 
 import { FaqList } from "@/components/faq";
 import { FreewheelDemo } from "@/components/freewheel-demo";
+import { HeroVisual } from "@/components/hero-visual";
 import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
 import { APPLICATIONS } from "@/content/applications";
 
@@ -141,7 +142,7 @@ export default function HomePage() {
             </ul>
           </div>
 
-          <FreewheelDemo />
+          <HeroVisual />
         </div>
       </section>
 
@@ -158,6 +159,9 @@ export default function HomePage() {
               <p className="mt-1.5 text-[13px] leading-7 text-fg-muted">
                 توپی چرخ دوچرخه وقتی رکاب را رها می‌کنی، چرخ را آزاد می‌گذارد؛ در صنعت همین منطق برای کنترل بارهای سنگین به کار می‌رود.
               </p>
+            </div>
+            <div className="mt-6">
+              <FreewheelDemo />
             </div>
           </div>
 
