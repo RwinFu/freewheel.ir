@@ -157,7 +157,7 @@ export function FreewheelGallery() {
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-ocean to-transparent sm:w-24"
+          className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-black/60 to-transparent sm:w-24"
           aria-hidden="true"
         />
       </div>

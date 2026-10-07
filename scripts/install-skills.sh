@@ -20,6 +20,8 @@ $SKILLS_CLI add anthropics/skills \
   --skill frontend-design \
   --skill canvas-design \
   --skill brand-guidelines \
+  --skill theme-factory \
+  --skill web-artifacts-builder \
   -a "$AGENT" -y
 
 echo "-> motion & transitions + react quality (vercel-labs/agent-skills)"
@@ -28,6 +30,12 @@ $SKILLS_CLI add vercel-labs/agent-skills \
   --skill vercel-react-best-practices \
   --skill vercel-composition-patterns \
   --skill web-design-guidelines \
+  --skill writing-guidelines \
+  -a "$AGENT" -y
+
+echo "-> algorithmic art (anthropics/skills)"
+$SKILLS_CLI add anthropics/skills \
+  --skill algorithmic-art \
   -a "$AGENT" -y
 
 echo "-> testing (anthropics/skills)"
