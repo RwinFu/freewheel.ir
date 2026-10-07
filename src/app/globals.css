@@ -916,3 +916,86 @@ html:not(.lenis) .reveal-item {
   animation-duration: var(--vt-move);
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ==========================================================================
+   داستان پروژه — نقشه‌ی شماره‌دار چیدمان درایو
+   الگو از صفحه‌های کاتالوگ صنعتی: یک درایو، چند شماره روی آن، و توضیح نقش
+   هر قطعه. اینجا شماره‌ها تعاملی‌اند؛ قطعه‌ی فعال با مینت روشن می‌شود.
+   ========================================================================== */
+
+.dt-panel {
+  background-color: #0d2833;
+  background-image:
+    linear-gradient(rgba(197, 226, 224, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 226, 224, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.dt-figure {
+  --dt-line: rgba(216, 236, 233, 0.88);
+  --dt-soft: rgba(184, 207, 209, 0.55);
+  --dt-fill: rgba(184, 207, 209, 0.09);
+  --dt-strong: rgba(184, 207, 209, 0.3);
+}
+
+/* وقتی چیزی انتخاب شده، بافت پس‌زمینه عقب می‌نشیند تا قطعه‌ی فعال جلو بیاید */
+.dt-node,
+.dt-static {
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.dt-figure[data-has-focus="true"] .dt-node {
+  opacity: 0.28;
+}
+
+.dt-figure[data-has-focus="true"] .dt-static {
+  opacity: 0.5;
+}
+
+.dt-node[data-active="true"] {
+  opacity: 1;
+  --dt-line: #72ded2;
+  --dt-soft: rgba(114, 222, 210, 0.62);
+  --dt-fill: rgba(114, 222, 210, 0.13);
+  --dt-strong: rgba(114, 222, 210, 0.42);
+}
+
+.dt-node[data-active="true"] :is(circle, rect, line, path) {
+  filter: drop-shadow(0 0 6px rgba(114, 222, 210, 0.22));
+}
+
+.dt-badge {
+  transition: opacity 0.35s ease;
+}
+
+.dt-figure[data-has-focus="true"] .dt-badge {
+  opacity: 0.5;
+}
+
+.dt-figure[data-has-focus="true"] .dt-badge[data-active="true"] {
+  opacity: 1;
+}
+
+.dt-leader {
+  stroke: rgba(238, 121, 88, 0.7);
+  stroke-width: 1.2;
+}
+
+.dt-badge[data-active="true"] .dt-leader {
+  stroke: #ffc9b6;
+  stroke-width: 1.6;
+  stroke-dasharray: none;
+}
+
+.dt-badge[data-active="true"] > circle:first-of-type {
+  filter: drop-shadow(0 0 10px rgba(238, 121, 88, 0.55));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dt-node,
+  .dt-static,
+  .dt-badge {
+    transition: none;
+  }
+}
