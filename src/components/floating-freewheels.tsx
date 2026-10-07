@@ -143,7 +143,7 @@ export function FloatingFreewheels() {
   return (
     <section
       aria-label="فری‌ویل‌های شناور"
-      className="relative overflow-hidden bg-ocean text-white"
+      className="relative overflow-hidden text-white"
     >
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div

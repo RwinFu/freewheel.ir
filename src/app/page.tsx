@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ArrowUpLeft, Check, Gauge, LockKeyhole, Ruler, RotateCcw, Timer } from "lucide-react";
 
 import { FaqList } from "@/components/faq";
-import { FreewheelDemo } from "@/components/freewheel-demo";
 import { FloatingFreewheels } from "@/components/floating-freewheels";
 import { FreewheelGallery } from "@/components/freewheel-gallery";
 import { HeroVisual } from "@/components/hero-visual";
+import { HowItWorks } from "@/components/how-it-works";
+import { ScrollBackdrop } from "@/components/scroll-backdrop";
 import { RollerTypeDiagram, SpragTypeDiagram } from "@/components/diagrams";
 import { APPLICATIONS } from "@/content/applications";
 import { PageTransition } from "@/components/page-transition";
@@ -20,21 +21,6 @@ const APPLICATION_COPY: Record<string, string> = {
   textile: "برای حرکت پله‌ای یا جداکردن دو محرک در ماشین‌آلات نساجی.",
   packaging: "برای حرکت مرحله‌ای و تکرارپذیر در ماشین‌های بسته‌بندی.",
 };
-
-const WORK_STEPS = [
-  {
-    title: "چرخش در جهت مجاز",
-    text: "فری‌ویل اجازه می‌دهد شفت و اجزای دستگاه آزادانه بچرخند.",
-  },
-  {
-    title: "تغییر جهت یا اختلاف سرعت",
-    text: "المان‌های کوچک داخل قطعه به سمت فضای باریک بین دو حلقه می‌روند.",
-  },
-  {
-    title: "درگیری و انتقال نیرو",
-    text: "دو حلقه قفل می‌شوند؛ برگشت گرفته می‌شود یا نیرو به بخش بعدی می‌رسد.",
-  },
-];
 
 const HOME_FAQ = [
   {
@@ -83,14 +69,14 @@ function SectionHeading({
 }) {
   return (
     <div className="max-w-2xl">
-      <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
+      <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
         <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
         {label}
       </p>
-      <h2 className="text-balance text-[28px] font-bold leading-[1.45] text-fg sm:text-[36px]">
+      <h2 className="text-balance text-[28px] font-bold leading-[1.45] text-white sm:text-[36px]">
         {title}
       </h2>
-      <p className="mt-3 text-[14px] leading-7 text-fg-muted sm:text-[15px] sm:leading-8">
+      <p className="mt-3 text-[14px] leading-7 text-white/65 sm:text-[15px] sm:leading-8">
         {description}
       </p>
     </div>
@@ -100,7 +86,10 @@ function SectionHeading({
 export default function HomePage() {
   return (
     <PageTransition>
-      <section className="hero-surface relative overflow-hidden text-white">
+      <ScrollBackdrop />
+      <div className="home-grain" aria-hidden="true" />
+
+      <section className="relative overflow-hidden text-white">
         <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[1320px] items-center gap-10 px-5 py-12 sm:px-7 sm:py-16 lg:min-h-[680px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8 lg:py-16">
           <div className="relative z-10">
@@ -147,42 +136,24 @@ export default function HomePage() {
 
           <HeroVisual />
         </div>
+
+        <a
+          href="#how"
+          aria-label="اسکرول به بخش اصل کار"
+          className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 transition-colors hover:text-mint md:flex"
+        >
+          <span className="text-[11px]">اسکرول کن</span>
+          <span className="relative block h-10 w-6 overflow-hidden rounded-full border border-white/20">
+            <span className="scroll-cue-dot absolute left-1/2 top-1 h-2 w-2 rounded-full bg-mint" />
+          </span>
+        </a>
       </section>
 
-      <section id="how" className="scroll-mt-24 border-b border-line bg-base">
-        <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8">
-          <div>
-            <SectionHeading
-              label="اصل کار"
-              title="یک قطعه، دو حالت ساده"
-              description="داخل فری‌ویل، المان‌هایی بین یک حلقه‌ی داخلی و یک حلقه‌ی بیرونی قرار دارند. شکل این المان‌هاست که چرخش آزاد را از قفل‌شدن جدا می‌کند."
-            />
-            <div className="mt-6 rounded-2xl border border-line bg-white px-5 py-4">
-              <p className="text-[11px] font-semibold text-accent">یک مثال آشنا</p>
-              <p className="mt-1.5 text-[13px] leading-7 text-fg-muted">
-                توپی چرخ دوچرخه وقتی رکاب را رها می‌کنی، چرخ را آزاد می‌گذارد؛ در صنعت همین منطق برای کنترل بارهای سنگین به کار می‌رود.
-              </p>
-            </div>
-            <div className="mt-6">
-              <FreewheelDemo />
-            </div>
-          </div>
+      <HowItWorks />
 
-          <ol className="grid content-center gap-3 sm:grid-cols-3 lg:gap-2">
-            {WORK_STEPS.map((step, index) => (
-              <li key={step.title} className="rounded-2xl border border-line bg-white p-5 sm:p-4 lg:p-5">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-panel-2 text-[13px] font-bold text-accent" dir="ltr">
-                  0{index + 1}
-                </span>
-                <h3 className="mt-4 text-[14px] font-bold leading-6 text-fg">{step.title}</h3>
-                <p className="mt-2 text-[12px] leading-6 text-fg-muted">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <div className="home-hairline" aria-hidden="true" />
 
-      <section id="applications" className="scroll-mt-24 bg-white">
+      <section id="applications" className="scroll-mt-24">
         <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <SectionHeading
@@ -192,7 +163,7 @@ export default function HomePage() {
             />
             <Link
               href="/applications"
-              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-mint transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
             >
               دیدن همه‌ی کاربردها
               <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
@@ -205,9 +176,9 @@ export default function HomePage() {
                 key={application.slug}
                 href={`/applications/${application.slug}`}
                 transitionTypes={["nav-forward"]}
-                className="group overflow-hidden rounded-[22px] border border-line bg-panel transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                className="group overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.05] backdrop-blur-sm transition-[border-color,transform,background-color] duration-300 hover:-translate-y-1 hover:border-mint/40 hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
               >
-                <div className="relative aspect-[1.35] overflow-hidden bg-panel-2">
+                <div className="relative aspect-[1.35] overflow-hidden bg-[#0b2630]">
                   <Image
                     src={application.image.src}
                     alt={application.image.alt}
@@ -222,10 +193,10 @@ export default function HomePage() {
                 </div>
                 <div className="p-5 sm:p-6">
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-[16px] font-bold text-fg">{application.title}</h3>
-                    <ArrowUpLeft className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" aria-hidden="true" />
+                    <h3 className="text-[16px] font-bold text-white">{application.title}</h3>
+                    <ArrowUpLeft className="h-4 w-4 shrink-0 text-mint transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" aria-hidden="true" />
                   </div>
-                  <p className="mt-2.5 text-[13px] leading-7 text-fg-muted">
+                  <p className="mt-2.5 text-[13px] leading-7 text-white/60">
                     {APPLICATION_COPY[application.slug] ?? application.intro[0]}
                   </p>
                 </div>
@@ -237,7 +208,9 @@ export default function HomePage() {
 
       <FreewheelGallery />
 
-      <section id="types" className="scroll-mt-24 border-y border-line bg-base">
+      <div className="home-hairline" aria-hidden="true" />
+
+      <section id="types" className="scroll-mt-24">
         <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
           <div className="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
             <SectionHeading
@@ -247,7 +220,7 @@ export default function HomePage() {
             />
             <Link
               href="/articles/sprag-vs-roller"
-              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-accent transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mb-1 inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold text-mint transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
             >
               مقایسه‌ی کامل‌تر
               <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
@@ -259,13 +232,13 @@ export default function HomePage() {
               <article key={type.english} className="home-type-card">
                 <div className="home-type-art">{type.diagram}</div>
                 <div className="mt-3 flex items-center gap-3">
-                  <h3 className="text-[18px] font-bold text-fg">{type.name}</h3>
-                  <span className="rounded-full bg-panel-2 px-2.5 py-1 text-[9px] font-semibold tracking-[0.13em] text-fg-dim" dir="ltr" translate="no">
+                  <h3 className="text-[18px] font-bold text-white">{type.name}</h3>
+                  <span className="rounded-full bg-white/10 px-2.5 py-1 text-[9px] font-semibold tracking-[0.13em] text-mint" dir="ltr" translate="no">
                     {type.english}
                   </span>
                 </div>
-                <p className="mt-2 text-[13px] font-semibold text-fg-muted">{type.summary}</p>
-                <p className="mt-2 text-[12.5px] leading-7 text-fg-dim">{type.body}</p>
+                <p className="mt-2 text-[13px] font-semibold text-white/80">{type.summary}</p>
+                <p className="mt-2 text-[12.5px] leading-7 text-white/55">{type.body}</p>
               </article>
             ))}
           </div>
@@ -274,8 +247,10 @@ export default function HomePage() {
 
       <FloatingFreewheels />
 
-      <section id="choose" className="scroll-mt-24 bg-white px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
-        <div className="selection-panel relative mx-auto grid max-w-[1240px] gap-9 overflow-hidden rounded-[28px] px-6 py-8 text-white sm:px-9 sm:py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-12 lg:py-12">
+      <div className="home-hairline" aria-hidden="true" />
+
+      <section id="choose" className="scroll-mt-24 px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
+        <div className="selection-panel relative mx-auto grid max-w-[1240px] gap-9 overflow-hidden rounded-[28px] border border-white/10 px-6 py-8 text-white sm:px-9 sm:py-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-12 lg:py-12">
           <div className="relative z-10">
             <p className="text-[12px] font-semibold text-mint">راهنمای انتخاب</p>
             <h2 className="mt-3 max-w-lg text-[27px] font-bold leading-[1.5] text-white sm:text-[34px]">
@@ -326,7 +301,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-base">
+      <div className="home-hairline" aria-hidden="true" />
+
+      <section>
         <div className="mx-auto grid max-w-[1240px] gap-9 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:px-8">
           <div>
             <SectionHeading
@@ -336,33 +313,35 @@ export default function HomePage() {
             />
             <Link
               href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-line-2 bg-white px-5 py-3 text-[12.5px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-[12.5px] font-semibold text-white transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
             >
               پرسش از کارشناس
               <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <FaqList items={HOME_FAQ} />
+          <FaqList items={HOME_FAQ} tone="dark" />
         </div>
       </section>
 
-      <section className="border-t border-line bg-white">
+      <div className="home-hairline" aria-hidden="true" />
+
+      <section>
         <div className="mx-auto flex max-w-[1240px] flex-col gap-5 px-5 py-9 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-8">
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-panel-2 text-accent">
+            <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 text-mint">
               <LockKeyhole className="h-4 w-4" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="text-[14px] font-bold text-fg">به دنبال مدل یا جدول ابعاد هستی؟</h2>
-              <p className="mt-1 text-[12px] leading-6 text-fg-muted">از کاتالوگ RINGSPANN شروع کن یا همه‌ی برندها را ببین.</p>
+              <h2 className="text-[14px] font-bold text-white">به دنبال مدل یا جدول ابعاد هستی؟</h2>
+              <p className="mt-1 text-[12px] leading-6 text-white/55">از کاتالوگ RINGSPANN شروع کن یا همه‌ی برندها را ببین.</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/ringspann" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-ocean px-4 text-[12px] font-semibold text-white transition-colors hover:bg-ocean-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+            <Link href="/ringspann" className="inline-flex min-h-10 items-center gap-2 rounded-full bg-mint px-4 text-[12px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint">
               مدل‌ها و ابعاد
               <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-            <Link href="/brands" className="inline-flex min-h-10 items-center rounded-full border border-line-2 px-4 text-[12px] font-semibold text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+            <Link href="/brands" className="inline-flex min-h-10 items-center rounded-full border border-white/20 px-4 text-[12px] font-semibold text-white transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint">
               همه‌ی برندها
             </Link>
           </div>
