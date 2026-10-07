@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
 
-import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
+import {
+  CategoryChips,
+  CategoryFilterProvider,
+  CategoryItem,
+  CategoryTag,
+} from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
 import { PageTransition } from "@/components/page-transition";
 import { BuyNote, Callout, Panel, SectionHeading } from "@/components/ui";
 import { BRANDS } from "@/content/brands";
-import { BRAND_CATEGORIES, FILTERABLE_BRANDS, brandCategory, withCounts } from "@/content/taxonomy";
-import { cn } from "@/lib/utils";
+import { BRAND_IMAGE } from "@/content/product-images";
+import {
+  BRAND_CATEGORIES,
+  FILTERABLE_BRANDS,
+  brandCategory,
+  categoryById,
+  withCounts,
+} from "@/content/taxonomy";
 
 const BRAND_CATEGORIES_COUNTED = withCounts(
   BRAND_CATEGORIES,
@@ -56,8 +68,21 @@ export default function BrandsPage() {
           <Link
             href={`/brands/${ringspann.slug}`}
             transitionTypes={["nav-forward"]}
-            className="group grid gap-8 border border-accent/40 bg-accent/4 p-8 transition-colors hover:border-accent lg:grid-cols-[1fr_auto]"
+            className="group grid gap-8 border border-accent/40 bg-accent/4 p-8 transition-colors hover:border-accent lg:grid-cols-[auto_1fr_auto]"
           >
+            <div className="relative hidden w-[220px] shrink-0 self-stretch overflow-hidden border border-line bg-ocean lg:block">
+              <Image
+                src={BRAND_IMAGE.ringspann.src}
+                alt={BRAND_IMAGE.ringspann.alt}
+                fill
+                sizes="220px"
+                className="kb-breathe object-cover opacity-95"
+              />
+              <span
+                className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#06171e]/80 to-transparent"
+                aria-hidden="true"
+              />
+            </div>
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <span dir="ltr" className="text-[26px] font-semibold tracking-tight text-fg">
@@ -106,29 +131,35 @@ export default function BrandsPage() {
               />
             </div>
             <div data-filter-grid className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {FILTERABLE_BRANDS.map((brand) => (
-                <CategoryItem key={brand.slug} category={brandCategory(brand.slug)}>
-                  <Link
-                    href={`/brands/${brand.slug}`}
-                    transitionTypes={["nav-forward"]}
-                    className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
-                  >
-                    <div>
-                      <div className="flex items-baseline justify-between gap-2">
-                        <span dir="ltr" className="text-[18px] font-semibold text-fg">
-                          {brand.name}
-                        </span>
-                        <span className="text-[11.5px] text-fg-dim">{brand.country}</span>
+              {FILTERABLE_BRANDS.map((brand) => {
+                const category = categoryById(BRAND_CATEGORIES, brandCategory(brand.slug));
+                return (
+                  <CategoryItem key={brand.slug} category={brandCategory(brand.slug)}>
+                    <Link
+                      href={`/brands/${brand.slug}`}
+                      transitionTypes={["nav-forward"]}
+                      className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
+                    >
+                      <div>
+                        <div className="flex items-baseline justify-between gap-2">
+                          <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                            {brand.name}
+                          </span>
+                          <span className="text-[11.5px] text-fg-dim">{brand.country}</span>
+                        </div>
+                        {category ? <CategoryTag category={category} className="mt-3" /> : null}
+                        <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
+                          {brand.tagline}
+                        </p>
                       </div>
-                      <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{brand.tagline}</p>
-                    </div>
-                    <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
-                      نکات انتخاب
-                      <ArrowUpLeft className="h-3.5 w-3.5" />
-                    </span>
-                  </Link>
-                </CategoryItem>
-              ))}
+                      <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
+                        نکات انتخاب
+                        <ArrowUpLeft className="h-3.5 w-3.5" />
+                      </span>
+                    </Link>
+                  </CategoryItem>
+                );
+              })}
             </div>
           </CategoryFilterProvider>
 

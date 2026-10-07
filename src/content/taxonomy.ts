@@ -9,7 +9,13 @@ import { RINGSPANN_SERIES } from "@/content/ringspann";
  * از خودِ داده. با نگه‌داشتنش در یک ماژول، هم فهرست‌ها و هم صفحه‌های جزئیات و
  * هم ناوبری از یک تعریف مشترک استفاده می‌کنند و اگر عضوی از قلم بیفتد،
  * `assertComplete` در زمان build خطا می‌دهد نه در زمان اجرا پیش کاربر.
+ *
+ * هر دسته علاوه بر برچسب و توضیح، یک `icon` و یک `tone` دارد تا در چیپ‌های
+ * فیلتر و برچسبِ روی کارت‌ها یک‌شکل و قابل تشخیص باشد.
  */
+
+/** پالت لحن دسته‌ها؛ در `category-filter.tsx` به کلاس رنگی نگاشت می‌شود */
+export type CategoryTone = "coral" | "mint" | "steel" | "ocean";
 
 export type Category = {
   /** شناسه‌ی پایدار؛ در URL و کلید React استفاده می‌شود */
@@ -17,10 +23,20 @@ export type Category = {
   label: string;
   /** توضیح یک‌خطی که زیر برچسب در فیلتر نشان داده می‌شود */
   hint: string;
+  /** شناسه‌ی آیکن؛ در category-filter به آیکن lucide نگاشت می‌شود */
+  icon: string;
+  /** لحن رنگی دسته برای چیپ فعال و برچسب روی کارت */
+  tone: CategoryTone;
 };
 
 /** برچسب «همه» که اول هر فهرست فیلتر می‌آید */
-export const ALL_CATEGORY = { id: "all", label: "همه", hint: "بدون فیلتر" } as const;
+export const ALL_CATEGORY = {
+  id: "all",
+  label: "همه",
+  hint: "بدون فیلتر",
+  icon: "all",
+  tone: "steel",
+} as const satisfies Category;
 
 /* ---------------- کاربردها: بر اساس وظیفه‌ی قطعه در ماشین ---------------- */
 
@@ -28,17 +44,23 @@ export const APPLICATION_CATEGORIES: Category[] = [
   {
     id: "backstop",
     label: "بک‌استاپ",
-    hint: "گرفتن برگشت ناخواسته‌ی بار",
+    hint: "جلوگیری از برگشت ناخواسته‌ی نوار و بار در توقف",
+    icon: "lock",
+    tone: "coral",
   },
   {
     id: "indexing",
-    label: "حرکت پله‌ای",
-    hint: "ایندکسینگ و تغذیه‌ی مرحله‌ای",
+    label: "ایندکسینگ و حرکت پله‌ای",
+    hint: "تغذیه‌ی مرحله‌ای دقیق در ماشین‌های بسته‌بندی و پرکن",
+    icon: "stack",
+    tone: "mint",
   },
   {
     id: "overrunning",
-    label: "جداسازی و اورانینگ",
-    hint: "دو محرک روی یک شفت، کنترل کشش",
+    label: "اورانینگ و جداسازی",
+    hint: "دو محرک روی یک شفت، کنترل کشش رول",
+    icon: "split",
+    tone: "steel",
   },
 ];
 
@@ -51,64 +73,88 @@ const APPLICATION_CATEGORY_BY_SLUG: Record<string, string> = {
   printing: "overrunning",
 };
 
-/* ---------------- سری‌های RINGSPANN: بر اساس شکل تأمین ---------------- */
+/* ------------- سری‌های RINGSPANN: بر اساس شکل تأمین و نصب ------------- */
 
 export const SERIES_CATEGORIES: Category[] = [
   {
-    id: "bare",
+    id: "basic",
     label: "پایه و داخلی",
-    hint: "نیاز به محفظه یا بلبرینگ شما دارد",
+    hint: "برای مونتاژ داخل محفظه یا توپی‌ای که خودتان می‌سازید",
+    icon: "cog",
+    tone: "steel",
   },
   {
-    id: "complete",
-    label: "کامل و آماده‌ی نصب",
-    hint: "با بلبرینگ و محفظه‌ی بسته‌شده",
+    id: "sealed",
+    label: "کامل و آب‌بندی‌شده",
+    hint: "روغن‌پر و آماده‌ی نصب، بدون نیاز به طراحی محفظه",
+    icon: "shield",
+    tone: "mint",
   },
   {
-    id: "special",
-    label: "کارکرد خاص",
-    hint: "بک‌استاپ سنگین و لیفت‌آف",
+    id: "lever",
+    label: "بک‌استاپ با اهرم",
+    hint: "اهرم گشتاور روی پایه‌ی ثابت؛ مخصوص نوار نقاله‌ی شیب‌دار",
+    icon: "anchor",
+    tone: "coral",
+  },
+  {
+    id: "liftoff",
+    label: "دور آزاد بالا و لیفت‌آف",
+    hint: "سایش نزدیک به صفر در چرخش آزاد طولانی",
+    icon: "wind",
+    tone: "ocean",
   },
 ];
 
 const SERIES_CATEGORY_BY_SLUG: Record<string, string> = {
-  "fgr-r": "bare",
-  fz: "bare",
-  "bm-r": "complete",
-  fb: "complete",
-  "fa-fav": "complete",
-  frhn: "special",
-  fkh: "special",
+  "fgr-r": "basic",
+  fz: "basic",
+  "bm-r": "sealed",
+  fb: "sealed",
+  frhn: "lever",
+  "fa-fav": "lever",
+  fkh: "liftoff",
 };
 
-/* ---------------- برندها: بر اساس نزدیکی به برنامه‌ی RINGSPANN ---------- */
+/* ---------------- برندها: بر اساس شکل محصول و بازار ---------------- */
 
 /*
  * RINGSPANN در صفحه‌ی برندها کارت جدا و بزرگ‌تری دارد و در شبکه‌ی فیلتر
- * نمی‌آید، پس دسته‌بندی فقط روی شش برند دیگر اعمال می‌شود. سؤال واقعی خریدار
- * این است: «به‌جای RINGSPANN چه چیزی جایگزین می‌شود؟» و جواب آن برندهای
- * آلمانیِ هم‌خانواده است.
+ * نمی‌آید، پس دسته‌بندی فقط روی شش برند دیگر اعمال می‌شود. سؤال خریدار این
+ * است: «قطعه‌ی من چه شکلی است و از چه خانواده‌ای جایگزین می‌شود؟» — کاپ
+ * کشیده‌ی کوچک، بلبرینگ‌ساز جامع یا کلاچ انتقال قدرت خودرو.
  */
 export const BRAND_CATEGORIES: Category[] = [
   {
-    id: "german",
-    label: "جایگزین آلمانی",
-    hint: "هم‌خانواده و سازگار با ابعاد RINGSPANN",
+    id: "drawn-cup",
+    label: "کلاچ کاپ کشیده",
+    hint: "فشرده و اقتصادی؛ خانواده‌ی HF/HFL و CSK",
+    icon: "cup",
+    tone: "steel",
   },
   {
-    id: "other",
-    label: "سایر برندها",
-    hint: "سوئد، ژاپن و اروپا",
+    id: "bearing",
+    label: "بلبرینگ‌ساز جامع",
+    hint: "شبکه‌ی تأمین گسترده با عرضه‌ی متمرکز فری‌ویل",
+    icon: "disc",
+    tone: "mint",
+  },
+  {
+    id: "drivetrain",
+    label: "انتقال قدرت خودرو",
+    hint: "فری‌ویل داخل مونتاژ؛ پولی آلترناتور و فلایویل",
+    icon: "car",
+    tone: "coral",
   },
 ];
 
 const BRAND_CATEGORY_BY_SLUG: Record<string, string> = {
-  ina: "german",
-  stieber: "german",
-  luk: "german",
-  skf: "other",
-  koyo: "other",
-  niko: "other",
+  ina: "drawn-cup",
+  stieber: "drawn-cup",
+  niko: "drawn-cup",
+  skf: "bearing",
+  koyo: "bearing",
+  luk: "drivetrain",
 };
 
 /** شش برندی که در شبکه‌ی فیلتر صفحه‌ی `/brands` نشان داده می‌شوند */
@@ -130,6 +176,11 @@ export const seriesCategory = (slug: string) =>
 
 export const brandCategory = (slug: string) =>
   categoryOf(BRAND_CATEGORY_BY_SLUG, slug, "برند");
+
+/** یافتن شیء دسته از روی شناسه؛ برای نمایش برچسب دسته روی کارت‌ها */
+export function categoryById(categories: Category[], id: string): Category | undefined {
+  return categories.find((category) => category.id === id);
+}
 
 export type CountedCategory = Category & { count: number };
 

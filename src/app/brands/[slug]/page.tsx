@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpLeft } from "lucide-react";
@@ -7,6 +8,7 @@ import { Reveal } from "@/components/motion";
 import { InquiryForm } from "@/components/inquiry-form";
 import { BuyNote, Breadcrumbs, Callout, Panel, SectionHeading } from "@/components/ui";
 import { BRANDS, getBrand } from "@/content/brands";
+import { BRAND_IMAGE } from "@/content/product-images";
 import { ARTICLES } from "@/content/articles";
 import { RINGSPANN_SERIES } from "@/content/ringspann";
 import { cn } from "@/lib/utils";
@@ -60,18 +62,45 @@ export default async function BrandPage({ params }: { params: Promise<Params> })
               ]}
             />
 
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 dir="ltr" className="text-[34px] font-semibold leading-tight tracking-tight text-fg sm:text-[42px]">
-                {brand.name}
-              </h1>
-              {brand.tier === 1 ? (
-                <span className="border border-accent/50 px-2.5 py-1 text-[11.5px] text-accent">
-                  محور اصلی
-                </span>
+            <div className="grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center">
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h1 dir="ltr" className="text-[34px] font-semibold leading-tight tracking-tight text-fg sm:text-[42px]">
+                    {brand.name}
+                  </h1>
+                  {brand.tier === 1 ? (
+                    <span className="border border-accent/50 px-2.5 py-1 text-[11.5px] text-accent">
+                      محور اصلی
+                    </span>
+                  ) : null}
+                </div>
+                <p className="mt-3 text-[13px] text-fg-dim">{brand.country}</p>
+                <p className="mt-6 max-w-2xl text-[16px] leading-8 text-fg-muted">
+                  {brand.tagline}
+                </p>
+              </div>
+              {BRAND_IMAGE[brand.slug] ? (
+                <Reveal delay={0.1} y={0}>
+                  <div className="group relative aspect-[4/3] overflow-hidden border border-line bg-ocean">
+                    <Image
+                      src={BRAND_IMAGE[brand.slug].src}
+                      alt={BRAND_IMAGE[brand.slug].alt}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 360px, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    />
+                    <span
+                      className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#06171e]/80 to-transparent"
+                      aria-hidden="true"
+                    />
+                    <span className="absolute bottom-3 right-4 text-[11px] text-white/80">
+                      {BRAND_IMAGE[brand.slug].caption}
+                    </span>
+                  </div>
+                </Reveal>
               ) : null}
             </div>
-            <p className="mt-3 text-[13px] text-fg-dim">{brand.country}</p>
-            <p className="mt-6 max-w-2xl text-[16px] leading-8 text-fg-muted">{brand.tagline}</p>
           </div>
         </div>
       </section>

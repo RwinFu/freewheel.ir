@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpLeft } from "lucide-react";
@@ -6,6 +7,7 @@ import { ArrowUpLeft } from "lucide-react";
 import { Counter, Reveal } from "@/components/motion";
 import { DimensionDrawing } from "@/components/diagrams";
 import { InquiryForm } from "@/components/inquiry-form";
+import { SERIES_IMAGE } from "@/content/product-images";
 import {
   BuyNote,
   Breadcrumbs,
@@ -20,7 +22,7 @@ import {
 import { RINGSPANN_SERIES, getSeries } from "@/content/ringspann";
 import { SHOPS, SITE } from "@/content/site";
 import { anchorId, cn, num } from "@/lib/utils";
-import { PageTransition } from "@/components/page-transition";
+import { PageTransition, SharedElement } from "@/components/page-transition";
 
 type Params = { series: string };
 
@@ -54,6 +56,8 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
   const { series: slug } = await params;
   const series = getSeries(slug);
   if (!series) notFound();
+
+  const product = SERIES_IMAGE[series.slug];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -145,6 +149,28 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
               </div>
 
               <Reveal delay={0.1} y={0}>
+                <div className="space-y-4">
+                {product ? (
+                  <SharedElement name={`series-image-${series.slug}`}>
+                    <div className="group relative aspect-[16/9] overflow-hidden border border-line bg-ocean">
+                      <Image
+                        src={product.src}
+                        alt={product.alt}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 40vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                      <span
+                        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#06171e]/85 to-transparent"
+                        aria-hidden="true"
+                      />
+                      <span className="absolute bottom-3 right-4 text-[11.5px] text-white/85">
+                        {product.caption} — {product.sub}
+                      </span>
+                    </div>
+                  </SharedElement>
+                ) : null}
                 <div className="border border-line bg-panel-2/60 p-2">
                   {series.sizes.length > 0 ? (
                     <DimensionDrawing
@@ -161,6 +187,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
                       className="h-auto w-full"
                     />
                   )}
+                </div>
                 </div>
               </Reveal>
             </div>

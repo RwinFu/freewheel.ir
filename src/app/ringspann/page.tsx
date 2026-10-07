@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpLeft, MoveUpLeft } from "lucide-react";
 
-import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
+import {
+  CategoryChips,
+  CategoryFilterProvider,
+  CategoryItem,
+  CategoryTag,
+} from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
-import { PageTransition } from "@/components/page-transition";
+import { PageTransition, SharedElement } from "@/components/page-transition";
 import { PartSearch } from "@/components/part-search";
 import { BuyNote, Callout, Panel, SectionHeading, SpecTable } from "@/components/ui";
+import { SERIES_IMAGE } from "@/content/product-images";
 import {
   RINGSPANN_OTHER_SERIES,
   RINGSPANN_SERIES,
 } from "@/content/ringspann";
 import { SHOPS } from "@/content/site";
-import { SERIES_CATEGORIES, seriesCategory, withCounts } from "@/content/taxonomy";
+import {
+  SERIES_CATEGORIES,
+  categoryById,
+  seriesCategory,
+  withCounts,
+} from "@/content/taxonomy";
 import { num } from "@/lib/utils";
 
 const SERIES_CATEGORIES_COUNTED = withCounts(
@@ -131,27 +143,55 @@ export default function RingspannPage() {
             />
           </div>
           <div data-filter-grid className="mt-7 grid gap-5 lg:grid-cols-3">
-            {RINGSPANN_SERIES.map((series) => (
-              <CategoryItem key={series.slug} category={seriesCategory(series.slug)}>
-                <Link
-                  href={`/ringspann/${series.slug}`}
-                  transitionTypes={["nav-forward"]}
-                  className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
-                >
-                  <div>
-                    <span dir="ltr" className="text-[18px] font-semibold text-fg">
-                      {series.designation}
-                    </span>
-                    <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
-                    <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{series.tagline}</p>
-                  </div>
-                  <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
-                    مشخصات و جدول ابعاد
-                    <ArrowUpLeft className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              </CategoryItem>
-            ))}
+            {RINGSPANN_SERIES.map((series) => {
+              const category = categoryById(SERIES_CATEGORIES, seriesCategory(series.slug));
+              const product = SERIES_IMAGE[series.slug];
+              return (
+                <CategoryItem key={series.slug} category={seriesCategory(series.slug)}>
+                  <Link
+                    href={`/ringspann/${series.slug}`}
+                    transitionTypes={["nav-forward"]}
+                    className="group flex h-full flex-col border border-line bg-panel transition-colors hover:border-accent/50"
+                  >
+                    {product ? (
+                      <SharedElement name={`series-image-${series.slug}`}>
+                        <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-ocean">
+                          <Image
+                            src={product.src}
+                            alt={product.alt}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            className="object-cover opacity-90 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
+                          />
+                          <span
+                            className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#0b2630]/85 to-transparent"
+                            aria-hidden="true"
+                          />
+                          {category ? (
+                            <CategoryTag category={category} className="absolute right-3 top-3" />
+                          ) : null}
+                        </div>
+                      </SharedElement>
+                    ) : null}
+                    <div className="flex flex-1 flex-col justify-between p-6">
+                      <div>
+                        <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                          {series.designation}
+                        </span>
+                        <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
+                        <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
+                          {series.tagline}
+                        </p>
+                      </div>
+                      <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
+                        مشخصات و جدول ابعاد
+                        <ArrowUpLeft className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </Link>
+                </CategoryItem>
+              );
+            })}
           </div>
         </CategoryFilterProvider>
       </section>
