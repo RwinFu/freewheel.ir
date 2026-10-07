@@ -20,6 +20,7 @@ import {
 import { RINGSPANN_SERIES, getSeries } from "@/content/ringspann";
 import { SHOPS, SITE } from "@/content/site";
 import { anchorId, cn, num } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
 
 type Params = { series: string };
 
@@ -88,7 +89,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
   };
 
   return (
-    <>
+    <PageTransition>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -369,6 +370,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
               <Link
                 key={item.slug}
                 href={`/ringspann/${item.slug}`}
+                transitionTypes={["nav-forward"]}
                 className={cn(
                   "group border border-line bg-panel px-5 py-4 transition-colors hover:border-accent/50",
                 )}
@@ -385,6 +387,6 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

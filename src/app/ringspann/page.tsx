@@ -2,15 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpLeft, MoveUpLeft } from "lucide-react";
 
-import { PartSearch } from "@/components/part-search";
+import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
+import { PageTransition } from "@/components/page-transition";
+import { PartSearch } from "@/components/part-search";
 import { BuyNote, Callout, Panel, SectionHeading, SpecTable } from "@/components/ui";
 import {
   RINGSPANN_OTHER_SERIES,
   RINGSPANN_SERIES,
 } from "@/content/ringspann";
 import { SHOPS } from "@/content/site";
+import { SERIES_CATEGORIES, seriesCategory, withCounts } from "@/content/taxonomy";
 import { num } from "@/lib/utils";
+
+const SERIES_CATEGORIES_COUNTED = withCounts(
+  SERIES_CATEGORIES,
+  RINGSPANN_SERIES.map((series) => series.slug),
+  seriesCategory,
+);
 
 export const metadata: Metadata = {
   title: "فری‌ویل RINGSPANN — سری FGR … R و سایر سری‌ها",
@@ -21,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RingspannPage() {
   return (
-    <>
+    <PageTransition>
       <section className="relative border-b border-line">
         <div className="blueprint absolute inset-x-0 top-0 h-64 opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
@@ -114,28 +123,37 @@ export default function RingspannPage() {
           />
         </Reveal>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          {RINGSPANN_SERIES.map((series, index) => (
-            <Reveal key={series.slug} delay={index * 0.03}>
-              <Link
-                href={`/ringspann/${series.slug}`}
-                className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
-              >
-                <div>
-                  <span dir="ltr" className="text-[18px] font-semibold text-fg">
-                    {series.designation}
+        <CategoryFilterProvider>
+          <div className="mt-8">
+            <CategoryChips
+              categories={SERIES_CATEGORIES_COUNTED}
+              label="فیلتر سری‌ها بر اساس شکل تأمین"
+            />
+          </div>
+          <div data-filter-grid className="mt-7 grid gap-5 lg:grid-cols-3">
+            {RINGSPANN_SERIES.map((series) => (
+              <CategoryItem key={series.slug} category={seriesCategory(series.slug)}>
+                <Link
+                  href={`/ringspann/${series.slug}`}
+                  transitionTypes={["nav-forward"]}
+                  className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
+                >
+                  <div>
+                    <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                      {series.designation}
+                    </span>
+                    <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
+                    <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{series.tagline}</p>
+                  </div>
+                  <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
+                    مشخصات و جدول ابعاد
+                    <ArrowUpLeft className="h-3.5 w-3.5" />
                   </span>
-                  <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
-                  <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{series.tagline}</p>
-                </div>
-                <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
-                  مشخصات و جدول ابعاد
-                  <ArrowUpLeft className="h-3.5 w-3.5" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+                </Link>
+              </CategoryItem>
+            ))}
+          </div>
+        </CategoryFilterProvider>
       </section>
 
       <section className="border-y border-line bg-panel/40">
@@ -227,6 +245,6 @@ export default function RingspannPage() {
           </div>
         </Reveal>
       </section>
-    </>
+    </PageTransition>
   );
 }

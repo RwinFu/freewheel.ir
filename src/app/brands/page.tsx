@@ -2,10 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
 
+import { CategoryChips, CategoryFilterProvider, CategoryItem } from "@/components/category-filter";
 import { Reveal } from "@/components/motion";
+import { PageTransition } from "@/components/page-transition";
 import { BuyNote, Callout, Panel, SectionHeading } from "@/components/ui";
 import { BRANDS } from "@/content/brands";
+import { BRAND_CATEGORIES, FILTERABLE_BRANDS, brandCategory, withCounts } from "@/content/taxonomy";
 import { cn } from "@/lib/utils";
+
+const BRAND_CATEGORIES_COUNTED = withCounts(
+  BRAND_CATEGORIES,
+  FILTERABLE_BRANDS.map((brand) => brand.slug),
+  brandCategory,
+);
 
 export const metadata: Metadata = {
   title: "برندهای فری‌ویل — RINGSPANN، INA، SKF، Stieber، Koyo، LUK، NIKO",
@@ -15,10 +24,10 @@ export const metadata: Metadata = {
 };
 
 export default function BrandsPage() {
-  const [ringspann, ...others] = BRANDS;
+  const [ringspann] = BRANDS;
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
           <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
@@ -46,6 +55,7 @@ export default function BrandsPage() {
         <Reveal>
           <Link
             href={`/brands/${ringspann.slug}`}
+            transitionTypes={["nav-forward"]}
             className="group grid gap-8 border border-accent/40 bg-accent/4 p-8 transition-colors hover:border-accent lg:grid-cols-[1fr_auto]"
           >
             <div>
@@ -88,30 +98,39 @@ export default function BrandsPage() {
             title="این‌ها را هم تأمین می‌کنیم"
             desc="برای هرکدام، محدوده‌ی سایز و نکته‌ی جایگزینی را جداگانه نوشته‌ایم تا استعلام کوتاه‌تر شود."
           />
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {others.map((brand, index) => (
-              <Reveal key={brand.slug} delay={index * 0.03}>
-                <Link
-                  href={`/brands/${brand.slug}`}
-                  className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
-                >
-                  <div>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <span dir="ltr" className="text-[18px] font-semibold text-fg">
-                        {brand.name}
-                      </span>
-                      <span className="text-[11.5px] text-fg-dim">{brand.country}</span>
+          <CategoryFilterProvider>
+            <div className="mt-10">
+              <CategoryChips
+                categories={BRAND_CATEGORIES_COUNTED}
+                label="فیلتر برندها بر اساس نزدیکی به RINGSPANN"
+              />
+            </div>
+            <div data-filter-grid className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {FILTERABLE_BRANDS.map((brand) => (
+                <CategoryItem key={brand.slug} category={brandCategory(brand.slug)}>
+                  <Link
+                    href={`/brands/${brand.slug}`}
+                    transitionTypes={["nav-forward"]}
+                    className="group flex h-full flex-col justify-between border border-line bg-panel p-6 transition-colors hover:border-accent/50"
+                  >
+                    <div>
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                          {brand.name}
+                        </span>
+                        <span className="text-[11.5px] text-fg-dim">{brand.country}</span>
+                      </div>
+                      <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{brand.tagline}</p>
                     </div>
-                    <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">{brand.tagline}</p>
-                  </div>
-                  <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
-                    نکات انتخاب
-                    <ArrowUpLeft className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+                    <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
+                      نکات انتخاب
+                      <ArrowUpLeft className="h-3.5 w-3.5" />
+                    </span>
+                  </Link>
+                </CategoryItem>
+              ))}
+            </div>
+          </CategoryFilterProvider>
 
           <Reveal className="mt-10">
             <div className="grid gap-5 lg:grid-cols-2">
@@ -141,6 +160,6 @@ export default function BrandsPage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

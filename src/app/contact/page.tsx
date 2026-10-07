@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion";
 import { InquiryForm } from "@/components/inquiry-form";
 import { Callout, Panel, SectionHeading } from "@/components/ui";
 import { CONTACT, SHOPS } from "@/content/site";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "تماس و استعلام سایز",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
           <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
@@ -182,6 +183,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

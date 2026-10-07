@@ -5,6 +5,7 @@ import { MoveUpLeft } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { BuyNote, Callout, Panel, RobotNote, SectionHeading, StatBlock } from "@/components/ui";
 import { CONTACT, SHOPS } from "@/content/site";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "درباره ما",
@@ -30,7 +31,7 @@ const NOTES = [
 
 export default function AboutPage() {
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-line">
         <div className="relative mx-auto max-w-[1240px] px-6 py-16">
           <div className="blueprint absolute inset-x-0 top-0 h-56 opacity-60" aria-hidden />
@@ -181,6 +182,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

@@ -189,7 +189,11 @@ export function Breadcrumbs({ items }: { items: { href: string; label: string }[
           {index === items.length - 1 ? (
             <span className="text-fg-muted">{item.label}</span>
           ) : (
-            <Link href={item.href} className="transition-colors hover:text-accent">
+            <Link
+              href={item.href}
+              transitionTypes={["nav-back"]}
+              className="transition-colors hover:text-accent"
+            >
               {item.label}
             </Link>
           )}

@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "typegen": "next typegen"
+    "typegen": "next typegen",
+    "verify": "node scripts/verify-filter.mjs",
+    "skills:install": "bash scripts/install-skills.sh",
+    "skills:list": "npx --yes skills@1.7.1 list",
+    "skills:update": "npx --yes skills@1.7.1 update -y -p"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -30,8 +34,10 @@
     "@types/pg": "8.18.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "esbuild": "^0.28.2",
     "eslint": "9.39.4",
     "eslint-config-next": "16.3.7",
+    "jsdom": "^30.1.2",
     "postcss": "8.5.28",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3"
