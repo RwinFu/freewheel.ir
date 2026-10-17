@@ -88,6 +88,7 @@ function SectionHeading({
 
 export default function HomePage() {
   return (
+    <div className="home-root">
     <PageTransition>
       <ScrollBackdrop />
       <div className="home-grain" aria-hidden="true" />
@@ -373,5 +374,6 @@ export default function HomePage() {
         </div>
       </section>
     </PageTransition>
+    </div>
   );
 }
