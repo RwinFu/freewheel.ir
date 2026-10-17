@@ -2,6 +2,7 @@
 
 import { Menu, MoveUpLeft, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -12,10 +13,10 @@ const NAV_LINKS = [
   { href: "/ringspann", label: "کاتالوگ" },
 ];
 
-function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
+function Wordmark({ onNavigate, onDark }: { onNavigate?: () => void; onDark: boolean }) {
   return (
     <Link href="/" onClick={onNavigate} className="group flex shrink-0 items-center gap-3" aria-label="صفحه‌ی اصلی freewheel.ir">
-      <span className="grid h-11 w-11 place-items-center rounded-[14px] bg-ocean shadow-sm shadow-ocean/15">
+      <span className="grid h-11 w-11 place-items-center rounded-[14px] bg-ocean shadow-sm shadow-ocean/15 ring-1 ring-white/10">
         <svg viewBox="0 0 40 40" className="h-8 w-8" aria-hidden="true">
           <circle cx="20" cy="20" r="15" fill="none" stroke="#B8CFD1" strokeWidth="2" />
           <circle cx="20" cy="20" r="8" fill="none" stroke="#72DED2" strokeWidth="2" />
@@ -24,17 +25,26 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
         </svg>
       </span>
       <span className="leading-tight">
-        <span className="block text-[15px] font-bold tracking-tight text-fg" dir="ltr">
+        <span className={`block text-[15px] font-bold tracking-tight ${onDark ? "text-white" : "text-fg"}`} dir="ltr">
           freewheel.ir
         </span>
-        <span className="mt-1 block text-[10.5px] text-fg-dim">فری‌ویل، ساده و دقیق</span>
+        <span className={`mt-1 block text-[10.5px] ${onDark ? "text-white/60" : "text-fg-dim"}`}>فری‌ویل، ساده و دقیق</span>
       </span>
     </Link>
   );
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [atTop, setAtTop] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -45,17 +55,28 @@ export function SiteHeader() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  // روی صفحه‌ی اصلی، تا وقتی بالای صفحه هستیم، هدر روی هیروی تیره شفاف می‌ماند.
+  const onDark = pathname === "/" && atTop && !open;
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-base/95 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
+        onDark ? "border-transparent bg-transparent" : "border-line bg-base/95 backdrop-blur-md"
+      }`}
+    >
       <div className="mx-auto flex h-[76px] max-w-[1320px] items-center justify-between gap-5 px-5 sm:px-7">
-        <Wordmark onNavigate={() => setOpen(false)} />
+        <Wordmark onNavigate={() => setOpen(false)} onDark={onDark} />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ناوبری اصلی">
           {NAV_LINKS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3.5 py-2 text-[13px] font-medium text-fg-muted transition-colors hover:bg-panel hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className={`rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+                onDark
+                  ? "text-white/75 hover:bg-white/10 hover:text-white"
+                  : "text-fg-muted hover:bg-panel hover:text-fg"
+              }`}
             >
               {item.label}
             </Link>
@@ -73,7 +94,11 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
-          className="grid h-11 w-11 place-items-center rounded-full border border-line-2 bg-panel text-fg transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+          className={`grid h-11 w-11 place-items-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden ${
+            onDark
+              ? "border-white/25 bg-white/5 text-white hover:border-white"
+              : "border-line-2 bg-panel text-fg hover:border-accent hover:text-accent"
+          }`}
           aria-label={open ? "بستن منو" : "باز کردن منو"}
           aria-expanded={open}
           aria-controls="mobile-navigation"
@@ -82,30 +107,26 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div
-        id="mobile-navigation"
-        hidden={!open}
-        className="border-t border-line bg-panel px-5 pb-5 pt-3 lg:hidden"
-      >
+      <div id="mobile-navigation" hidden={!open} className="border-t border-line bg-panel px-5 pb-5 pt-3 lg:hidden">
         <nav className="mx-auto grid max-w-[1320px] gap-1" aria-label="ناوبری موبایل">
-            {NAV_LINKS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-[14px] font-medium text-fg transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                {item.label}
-              </Link>
-            ))}
+          {NAV_LINKS.map((item) => (
             <Link
-              href="/contact"
+              key={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent px-4 text-[14px] font-semibold text-white transition-colors hover:bg-[#963b29] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="rounded-xl px-4 py-3 text-[14px] font-medium text-fg transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              مشاوره‌ی انتخاب
-              <MoveUpLeft className="h-4 w-4" aria-hidden="true" />
+              {item.label}
             </Link>
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent px-4 text-[14px] font-semibold text-white transition-colors hover:bg-[#963b29] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            مشاوره‌ی انتخاب
+            <MoveUpLeft className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </nav>
       </div>
     </header>
