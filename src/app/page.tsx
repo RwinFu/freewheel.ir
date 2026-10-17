@@ -204,7 +204,7 @@ export default function HomePage() {
                     <h3 className="text-[16px] font-bold text-white">{application.title}</h3>
                     <ArrowUpLeft className="h-4 w-4 shrink-0 text-mint transition-transform group-hover:-translate-x-1 group-hover:translate-y-1" aria-hidden="true" />
                   </div>
-                  <p className="mt-2.5 text-[13px] leading-7 text-white/60">
+                  <p className="mt-2.5 text-[13px] leading-7 text-white/72">
                     {APPLICATION_COPY[application.slug] ?? application.intro[0]}
                   </p>
                 </div>
@@ -257,7 +257,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <p className="mt-2 text-[13px] font-semibold text-white/80">{type.summary}</p>
-                <p className="mt-2 text-[12.5px] leading-7 text-white/55">{type.body}</p>
+                <p className="mt-2 text-[12.5px] leading-7 text-white/72">{type.body}</p>
                 <Link
                   href={type.series.href}
                   className="mt-4 inline-flex items-center gap-2 text-[12.5px] font-semibold text-mint transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
@@ -315,13 +315,13 @@ export default function HomePage() {
                 </span>
                 <span>
                   <span className="block text-[13px] font-bold text-white">{title}</span>
-                  <span className="mt-1 block text-[11px] text-white/60">{detail}</span>
+                  <span className="mt-1 block text-[11px] text-white/72">{detail}</span>
                 </span>
               </li>
             ))}
           </ul>
 
-          <p className="relative z-10 -mt-3 text-[11.5px] leading-6 text-white/55 sm:col-span-2 lg:-mt-5">
+          <p className="relative z-10 -mt-3 text-[11.5px] leading-6 text-white/72 sm:col-span-2 lg:-mt-5">
             اگر عددها را نداری، عکس پلاک موتور یا کد قطعه‌ی فعلی هم برای شروع مفید است.
           </p>
         </div>
@@ -359,7 +359,7 @@ export default function HomePage() {
             </span>
             <div>
               <h2 className="text-[14px] font-bold text-white">به دنبال مدل یا جدول ابعاد هستی؟</h2>
-              <p className="mt-1 text-[12px] leading-6 text-white/55">از کاتالوگ RINGSPANN شروع کن یا همه‌ی برندها را ببین.</p>
+              <p className="mt-1 text-[12px] leading-6 text-white/72">از کاتالوگ RINGSPANN شروع کن یا همه‌ی برندها را ببین.</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">

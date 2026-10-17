@@ -142,7 +142,7 @@ export function HowItWorks() {
           {/* برش تعاملی */}
           <div className="rounded-[26px] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-md sm:p-7 lg:sticky lg:top-24">
             <div className="flex items-center justify-between gap-4">
-              <p className="text-[12px] font-medium text-white/55">
+              <p className="text-[12px] font-medium text-white/72">
                 قطعه‌ی واقعی، روبه‌روی محور
               </p>
               <span className="text-[11px] tracking-[0.18em] text-white/35" dir="ltr">

@@ -28,7 +28,7 @@ function Wordmark({ onNavigate, onDark }: { onNavigate?: () => void; onDark: boo
         <span className={`block text-[15px] font-bold tracking-tight ${onDark ? "text-white" : "text-fg"}`} dir="ltr">
           freewheel.ir
         </span>
-        <span className={`mt-1 block text-[10.5px] ${onDark ? "text-white/60" : "text-fg-dim"}`}>فری‌ویل، ساده و دقیق</span>
+        <span className={`mt-1 block text-[10.5px] ${onDark ? "text-white/72" : "text-fg-dim"}`}>فری‌ویل، ساده و دقیق</span>
       </span>
     </Link>
   );

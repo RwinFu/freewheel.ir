@@ -38,7 +38,7 @@ export function FaqList({
               className={cn(
                 "mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-colors",
                 dark
-                  ? "border-white/15 text-white/60 group-open:border-mint group-open:bg-mint group-open:text-ocean"
+                  ? "border-white/15 text-white/72 group-open:border-mint group-open:bg-mint group-open:text-ocean"
                   : "border-line-2 text-fg-muted group-open:border-accent group-open:bg-accent group-open:text-white",
               )}
             >
@@ -48,7 +48,7 @@ export function FaqList({
           <p
             className={cn(
               "max-w-3xl pb-6 pe-11 text-[13px] leading-7 sm:text-[14px]",
-              dark ? "text-white/60" : "text-fg-muted",
+              dark ? "text-white/72" : "text-fg-muted",
             )}
           >
             {item.a}

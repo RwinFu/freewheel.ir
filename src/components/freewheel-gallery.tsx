@@ -146,7 +146,7 @@ export function FreewheelGallery() {
               </div>
               <figcaption className="mt-3 flex items-baseline justify-between gap-3 px-1">
                 <span className="text-[13.5px] font-bold text-white">{item.caption}</span>
-                <span className="truncate text-[11px] text-white/55">{item.sub}</span>
+                <span className="truncate text-[11px] text-white/72">{item.sub}</span>
               </figcaption>
             </figure>
           ))}

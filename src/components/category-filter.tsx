@@ -181,7 +181,7 @@ export function CategoryChips({
                 dir="ltr"
                 className={cn(
                   "tnum text-[11px]",
-                  isActive ? "text-white/60" : "text-fg-dim",
+                  isActive ? "text-white/72" : "text-fg-dim",
                 )}
               >
                 {category.count}

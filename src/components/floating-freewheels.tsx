@@ -204,9 +204,9 @@ export function FloatingFreewheels() {
                 <div className="mt-4 flex items-center justify-between gap-2 px-1">
                   <div>
                     <div className="text-[13.5px] font-bold text-white">{series?.family}</div>
-                    <div className="mt-1 text-[11px] text-white/55">{series?.short}</div>
+                    <div className="mt-1 text-[11px] text-white/72">{series?.short}</div>
                   </div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/15 text-white/60 opacity-0 transition-all duration-300 group-hover:border-mint group-hover:text-mint group-hover:opacity-100">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/15 text-white/72 opacity-0 transition-all duration-300 group-hover:border-mint group-hover:text-mint group-hover:opacity-100">
                     <ArrowUpLeft className="h-3.5 w-3.5" />
                   </span>
                 </div>

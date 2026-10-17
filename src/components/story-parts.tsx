@@ -16,7 +16,7 @@ import type { StoryPart } from "@/content/story";
 export function StoryParts({ items, note }: { items: StoryPart[]; note: string }) {
   return (
     <div>
-      <p className="flex items-start gap-2 text-[12px] leading-6 text-white/55">
+      <p className="flex items-start gap-2 text-[12px] leading-6 text-white/72">
         <Camera className="mt-0.5 h-3.5 w-3.5 shrink-0 text-mint" aria-hidden="true" />
         {note}
       </p>
@@ -63,7 +63,7 @@ export function StoryParts({ items, note }: { items: StoryPart[]; note: string }
                   />
                 </div>
                 <p className="mt-2 text-[12.5px] font-semibold text-mint/90">{item.role}</p>
-                <p className="mt-2.5 text-[12.5px] leading-7 text-white/60">{item.detail}</p>
+                <p className="mt-2.5 text-[12.5px] leading-7 text-white/72">{item.detail}</p>
                 <span className="mt-4 inline-flex items-center gap-2 border-t border-white/10 pt-3.5 text-[12px] font-semibold text-white/75 transition-colors group-hover:text-mint">
                   {item.link.label}
                   <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />

@@ -43,7 +43,7 @@ export function ProjectStory() {
               </p>
             </Reveal>
             <Reveal delay={0.15}>
-              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/60">
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/72">
                 {["تشخیص در شب اول", "محاسبه‌ی گشتاور برگشت", "انتخاب و نصب", "بازرسی سه سال"].map(
                   (step, index) => (
                     <li key={step} className="inline-flex items-center gap-2">
@@ -91,7 +91,7 @@ export function ProjectStory() {
                 key={fact.label}
                 className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-4 backdrop-blur-sm"
               >
-                <span className="text-[11.5px] text-white/55">{fact.label}</span>
+                <span className="text-[11.5px] text-white/72">{fact.label}</span>
                 <span className="mt-1.5 flex items-baseline gap-1.5">
                   <span className="tnum text-[26px] font-bold leading-none text-white">
                     {fact.value}
@@ -153,7 +153,7 @@ export function ProjectStory() {
         <div className="mt-14 grid gap-4 lg:grid-cols-2">
           <Reveal className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5 sm:p-6">
             <h3 className="text-[16.5px] font-bold text-white">{story.outcome.title}</h3>
-            <p className="mt-2.5 text-[12.5px] leading-7 text-white/60">{story.outcome.body}</p>
+            <p className="mt-2.5 text-[12.5px] leading-7 text-white/72">{story.outcome.body}</p>
             <ul className="mt-4 grid gap-2.5">
               {story.outcome.points.map((point) => (
                 <li key={point} className="flex items-start gap-2.5 text-[12.5px] leading-7 text-white/75">
