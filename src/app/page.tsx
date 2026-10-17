@@ -104,7 +104,7 @@ export default function HomePage() {
               فری‌ویل؛
               <br />
               <span className="text-mint">آزاد در یک جهت،</span>
-              <br className="hidden sm:block" />
+              <br />
               قفل در جهت دیگر.
             </h1>
             <p className="mt-6 max-w-[590px] text-[15px] leading-8 text-white/75 sm:text-[16px] sm:leading-9">
