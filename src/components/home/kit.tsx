@@ -26,13 +26,24 @@ export function WordReveal({
   className,
   mode = "scroll",
   stagger = 0.055,
+  variant = "rise",
   as: Tag = "span",
 }: {
   text: string;
   className?: string;
   /** scroll = با اسکرول scrub می‌شود؛ enter = یک‌بار هنگام ورود به دید */
-  mode?: "scroll" | "enter" | "load";
+  /**
+   * static = هیچ انیمیشنی در کامپوننت اجرا نمی‌شود؛ والد (مثلاً تایم‌لاین
+   * صحنه‌ی چسبیده) کلمه‌ها را با همان اسکرول صفحه حرکت می‌دهد.
+   */
+  mode?: "scroll" | "enter" | "load" | "static";
   stagger?: number;
+  /**
+   * rise = کلمه از پشت ماسک بالا می‌آید (تیترهای صفحه)
+   * dim  = متن از قبل سرجایش است و با اسکرول از کم‌رنگ به کامل می‌رسد
+   *        (همان چیزی که در بلوک‌های تحریریه‌ی مرجع می‌بینیم)
+   */
+  variant?: "rise" | "dim";
   as?: "span" | "p" | "h1" | "h2" | "h3" | "div";
 }) {
   const ref = useRef<HTMLElement | null>(null);
@@ -49,6 +60,8 @@ export function WordReveal({
       return;
     }
 
+    if (mode === "static") return;
+
     if (mode === "load") {
       const tween = gsap.fromTo(
         inners,
@@ -64,6 +77,29 @@ export function WordReveal({
       );
       return () => {
         tween.kill();
+      };
+    }
+
+    if (variant === "dim") {
+      const dim = gsap.fromTo(
+        inners,
+        { opacity: 0.16, filter: "blur(0.4px)" },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "none",
+          stagger: stagger * 2.4,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 82%",
+            end: "top 38%",
+            scrub: 0.5,
+          },
+        },
+      );
+      return () => {
+        dim.scrollTrigger?.kill();
+        dim.kill();
       };
     }
 
@@ -89,7 +125,7 @@ export function WordReveal({
       tween.scrollTrigger?.kill();
       tween.kill();
     };
-  }, [mode, stagger]);
+  }, [mode, stagger, variant]);
 
   return (
     <Tag ref={ref as never} className={className}>

@@ -3,11 +3,8 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, RotateCcw, Ruler, Timer } from 
 
 import { FaqList } from "@/components/faq";
 import { CinematicHero } from "@/components/home/cinematic-hero";
-import {
-  AroundList,
-  IdentityPanel,
-  StatementSection,
-} from "@/components/home/story-panels";
+import { EditorialStack } from "@/components/home/editorial-stack";
+import { AroundList, StatementSection } from "@/components/home/story-panels";
 import {
   AmenitySwitcher,
   FamilyShowcase,
@@ -46,7 +43,7 @@ export default function HomePage() {
         <SectionRail />
 
         <CinematicHero />
-        <IdentityPanel />
+        <EditorialStack />
         <StatementSection />
         <AroundList />
         <FamilyShowcase />
