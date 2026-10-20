@@ -70,17 +70,39 @@
   opacity: 0.65;
 }
 
+/* در موبایل عدد روی محتوا می‌افتاد؛ جایش یک نوار نازک پیشرفت زیر هدر است. */
 @media (max-width: 900px) {
   .fw-progress {
-    top: 84px;
-    left: 16px;
-    transform: scale(0.9);
-    transform-origin: top left;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(243, 241, 233, 0.82);
-    backdrop-filter: blur(6px);
-    mix-blend-mode: normal;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    display: block;
+    padding: 0;
+    gap: 0;
+    background: rgba(29, 56, 47, 0.1);
+    transform: none;
+  }
+
+  .fw-progress-value,
+  .fw-progress-unit {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .fw-progress::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: calc(var(--fw-progress, 0) * 1%);
+    background: var(--color-accent);
+    transition: width 0.12s linear;
   }
 }
 
@@ -1375,11 +1397,162 @@
   }
 }
 
+/* ============ لایه‌ی حرکت درون‌تصویری ============ */
+
+/* قاب تصویر: عکس هیچ‌وقت ساکن نمی‌ماند، ولی حرکت داخل خودِ قاب می‌ماند. */
+.fw-mm {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.fw-mm-img {
+  object-fit: cover;
+  transform: scale(1.05);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* قاب‌های وابسته به اسکرول: زوم پایه‌ی بیشتر تا در پن، لبه‌ی خالی پیدا نشود */
+.fw-mm[data-motion="scrub"] .fw-mm-img {
+  transform: scale(1.16);
+}
+
+.fw-mm[data-motion="drift"].is-live .fw-mm-img {
+  animation: fw-drift var(--fw-drift-duration, 26s) cubic-bezier(0.45, 0, 0.55, 1)
+    var(--fw-drift-delay, 0s) infinite alternate;
+}
+
+@keyframes fw-drift {
+  0% {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  55% {
+    transform: scale(1.11) translate3d(-1.2%, 1%, 0);
+  }
+  100% {
+    transform: scale(1.14) translate3d(1.5%, -1.3%, 0);
+  }
+}
+
+/* درخشش آهسته روی سطح فلز — نور متحرک، نه افکت تزئینی */
+.fw-mm-sheen {
+  position: absolute;
+  inset: -25%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.22) 48%,
+    transparent 60%
+  );
+  transform: translateX(-45%);
+}
+
+.fw-mm.is-live .fw-mm-sheen {
+  opacity: 1;
+  animation: fw-sheen 12s ease-in-out infinite;
+}
+
+@keyframes fw-sheen {
+  0%,
+  100% {
+    transform: translateX(-48%);
+  }
+  58% {
+    transform: translateX(48%);
+  }
+}
+
+/* قطعه‌ی زنده — سه نوار هم‌مرکز که هرکدام با سرعت خودش می‌چرخد */
+.fw-spin {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 46%, #163a44 0%, #0c262e 55%, #071a20 100%);
+}
+
+.fw-spin-fill {
+  object-fit: cover;
+  transform: scale(1.18);
+  opacity: 0.9;
+  filter: blur(26px) saturate(0.78) brightness(0.72);
+}
+
+.fw-spin-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.fw-spin-img {
+  object-fit: contain;
+}
+
+.fw-spin-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, 0.16), transparent 44%);
+  mix-blend-mode: soft-light;
+}
+
+.fw-spin-tag {
+  position: absolute;
+  z-index: 3;
+  bottom: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(8, 22, 16, 0.55);
+  color: #eef3ee;
+  padding: 7px 12px;
+  font-size: 11px;
+  backdrop-filter: blur(8px);
+}
+
+.fw-spin-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9ed7a8;
+  animation: fw-spin-pulse 2.4s ease-out infinite;
+}
+
+@keyframes fw-spin-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(158, 215, 168, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(158, 215, 168, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(158, 215, 168, 0);
+  }
+}
+
 /* ============ کاهش حرکت ============ */
 
 @media (prefers-reduced-motion: reduce) {
   .cinema-hero-veil {
     display: none;
+  }
+  .fw-mm-img {
+    animation: none !important;
+    transform: none !important;
+  }
+  .fw-mm-sheen,
+  .fw-spin-sheen {
+    display: none;
+  }
+  .fw-spin-dot {
+    animation: none;
   }
   .cinema-hero-scroll-mark {
     animation: none;

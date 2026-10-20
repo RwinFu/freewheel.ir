@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -192,7 +192,11 @@ export function ScrollPercent() {
   }, []);
 
   return (
-    <div className="fw-progress" aria-hidden="true">
+    <div
+      className="fw-progress"
+      aria-hidden="true"
+      style={{ "--fw-progress": value } as CSSProperties}
+    >
       <span className="fw-progress-value">{value}</span>
       <span className="fw-progress-unit">%</span>
     </div>
