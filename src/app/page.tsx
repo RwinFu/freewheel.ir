@@ -3,6 +3,7 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, RotateCcw, Ruler, Timer } from 
 
 import { FaqList } from "@/components/faq";
 import { CinematicHero } from "@/components/home/cinematic-hero";
+import { DeviceStage } from "@/components/home/device-stage";
 import { EditorialStack } from "@/components/home/editorial-stack";
 import { AroundScene } from "@/components/home/around-scene";
 import { StatementScene } from "@/components/home/statement-scene";
@@ -52,6 +53,7 @@ export default function HomePage() {
           className="kinetic-after-hero"
         />
 
+        <DeviceStage />
         <EditorialStack />
         <StatementScene />
 
