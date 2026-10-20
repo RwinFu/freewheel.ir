@@ -1,0 +1,212 @@
+/* بخش‌های پایانی صفحه‌ی اول — راهنمای انتخاب، FAQ و نوار پایانی */
+
+.page {
+  overflow: clip;
+  background: var(--color-base);
+}
+
+/* ---------- راهنمای انتخاب ---------- */
+
+.guide {
+  background: var(--color-base);
+  padding-block: clamp(80px, 10vw, 150px);
+  border-top: 1px solid var(--color-line);
+}
+
+.guideInner {
+  width: min(100% - 48px, 1180px);
+  margin-inline: auto;
+}
+
+.guideTitle {
+  margin: 0;
+  color: var(--color-fg);
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.guideSub {
+  margin: 22px 0 0;
+  max-width: 52ch;
+  color: var(--color-fg-muted);
+  font-size: 14px;
+  line-height: 2.15;
+}
+
+.guideGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 52px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guideCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  background: var(--color-panel);
+  padding: 22px 20px;
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s ease,
+    background 0.35s ease;
+}
+
+.guideCard:hover {
+  border-color: var(--color-accent-soft);
+  transform: translateY(-4px);
+}
+
+.guideIcon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 13px;
+  background: var(--color-panel-2);
+  color: var(--color-accent);
+}
+
+.guideCardTitle {
+  display: block;
+  color: var(--color-fg);
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.guideCardDetail {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-fg-dim);
+  font-size: 11px;
+}
+
+.guideCardIndex {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  color: var(--color-fg-dim);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+.guideNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 30px 0 0;
+  color: var(--color-fg-muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.guideNote svg {
+  margin-top: 3px;
+  flex: 0 0 auto;
+  color: var(--color-accent);
+}
+
+@media (max-width: 1000px) {
+  .guideGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .guideGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- FAQ ---------- */
+
+.faq {
+  background: var(--color-panel);
+  border-block: 1px solid var(--color-line);
+  padding-block: clamp(80px, 10vw, 140px);
+}
+
+.faqInner {
+  display: grid;
+  width: min(100% - 48px, 1180px);
+  margin-inline: auto;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.faqTitle {
+  margin: 0 0 26px;
+  color: var(--color-fg);
+  font-size: clamp(1.85rem, 3.3vw, 2.85rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+@media (max-width: 900px) {
+  .faqInner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- نوار پایانی ---------- */
+
+.finalBar {
+  background: var(--color-base);
+  padding-block: clamp(56px, 7vw, 96px);
+}
+
+.finalInner {
+  display: flex;
+  width: min(100% - 48px, 1180px);
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-panel);
+  padding: 30px 32px;
+}
+
+.finalText {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.finalText > svg {
+  margin-top: 3px;
+  flex: 0 0 auto;
+  color: var(--color-accent);
+}
+
+.finalTitle {
+  margin: 0;
+  color: var(--color-fg);
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.finalSub {
+  margin: 7px 0 0;
+  color: var(--color-fg-dim);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.finalActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
