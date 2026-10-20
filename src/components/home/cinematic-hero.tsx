@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -8,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
 import { CharLatin, WordReveal } from "@/components/home/kit";
+import { MotionImage } from "@/components/home/motion-media";
+import { HOME_STILL } from "@/content/home-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,15 +89,13 @@ export function CinematicHero() {
   return (
     <section id="hero" ref={rootRef} className="cinema-hero" aria-labelledby="hero-title">
       <div className="cinema-hero-media" ref={imgRef}>
-        <Image
-          src="/images/hero-drive.jpg"
-          alt="ایستگاه درایو نوار نقاله: موتور، گیربکس و پولی در نور شب"
-          fill
-          priority
+        <MotionImage
+          still={HOME_STILL.hero}
+          motion="drift"
           sizes="100vw"
-          className="cinema-hero-img"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAGcP//EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAQUCf//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMBAT8Bf//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQIBAT8Bf//EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEABj8Cf//EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAT8hf//Z"
+          priority
+          duration={38}
+          imgClassName="cinema-hero-img"
         />
       </div>
       <div className="cinema-hero-scrim" aria-hidden="true" />

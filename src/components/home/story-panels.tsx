@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -8,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
 import { FadeUp, WordReveal } from "@/components/home/kit";
+import { MotionImage } from "@/components/home/motion-media";
+import { HOME_STILL } from "@/content/home-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,12 +49,12 @@ export function IdentityPanel() {
   return (
     <section id="intro" ref={rootRef} className="identity-panel" aria-labelledby="identity-title">
       <div className="identity-media" ref={imgRef}>
-        <Image
-          src="/images/drive-panorama.jpg"
-          alt="پانورامای سامانه‌ی انتقال قدرت از موتور تا نوار نقاله"
-          fill
+        <MotionImage
+          still={HOME_STILL.identity}
+          motion="drift"
           sizes="100vw"
-          className="identity-img"
+          duration={30}
+          imgClassName="identity-img"
         />
         <div className="identity-scrim" aria-hidden="true" />
       </div>
@@ -148,28 +149,28 @@ export function AroundList() {
       label: "نوار نقاله و بک‌استاپ",
       time: "پرکاربردترین",
       desc: "وقتی خط می‌ایستد، فری‌ویل جلوی برگشت ناخواسته‌ی نوار را می‌گیرد؛ به‌خصوص روی شیب.",
-      image: "/images/drive-panorama.jpg",
+      still: HOME_STILL.conveyor,
     },
     {
       id: "textile",
       label: "نساجی و ریسندگی",
       time: "حرکت پله‌ای",
       desc: "برای جداکردن دو محرک و تغذیه‌ی نخ؛ جایی که کشش باید حفظ شود ولی برگشت ممنوع است.",
-      image: "/images/hero-drive.jpg",
+      still: HOME_STILL.textile,
     },
     {
       id: "packaging",
       label: "بسته‌بندی و پالتیزه",
       time: "تکرارپذیر",
       desc: "حرکت مرحله‌ای ماشین‌های بسته‌بندی با ایندکسینگ مکانیکی و بدون فرمان الکتریکی.",
-      image: "/images/panorama-night.jpg",
+      still: HOME_STILL.packaging,
     },
     {
       id: "backstop",
       label: "بک‌استاپ شفت‌های سنگین",
       time: "ایمنی بار",
       desc: "روی شفت درایو یا گیربکس نصب می‌شود و در لحظه‌ی برگشت، بدون تأخیر قفل می‌کند.",
-      image: "/images/freewheel-exploded.webp",
+      still: HOME_STILL.quarry,
     },
   ];
 
@@ -245,12 +246,13 @@ export function AroundList() {
                 data-around-layer
                 className={index === 0 ? "around-layer is-active" : "around-layer"}
               >
-                <Image
-                  src={item.image}
-                  alt=""
-                  fill
+                <MotionImage
+                  still={item.still}
+                  motion="drift"
                   sizes="(min-width: 900px) 52vw, 92vw"
-                  className="around-layer-img"
+                  duration={24 + index * 4}
+                  delay={index * 1.5}
+                  imgClassName="around-layer-img"
                 />
               </div>
             ))}

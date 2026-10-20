@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -8,18 +7,33 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
 import { FadeUp, WordReveal } from "@/components/home/kit";
+import { MotionImage, SpinPart } from "@/components/home/motion-media";
+import { HOME_STILL } from "@/content/home-media";
+import type { HomeStill } from "@/content/home-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ---------------- خانواده‌های محصول — سوآپ تصویر مثل Residences ---------------- */
 
-const FAMILY_TABS = [
+type FamilyTab = {
+  key: string;
+  label: string;
+  english: string;
+  count: string;
+  desc: string;
+  href: string;
+  still?: HomeStill;
+  /** تبِ زنده: به‌جای عکس ساکن، قطعه‌ی در حال چرخش نشان داده می‌شود */
+  live?: boolean;
+};
+
+const FAMILY_TABS: FamilyTab[] = [
   {
     key: "sprag",
     label: "اسپراگ",
     english: "SPRAG",
     count: "۲ سری",
-    image: "/images/freewheel-exploded.webp",
+    live: true,
     desc: "المان‌های گوه‌ای فولادی بین دو حلقه؛ برای گشتاور بالا و درگیری مطمئن. سری FB و FZ.",
     href: "/ringspann/fb",
   },
@@ -28,7 +42,7 @@ const FAMILY_TABS = [
     label: "رولری",
     english: "ROLLER",
     count: "۲ سری",
-    image: "/images/panorama-night.jpg",
+    still: HOME_STILL.familyRoller,
     desc: "غلتک‌هایی در فضای گوه‌ای؛ ساختاری رایج و فشرده برای کاربردهای عمومی. سری FGR و BM.",
     href: "/ringspann/fgr-r",
   },
@@ -37,7 +51,7 @@ const FAMILY_TABS = [
     label: "بک‌استاپ",
     english: "BACKSTOP",
     count: "۲ سری",
-    image: "/images/drive-panorama.jpg",
+    still: HOME_STILL.familyBackstop,
     desc: "نصب روی شفت برای جلوگیری از برگشت بار؛ با اهرم یا آب‌بندی‌شده. سری FRHN و FKh.",
     href: "/ringspann/frhn",
   },
@@ -46,7 +60,7 @@ const FAMILY_TABS = [
     label: "ایندکسینگ",
     english: "INDEXING",
     count: "کاربرد ویژه",
-    image: "/images/hero-drive.jpg",
+    still: HOME_STILL.familyIndexing,
     desc: "حرکت پله‌ای و تکرارپذیر برای ماشین‌های بسته‌بندی، چاپ و مونتاژ.",
     href: "/applications/packaging",
   },
@@ -135,13 +149,18 @@ export function FamilyShowcase() {
                 className={index === active ? "family-layer is-active" : "family-layer"}
                 aria-hidden="true"
               >
-                <Image
-                  src={tab.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 900px) 58vw, 92vw"
-                  className="family-layer-img"
-                />
+                {tab.live ? (
+                  <SpinPart sizes="(min-width: 900px) 58vw, 92vw" />
+                ) : tab.still ? (
+                  <MotionImage
+                    still={tab.still}
+                    motion="drift"
+                    sizes="(min-width: 900px) 58vw, 92vw"
+                    duration={index % 2 === 0 ? 27 : 33}
+                    delay={index * 1.2}
+                    imgClassName="family-layer-img"
+                  />
+                ) : null}
               </div>
             ))}
             <div className="family-media-frame" />
@@ -192,21 +211,22 @@ export function RootsSection() {
     >
       <div className="roots-media" aria-hidden="true">
         <div className={slide === 0 ? "roots-layer is-active" : "roots-layer"}>
-          <Image
-            src="/images/drive-panorama.jpg"
-            alt=""
-            fill
+          <MotionImage
+            still={HOME_STILL.rootsA}
+            motion="drift"
             sizes="100vw"
-            className="roots-layer-img"
+            duration={31}
+            imgClassName="roots-layer-img"
           />
         </div>
         <div className={slide === 1 ? "roots-layer is-active" : "roots-layer"}>
-          <Image
-            src="/images/panorama-night.jpg"
-            alt=""
-            fill
+          <MotionImage
+            still={HOME_STILL.rootsB}
+            motion="drift"
             sizes="100vw"
-            className="roots-layer-img"
+            duration={37}
+            delay={1.5}
+            imgClassName="roots-layer-img"
           />
         </div>
         <div className="roots-scrim" />
@@ -250,28 +270,28 @@ const AMENITIES = [
     en: "OVERRUNNING",
     label: "اوررانینگ",
     desc: "وقتی خروجی سریع‌تر از ورودی می‌چرخد؛ فری‌ویل آزاد می‌ماند و مانع نمی‌شود.",
-    image: "/images/hero-drive.jpg",
+    still: HOME_STILL.lifeOff,
   },
   {
     key: "indexing",
     en: "INDEXING",
     label: "ایندکسینگ",
     desc: "حرکت پله‌ای دقیق برای هر بار چرخش؛ بدون نیاز به سروو و فرمان الکتریکی.",
-    image: "/images/panorama-night.jpg",
+    still: HOME_STILL.drawnCup,
   },
   {
     key: "backstop",
     en: "BACKSTOP",
     label: "بک‌استاپ",
     desc: "قفل فوری در جهت برگشت؛ ایمنی بار روی شیب و نوارهای سنگین.",
-    image: "/images/drive-panorama.jpg",
+    still: HOME_STILL.sealed,
   },
   {
     key: "dual",
     en: "DUAL DRIVE",
     label: "دو محرکه",
     desc: "دو موتور روی یک محور با یک فری‌ویل؛ بار بین دو محرک تقسیم می‌شود.",
-    image: "/images/freewheel-exploded.webp",
+    still: HOME_STILL.internal,
   },
 ];
 
@@ -302,12 +322,13 @@ export function AmenitySwitcher() {
                 className={index === active ? "amenity-layer is-active" : "amenity-layer"}
                 aria-hidden="true"
               >
-                <Image
-                  src={item.image}
-                  alt=""
-                  fill
+                <MotionImage
+                  still={item.still}
+                  motion="drift"
                   sizes="(min-width: 900px) 55vw, 92vw"
-                  className="amenity-layer-img"
+                  duration={25 + index * 3}
+                  delay={index * 1.1}
+                  imgClassName="amenity-layer-img"
                 />
               </div>
             ))}
@@ -336,7 +357,7 @@ export function AmenitySwitcher() {
               onPointerEnter={() => setActive(index)}
             >
               <span className="amenity-thumb-img">
-                <Image src={item.image} alt="" fill sizes="120px" />
+                <MotionImage still={item.still} motion="still" sizes="120px" sheen={false} />
               </span>
               <span className="amenity-thumb-label">{item.label}</span>
             </button>

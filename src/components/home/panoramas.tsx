@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -8,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
 import { FadeUp, WordReveal } from "@/components/home/kit";
+import { MotionImage } from "@/components/home/motion-media";
+import { HOME_STILL } from "@/content/home-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,24 +77,24 @@ export function HorizontalPanorama() {
 
   const cards = [
     {
-      image: "/images/drive-panorama.jpg",
-      label: "از محرک تا نوار",
-      sub: "مسیر کامل نیرو",
+      still: HOME_STILL.panoAxis,
+      label: "کلاچ یک‌طرفه",
+      sub: "نمای روبه‌روی محور",
     },
     {
-      image: "/images/panorama-night.jpg",
-      label: "شیفت شب",
-      sub: "بک‌استاپ زیر بار",
+      still: HOME_STILL.panoRoller,
+      label: "المان رولری",
+      sub: "غلتک و فنر در گوه",
     },
     {
-      image: "/images/hero-drive.jpg",
-      label: "ایستگاه درایو",
-      sub: "موتور، گیربکس، پولی",
+      still: HOME_STILL.panoSealed,
+      label: "محفظه‌ی آب‌بندی",
+      sub: "بسته و روغن‌پر",
     },
     {
-      image: "/images/freewheel-exploded.webp",
-      label: "داخل قطعه",
-      sub: "حلقه‌ها و المان‌ها",
+      still: HOME_STILL.panoSprag,
+      label: "مجموعه‌ی اسپراگ",
+      sub: "حلقه‌ها و قفس المان‌ها",
     },
   ];
 
@@ -121,12 +122,13 @@ export function HorizontalPanorama() {
             <figure key={card.label} data-pano-card className="pano-card" dir="rtl">
               <div className="pano-card-media">
                 <div data-pano-media className="pano-card-img">
-                  <Image
-                    src={card.image}
-                    alt={card.label}
-                    fill
+                  <MotionImage
+                    still={card.still}
+                    motion="drift"
                     sizes="(min-width: 900px) 62vw, 88vw"
-                    className="pano-card-img-el"
+                    duration={28 + index * 3}
+                    delay={index * 0.9}
+                    imgClassName="pano-card-img-el"
                   />
                 </div>
                 <span className="pano-card-index" dir="ltr">
