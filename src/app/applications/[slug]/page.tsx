@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+
+import { MotionFilm } from "@/components/media/film";
+import { APPLICATION_FILM } from "@/content/media";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpLeft, BookOpen, TriangleAlert } from "lucide-react";
@@ -83,14 +86,22 @@ export default async function ApplicationPage({ params }: { params: Promise<Para
             </div>
             <SharedElement name={`app-image-${application.slug}`}>
               <div className="relative aspect-[4/3] overflow-hidden border border-line">
-                <Image
-                  src={application.image.src}
-                  alt={application.image.alt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover opacity-85 saturate-[0.6]"
-                />
+                {APPLICATION_FILM[application.slug] ? (
+                  <MotionFilm
+                    media={APPLICATION_FILM[application.slug]}
+                    priority
+                    className="opacity-90 saturate-[0.75]"
+                  />
+                ) : (
+                  <Image
+                    src={application.image.src}
+                    alt={application.image.alt}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-cover opacity-85 saturate-[0.6]"
+                  />
+                )}
                 <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-base to-transparent" />
                 <span className="absolute bottom-3 left-3 text-[10.5px] text-fg-dim" dir="ltr">
                   {application.image.credit}

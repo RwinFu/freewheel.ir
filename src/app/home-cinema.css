@@ -867,6 +867,10 @@
   object-fit: cover;
 }
 
+.family-layer-video {
+  object-fit: cover;
+}
+
 .family-media-frame {
   position: absolute;
   inset: 0;
@@ -1467,76 +1471,6 @@
   }
 }
 
-/* قطعه‌ی زنده — سه نوار هم‌مرکز که هرکدام با سرعت خودش می‌چرخد */
-.fw-spin {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  background: radial-gradient(circle at 50% 46%, #163a44 0%, #0c262e 55%, #071a20 100%);
-}
-
-.fw-spin-fill {
-  object-fit: cover;
-  transform: scale(1.18);
-  opacity: 0.9;
-  filter: blur(26px) saturate(0.78) brightness(0.72);
-}
-
-.fw-spin-layer {
-  position: absolute;
-  inset: 0;
-  will-change: transform;
-}
-
-.fw-spin-img {
-  object-fit: contain;
-}
-
-.fw-spin-sheen {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, 0.16), transparent 44%);
-  mix-blend-mode: soft-light;
-}
-
-.fw-spin-tag {
-  position: absolute;
-  z-index: 3;
-  bottom: 16px;
-  left: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(8, 22, 16, 0.55);
-  color: #eef3ee;
-  padding: 7px 12px;
-  font-size: 11px;
-  backdrop-filter: blur(8px);
-}
-
-.fw-spin-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #9ed7a8;
-  animation: fw-spin-pulse 2.4s ease-out infinite;
-}
-
-@keyframes fw-spin-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(158, 215, 168, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 9px rgba(158, 215, 168, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(158, 215, 168, 0);
-  }
-}
-
 /* ============ کاهش حرکت ============ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1547,12 +1481,8 @@
     animation: none !important;
     transform: none !important;
   }
-  .fw-mm-sheen,
-  .fw-spin-sheen {
+  .fw-mm-sheen {
     display: none;
-  }
-  .fw-spin-dot {
-    animation: none;
   }
   .cinema-hero-scroll-mark {
     animation: none;

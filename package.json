@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:pages": "bash scripts/build-pages.sh",
+    "motion": "node scripts/build-motion.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
