@@ -9,7 +9,7 @@ import { prefersReducedMotion } from "@/components/motion";
 import { FadeUp, WordReveal } from "@/components/home/kit";
 import { MotionImage } from "@/components/home/motion-media";
 import { MotionFilm } from "@/components/media/film";
-import { SPIN_FILM } from "@/content/media";
+import { PLANT_FILMS, SPIN_FILM } from "@/content/media";
 import { HOME_STILL } from "@/content/home-media";
 import type { HomeStill } from "@/content/home-media";
 
@@ -189,23 +189,74 @@ export function FamilyShowcase() {
   );
 }
 
-/* ---------------- ریشه‌ها — دو تصویر و متن روایی مثل Your Roots ---------------- */
+/* ---------------- ریشه‌ها — صحنه‌ی چسبیده با کراس‌فید و حروفِ رانش ---------------- */
 
+/**
+ * «ریشه‌ی اطمینان» — تمام‌عرض و میخکوب‌شده.
+ *
+ * دو لایه روی هم: اول عکس محصول، بعد فیلم واقعی خط تولید. با اسکرول، لایه‌ی
+ * دوم از پایین بالا می‌آید و اولی عقب می‌رود؛ حروف لاتین هم با سرعت متفاوت
+ * از پشت متن رد می‌شوند تا عمق حس شود.
+ */
 export function RootsSection() {
   const rootRef = useRef<HTMLElement | null>(null);
-  const [slide, setSlide] = useState(0);
+  const stageRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || prefersReducedMotion()) return;
+    const stage = stageRef.current;
+    if (!root || !stage) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: root,
-      start: "top 60%",
-      end: "bottom 40%",
-      onUpdate: (self) => setSlide(self.progress > 0.45 ? 1 : 0),
-    });
-    return () => trigger.kill();
+    if (prefersReducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      timeline.fromTo(
+        "[data-roots-a]",
+        { scale: 1.18, yPercent: -4 },
+        { scale: 1.04, yPercent: 4, ease: "none", duration: 1 },
+        0,
+      );
+
+      timeline.fromTo(
+        "[data-roots-b]",
+        { clipPath: "inset(100% 0% 0% 0%)", scale: 1.22 },
+        { clipPath: "inset(0% 0% 0% 0%)", scale: 1.06, ease: "power2.inOut", duration: 0.45 },
+        0.34,
+      );
+
+      timeline.fromTo(
+        "[data-roots-letters]",
+        { xPercent: 6 },
+        { xPercent: -22, ease: "none", duration: 1 },
+        0,
+      );
+
+      timeline.fromTo(
+        "[data-roots-copy]",
+        { yPercent: 8, opacity: 0.25 },
+        { yPercent: -6, opacity: 1, ease: "none", duration: 0.5 },
+        0.2,
+      );
+
+      timeline.fromTo(
+        "[data-roots-rule]",
+        { scaleX: 0 },
+        { scaleX: 1, ease: "none", duration: 0.5 },
+        0.28,
+      );
+    }, root);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -215,54 +266,54 @@ export function RootsSection() {
       className="roots-section"
       aria-labelledby="roots-title"
     >
-      <div className="roots-media" aria-hidden="true">
-        <div className={slide === 0 ? "roots-layer is-active" : "roots-layer"}>
-          <MotionImage
-            still={HOME_STILL.rootsA}
-            motion="drift"
-            sizes="100vw"
-            duration={31}
-            imgClassName="roots-layer-img"
-          />
+      <div ref={stageRef} className="roots-stage">
+        <div className="roots-media" aria-hidden="true">
+          <div className="roots-layer roots-layer-a" data-roots-a>
+            <MotionImage
+              still={HOME_STILL.rootsA}
+              motion="still"
+              sizes="100vw"
+              imgClassName="roots-layer-img"
+            />
+          </div>
+          <div className="roots-layer roots-layer-b" data-roots-b>
+            <MotionFilm media={PLANT_FILMS.conveyor} backdrop sizes="100vw" />
+          </div>
+          <div className="roots-scrim" />
         </div>
-        <div className={slide === 1 ? "roots-layer is-active" : "roots-layer"}>
-          <MotionImage
-            still={HOME_STILL.rootsB}
-            motion="drift"
-            sizes="100vw"
-            duration={37}
-            delay={1.5}
-            imgClassName="roots-layer-img"
-          />
+
+        <div className="roots-letters" data-roots-letters aria-hidden="true">
+          <span dir="ltr">I N S I D E &nbsp; T H E &nbsp; D R I V E &nbsp;·&nbsp; F R E E W H E E L &nbsp;·&nbsp; I N S I D E &nbsp; T H E &nbsp; D R I V E</span>
         </div>
-        <div className="roots-scrim" />
-      </div>
 
-      <div className="roots-inner">
-        <p className="roots-eyebrow">
-          <span className="statement-eyebrow-rule" aria-hidden="true" />
-          در دلِ سامانه
-        </p>
-        <h2 id="roots-title" className="roots-title">
-          <WordReveal text="ریشه‌ی اطمینان" mode="scroll" />
-        </h2>
-        <p className="roots-body">
-          <WordReveal
-            text="در هر درایو، فری‌ویل کوچک‌ترین قطعه‌ای است که بیشترین مسئولیت را دارد: نگه‌داشتن بار در همان لحظه‌ای که همه‌چیز می‌خواهد برگردد."
-            mode="scroll"
-            stagger={0.04}
-          />
-        </p>
-        <FadeUp delay={0.1}>
-          <Link href="/about" className="cinema-btn cinema-btn-ghost">
-            درباره‌ی ما
-          </Link>
-        </FadeUp>
+        <div className="roots-inner" data-roots-copy>
+          <p className="roots-eyebrow">
+            <span className="statement-eyebrow-rule" aria-hidden="true" />
+            در دلِ سامانه
+          </p>
+          <h2 id="roots-title" className="roots-title">
+            <WordReveal text="ریشه‌ی اطمینان" mode="scroll" />
+          </h2>
+          <p className="roots-body">
+            <WordReveal
+              text="در هر درایو، فری‌ویل کوچک‌ترین قطعه‌ای است که بیشترین مسئولیت را دارد: نگه‌داشتن بار در همان لحظه‌ای که همه‌چیز می‌خواهد برگردد."
+              mode="scroll"
+              stagger={0.03}
+            />
+          </p>
+          <FadeUp delay={0.1}>
+            <Link href="/about" className="cinema-btn cinema-btn-ghost">
+              درباره‌ی ما
+            </Link>
+          </FadeUp>
 
-        <ol className="roots-counters" aria-hidden="true">
-          <li className={slide === 0 ? "is-active" : ""}>01</li>
-          <li className={slide === 1 ? "is-active" : ""}>02</li>
-        </ol>
+          <ol className="roots-counters" aria-hidden="true">
+            <li className="is-active">01</li>
+            <li>02</li>
+          </ol>
+        </div>
+
+        <span className="roots-scene-rule" data-roots-rule aria-hidden="true" />
       </div>
     </section>
   );

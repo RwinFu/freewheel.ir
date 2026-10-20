@@ -4,7 +4,9 @@ import { ArrowUpLeft, Check, Gauge, LockKeyhole, RotateCcw, Ruler, Timer } from 
 import { FaqList } from "@/components/faq";
 import { CinematicHero } from "@/components/home/cinematic-hero";
 import { EditorialStack } from "@/components/home/editorial-stack";
-import { AroundList, StatementSection } from "@/components/home/story-panels";
+import { AroundScene } from "@/components/home/around-scene";
+import { StatementScene } from "@/components/home/statement-scene";
+import { KineticBand } from "@/components/home/kinetic-band";
 import {
   AmenitySwitcher,
   FamilyShowcase,
@@ -43,9 +45,26 @@ export default function HomePage() {
         <SectionRail />
 
         <CinematicHero />
+
+        <KineticBand
+          text="FREEWHEEL · ONE WAY FREE · ONE WAY LOCKED · FREEWHEEL ·"
+          duration={52}
+          className="kinetic-after-hero"
+        />
+
         <EditorialStack />
-        <StatementSection />
-        <AroundList />
+        <StatementScene />
+
+        <KineticBand
+          text="آزاد در یک جهت — قفل در جهت دیگر — بدون برق، بدون سنسور —"
+          latin={false}
+          direction="right"
+          duration={58}
+          variant="hero"
+          className="kinetic-statement"
+        />
+
+        <AroundScene />
         <FamilyShowcase />
         <AmenitySwitcher />
         <RootsSection />
