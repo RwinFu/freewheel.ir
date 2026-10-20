@@ -20,10 +20,10 @@ export function SiteFooter() {
           <Link href="/" className="inline-flex items-center gap-3" aria-label="صفحه‌ی اصلی freewheel.ir">
             <span className="grid h-10 w-10 place-items-center rounded-[13px] border border-white/15 bg-white/5">
               <svg viewBox="0 0 40 40" className="h-7 w-7" aria-hidden="true">
-                <circle cx="20" cy="20" r="15" fill="none" stroke="#B8CFD1" strokeWidth="2" />
-                <circle cx="20" cy="20" r="8" fill="none" stroke="#72DED2" strokeWidth="2" />
-                <path d="M20 4v7M36 20h-7M20 36v-7M4 20h7" stroke="#EE7958" strokeWidth="2.5" strokeLinecap="round" />
-                <circle cx="20" cy="20" r="2.5" fill="#EE7958" />
+                <circle cx="20" cy="20" r="15" fill="none" stroke="#CBD5BC" strokeWidth="2" />
+                <circle cx="20" cy="20" r="8" fill="none" stroke="#DDE5D2" strokeWidth="2" />
+                <path d="M20 4v7M36 20h-7M20 36v-7M4 20h7" stroke="#C07B58" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="20" cy="20" r="2.5" fill="#C07B58" />
               </svg>
             </span>
             <span dir="ltr" className="text-[16px] font-bold tracking-tight text-white">

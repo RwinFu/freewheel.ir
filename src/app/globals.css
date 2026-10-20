@@ -6,23 +6,23 @@
 }
 
 @theme {
-  --color-base: #f2f6f5;
-  --color-panel: #ffffff;
-  --color-panel-2: #e8f0ef;
-  --color-panel-3: #d9e6e4;
-  --color-line: #d6e2e0;
-  --color-line-2: #a8bfbc;
-  --color-fg: #17343a;
-  --color-fg-muted: #4d686c;
-  --color-fg-dim: #5d7478;
-  --color-accent: #b84d35;
-  --color-accent-soft: #ee7958;
-  --color-accent-ink: #17343a;
-  --color-ocean: #102f3b;
-  --color-ocean-light: #1b4b56;
-  --color-mint: #72ded2;
-  --color-coral: #ee7958;
-  --color-steel: #b8cfd1;
+  --color-base: #f3f1e9;
+  --color-panel: #fbfaf5;
+  --color-panel-2: #e9e7dc;
+  --color-panel-3: #dedccf;
+  --color-line: #d8d6cb;
+  --color-line-2: #b9b7aa;
+  --color-fg: #1d382f;
+  --color-fg-muted: #566a60;
+  --color-fg-dim: #728077;
+  --color-accent: #9d563d;
+  --color-accent-soft: #c07b58;
+  --color-accent-ink: #fffaf1;
+  --color-ocean: #17362e;
+  --color-ocean-light: #24463a;
+  --color-mint: #cbd5bc;
+  --color-coral: #c07b58;
+  --color-steel: #c5cbbd;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.1rem;
@@ -104,14 +104,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #eceef1;
+    background: #f0eee5;
   }
   ::-webkit-scrollbar-thumb {
-    background: #c5ccd3;
-    border: 2px solid #eceef1;
+    background: #b9b7aa;
+    border: 2px solid #f0eee5;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #a9b3bc;
+    background: #8d9283;
   }
 }
 

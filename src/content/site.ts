@@ -1,8 +1,8 @@
 export const SITE = {
   name: "freewheel.ir",
-  title: "freewheel.ir | فری‌ویل صنعتی به زبان ساده",
+  title: "freewheel.ir | مرجع فنی فری‌ویل صنعتی",
   description:
-    "فری‌ویل یا کلاچ یک‌طرفه چیست و چطور کار می‌کند؟ آشنایی ساده با سازوکار، کاربردها، انواع و راهنمای انتخاب فری‌ویل صنعتی.",
+    "مرجع فارسی فری‌ویل و کلاچ یک‌طرفه؛ آشنایی با سازوکار، کاربردهای صنعتی، خانواده‌های محصول، جدول ابعاد و راهنمای انتخاب دقیق.",
   locale: "fa_IR",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://freewheel.ir",
 } as const;
