@@ -7,7 +7,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
 import { FadeUp, WordReveal } from "@/components/home/kit";
-import { MotionImage, SpinPart } from "@/components/home/motion-media";
+import { MotionImage } from "@/components/home/motion-media";
+import { MotionFilm } from "@/components/media/film";
+import { SPIN_FILM } from "@/content/media";
 import { HOME_STILL } from "@/content/home-media";
 import type { HomeStill } from "@/content/home-media";
 
@@ -23,7 +25,7 @@ type FamilyTab = {
   desc: string;
   href: string;
   still?: HomeStill;
-  /** تبِ زنده: به‌جای عکس ساکن، قطعه‌ی در حال چرخش نشان داده می‌شود */
+  /** تبِ زنده: به‌جای عکس ساکن، فیلم چرخش قطعه پخش می‌شود */
   live?: boolean;
 };
 
@@ -150,7 +152,11 @@ export function FamilyShowcase() {
                 aria-hidden="true"
               >
                 {tab.live ? (
-                  <SpinPart sizes="(min-width: 900px) 58vw, 92vw" />
+                  <MotionFilm
+                    media={SPIN_FILM}
+                    priority={index === 0}
+                    videoClassName="family-layer-video"
+                  />
                 ) : tab.still ? (
                   <MotionImage
                     still={tab.still}

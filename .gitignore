@@ -51,3 +51,5 @@ next-env.d.ts
 
 # rendered source images for the rotating layers (see scripts/build_freewheel_layers.py)
 /.renders
+# scratch frames while rendering video (scripts/build-motion.mjs)
+/.motion-tmp

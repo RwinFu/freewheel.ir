@@ -8,6 +8,7 @@ const FOOTER_LINKS = [
   { href: "/applications", label: "کاربردهای صنعتی" },
   { href: "/brands", label: "برندها" },
   { href: "/articles", label: "راهنما و مقاله‌ها" },
+  { href: "/media", label: "فیلم و گیف" },
   { href: "/about", label: "درباره‌ی مرجع" },
   { href: "/contact", label: "تماس و استعلام" },
 ];

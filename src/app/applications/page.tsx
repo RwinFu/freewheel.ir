@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+
+import { MotionFilm } from "@/components/media/film";
+import { APPLICATION_FILM } from "@/content/media";
 import Link from "next/link";
 import { ArrowUpLeft } from "lucide-react";
 
@@ -80,13 +83,20 @@ export default function ApplicationsPage() {
               >
                 <SharedElement name={`app-image-${application.slug}`}>
                   <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
-                    <Image
-                      src={application.image.src}
-                      alt={application.image.alt}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="kb-breathe object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
-                    />
+                    {APPLICATION_FILM[application.slug] ? (
+                      <MotionFilm
+                        media={APPLICATION_FILM[application.slug]}
+                        className="opacity-80 saturate-[0.7] transition-all duration-700 group-hover:opacity-100 group-hover:saturate-100"
+                      />
+                    ) : (
+                      <Image
+                        src={application.image.src}
+                        alt={application.image.alt}
+                        fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="kb-breathe object-cover opacity-75 saturate-[0.55] transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:saturate-100"
+                      />
+                    )}
                     <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-panel to-transparent" />
                     {category ? (
                       <CategoryTag category={category} className="absolute right-4 top-4" />
