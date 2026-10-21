@@ -52,7 +52,7 @@ export default function MediaPage() {
         <SectionHeading kicker="سازوکار" title="چرخش آزاد، بعد قفل" />
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <Reveal>
-            <div className="relative aspect-square overflow-hidden border border-line bg-[#0b1a14]">
+            <div className="relative aspect-square overflow-hidden border border-line bg-[#1A1410]">
               <MotionFilm
                 media={SPIN_FILM}
                 priority

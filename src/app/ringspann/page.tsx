@@ -164,7 +164,7 @@ export default function RingspannPage() {
                             className="object-cover opacity-90 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
                           />
                           <span
-                            className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#0b2630]/85 to-transparent"
+                            className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#2A1E18]/85 to-transparent"
                             aria-hidden="true"
                           />
                           {category ? (

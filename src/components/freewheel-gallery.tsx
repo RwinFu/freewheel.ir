@@ -134,7 +134,7 @@ export function FreewheelGallery() {
                   />
                 </div>
                 <span
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06171e]/70 via-transparent to-transparent"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2A1E18]/70 via-transparent to-transparent"
                   aria-hidden="true"
                 />
                 <span

@@ -6,23 +6,23 @@
 }
 
 @theme {
-  --color-base: #f3f1e9;
-  --color-panel: #fbfaf5;
-  --color-panel-2: #e9e7dc;
-  --color-panel-3: #dedccf;
-  --color-line: #d8d6cb;
-  --color-line-2: #b9b7aa;
-  --color-fg: #1d382f;
-  --color-fg-muted: #566a60;
-  --color-fg-dim: #728077;
-  --color-accent: #9d563d;
-  --color-accent-soft: #c07b58;
-  --color-accent-ink: #fffaf1;
-  --color-ocean: #17362e;
-  --color-ocean-light: #24463a;
-  --color-mint: #cbd5bc;
-  --color-coral: #c07b58;
-  --color-steel: #c5cbbd;
+  --color-base: #F5EDE0;
+  --color-panel: #F9F1E4;
+  --color-panel-2: #EBDCC8;
+  --color-panel-3: #DCC8AE;
+  --color-line: #CCAA85;
+  --color-line-2: #A8895E;
+  --color-fg: #1A1410;
+  --color-fg-muted: #5C4A38;
+  --color-fg-dim: #8B7355;
+  --color-accent: #D35400;
+  --color-accent-soft: #E67E22;
+  --color-accent-ink: #FFF5EE;
+  --color-ocean: #1A1410;
+  --color-ocean-light: #2C2420;
+  --color-mint: #C4A882;
+  --color-coral: #E67E22;
+  --color-steel: #9C8060;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.1rem;
@@ -104,14 +104,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #f0eee5;
+    background: #F5EDE0;
   }
   ::-webkit-scrollbar-thumb {
-    background: #b9b7aa;
-    border: 2px solid #f0eee5;
+    background: #C4A882;
+    border: 2px solid #F5EDE0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #8d9283;
+    background: #9C8060;
   }
 }
 
@@ -139,7 +139,7 @@
 @utility stroke-label {
   font-size: 10px;
   letter-spacing: 0.06em;
-  fill: #7d878f;
+  fill: #8B7355;
 }
 
 @keyframes marquee-rtl {
@@ -207,7 +207,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #0b1a14;
+  background: #1A1410;
 }
 
 .fw-film-video {
@@ -236,7 +236,7 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(190deg, rgba(9, 19, 13, 0.72) 0%, rgba(9, 19, 13, 0.3) 48%, rgba(7, 15, 10, 0.84) 100%);
+  background: linear-gradient(190deg, rgba(26, 20, 16, 0.72) 0%, rgba(26, 20, 16, 0.3) 48%, rgba(26, 20, 16, 0.84) 100%);
 }
 
 .fw-gif {
@@ -244,7 +244,7 @@
   border: 1px solid var(--color-line);
   border-radius: 18px;
   overflow: hidden;
-  background: #0b1a14;
+  background: #1A1410;
 }
 
 .fw-gif-img {
@@ -390,7 +390,7 @@ html:not(.lenis) .reveal-item {
 .spec-table thead th {
   position: sticky;
   top: 0;
-  background: #eef1f4;
+  background: #F0E4D4;
   color: var(--color-fg-muted);
   font-size: 0.75rem;
   font-weight: 500;
@@ -417,7 +417,7 @@ html:not(.lenis) .reveal-item {
   background-color: var(--color-ocean);
   background-image:
     radial-gradient(circle at 73% 42%, rgba(62, 165, 168, 0.2), transparent 25rem),
-    linear-gradient(135deg, #102f3b 0%, #153e49 56%, #102f3b 100%);
+    linear-gradient(135deg, #3A2820 0%, #4A3228 56%, #3A2820 100%);
 }
 
 .hero-grid {
@@ -447,7 +447,7 @@ html:not(.lenis) .reveal-item {
 
 .hero-visual-frame {
   border: 1px solid rgba(218, 240, 237, 0.18);
-  background: #0b2630;
+  background: #2A1E18;
   box-shadow:
     0 40px 90px -40px rgba(0, 0, 0, 0.85),
     0 0 0 1px rgba(114, 222, 210, 0.08),
@@ -716,7 +716,7 @@ html:not(.lenis) .reveal-item {
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 26px;
   /* فقط جایگزین تا وقتی تصویر پس‌زمینه لود شود؛ پس‌زمینه‌ی واقعی خودِ عکس است */
-  background: radial-gradient(circle at 50% 48%, #12343f 0%, #0c272f 46%, #071a20 100%);
+  background: radial-gradient(circle at 50% 48%, #3A2820 0%, #2A1E18 46%, #1A1410 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 34px 70px -44px rgba(0, 0, 0, 0.95);
@@ -823,7 +823,7 @@ html:not(.lenis) .reveal-item {
 .selection-panel {
   background:
     radial-gradient(circle at 11% 85%, rgba(57, 159, 166, 0.2), transparent 22rem),
-    linear-gradient(135deg, #102f3b 0%, #17424c 54%, #12343f 100%);
+    linear-gradient(135deg, #3A2820 0%, #4A3228 54%, #3A2820 100%);
 }
 
 .selection-panel::before {

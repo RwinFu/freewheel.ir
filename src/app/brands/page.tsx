@@ -79,7 +79,7 @@ export default function BrandsPage() {
                 className="kb-breathe object-cover opacity-95"
               />
               <span
-                className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#06171e]/80 to-transparent"
+                className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#2A1E18]/80 to-transparent"
                 aria-hidden="true"
               />
             </div>
