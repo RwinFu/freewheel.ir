@@ -162,7 +162,7 @@ export default async function SeriesPage({ params }: { params: Promise<Params> }
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                       />
                       <span
-                        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#06171e]/85 to-transparent"
+                        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#2A1E18]/85 to-transparent"
                         aria-hidden="true"
                       />
                       <span className="absolute bottom-3 right-4 text-[11.5px] text-white/85">

@@ -192,8 +192,8 @@
 }
 
 .cinema-btn-solid:hover {
-  background: #84432e;
-  border-color: #84432e;
+  background: #C45A1A;
+  border-color: #C45A1A;
 }
 
 .cinema-btn-ghost {
@@ -210,7 +210,7 @@
 .cinema-btn-dark {
   border: 1px solid var(--color-ocean);
   background: var(--color-ocean);
-  color: #f6f4ec;
+  color: #F5EDE0;
 }
 
 .cinema-btn-dark:hover {
@@ -235,8 +235,8 @@
   min-height: max(680px, calc(100svh - 76px));
   overflow: hidden;
   isolation: isolate;
-  background: #101f18;
-  color: #f8f5ed;
+  background: #1A1410;
+  color: #F5EDE0;
 }
 
 .cinema-hero-media {
@@ -328,7 +328,7 @@
 .cinema-hero-title {
   margin: 0;
   max-width: 15ch;
-  color: #fbf8f0;
+  color: #F5EDE0;
   font-size: clamp(2.7rem, 6.2vw, 5.9rem);
   font-weight: 600;
   line-height: 1.28;
@@ -427,8 +427,8 @@
 
 .device-section {
   position: relative;
-  background: #0b1a14;
-  color: #f4f1e6;
+  background: #1A1410;
+  color: #F5EDE0;
   overflow: clip;
 }
 
@@ -439,7 +439,7 @@
   background:
     radial-gradient(62% 54% at 50% 54%, rgba(66, 108, 84, 0.5) 0%, transparent 72%),
     radial-gradient(120% 90% at 50% 118%, rgba(7, 18, 13, 0.95) 0%, transparent 62%),
-    linear-gradient(180deg, #0d2019 0%, #0b1a14 46%, #081410 100%);
+    linear-gradient(180deg, #2C2420 0%, #1A1410 46%, #1A1410 100%);
 }
 
 /* شبکه‌ی نقشه‌کشی — حس نقشه‌ی فنی */
@@ -495,7 +495,7 @@
 
 .device-title {
   margin: 0;
-  color: #f8f5ea;
+  color: #F5EDE0;
   font-size: clamp(1.8rem, 4vw, 3.3rem);
   font-weight: 600;
   line-height: 1.5;
@@ -572,7 +572,7 @@
 .device-rail-label {
   font-size: 12.5px;
   font-weight: 600;
-  color: #f2f0e4;
+  color: #F5EDE0;
   line-height: 1.6;
   white-space: nowrap;
 }
@@ -585,7 +585,7 @@
 
 .device-rail-row.is-hero .device-rail-index,
 .device-rail-row.is-hero .device-rail-label {
-  color: #f0b48d;
+  color: #E8985A;
 }
 
 .device-rail-row.is-hero .device-rail-btn:hover {
@@ -730,7 +730,7 @@
 
 .device-call.is-active .device-call-mark {
   transform: translate(-50%, -50%) scale(1.18);
-  border-color: #cddcae;
+  border-color: #DCC8AE;
   background: rgba(24, 46, 36, 0.95);
 }
 
@@ -738,7 +738,7 @@
 .device-call.is-hero .device-call-mark {
   border-color: rgba(240, 195, 164, 0.85);
   background: rgba(122, 58, 34, 0.85);
-  color: #ffd9bd;
+  color: #F4B896;
 }
 
 .device-call.is-hero .device-call-mark::after {
@@ -819,12 +819,12 @@
 }
 
 .device-tab.is-active {
-  background: #cddcae;
-  color: #10241a;
+  background: #DCC8AE;
+  color: #1A1410;
 }
 
 .device-tab:focus-visible {
-  outline: 2px solid #cddcae;
+  outline: 2px solid #DCC8AE;
   outline-offset: 2px;
 }
 
@@ -958,8 +958,8 @@
   position: relative;
   /* ۷۶px ارتفاع هدر چسبیده است؛ مسیر اسکرول روی همان حساب می‌شود */
   height: calc(205svh - 76px);
-  background: #10231a;
-  color: #f3efe4;
+  background: #1A1410;
+  color: #F5EDE0;
 }
 
 .stack-stage {
@@ -974,7 +974,7 @@
   background:
     radial-gradient(120% 90% at 78% 18%, rgba(52, 86, 62, 0.55) 0%, transparent 58%),
     radial-gradient(90% 70% at 12% 88%, rgba(29, 56, 47, 0.85) 0%, transparent 62%),
-    #10231a;
+    #1A1410;
 }
 
 /* بافت دان‌دانسته، تا سطح تخت به‌نظر نرسد */
@@ -1025,7 +1025,7 @@
 .stack-title {
   margin: 0;
   max-width: 20ch;
-  color: #f7f3e7;
+  color: #F5EDE0;
   font-size: clamp(2rem, 5.1vw, 4.4rem);
   font-weight: 600;
   line-height: 1.42;
@@ -1034,7 +1034,7 @@
 }
 
 .stack-title-accent {
-  color: #cddcae;
+  color: #DCC8AE;
 }
 
 .stack-sub {
@@ -1052,7 +1052,7 @@
   z-index: 3;
   overflow: hidden;
   border-radius: 18px;
-  background: #16302a;
+  background: #2C2420;
   box-shadow:
     0 40px 80px -48px rgba(0, 0, 0, 0.95),
     0 2px 0 rgba(255, 255, 255, 0.05) inset;
@@ -1197,8 +1197,8 @@
 .stmt-scene {
   position: relative;
   height: calc(250svh - 76px);
-  background: #0d1f17;
-  color: #f6f2e6;
+  background: #1A1410;
+  color: #F5EDE0;
 }
 
 .stmt-stage {
@@ -1212,7 +1212,7 @@
   align-items: center;
   background:
     radial-gradient(120% 80% at 18% 12%, rgba(43, 74, 54, 0.55) 0%, transparent 60%),
-    #0d1f17;
+    #1A1410;
 }
 
 /* ریل افقی تصویرها؛ از کنارِ هم می‌گذرند */
@@ -1312,7 +1312,7 @@
 .stmt-title {
   margin: 0;
   max-width: 26ch;
-  color: #f8f4e8;
+  color: #F5EDE0;
   font-size: clamp(1.6rem, 3.3vw, 3rem);
   font-weight: 600;
   line-height: 1.62;
@@ -1321,7 +1321,7 @@
 
 .stmt-title-accent {
   margin-block-start: 10px;
-  color: #cddcae;
+  color: #DCC8AE;
   max-width: 22ch;
 }
 
@@ -1341,22 +1341,22 @@
 }
 
 .cinema-btn-solid {
-  background: #f3efe2;
-  color: #12241b;
+  background: #EBDCC8;
+  color: #2C2420;
 }
 
 .cinema-btn-solid:hover {
-  background: #cddcae;
+  background: #DCC8AE;
 }
 
 .cinema-btn-ghost {
   border: 1px solid rgba(243, 239, 228, 0.3);
-  color: #f3efe2;
+  color: #EBDCC8;
 }
 
 .cinema-btn-ghost:hover {
-  border-color: #cddcae;
-  color: #cddcae;
+  border-color: #DCC8AE;
+  color: #DCC8AE;
 }
 
 .stmt-counters {
@@ -1437,8 +1437,8 @@
   .stmt-veil {
     background: linear-gradient(
       180deg,
-      #0d1f17 0%,
-      #0d1f17 52%,
+      #1A1410 0%,
+      #1A1410 52%,
       rgba(13, 31, 23, 0.82) 66%,
       rgba(13, 31, 23, 0.28) 100%
     );
@@ -1618,7 +1618,7 @@
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   background: rgba(12, 30, 20, 0.5);
-  color: #f2f6ef;
+  color: #F5EDE0;
   padding: 7px 13px;
   font-size: 11px;
   backdrop-filter: blur(8px);
@@ -1628,7 +1628,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #cddcae;
+  background: #DCC8AE;
 }
 
 /* خط پیشرفت عمودی کنار رسانه */
@@ -1927,7 +1927,7 @@
   right: 18px;
   border-radius: 999px;
   background: rgba(23, 54, 46, 0.78);
-  color: #f6f4ec;
+  color: #F5EDE0;
   padding: 8px 15px;
   font-size: 11px;
   backdrop-filter: blur(8px);
@@ -2181,7 +2181,7 @@
 
 .roots-title {
   margin: 0;
-  color: #f7f3e7;
+  color: #F5EDE0;
   font-size: clamp(2.1rem, 5.4vw, 4.6rem);
   font-weight: 600;
   line-height: 1.3;
@@ -2208,7 +2208,7 @@
 }
 
 .roots-counters .is-active {
-  color: #cddcae;
+  color: #DCC8AE;
 }
 
 .roots-scene-rule {
@@ -2597,8 +2597,8 @@
 /* نوار نازک بین بخش‌ها */
 .kinetic-band-line {
   border-block: 1px solid rgba(29, 56, 47, 0.16);
-  background: #10241a;
-  color: #cddcae;
+  background: #1A1410;
+  color: #DCC8AE;
   padding-block: 18px;
 }
 
