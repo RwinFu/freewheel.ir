@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f1e9",
+  themeColor: "#1A1410",
   colorScheme: "light",
 };
 
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html lang="fa" dir="rtl" className={vazir.variable} data-scroll-behavior="smooth">
-      <body className="min-h-dvh bg-base font-sans text-fg antialiased">
+      <body className="min-h-dvh bg-base pt-[80px] font-sans text-fg antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
