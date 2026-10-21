@@ -75,9 +75,9 @@ const CATEGORY_TONES: Record<
     tag: "border-accent/45 text-accent",
   },
   mint: {
-    activeBg: "bg-[#0d3f3a]",
-    iconIdle: "text-[#0c6b60]",
-    tag: "border-[#0c6b60]/40 text-[#0c6b60]",
+    activeBg: "bg-[#3A2820]",
+    iconIdle: "text-[#A04000]",
+    tag: "border-[#A04000]/40 text-[#A04000]",
   },
   steel: {
     activeBg: "bg-[#3f5a62]",

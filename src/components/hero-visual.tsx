@@ -168,7 +168,7 @@ export function HeroVisual() {
           </svg>
 
           <div className="pointer-events-none absolute bottom-4 right-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[11px] text-white/85 backdrop-blur-md">
-            <span className="hero-visual-dot h-2 w-2 rounded-full bg-mint" aria-hidden="true" />
+            <span className="hero-visual-dot h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
             کلاچ یک‌طرفه · نمای نزدیک
           </div>
         </div>

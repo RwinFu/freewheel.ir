@@ -147,7 +147,7 @@ export function FloatingFreewheels() {
     >
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute -top-24 right-[12%] h-72 w-72 rounded-full bg-mint/10 blur-3xl"
+        className="pointer-events-none absolute -top-24 right-[12%] h-72 w-72 rounded-full bg-accent/10 blur-3xl"
         aria-hidden="true"
       />
       <div
@@ -158,7 +158,7 @@ export function FloatingFreewheels() {
       <div ref={rootRef} className="relative mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-20 lg:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
+            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
               <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
               بدون قاب، روی صفحه
             </p>
@@ -181,7 +181,7 @@ export function FloatingFreewheels() {
                 data-floaty
                 data-depth={14 + index * 8}
                 data-turns={series?.element === "sprag" ? (index % 2 === 0 ? 1 : -1) : 0}
-                className="floaty group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint"
+                className="floaty group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                 aria-label={`دیدن سری ${series?.designation}`}
               >
                 <div data-floaty-bob className="relative will-change-transform">
@@ -195,7 +195,7 @@ export function FloatingFreewheels() {
                   </div>
                   <span
                     dir="ltr"
-                    className="absolute -top-2 left-1 rounded-full border border-white/15 bg-black/35 px-2.5 py-1 text-[10px] tracking-[0.14em] text-mint/90 backdrop-blur-sm"
+                    className="absolute -top-2 left-1 rounded-full border border-white/15 bg-black/35 px-2.5 py-1 text-[10px] tracking-[0.14em] text-accent/90 backdrop-blur-sm"
                   >
                     {series?.designation}
                   </span>
@@ -206,7 +206,7 @@ export function FloatingFreewheels() {
                     <div className="text-[13.5px] font-bold text-white">{series?.family}</div>
                     <div className="mt-1 text-[11px] text-white/55">{series?.short}</div>
                   </div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/15 text-white/60 opacity-0 transition-all duration-300 group-hover:border-mint group-hover:text-mint group-hover:opacity-100">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/15 text-white/60 opacity-0 transition-all duration-300 group-hover:border-accent group-hover:text-accent group-hover:opacity-100">
                     <ArrowUpLeft className="h-3.5 w-3.5" />
                   </span>
                 </div>

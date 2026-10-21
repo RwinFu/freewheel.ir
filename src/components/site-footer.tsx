@@ -41,7 +41,7 @@ export function SiteFooter() {
           <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
             {FOOTER_LINKS.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-[12.5px] text-white/65 transition-colors hover:text-mint">
+                <Link href={item.href} className="text-[12.5px] text-white/65 transition-colors hover:text-accent">
                   {item.label}
                 </Link>
               </li>
@@ -58,7 +58,7 @@ export function SiteFooter() {
             href={SHOPS.bearing.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-semibold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-semibold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {SHOPS.bearing.name}
             <MoveUpLeft className="h-4 w-4" aria-hidden="true" />

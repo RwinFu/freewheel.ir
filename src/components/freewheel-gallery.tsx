@@ -88,7 +88,7 @@ export function FreewheelGallery() {
       <div className="mx-auto max-w-[1240px] px-5 pt-16 sm:px-7 sm:pt-20 lg:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
+            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
               <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
               گالری قطعه
             </p>

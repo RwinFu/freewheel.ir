@@ -6,23 +6,24 @@
 }
 
 @theme {
-  --color-base: #F5EDE0;
-  --color-panel: #F9F1E4;
-  --color-panel-2: #EBDCC8;
-  --color-panel-3: #DCC8AE;
-  --color-line: #CCAA85;
-  --color-line-2: #A8895E;
-  --color-fg: #1A1410;
-  --color-fg-muted: #5C4A38;
-  --color-fg-dim: #8B7355;
-  --color-accent: #D35400;
-  --color-accent-soft: #E67E22;
-  --color-accent-ink: #FFF5EE;
-  --color-ocean: #1A1410;
-  --color-ocean-light: #2C2420;
-  --color-mint: #C4A882;
-  --color-coral: #E67E22;
-  --color-steel: #9C8060;
+  /* پالت رنگی جدید: گرم، صنعتی، چشم‌نواز */
+  --color-base: #FAF4EA;
+  --color-panel: #FFFDF8;
+  --color-panel-2: #F5EAD8;
+  --color-panel-3: #E8D5B0;
+  --color-line: #D4B88A;
+  --color-line-2: #B8905A;
+  --color-fg: #1C1510;
+  --color-fg-muted: #6B5240;
+  --color-fg-dim: #9A8060;
+  --color-accent: #E85D04;
+  --color-accent-soft: #F48C06;
+  --color-accent-ink: #FFF8EE;
+  --color-ocean: #1C1510;
+  --color-ocean-light: #2E2620;
+  --color-mint: #D4A854;
+  --color-coral: #F48C06;
+  --color-steel: #A8885C;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.1rem;
@@ -40,16 +41,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    /* شبکه‌ی ایمنی: اگر جایی محتوایی از عرض موبایل بیرون زد، صفحه افقی اسکرول نشود. */
     overflow-x: clip;
   }
 
-  /*
-   * فرزندان گرید به‌طور پیش‌فرض min-width: auto دارند، یعنی محتوای عریض (مثل
-   * جدول مشخصات) می‌تواند ستون را از عرض صفحه بیرون ببرد و در موبایل اسکرول
-   * افقی بسازد. با صفر کردن این مقدار، جدول داخل قاب overflow-x-auto خودش
-   * می‌ماند. :where عمداً استفاده شده تا هیچ utility‌ای را بازنویسی نکند.
-   */
   :where(.grid) > * {
     min-width: 0;
   }
@@ -90,8 +84,8 @@
   h2,
   h3,
   h4 {
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -104,14 +98,15 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #F5EDE0;
+    background: var(--color-base);
   }
   ::-webkit-scrollbar-thumb {
-    background: #C4A882;
-    border: 2px solid #F5EDE0;
+    background: var(--color-line);
+    border: 2px solid var(--color-base);
+    border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #9C8060;
+    background: var(--color-line-2);
   }
 }
 
@@ -120,18 +115,17 @@
   font-feature-settings: "tnum";
 }
 
-/* شبکه‌ی کم‌رنگ نقشه‌کشی فنی */
 @utility blueprint {
   background-image:
-    linear-gradient(to right, rgba(16, 47, 59, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 47, 59, 0.055) 1px, transparent 1px);
+    linear-gradient(to right, rgba(180, 140, 80, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(180, 140, 80, 0.06) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
 @utility hatch {
   background-image: repeating-linear-gradient(
     -45deg,
-    rgba(23, 36, 48, 0.09) 0 1px,
+    rgba(180, 140, 80, 0.1) 0 1px,
     transparent 1px 7px
   );
 }
@@ -139,7 +133,7 @@
 @utility stroke-label {
   font-size: 10px;
   letter-spacing: 0.06em;
-  fill: #8B7355;
+  fill: var(--color-fg-dim);
 }
 
 @keyframes marquee-rtl {
@@ -160,7 +154,6 @@
 }
 
 /* ---------- گالری افقی فری‌ویل ---------- */
-/* حالت بدون‌موشن: پین حذف می‌شود و نوار یک اسکرول افقی معمولی است */
 .gallery-fallback .gallery-viewport {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -176,18 +169,18 @@
   transform: none !important;
 }
 
-/* ---------- فری‌ویل‌های شناور (PNG بدون پس‌زمینه) ---------- */
+/* ---------- فری‌ویل‌های شناور ---------- */
 .floaty-img {
-  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 24px 40px rgba(28, 21, 16, 0.35));
   transition: filter 0.5s ease;
 }
 .floaty-hot .floaty-img {
   filter:
-    drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55))
-    drop-shadow(0 0 34px rgba(114, 222, 210, 0.28));
+    drop-shadow(0 30px 50px rgba(28, 21, 16, 0.45))
+    drop-shadow(0 0 34px rgba(232, 93, 4, 0.2));
 }
 
-/* تنفس آرام تصویر کارت‌ها (کن‌برنز خیلی ملایم) */
+/* تنفس آرام تصویر کارت‌ها */
 .kb-breathe {
   animation: kb-breathe 18s ease-in-out infinite alternate;
 }
@@ -201,13 +194,11 @@
 }
 
 /* ---------- فیلم و گیف ---------- */
-
-/* ویدیو دقیقاً جای عکس می‌نشیند؛ قاب همان قاب است، فقط ساکن نیست. */
 .fw-film {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #1A1410;
+  background: var(--color-ocean);
 }
 
 .fw-film-video {
@@ -219,24 +210,22 @@
   object-position: center;
 }
 
-/* درجه‌بندی رنگی ملایم تا فیلم با پالت سایت یکی شود */
 .fw-film-grade {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 40%, transparent 42%, rgba(8, 20, 15, 0.42) 100%),
-    linear-gradient(200deg, rgba(12, 28, 20, 0.14) 0%, transparent 55%);
+    radial-gradient(120% 90% at 50% 40%, transparent 42%, rgba(28, 21, 16, 0.5) 100%),
+    linear-gradient(200deg, rgba(28, 21, 16, 0.2) 0%, transparent 55%);
 }
 
-/* وقتی فیلم پس‌زمینه‌ی متن است، کنتراست متن تأمین می‌شود */
 .fw-film-scrim {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(190deg, rgba(26, 20, 16, 0.72) 0%, rgba(26, 20, 16, 0.3) 48%, rgba(26, 20, 16, 0.84) 100%);
+  background: linear-gradient(190deg, rgba(28, 21, 16, 0.75) 0%, rgba(28, 21, 16, 0.35) 48%, rgba(28, 21, 16, 0.85) 100%);
 }
 
 .fw-gif {
@@ -244,7 +233,7 @@
   border: 1px solid var(--color-line);
   border-radius: 18px;
   overflow: hidden;
-  background: #1A1410;
+  background: var(--color-ocean);
 }
 
 .fw-gif-img {
@@ -282,7 +271,6 @@
   color: var(--color-accent);
 }
 
-/* همان دکمه‌ی قرصی، در نسخه‌ی کوچک برای لینک دانلود */
 .fw-dl {
   display: inline-flex;
   align-items: center;
@@ -304,7 +292,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .fw-gif-img {
-    /* گیف متحرک قابل توقف با CSS نیست؛ در این حالت اصلاً نمایش داده نمی‌شود */
     display: none;
   }
 }
@@ -322,7 +309,6 @@
   transform: none;
 }
 
-/* اگر اسکریپت لود نشد، محتوا مخفی نماند */
 html:not(.lenis) .reveal-item {
   animation: reveal-fallback 0.01s 1.6s forwards;
 }
@@ -390,20 +376,20 @@ html:not(.lenis) .reveal-item {
 .spec-table thead th {
   position: sticky;
   top: 0;
-  background: #F0E4D4;
+  background: var(--color-panel-2);
   color: var(--color-fg-muted);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02em;
   z-index: 2;
 }
 
 .spec-table tbody tr:hover {
-  background: rgba(234, 88, 12, 0.06);
+  background: rgba(232, 93, 4, 0.06);
 }
 
 .spec-table tbody tr.is-current {
-  background: rgba(234, 88, 12, 0.12);
+  background: rgba(232, 93, 4, 0.12);
 }
 
 .spec-table td.num {
@@ -416,17 +402,17 @@ html:not(.lenis) .reveal-item {
 .hero-surface {
   background-color: var(--color-ocean);
   background-image:
-    radial-gradient(circle at 73% 42%, rgba(62, 165, 168, 0.2), transparent 25rem),
-    linear-gradient(135deg, #3A2820 0%, #4A3228 56%, #3A2820 100%);
+    radial-gradient(circle at 73% 42%, rgba(232, 93, 4, 0.15), transparent 25rem),
+    linear-gradient(135deg, #2E2620 0%, #3A3028 56%, #2E2620 100%);
 }
 
 .hero-grid {
   background-image:
-    linear-gradient(rgba(197, 226, 224, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(197, 226, 224, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(212, 184, 138, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 184, 138, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: linear-gradient(115deg, transparent 4%, #000 54%, transparent 100%);
-  opacity: 0.58;
+  opacity: 0.6;
 }
 
 /* ---------- تصویر اصلی صفحه‌ی اول ---------- */
@@ -446,20 +432,20 @@ html:not(.lenis) .reveal-item {
 }
 
 .hero-visual-frame {
-  border: 1px solid rgba(218, 240, 237, 0.18);
-  background: #2A1E18;
+  border: 1px solid rgba(212, 184, 138, 0.2);
+  background: var(--color-ocean-light);
   box-shadow:
     0 40px 90px -40px rgba(0, 0, 0, 0.85),
-    0 0 0 1px rgba(114, 222, 210, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0 0 1px rgba(232, 93, 4, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: box-shadow 0.6s ease;
 }
 
 .hero-visual-frame.is-hover {
   box-shadow:
     0 50px 110px -40px rgba(0, 0, 0, 0.9),
-    0 0 60px -10px rgba(114, 222, 210, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 0 60px -10px rgba(232, 93, 4, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .hero-visual-img {
@@ -479,131 +465,36 @@ html:not(.lenis) .reveal-item {
   }
 }
 
-.hero-visual-aura {
-  background:
-    radial-gradient(ellipse at 30% 50%, rgba(114, 222, 210, 0.28), transparent 55%),
-    radial-gradient(ellipse at 80% 60%, rgba(238, 121, 88, 0.16), transparent 50%);
-  filter: blur(30px);
-  animation: hero-aura 9s ease-in-out infinite alternate;
-}
-
-@keyframes hero-aura {
-  from {
-    opacity: 0.6;
-    scale: 0.95;
-  }
-  to {
-    opacity: 1;
-    scale: 1.05;
-  }
-}
-
-.hero-visual-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(114, 222, 210, 0.22), transparent 38%);
-  mix-blend-mode: screen;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.hero-visual-frame.is-hover .hero-visual-glow {
-  opacity: 1;
-}
-
 .hero-visual-sheen {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.07) 48%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0.07) 52%,
-    transparent 60%
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
   );
-  transform: translateX(-120%);
-  mix-blend-mode: screen;
-}
-
-.hero-visual-frame.is-ready .hero-visual-sheen {
-  animation: hero-sheen 6s cubic-bezier(0.4, 0, 0.2, 1) 1.5s infinite;
+  transform: translateX(-100%);
+  animation: hero-sheen 8s ease-in-out infinite;
 }
 
 @keyframes hero-sheen {
-  0% {
-    transform: translateX(-120%);
+  0%,
+  60% {
+    transform: translateX(-100%);
   }
-  35%,
+  80%,
   100% {
-    transform: translateX(120%);
-  }
-}
-
-.hero-visual-vignette {
-  background:
-    linear-gradient(to top, rgba(10, 36, 46, 0.75), transparent 45%),
-    linear-gradient(to left, rgba(10, 36, 46, 0.35), transparent 40%),
-    linear-gradient(rgba(197, 226, 224, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(197, 226, 224, 0.05) 1px, transparent 1px);
-  background-size:
-    100% 100%,
-    100% 100%,
-    40px 40px,
-    40px 40px;
-}
-
-.hero-visual-scan {
-  top: -6rem;
-  background: linear-gradient(to bottom, transparent, rgba(114, 222, 210, 0.12), transparent);
-  mix-blend-mode: screen;
-}
-
-.hero-visual-frame.is-ready .hero-visual-scan {
-  animation: hero-scan 7s linear 2s infinite;
-}
-
-@keyframes hero-scan {
-  0% {
-    transform: translateY(0);
-  }
-  60%,
-  100% {
-    transform: translateY(calc(100% + 60vh));
-  }
-}
-
-.hero-visual-orbit {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: hero-orbit 26s linear infinite;
-  opacity: 0.9;
-}
-
-.hero-visual-orbit circle:last-child {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: hero-orbit 9s linear infinite reverse;
-}
-
-@keyframes hero-orbit {
-  to {
-    rotate: 360deg;
-  }
-}
-
-.hero-visual-dot {
-  box-shadow: 0 0 0 0 rgba(114, 222, 210, 0.6);
-  animation: hero-pulse 2.2s ease-out infinite;
-}
-
-@keyframes hero-pulse {
-  to {
-    box-shadow: 0 0 0 10px rgba(114, 222, 210, 0);
+    transform: translateX(100%);
   }
 }
 
 .hero-chip {
+  position: absolute;
   padding: 0.6rem 0.95rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(16, 47, 59, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(46, 38, 32, 0.8);
   color: #fff;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -644,25 +535,22 @@ html:not(.lenis) .reveal-item {
 }
 
 /* ---------- بک‌گراند سراسری صفحه‌ی اول ---------- */
-/* خط موی جدا کننده‌ی سکشن‌ها روی بوم تیره */
 .home-hairline {
   height: 1px;
   max-width: 1240px;
   margin-inline: auto;
-  background: linear-gradient(90deg, transparent, rgba(184, 207, 209, 0.22), transparent);
+  background: linear-gradient(90deg, transparent, rgba(212, 184, 138, 0.3), transparent);
 }
 
-/* بافت فیلم روی کل صفحه‌ی اول؛ زیر هدر (z-50) و بالای محتواست */
 .home-grain {
   position: fixed;
   inset: 0;
   z-index: 40;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* نشان «اسکرول کن» در هیرو */
 @keyframes scroll-cue {
   0% {
     transform: translate(-50%, -120%);
@@ -710,15 +598,14 @@ html:not(.lenis) .reveal-item {
   animation: how-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* صحنه‌ی عکس واقعی قطعه: سه لایه‌ی هم‌مرکز که هر کدام جدا می‌چرخد */
+/* صحنه‌ی عکس واقعی قطعه */
 .part-stage {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 26px;
-  /* فقط جایگزین تا وقتی تصویر پس‌زمینه لود شود؛ پس‌زمینه‌ی واقعی خودِ عکس است */
-  background: radial-gradient(circle at 50% 48%, #3A2820 0%, #2A1E18 46%, #1A1410 100%);
+  background: radial-gradient(circle at 50% 48%, #3A3028 0%, #2E2620 46%, #1C1510 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 34px 70px -44px rgba(0, 0, 0, 0.95);
 }
 
@@ -752,13 +639,13 @@ html:not(.lenis) .reveal-item {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.34);
+  background: rgba(0, 0, 0, 0.4);
   padding: 6px 11px;
   font-size: 10.5px;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.8);
   font-variant-numeric: tabular-nums;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -767,9 +654,9 @@ html:not(.lenis) .reveal-item {
 .home-type-card {
   min-width: 0;
   padding: clamp(1rem, 2.5vw, 1.5rem);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 1.35rem;
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition:
@@ -779,8 +666,8 @@ html:not(.lenis) .reveal-item {
 }
 
 .home-type-card:hover {
-  border-color: rgba(114, 222, 210, 0.35);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(232, 93, 4, 0.4);
+  background: rgba(255, 255, 255, 0.08);
   transform: translateY(-4px);
 }
 
@@ -788,10 +675,9 @@ html:not(.lenis) .reveal-item {
   position: relative;
   overflow: hidden;
   border-radius: 1rem;
-  /* نسبت ثابت تا عکس واقعی داخل قطعه بدون پرش چیدمان بنشیند */
   aspect-ratio: 16 / 10;
   background:
-    radial-gradient(circle at 30% 45%, rgba(114, 222, 210, 0.19), transparent 40%),
+    radial-gradient(circle at 30% 45%, rgba(232, 93, 4, 0.2), transparent 40%),
     var(--color-panel-2);
 }
 
@@ -801,37 +687,37 @@ html:not(.lenis) .reveal-item {
 }
 
 .home-type-card:hover .home-type-art img {
-  transform: scale(1.035);
+  transform: scale(1.04);
 }
 
 .home-type-tag {
   position: absolute;
   top: 12px;
   left: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.36);
+  background: rgba(0, 0, 0, 0.4);
   padding: 4px 10px;
   font-size: 9.5px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.14em;
-  color: rgba(114, 222, 210, 0.92);
+  color: rgba(232, 93, 4, 0.95);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
 
 .selection-panel {
   background:
-    radial-gradient(circle at 11% 85%, rgba(57, 159, 166, 0.2), transparent 22rem),
-    linear-gradient(135deg, #3A2820 0%, #4A3228 54%, #3A2820 100%);
+    radial-gradient(circle at 11% 85%, rgba(232, 93, 4, 0.15), transparent 22rem),
+    linear-gradient(135deg, #2E2620 0%, #3A3028 54%, #2E2620 100%);
 }
 
 .selection-panel::before {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(225, 245, 240, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(225, 245, 240, 0.055) 1px, transparent 1px);
+    linear-gradient(rgba(255, 248, 238, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 248, 238, 0.06) 1px, transparent 1px);
   background-size: 36px 36px;
   content: "";
   mask-image: linear-gradient(270deg, #000, transparent 70%);
@@ -846,9 +732,7 @@ html:not(.lenis) .reveal-item {
 }
 
 /* ==========================================================================
-   ترنزیشن صفحه‌ها — View Transition API بومی
-   نام کلاس‌ها در `src/components/page-transition.tsx` استفاده می‌شوند.
-   جهت‌ها برای چیدمان راست‌به‌چپ تنظیم شده‌اند: «رفتن به عمق» از چپ وارد می‌شود.
+   ترنزیشن صفحه‌ها
    ========================================================================== */
 
 :root {
@@ -876,12 +760,6 @@ html:not(.lenis) .reveal-item {
   }
 }
 
-/*
- * ریشه‌ی زنده: بدون این، مرورگر روی هر ناوبری از کل صفحه snapshot می‌گیرد و
- * هدر/فوتر چسبنده تا پایان انیمیشن «منجمد» می‌مانند (hover و focus کار نمی‌کند).
- * با غیرفعال کردن انیمیشن ریشه، بخش‌های بی‌نام زنده رندر می‌شوند و فقط
- * گروه‌های نام‌دار/کلاس‌دار (یعنی خودِ صفحه) انیمیشن می‌گیرند.
- */
 ::view-transition-old(root) {
   display: none;
 }
@@ -890,12 +768,10 @@ html:not(.lenis) .reveal-item {
   animation: none;
 }
 
-/* اورلی ترنزیشن کلیک‌ها را می‌بلعد؛ با این، در حین انیمیشن هم کلیک رد می‌شود. */
 ::view-transition {
   pointer-events: none;
 }
 
-/* nav-forward: صفحه‌ی جدید از چپ می‌آید، صفحه‌ی قدیمی به راست می‌رود */
 ::view-transition-new(.page-enter-forward) {
   --vt-offset: calc(-1 * var(--vt-shift));
   animation:
@@ -910,7 +786,6 @@ html:not(.lenis) .reveal-item {
     var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide reverse;
 }
 
-/* nav-back: برعکس — صفحه‌ی جدید از راست می‌آید */
 ::view-transition-new(.page-enter-back) {
   --vt-offset: var(--vt-shift);
   animation:
@@ -925,7 +800,6 @@ html:not(.lenis) .reveal-item {
     var(--vt-move) cubic-bezier(0.22, 1, 0.36, 1) both vt-slide reverse;
 }
 
-/* morph عنصر مشترک بین دو صفحه (تصویر کارت → تصویر صفحه‌ی جزئیات) */
 ::view-transition-group(.morph) {
   animation-duration: var(--vt-move);
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -941,10 +815,6 @@ html:not(.lenis) .reveal-item {
   }
 }
 
-/*
- * morph متن: snapshot قدیمی raster است و بزرگ‌شدنش روی متن «شبح» می‌سازد،
- * پس قدیمی را پنهان می‌کنیم و متن جدید را با وضوح کامل نشان می‌دهیم.
- */
 ::view-transition-group(.text-morph) {
   animation-duration: var(--vt-move);
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -960,10 +830,6 @@ html:not(.lenis) .reveal-item {
   object-position: right top;
 }
 
-/*
- * نشانگر لغزان دسته‌بندی: یک عنصر نام‌دار بین وضعیت‌ها سر می‌خورد.
- * old/new را خاموش می‌کنیم تا میله‌ی توپُر جابه‌جا شود نه اینکه cross-fade کند.
- */
 ::view-transition-group(.filter-pill) {
   animation-duration: 260ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -975,10 +841,6 @@ html:not(.lenis) .reveal-item {
   height: 100%;
 }
 
-/*
- * prefers-reduced-motion: قاعده‌ی عمومی `*` پایین‌تر این فایل به
- * شبه‌عنصرهای view-transition نمی‌رسد، پس اینجا جداگانه صفر می‌شوند.
- */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*),
   ::view-transition-new(*),
@@ -989,7 +851,6 @@ html:not(.lenis) .reveal-item {
   }
 }
 
-/* آیتم‌های فهرست هنگام فیلتر دسته‌بندی */
 @keyframes vt-scale-in {
   from {
     opacity: 0;
