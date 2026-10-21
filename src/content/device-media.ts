@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 /**
  * قطعه‌ها و دستگاه‌های بدون پس‌زمینه.
  *
@@ -15,7 +17,7 @@ export type Cutout = {
 
 /** دستگاه کامل — موتور، کوپلینگ، گیربکس، فری‌ویل، پولی، درام */
 export const DEVICE: Cutout = {
-  src: "/cutouts/device.webp",
+  src: asset("/cutouts/device.webp"),
   width: 1038,
   height: 383,
   alt: "ایستگاه درایو نوار نقاله: موتور، کوپلینگ، گیربکس، فری‌ویل روی شفت و پولی",
@@ -24,7 +26,7 @@ export const DEVICE: Cutout = {
 
 /** همان دستگاه، بازشده — قطعه‌ها از هم جدا شده‌اند و فری‌ویل وسط است */
 export const DEVICE_EXPLODED: Cutout = {
-  src: "/cutouts/device-exploded.webp",
+  src: asset("/cutouts/device-exploded.webp"),
   width: 1427,
   height: 509,
   alt: "نمای بازشده‌ی دستگاه به ترتیب توان: موتور، کوپلینگ، گیربکس، فری‌ویل، پولی و درام",
@@ -34,28 +36,28 @@ export const DEVICE_EXPLODED: Cutout = {
 /** قطعه‌های تک، برای شناور شدن دور صحنه */
 export const PART_CUTOUT: Record<string, Cutout> = {
   roller: {
-    src: "/cutouts/roller.webp",
+    src: asset("/cutouts/roller.webp"),
     width: 633,
     height: 692,
     alt: "فری‌ویل رولری کامل با حلقه‌ی بیرونی و راه‌کلید",
     label: "رولری",
   },
   sprag: {
-    src: "/cutouts/sprag.webp",
+    src: asset("/cutouts/sprag.webp"),
     width: 1038,
     height: 561,
     alt: "قفس المان‌های اسپراگ بین دو حلقه",
     label: "اسپراگ",
   },
   backstop: {
-    src: "/cutouts/backstop.webp",
+    src: asset("/cutouts/backstop.webp"),
     width: 1026,
     height: 680,
     alt: "بک‌استاپ با اهرم گشتاور روی حلقه‌ی بیرونی",
     label: "بک‌استاپ",
   },
   liftoff: {
-    src: "/cutouts/liftoff.webp",
+    src: asset("/cutouts/liftoff.webp"),
     width: 754,
     height: 676,
     alt: "فری‌ویل با لیفت‌آف هیدرودینامیک",
