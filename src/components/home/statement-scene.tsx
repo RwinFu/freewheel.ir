@@ -1,14 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
-import { MotionImage } from "@/components/home/motion-media";
 import { WordReveal } from "@/components/home/kit";
-import { HOME_STILL } from "@/content/home-media";
+import { PART_CUTOUT } from "@/content/device-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,11 +19,15 @@ gsap.registerPlugin(ScrollTrigger);
  * ریلِ افقی پشت متن می‌نشینند و با اسکرول از کنارِ هم می‌گذرند، در حالی که
  * جمله‌ها کلمه‌به‌کلمه روشن می‌شوند. صحنه ثابت است، تصویر و متن حرکت می‌کنند.
  */
+/**
+ * تصویرها عکس عمومی کارخانه نیستند: کات‌اوت خودِ چهار خانواده‌ی محصول‌اند،
+ * بدون پس‌زمینه، پس روی صحنه‌ی تیره شناور می‌مانند و با متن یکی حرف می‌زنند.
+ */
 const FRAMES = [
-  { still: HOME_STILL.panoSprag, depth: 0.8, rotate: -3.2 },
-  { still: HOME_STILL.panoRoller, depth: 1.5, rotate: 2.4 },
-  { still: HOME_STILL.sealed, depth: 1.1, rotate: -1.4 },
-  { still: HOME_STILL.quarry, depth: 0.6, rotate: 3 },
+  { part: PART_CUTOUT.sprag, depth: 0.8, rotate: -3.2 },
+  { part: PART_CUTOUT.roller, depth: 1.5, rotate: 2.4 },
+  { part: PART_CUTOUT.backstop, depth: 1.1, rotate: -1.4 },
+  { part: PART_CUTOUT.liftoff, depth: 0.6, rotate: 3 },
 ];
 
 export function StatementScene() {
@@ -122,20 +126,19 @@ export function StatementScene() {
         <div className="stmt-rail" data-rail dir="ltr" aria-hidden="true">
           {FRAMES.map((frame, index) => (
             <figure
-              key={`${frame.still.alt.slice(0, 12)}-${index}`}
+              key={frame.part.src}
               data-frame
               data-depth={frame.depth}
               data-rotate={frame.rotate}
               className={`stmt-frame stmt-frame-${index + 1}`}
             >
-              <MotionImage
-                still={frame.still}
-                motion="drift"
+              <Image
+                src={frame.part.src}
+                alt={frame.part.alt}
+                width={frame.part.width}
+                height={frame.part.height}
                 sizes="(min-width: 900px) 30vw, 60vw"
-                duration={26 + index * 3}
-                delay={index}
-                sheen={false}
-                imgClassName="stmt-frame-img"
+                className="stmt-frame-img"
               />
             </figure>
           ))}

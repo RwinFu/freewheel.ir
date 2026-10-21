@@ -1,44 +1,48 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/components/motion";
-import { MotionImage } from "@/components/home/motion-media";
 import { FadeUp, WordReveal } from "@/components/home/kit";
-import { HOME_STILL } from "@/content/home-media";
+import { DEVICE, PART_CUTOUT } from "@/content/device-media";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * هر ردیف، قطعه‌ای را نشان می‌دهد که در همان کاربرد واقعاً کار می‌کند —
+ * نه عکس عمومی کارخانه. قطعه‌ها بی‌پس‌زمینه‌اند و روی صحنه‌ی روشن می‌نشینند.
+ */
 const ITEMS = [
   {
     id: "conveyor",
     label: "نوار نقاله و بک‌استاپ",
     time: "پرکاربردترین",
     desc: "وقتی خط می‌ایستد، فری‌ویل جلوی برگشت ناخواسته‌ی نوار را می‌گیرد؛ به‌خصوص روی شیب.",
-    still: HOME_STILL.conveyor,
+    part: PART_CUTOUT.backstop,
   },
   {
     id: "textile",
     label: "نساجی و ریسندگی",
     time: "حرکت پله‌ای",
     desc: "برای جداکردن دو محرک و تغذیه‌ی نخ؛ جایی که کشش باید حفظ شود ولی برگشت ممنوع است.",
-    still: HOME_STILL.textile,
+    part: PART_CUTOUT.roller,
   },
   {
     id: "packaging",
     label: "بسته‌بندی و پالتیزه",
     time: "تکرارپذیر",
     desc: "حرکت مرحله‌ای ماشین‌های بسته‌بندی با ایندکسینگ مکانیکی و بدون فرمان الکتریکی.",
-    still: HOME_STILL.packaging,
+    part: PART_CUTOUT.liftoff,
   },
   {
     id: "backstop",
     label: "بک‌استاپ شفت‌های سنگین",
     time: "ایمنی بار",
     desc: "روی شفت درایو یا گیربکس نصب می‌شود و در لحظه‌ی برگشت، بدون تأخیر قفل می‌کند.",
-    still: HOME_STILL.quarry,
+    part: DEVICE,
   },
 ];
 
@@ -123,13 +127,14 @@ export function AroundScene() {
                   key={item.id}
                   className={index === active ? "around-layer is-active" : "around-layer"}
                 >
-                  <MotionImage
-                    still={item.still}
-                    motion="drift"
+                  <Image
+                    src={item.part.src}
+                    alt={item.part.alt}
+                    width={item.part.width}
+                    height={item.part.height}
                     sizes="(min-width: 900px) 48vw, 92vw"
-                    duration={22 + index * 4}
-                    delay={index}
-                    imgClassName="around-layer-img"
+                    loading="eager"
+                    className="around-layer-img"
                   />
                 </div>
               ))}

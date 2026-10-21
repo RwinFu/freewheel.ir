@@ -423,6 +423,530 @@
   }
 }
 
+/* ============ صحنه‌ی دستگاه — قطعه‌ی بی‌پس‌زمینه روی صحنه‌ی فنی ============ */
+
+.device-section {
+  position: relative;
+  background: #0b1a14;
+  color: #f4f1e6;
+  overflow: clip;
+}
+
+.device-stage {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(60px, 7.4vw, 104px);
+  background:
+    radial-gradient(62% 54% at 50% 54%, rgba(66, 108, 84, 0.5) 0%, transparent 72%),
+    radial-gradient(120% 90% at 50% 118%, rgba(7, 18, 13, 0.95) 0%, transparent 62%),
+    linear-gradient(180deg, #0d2019 0%, #0b1a14 46%, #081410 100%);
+}
+
+/* شبکه‌ی نقشه‌کشی — حس نقشه‌ی فنی */
+.device-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(205, 220, 174, 0.085) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(205, 220, 174, 0.085) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: radial-gradient(76% 66% at 50% 50%, #000 26%, transparent 80%);
+}
+
+.device-glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 58%;
+  width: min(78vw, 980px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(146, 190, 158, 0.24) 0%, rgba(146, 190, 158, 0.06) 42%, transparent 68%);
+  filter: blur(10px);
+}
+
+/* سایه‌ی تماس زیر دستگاه تا روی صحنه بنشیند، نه اینکه شناور بی‌وزن باشد */
+.device-floor {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 71%;
+  width: min(74vw, 900px);
+  height: 90px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.6) 0%, transparent 72%);
+  filter: blur(16px);
+}
+
+.device-inner {
+  position: relative;
+  z-index: 3;
+  width: min(100% - 48px, 1180px);
+  margin-inline: auto;
+}
+
+.device-head {
+  max-width: 60ch;
+}
+
+.device-title {
+  margin: 0;
+  color: #f8f5ea;
+  font-size: clamp(1.8rem, 4vw, 3.3rem);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.035em;
+}
+
+.device-sub {
+  margin: 18px 0 0;
+  max-width: 52ch;
+  color: rgba(244, 241, 230, 0.62);
+  font-size: clamp(13px, 1.35vw, 15.5px);
+  line-height: 2.2;
+}
+
+/* --- فهرست قطعه‌ها --- */
+
+.device-rail {
+  display: flex;
+  flex-wrap: wrap;
+  margin: clamp(20px, 3vw, 34px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-block: 1px solid rgba(205, 220, 174, 0.16);
+}
+
+.device-rail-row {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.device-rail-row + .device-rail-row {
+  border-inline-start: 1px solid rgba(205, 220, 174, 0.12);
+}
+
+.device-rail-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.device-rail-btn:hover,
+.device-rail-btn:focus-visible {
+  background: rgba(205, 220, 174, 0.07);
+}
+
+.device-rail-btn:focus-visible {
+  outline: 1px solid rgba(205, 220, 174, 0.55);
+  outline-offset: -2px;
+}
+
+.device-rail-index {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(205, 220, 174, 0.55);
+  padding-block-start: 3px;
+}
+
+.device-rail-text {
+  display: grid;
+  gap: 1px;
+}
+
+.device-rail-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f2f0e4;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.device-rail-note {
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: rgba(244, 241, 230, 0.5);
+}
+
+.device-rail-row.is-hero .device-rail-index,
+.device-rail-row.is-hero .device-rail-label {
+  color: #f0b48d;
+}
+
+.device-rail-row.is-hero .device-rail-btn:hover {
+  background: rgba(233, 158, 112, 0.09);
+}
+
+/* --- قاب دستگاه --- */
+
+.device-canvas {
+  position: relative;
+  margin-block-start: clamp(10px, 2vw, 22px);
+}
+
+.device-art {
+  position: relative;
+  width: 100%;
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.device-art.is-exploded {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* هاله‌ی گرم پشت فری‌ویل — تنها قطعه‌ای که باید اول دیده شود */
+.device-art::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 26%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(233, 158, 112, 0.3) 0%, rgba(233, 158, 112, 0.08) 44%, transparent 70%);
+  filter: blur(8px);
+}
+
+.device-art.is-assembled::before {
+  left: 63.9%;
+  top: 58%;
+}
+
+.device-art.is-exploded::before {
+  left: 60.1%;
+  top: 55%;
+}
+
+.device-art-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 26px rgba(198, 226, 200, 0.16))
+    drop-shadow(0 30px 36px rgba(0, 0, 0, 0.55))
+    contrast(1.07)
+    saturate(1.06);
+}
+
+/* جابه‌جایی نرم بین دو نما */
+.device-canvas[data-view="assembled"] .device-art.is-exploded {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.985);
+  pointer-events: none;
+}
+
+.device-canvas[data-view="exploded"] .device-art.is-assembled {
+  opacity: 0;
+  transform: scale(0.985);
+  pointer-events: none;
+}
+
+/* --- شماره‌ی قطعه‌ها روی تصویر --- */
+
+.device-calls {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: opacity 0.45s ease 0.12s;
+}
+
+.device-canvas[data-view="assembled"] .is-assembled .device-calls,
+.device-canvas[data-view="exploded"] .is-exploded .device-calls {
+  opacity: 1;
+}
+
+.device-call {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.device-call-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(244, 241, 230, 0.55);
+  background: rgba(8, 20, 15, 0.78);
+  backdrop-filter: blur(4px);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(244, 241, 230, 0.9);
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.device-call-mark::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(205, 220, 174, 0.35);
+  animation: device-ping 3.4s ease-out infinite;
+}
+
+@keyframes device-ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  72% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.device-call.is-active .device-call-mark {
+  transform: translate(-50%, -50%) scale(1.18);
+  border-color: #cddcae;
+  background: rgba(24, 46, 36, 0.95);
+}
+
+/* شماره‌ی فری‌ویل: تنها شماره‌ای که رنگ تاکید دارد */
+.device-call.is-hero .device-call-mark {
+  border-color: rgba(240, 195, 164, 0.85);
+  background: rgba(122, 58, 34, 0.85);
+  color: #ffd9bd;
+}
+
+.device-call.is-hero .device-call-mark::after {
+  border-color: rgba(240, 195, 164, 0.55);
+}
+
+/* --- قطعه‌های شناور --- */
+
+.device-float {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  pointer-events: none;
+}
+
+.device-float-img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.5));
+}
+
+.device-float-a {
+  top: 20%;
+  left: 2%;
+  width: clamp(96px, 10vw, 138px);
+  rotate: -9deg;
+  opacity: 0.24;
+}
+
+.device-float-b {
+  bottom: 15%;
+  left: 9%;
+  width: clamp(66px, 6vw, 92px);
+  rotate: 7deg;
+  opacity: 0.22;
+}
+
+.device-float-c {
+  top: 44%;
+  right: 2%;
+  width: clamp(104px, 11vw, 150px);
+  rotate: 5deg;
+  opacity: 0.2;
+}
+
+/* --- پانویس صحنه --- */
+
+.device-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block-start: clamp(12px, 2vw, 22px);
+  padding-block-start: 16px;
+  border-block-start: 1px solid rgba(205, 220, 174, 0.16);
+}
+
+.device-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(205, 220, 174, 0.22);
+  border-radius: 999px;
+  background: rgba(8, 20, 15, 0.55);
+}
+
+.device-tab {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: transparent;
+  color: rgba(244, 241, 230, 0.62);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.device-tab.is-active {
+  background: #cddcae;
+  color: #10241a;
+}
+
+.device-tab:focus-visible {
+  outline: 2px solid #cddcae;
+  outline-offset: 2px;
+}
+
+.device-foot-note {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 11.5px;
+  line-height: 1.9;
+  color: rgba(244, 241, 230, 0.44);
+}
+
+@media (max-width: 1024px) {
+  .device-float-a,
+  .device-float-c {
+    display: none;
+  }
+
+  .device-float-b {
+    left: 1%;
+    width: 80px;
+    opacity: 0.22;
+  }
+
+  .device-rail-row {
+    flex: 1 1 33.3%;
+  }
+
+  .device-rail-row:nth-child(4) {
+    border-inline-start: 0;
+  }
+
+  .device-rail-row:nth-child(n + 4) {
+    border-block-start: 1px solid rgba(205, 220, 174, 0.12);
+  }
+}
+
+@media (max-width: 720px) {
+  /* تصویر تا لبه‌ی صفحه می‌رود تا دستگاه در عرض کم هم جا داشته باشد */
+  .device-canvas {
+    width: 100vw;
+    margin-block-start: 14px;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* روی صفحه‌ی باریک، فهرست دو ستونی و بدون توضیح می‌شود تا تصویر زودتر بیاید */
+  .device-rail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .device-rail-row {
+    flex: none;
+    border-inline-start: 1px solid rgba(205, 220, 174, 0.12);
+    border-block-start: 1px solid rgba(205, 220, 174, 0.14);
+  }
+
+  .device-rail-row:nth-child(odd) {
+    border-inline-start: 0;
+  }
+
+  .device-rail-row:nth-child(-n + 2) {
+    border-block-start: 0;
+  }
+
+  .device-rail-row:last-child {
+    grid-column: span 2;
+    justify-self: stretch;
+  }
+
+  .device-rail-note {
+    display: none;
+  }
+
+  .device-rail-btn {
+    padding: 9px 11px;
+  }
+
+  .device-rail-label {
+    font-size: 11.5px;
+  }
+
+  .device-rail-note {
+    font-size: 9.5px;
+  }
+
+  .device-call-mark {
+    width: 19px;
+    height: 19px;
+    font-size: 7.5px;
+  }
+
+  .device-call-mark::after {
+    inset: -6px;
+  }
+
+  .device-floor {
+    height: 54px;
+  }
+
+  .device-foot {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .device-foot-note {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .device-call-mark::after {
+    animation: none;
+  }
+
+  .device-art,
+  .device-calls,
+  .device-call-mark {
+    transition: none;
+  }
+}
+
 /* ============ بلوک تحریریه‌ی هویت — تصویرهای شناور روی متن ============ */
 
 /*
@@ -710,43 +1234,59 @@
 .stmt-frame {
   position: relative;
   flex: 0 0 auto;
-  overflow: hidden;
-  border-radius: 20px;
-  background: #16302a;
-  box-shadow: 0 50px 90px -60px rgba(0, 0, 0, 0.95);
   clip-path: inset(100% 0% 0% 0%);
   will-change: transform, clip-path;
 }
 
+/* قطعه‌ها پس‌زمینه ندارند؛ فقط سایه و هاله‌ی نرم تا از صحنه جدا شوند */
+.stmt-frame::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 88%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(150, 196, 160, 0.16) 0%, transparent 68%);
+  filter: blur(10px);
+}
+
 .stmt-frame-img {
-  object-fit: cover;
+  position: relative;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 22px rgba(198, 226, 200, 0.14))
+    drop-shadow(0 34px 44px rgba(0, 0, 0, 0.6));
 }
 
 .stmt-frame-1 {
-  width: clamp(170px, 20vw, 300px);
-  aspect-ratio: 4 / 5;
-  opacity: 0.82;
+  width: clamp(190px, 23vw, 340px);
+  aspect-ratio: 1038 / 561;
+  opacity: 0.92;
 }
 
 .stmt-frame-2 {
-  width: clamp(200px, 23vw, 340px);
-  aspect-ratio: 16 / 11;
+  width: clamp(150px, 17vw, 250px);
+  aspect-ratio: 633 / 692;
   margin-block-start: -12vh;
-  opacity: 0.95;
+  opacity: 1;
 }
 
 .stmt-frame-3 {
-  width: clamp(144px, 16vw, 226px);
-  aspect-ratio: 1;
-  margin-block-start: 16vh;
-  opacity: 0.72;
+  width: clamp(170px, 20vw, 290px);
+  aspect-ratio: 1026 / 680;
+  margin-block-start: 14vh;
+  opacity: 0.9;
 }
 
 .stmt-frame-4 {
-  width: clamp(190px, 23vw, 320px);
-  aspect-ratio: 4 / 3;
-  margin-block-start: -6vh;
-  opacity: 0.6;
+  width: clamp(160px, 18vw, 270px);
+  aspect-ratio: 754 / 676;
+  margin-block-start: -5vh;
+  opacity: 0.78;
 }
 
 /* پرده‌ی تیره تا متن روی ریل خوانا بماند */
@@ -876,17 +1416,17 @@
   }
 
   .stmt-frame-1 {
-    width: 116px;
+    width: 150px;
     margin-block: 0 8px;
   }
 
   .stmt-frame-2 {
-    width: 168px;
+    width: 96px;
     margin-block: 0 26px;
   }
 
   .stmt-frame-3 {
-    width: 104px;
+    width: 128px;
     margin-block: 0 4px;
   }
 
@@ -995,12 +1535,33 @@
   max-height: calc(100svh - 170px);
   border-radius: 24px;
   overflow: hidden;
-  background: var(--color-panel-2);
+  background:
+    radial-gradient(62% 52% at 50% 46%, rgba(255, 255, 255, 0.9) 0%, transparent 68%),
+    radial-gradient(90% 70% at 50% 110%, rgba(29, 56, 47, 0.1) 0%, transparent 60%),
+    var(--color-panel-2);
+}
+
+/* شبکه‌ی محو، مثل صفحه‌ی کاتالوگ */
+.around-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(29, 56, 47, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29, 56, 47, 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(70% 62% at 50% 46%, #000 20%, transparent 78%);
 }
 
 .around-layer {
   position: absolute;
   inset: 0;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding: 8% 8%;
   opacity: 0;
   clip-path: inset(0% 0% 100% 0%);
   transform: scale(1.1);
@@ -1018,7 +1579,22 @@
 }
 
 .around-layer-img {
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 26px rgba(29, 56, 47, 0.1))
+    drop-shadow(0 30px 40px rgba(29, 56, 47, 0.28));
+  animation: around-drift 24s ease-in-out infinite alternate;
+}
+
+@keyframes around-drift {
+  from {
+    transform: scale(1) rotate(-0.4deg);
+  }
+  to {
+    transform: scale(1.035) rotate(0.5deg);
+  }
 }
 
 .around-stage-frame {
@@ -1028,13 +1604,13 @@
   border: 1px solid rgba(29, 56, 47, 0.14);
   border-radius: 24px;
   pointer-events: none;
-  background: linear-gradient(200deg, transparent 52%, rgba(14, 29, 21, 0.42) 100%);
+  background: linear-gradient(200deg, transparent 62%, rgba(20, 40, 31, 0.16) 100%);
 }
 
 .around-stage-tag {
   position: absolute;
   z-index: 3;
-  bottom: 16px;
+  top: 16px;
   inset-inline-start: 16px;
   display: inline-flex;
   align-items: center;
@@ -1562,8 +2138,9 @@
   inset: 0;
   z-index: 2;
   background:
-    linear-gradient(190deg, rgba(8, 18, 12, 0.8) 0%, rgba(8, 18, 12, 0.34) 46%, rgba(6, 14, 9, 0.9) 100%),
-    linear-gradient(90deg, rgba(8, 18, 12, 0.55) 0%, transparent 60%);
+    /* ستون متن (سمت راست در RTL) تیره‌تر تا عنوان روی فلز خوانا بماند */
+    linear-gradient(270deg, rgba(8, 18, 12, 0.86) 0%, rgba(8, 18, 12, 0.6) 38%, rgba(8, 18, 12, 0.12) 68%, transparent 88%),
+    linear-gradient(190deg, rgba(8, 18, 12, 0.72) 0%, rgba(8, 18, 12, 0.24) 46%, rgba(6, 14, 9, 0.88) 100%);
 }
 
 /* حروف بزرگ لاتین که با اسکرول از پشت متن رد می‌شوند */
