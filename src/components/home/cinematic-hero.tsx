@@ -120,6 +120,15 @@ export function CinematicHero() {
           </span>
         </h1>
 
+        <div className="cinema-hero-tagline">
+          <span className="cinema-hero-tagline-icon" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </span>
+          <WordReveal text="عقب‌گرد ممنوع" mode="enter" stagger={0.05} />
+        </div>
+
         <p className="cinema-hero-dek">
           <WordReveal
             text="فری‌ویل بدون برق و فرمان، به‌محض برگشت بار دو شفت را به هم قفل می‌کند. اینجا سازوکار، کاربردها و مدل‌هایش را ساده و دقیق ببین."
