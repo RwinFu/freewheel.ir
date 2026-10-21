@@ -30,7 +30,7 @@ const PARTS = [
 ];
 
 /** رنگ تقریبی پس‌زمینه‌ای که آلفا از آن بریده شده — برای حذف هاله */
-const BG = [236, 234, 226];
+const BG = [255, 255, 255];
 
 async function human(file) {
   const s = await stat(file);
