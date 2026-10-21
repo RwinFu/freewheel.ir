@@ -24,7 +24,7 @@ export function ProjectStory() {
         <div className="grid gap-9 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-12">
           <div>
             <Reveal>
-              <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
+              <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
                 <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
                 {story.kicker}
               </p>
@@ -47,7 +47,7 @@ export function ProjectStory() {
                 {["تشخیص در شب اول", "محاسبه‌ی گشتاور برگشت", "انتخاب و نصب", "بازرسی سه سال"].map(
                   (step, index) => (
                     <li key={step} className="inline-flex items-center gap-2">
-                      <span className="grid h-5 w-5 place-items-center rounded-full bg-white/10 text-[10.5px] font-semibold text-mint">
+                      <span className="grid h-5 w-5 place-items-center rounded-full bg-white/10 text-[10.5px] font-semibold text-accent">
                         {["۰۱", "۰۲", "۰۳", "۰۴"][index]}
                       </span>
                       {step}
@@ -96,7 +96,7 @@ export function ProjectStory() {
                   <span className="tnum text-[26px] font-bold leading-none text-white">
                     {fact.value}
                   </span>
-                  <span className="text-[11.5px] text-mint">{fact.unit}</span>
+                  <span className="text-[11.5px] text-accent">{fact.unit}</span>
                 </span>
                 <span className="mt-2 block text-[11px] leading-5 text-white/50">{fact.hint}</span>
               </li>
@@ -111,7 +111,7 @@ export function ProjectStory() {
               delay={index * 0.06}
               className="flex flex-col rounded-[22px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm sm:p-6"
             >
-              <span className="tnum inline-flex w-fit items-center rounded-full bg-white/10 px-3 py-1 text-[11.5px] font-semibold text-mint">
+              <span className="tnum inline-flex w-fit items-center rounded-full bg-white/10 px-3 py-1 text-[11.5px] font-semibold text-accent">
                 {chapter.numeral}
               </span>
               <h3 className="mt-3.5 text-[16.5px] font-bold leading-8 text-white">{chapter.title}</h3>
@@ -136,7 +136,7 @@ export function ProjectStory() {
 
         <div className="mt-14">
           <Reveal className="max-w-3xl">
-            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
+            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
               <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
               {story.figure.label}
             </p>
@@ -157,7 +157,7 @@ export function ProjectStory() {
             <ul className="mt-4 grid gap-2.5">
               {story.outcome.points.map((point) => (
                 <li key={point} className="flex items-start gap-2.5 text-[12.5px] leading-7 text-white/75">
-                  <Check className="mt-1.5 h-4 w-4 shrink-0 text-mint" aria-hidden="true" />
+                  <Check className="mt-1.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   <span>{point}</span>
                 </li>
               ))}
@@ -194,7 +194,7 @@ export function ProjectStory() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-coral px-5 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   مشاوره‌ی انتخاب
                   <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
@@ -202,7 +202,7 @@ export function ProjectStory() {
                 <Link
                   href="/applications/conveyor"
                   transitionTypes={["nav-forward"]}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   فری‌ویل در نوار نقاله
                   <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
@@ -211,7 +211,7 @@ export function ProjectStory() {
                   href={SHOPS.robot.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white/85 transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 text-[12.5px] font-semibold text-white/85 transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   ارتقای خط نوار نقاله ({SHOPS.robot.name})
                 </a>

@@ -290,7 +290,7 @@ export function AxisFreewheel({ phase, className }: { phase: AxisPhase; classNam
         </div>
 
       <span className="part-stage-chip" dir="ltr">
-        <span className="h-1.5 w-1.5 rounded-full bg-mint" aria-hidden="true" />
+        <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
         ROT <span ref={readoutRef}>0</span>°
       </span>
     </div>

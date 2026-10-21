@@ -108,7 +108,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-7 sm:py-24 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-mint">
+            <p className="mb-3 inline-flex items-center gap-2 text-[12px] font-semibold text-accent">
               <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
               اصل کار
             </p>
@@ -130,7 +130,7 @@ export function HowItWorks() {
             <span
               className={cn(
                 "h-2 w-2 rounded-full",
-                current.mode === "free" ? "bg-mint" : "bg-coral",
+                current.mode === "free" ? "bg-accent" : "bg-coral",
               )}
               aria-hidden="true"
             />
@@ -195,9 +195,9 @@ export function HowItWorks() {
                     aria-expanded={active}
                     aria-label={`مرحله‌ی ${item.numeral}: ${item.title}`}
                     className={cn(
-                      "group w-full rounded-2xl border p-5 text-start transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint sm:p-6",
+                      "group w-full rounded-2xl border p-5 text-start transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:p-6",
                       active
-                        ? "border-mint/40 bg-white/[0.07] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] backdrop-blur-md"
+                        ? "border-accent/40 bg-white/[0.07] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] backdrop-blur-md"
                         : "border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.05]",
                     )}
                   >
@@ -205,7 +205,7 @@ export function HowItWorks() {
                       <span
                         className={cn(
                           "grid h-11 w-11 shrink-0 place-items-center rounded-xl text-[15px] font-bold transition-colors",
-                          active ? "bg-mint text-ocean" : "bg-white/10 text-white/70",
+                          active ? "bg-accent text-ocean" : "bg-white/10 text-white/70",
                         )}
                       >
                         {item.numeral}
@@ -223,7 +223,7 @@ export function HowItWorks() {
                       <ChevronDown
                         className={cn(
                           "h-5 w-5 shrink-0 text-white/40 transition-transform duration-300",
-                          active && "rotate-180 text-mint",
+                          active && "rotate-180 text-accent",
                         )}
                         aria-hidden="true"
                       />
@@ -251,7 +251,7 @@ export function HowItWorks() {
                     key={item.mode}
                     className={cn(
                       "h-1.5 rounded-full transition-all duration-300",
-                      index === step ? "w-8 bg-mint" : "w-3 bg-white/15",
+                      index === step ? "w-8 bg-accent" : "w-3 bg-white/15",
                     )}
                   />
                 ))}
@@ -261,7 +261,7 @@ export function HowItWorks() {
                   type="button"
                   onClick={() => select((step + STEPS.length - 1) % STEPS.length)}
                   aria-label="مرحله‌ی قبل"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-4 text-[12.5px] font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-4 text-[12.5px] font-semibold text-white/80 transition-colors hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   قبل
@@ -270,7 +270,7 @@ export function HowItWorks() {
                   type="button"
                   onClick={() => select((step + 1) % STEPS.length)}
                   aria-label="مرحله‌ی بعد"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-mint px-4 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 text-[12.5px] font-bold text-ocean transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   بعد
                   <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -284,7 +284,7 @@ export function HowItWorks() {
                   key={title}
                   className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
                 >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 text-mint">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 text-accent">
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
                   <span>
@@ -298,7 +298,7 @@ export function HowItWorks() {
         </div>
 
         <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 sm:flex-row sm:items-center sm:gap-5 sm:px-6">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-mint">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-accent">
             <Bike className="h-5 w-5" aria-hidden="true" />
           </span>
           <p className="text-[13px] leading-7 text-white/70">
@@ -311,14 +311,14 @@ export function HowItWorks() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/articles/freewheel-sizing"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             راهنمای سایزبندی
             <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
             href="/applications"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-mint hover:text-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-[12.5px] font-semibold text-white transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             کاربردها در خط تولید
             <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />

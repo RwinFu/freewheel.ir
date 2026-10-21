@@ -29,7 +29,7 @@ export function FaqList({
             <span
               className={cn(
                 "text-[14px] leading-7 transition-colors sm:text-[15px]",
-                dark ? "text-white/90 group-open:text-mint" : "text-fg group-open:text-accent",
+                dark ? "text-white/90 group-open:text-accent" : "text-fg group-open:text-accent",
               )}
             >
               {item.q}
@@ -38,7 +38,7 @@ export function FaqList({
               className={cn(
                 "mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-colors",
                 dark
-                  ? "border-white/15 text-white/60 group-open:border-mint group-open:bg-mint group-open:text-ocean"
+                  ? "border-white/15 text-white/60 group-open:border-accent group-open:bg-accent group-open:text-ocean"
                   : "border-line-2 text-fg-muted group-open:border-accent group-open:bg-accent group-open:text-white",
               )}
             >
