@@ -114,6 +114,8 @@ const SERIES_CATEGORY_BY_SLUG: Record<string, string> = {
   frhn: "lever",
   "fa-fav": "lever",
   fkh: "liftoff",
+  fw: "liftoff",
+  er: "sealed",
 };
 
 /* ---------------- برندها: بر اساس شکل محصول و بازار ---------------- */
