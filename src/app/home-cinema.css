@@ -321,8 +321,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-mint);
-  box-shadow: 0 0 0 5px rgba(203, 213, 188, 0.14);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 5px rgba(232, 93, 4, 0.18);
 }
 
 .cinema-hero-title {
@@ -336,7 +336,37 @@
 }
 
 .cinema-hero-title-accent {
-  color: var(--color-mint);
+  color: var(--color-accent);
+}
+
+.cinema-hero-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 999px;
+  background: rgba(232, 93, 4, 0.08);
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(232, 93, 4, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cinema-hero-tagline-icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(232, 93, 4, 0.3);
 }
 
 .cinema-hero-dek {
