@@ -48,6 +48,7 @@ next-env.d.ts
 
 # local agent tooling, not part of the site
 /.claude
+/.bgvenv
 
 # rendered source images for the rotating layers (see scripts/build_freewheel_layers.py)
 /.renders
