@@ -34,14 +34,14 @@ export function HorizontalPanorama() {
     const distance = () => Math.max(0, track.scrollWidth - section.clientWidth);
     const tween = gsap.to(track, {
       x: () => -distance(),
-      ease: "none",
+      ease: "power1.inOut",
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: () => `+=${distance() * 1.15}`,
+        end: () => `+=${distance() * 1.25}`,
         pin: true,
-        scrub: 0.9,
-        anticipatePin: 1,
+        scrub: 1.2,
+        anticipatePin: 1.5,
         invalidateOnRefresh: true,
       },
     });
@@ -80,21 +80,43 @@ export function HorizontalPanorama() {
       still: HOME_STILL.panoAxis,
       label: "کلاچ یک‌طرفه",
       sub: "نمای روبه‌روی محور",
+      detail: "آزاد در یک جهت، قفل در جهت دیگر",
     },
     {
       still: HOME_STILL.panoRoller,
       label: "المان رولری",
       sub: "غلتک و فنر در گوه",
+      detail: "ساختار رایج و فشرده",
+    },
+    {
+      still: HOME_STILL.panoSprag,
+      label: "مجموعه‌ی اسپراگ",
+      sub: "گوه‌های فولادی بین دو حلقه",
+      detail: "برای گشتاور بالا",
     },
     {
       still: HOME_STILL.panoSealed,
       label: "محفظه‌ی آب‌بندی",
       sub: "بسته و روغن‌پر",
+      detail: "آماده‌ی نصب",
     },
     {
-      still: HOME_STILL.panoSprag,
-      label: "مجموعه‌ی اسپراگ",
-      sub: "حلقه‌ها و قفس المان‌ها",
+      still: HOME_STILL.panoLiftoff,
+      label: "لیفت‌آف هیدرودینامیک",
+      sub: "سایش نزدیک به صفر",
+      detail: "دور آزاد بالا",
+    },
+    {
+      still: HOME_STILL.panoDrawnCup,
+      label: "کاپ کشیده",
+      sub: "رولرهای سوزنی و فنر",
+      detail: "سایز کوچک",
+    },
+    {
+      still: HOME_STILL.panoInternal,
+      label: "فری‌ویل داخلی",
+      sub: "هم‌اندازه‌ی بلبرینگ",
+      detail: "تحمل بار شعاعی",
     },
   ];
 
@@ -134,10 +156,13 @@ export function HorizontalPanorama() {
                 <span className="pano-card-index" dir="ltr">
                   {String(index + 1).padStart(2, "0")}
                 </span>
+                <span className="pano-card-detail">{card.detail}</span>
               </div>
               <figcaption className="pano-card-caption">
-                <span className="pano-card-label">{card.label}</span>
-                <span className="pano-card-sub">{card.sub}</span>
+                <div>
+                  <span className="pano-card-label">{card.label}</span>
+                  <span className="pano-card-sub">{card.sub}</span>
+                </div>
               </figcaption>
             </figure>
           ))}
