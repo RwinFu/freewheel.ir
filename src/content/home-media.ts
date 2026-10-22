@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-import heroFreewheel from "@/assets/images/hero-freewheel.jpg";
+import heroFreewheel from "@/assets/images/hero-ringspann-fxm.jpg";
 import fwBackstop from "@/assets/images/fw-backstop.jpg";
 import fwDrawnCup from "@/assets/images/fw-drawncup.jpg";
 import fwInternal from "@/assets/images/fw-internal.jpg";
