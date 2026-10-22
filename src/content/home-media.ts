@@ -9,6 +9,9 @@ import fwLiftoff from "@/assets/images/fw-liftoff.jpg";
 import fwRoller from "@/assets/images/fw-roller.jpg";
 import fwSealed from "@/assets/images/fw-sealed.jpg";
 import fwSprag from "@/assets/images/fw-sprag.jpg";
+import fwCompactSprag from "@/assets/images/fw-compact-sprag.jpg";
+import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.jpg";
+import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.jpg";
 import axis from "@/assets/images/part/fw-axis.jpg";
 import typeRoller from "@/assets/images/part/type-roller.jpg";
 import typeSprag from "@/assets/images/part/type-sprag.jpg";
@@ -98,7 +101,7 @@ export const HOME_STILL = {
     src: unitBackstop,
     alt: "بک‌استاپ کامل روی شفت با اهرم گشتاور",
   },
-  /** نوار افقی */
+  /** نوار افقی — 7 کارت */
   panoAxis: {
     src: axis,
     alt: "فری‌ویل از روبه‌روی محور با حلقه‌ی پیچ‌دار و قفس المان‌ها",
@@ -114,5 +117,17 @@ export const HOME_STILL = {
   panoSprag: {
     src: fwSprag,
     alt: "فری‌ویل سنگین اسپراگ در نمای سه‌چهارم روی زمینه‌ی تیره",
+  },
+  panoLiftoff: {
+    src: fwLiftoff,
+    alt: "فری‌ویل لیفت‌آف هیدرودینامیک برای دور آزاد بالا",
+  },
+  panoDrawnCup: {
+    src: fwDrawnCup,
+    alt: "کلاچ کاپ کشیده با رولرهای سوزنی",
+  },
+  panoInternal: {
+    src: fwInternal,
+    alt: "فری‌ویل داخلی هم‌اندازه‌ی بلبرینگ",
   },
 } as const satisfies Record<string, HomeStill>;

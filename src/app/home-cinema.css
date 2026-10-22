@@ -2347,9 +2347,18 @@
 /* ============ نوار افقی ============ */
 
 .pano-section {
-  background: var(--color-base);
+  background: #0A0A0A;
   padding-top: clamp(80px, 10vw, 140px);
   overflow: hidden;
+  position: relative;
+}
+
+.pano-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.04) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .pano-head {
@@ -2360,57 +2369,63 @@
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .pano-title {
   margin: 0;
-  color: var(--color-fg);
-  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  font-size: clamp(2rem, 3.8vw, 3.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .pano-hint {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: var(--color-fg-dim);
+  color: rgba(245, 245, 240, 0.5);
   font-size: 11.5px;
 }
 
 .pano-hint-line {
   width: 54px;
   height: 1px;
-  background: var(--color-line-2);
+  background: rgba(0, 212, 170, 0.3);
 }
 
 .pano-viewport {
   margin-top: clamp(36px, 5vw, 64px);
-  height: min(620px, 72vh);
+  height: min(680px, 76vh);
   overflow: hidden;
+  position: relative;
+  z-index: 2;
 }
 
 .pano-track {
   display: flex;
   height: 100%;
   align-items: center;
-  gap: clamp(18px, 2.5vw, 32px);
-  padding-inline: 6vw;
+  gap: clamp(24px, 3vw, 40px);
+  padding-inline: 8vw;
   will-change: transform;
 }
 
 .pano-card {
   flex: 0 0 auto;
-  width: min(72vw, 860px);
+  width: min(68vw, 820px);
   margin: 0;
 }
 
 .pano-card-media {
   position: relative;
-  aspect-ratio: 16 / 9.6;
-  border-radius: 24px;
+  aspect-ratio: 16 / 10;
+  border-radius: 28px;
   overflow: hidden;
-  background: var(--color-panel-2);
+  background: #141414;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .pano-card-img {
@@ -2421,40 +2436,61 @@
 
 .pano-card-img-el {
   object-fit: cover;
+  filter: saturate(0.95) contrast(1.05);
 }
 
 .pano-card-index {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  top: 20px;
+  left: 20px;
+  border: 1px solid rgba(0, 212, 170, 0.4);
   border-radius: 999px;
-  background: rgba(12, 26, 18, 0.45);
-  color: #fff;
-  padding: 6px 12px;
-  font-size: 10.5px;
+  background: rgba(0, 212, 170, 0.08);
+  color: #00D4AA;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.16em;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 212, 170, 0.15);
+}
+
+.pano-card-detail {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: #FF6B35;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.2);
 }
 
 .pano-card-caption {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  margin-top: 16px;
-  padding-inline: 6px;
+  margin-top: 20px;
+  padding-inline: 8px;
 }
 
 .pano-card-label {
-  color: var(--color-fg);
-  font-size: 15px;
+  color: #FFFFFF;
+  font-size: 16px;
   font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .pano-card-sub {
-  color: var(--color-fg-dim);
-  font-size: 11.5px;
+  color: rgba(245, 245, 240, 0.6);
+  font-size: 12px;
+  display: block;
 }
 
 /* حالت کاهش حرکت: اسکرول افقی ساده */
@@ -2472,6 +2508,58 @@
 
 .pano-fallback .pano-card {
   scroll-snap-align: center;
+}
+
+@media (max-width: 720px) {
+  .pano-section {
+    padding-top: 60px;
+  }
+
+  .pano-head {
+    width: calc(100% - 40px);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pano-viewport {
+    height: min(520px, 65vh);
+  }
+
+  .pano-track {
+    gap: 20px;
+    padding-inline: 24px;
+  }
+
+  .pano-card {
+    width: min(85vw, 420px);
+  }
+
+  .pano-card-media {
+    aspect-ratio: 16 / 11;
+    border-radius: 20px;
+  }
+
+  .pano-card-index {
+    top: 14px;
+    left: 14px;
+    padding: 6px 11px;
+    font-size: 10px;
+  }
+
+  .pano-card-detail {
+    bottom: 14px;
+    right: 14px;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+
+  .pano-card-label {
+    font-size: 14px;
+  }
+
+  .pano-card-sub {
+    font-size: 11px;
+  }
 }
 
 /* ============ جدول زمانی ============ */
