@@ -116,6 +116,7 @@ const SERIES_CATEGORY_BY_SLUG: Record<string, string> = {
   fkh: "liftoff",
   fw: "liftoff",
   er: "sealed",
+  fxm: "basic",
 };
 
 /* ---------------- برندها: بر اساس شکل محصول و بازار ---------------- */

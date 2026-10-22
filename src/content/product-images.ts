@@ -22,6 +22,9 @@ import fwLiftoff from "@/assets/images/fw-liftoff.jpg";
 import fwRoller from "@/assets/images/fw-roller.jpg";
 import fwSealed from "@/assets/images/fw-sealed.jpg";
 import fwSprag from "@/assets/images/fw-sprag.jpg";
+import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.jpg";
+import fwCompactSprag from "@/assets/images/fw-compact-sprag.jpg";
+import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.jpg";
 import heroFreewheel from "@/assets/images/hero-freewheel.jpg";
 
 /**
@@ -96,6 +99,27 @@ const drawnCup: ProductImage = {
   sub: "سایز کوچک برای مکانیزم‌های فشرده",
 };
 
+const liftoffCentrifugal: ProductImage = {
+  src: fwLiftoffCentrifugal,
+  alt: "فری‌ویل اسپراگ با لیفت‌آف گریز از مرکز برای دور آزاد بالا",
+  caption: "لیفت‌آف گریز از مرکز",
+  sub: "سایش نزدیک به صفر در دور آزاد بالا",
+};
+
+const compactSprag: ProductImage = {
+  src: fwCompactSprag,
+  alt: "فری‌ویل اسپراگ فشرده بدون حلقه‌ی داخلی برای نصب مستقیم روی شفت",
+  caption: "اسپراگ فشرده",
+  sub: "نصب مستقیم روی شفت، بدون حلقه‌ی داخلی",
+};
+
+const miniatureSprag: ProductImage = {
+  src: fwMiniatureSprag,
+  alt: "فری‌ویل اسپراگ مینیاتوری برای گشتاورهای کوچک تا متوسط",
+  caption: "اسپراگ مینیاتوری",
+  sub: "کوچک‌ترین فری‌ویل اسپراگ RINGSPANN",
+};
+
 export const SERIES_IMAGE: Record<string, ProductImage> = {
   "fgr-r": rollerBasic,
   fz: internalBearing,
@@ -104,6 +128,9 @@ export const SERIES_IMAGE: Record<string, ProductImage> = {
   frhn: backstopLever,
   fkh: liftoffPolished,
   "fa-fav": leverSmall,
+  fw: liftoffCentrifugal,
+  er: compactSprag,
+  fxm: miniatureSprag,
 };
 
 export const BRAND_IMAGE: Record<string, ProductImage> = {

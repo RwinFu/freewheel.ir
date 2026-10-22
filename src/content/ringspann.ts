@@ -433,6 +433,57 @@ const er: Series = {
   ],
 };
 
+const fxm: Series = {
+  slug: "fxm",
+  designation: "FXM …",
+  family: "فری‌ویل اسپراگ مینیاتوری",
+  element: "sprag",
+  short: "اسپراگ مینیاتوری، فشرده و سبک، برای گشتاورهای کوچک تا متوسط",
+  tagline: "کوچک‌ترین فری‌ویل اسپراگ RINGSPANN؛ مناسب تجهیزات دقیق و فضاهای محدود",
+  summary: [
+    "FXM فری‌ویل اسپراگ مینیاتوری RINGSPANN است. با وجود ابعاد بسیار کوچک، گشتاور قابل‌توجهی منتقل می‌کند و برای تجهیزاتی که فضا محدود است ایده‌آل است.",
+    "المان‌های اسپراگ در FXM بسیار کوچک‌اند اما ساختار دقیق و کیفیت ساخت آلمانی باعث می‌شود عمر سرویس بالایی داشته باشد. این سری در تجهیزات پزشکی، دستگاه‌های اندازه‌گیری، ماشین‌های بسته‌بندی سریع و سیستم‌های ایندکسینگ کاربرد گسترده دارد.",
+    "FXM هم به‌صورت فری‌ویل خالی و هم نسخه‌ی کامل با آب‌بندی و روانکاری عرضه می‌شود. نسخه‌ی کامل (CSK نوع آب‌بندی‌شده) برای نصب مستقیم روی شفت مناسب است.",
+  ],
+  features: [
+    "المان اسپراگ مینیاتوری — فشرده‌ترین سری RINGSPANN",
+    "گشتاور نسبت به ابعاد بسیار بالا",
+    "مناسب برای تجهیزات دقیق و حساس",
+    "نسخه‌ی آب‌بندی‌شده با گریس مادام‌العمر",
+    "نصب آسان — پرس‌فیت یا کلیدگذاری",
+  ],
+  applications: [
+    "تجهیزات پزشکی و آزمایشگاهی",
+    "ماشین‌های بسته‌بندی و پرکن سریع",
+    "سیستم‌های ایندکسینگ دقیق",
+    "رباتیک و اتوماسیون صنعتی",
+    "تجهیزات اندازه‌گیری و کنترل",
+  ],
+  maxTorqueNm: 1200,
+  maxBoreMm: 50,
+  notes: [
+    "FXM برای گشتاورهای کوچک تا متوسط طراحی شده است.",
+    "برای گشتاور بالاتر، از سری FZ یا FB استفاده کنید.",
+    "نسخه‌ی آب‌بندی‌شده با گریس مادام‌العمر برای کاربردهای تمیز مناسب است.",
+  ],
+  sizes: [
+    { designation: "FXM 12", bore: 12, torqueNm: 6, speedInner: 8000, speedOuter: 6000, outerDiameter: 32, width: 12, weightKg: 0.02 },
+    { designation: "FXM 15", bore: 15, torqueNm: 10, speedInner: 7000, speedOuter: 5500, outerDiameter: 35, width: 12, weightKg: 0.025 },
+    { designation: "FXM 20", bore: 20, torqueNm: 22, speedInner: 6000, speedOuter: 4800, outerDiameter: 42, width: 15, weightKg: 0.04 },
+    { designation: "FXM 25", bore: 25, torqueNm: 42, speedInner: 5000, speedOuter: 4000, outerDiameter: 52, width: 18, weightKg: 0.07 },
+    { designation: "FXM 30", bore: 30, torqueNm: 75, speedInner: 4500, speedOuter: 3600, outerDiameter: 62, width: 20, weightKg: 0.12 },
+    { designation: "FXM 35", bore: 35, torqueNm: 120, speedInner: 4000, speedOuter: 3200, outerDiameter: 72, width: 22, weightKg: 0.18 },
+    { designation: "FXM 40", bore: 40, torqueNm: 200, speedInner: 3600, speedOuter: 2800, outerDiameter: 80, width: 24, weightKg: 0.25 },
+    { designation: "FXM 50", bore: 50, torqueNm: 400, speedInner: 3000, speedOuter: 2400, outerDiameter: 90, width: 26, weightKg: 0.35 },
+  ],
+  selection: [
+    "قطر شفت و فضای نصب",
+    "گشتاور مورد نیاز",
+    "دور کاری و دور آزاد",
+    "نوع نصب (پرس‌فیت یا کلیدگذاری)",
+  ],
+};
+
 const fso: Series = {
   slug: "fso",
   designation: "FSO …",
@@ -513,7 +564,7 @@ const sm: Series = {
   ],
 };
 
-export const RINGSPANN_SERIES: Series[] = [fgr, fz, bm, fb, frhn, fkh, fafav, fw, er];
+export const RINGSPANN_SERIES: Series[] = [fgr, fz, bm, fb, frhn, fkh, fafav, fw, er, fxm];
 
 export const RINGSPANN_OTHER_SERIES = [
   {
