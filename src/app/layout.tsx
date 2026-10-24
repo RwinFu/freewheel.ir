@@ -64,6 +64,10 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  // contactPoint فقط با شماره‌ی واقعی (env) ساخته می‌شود؛ جای‌نگهدار پیش‌فرض
+  // نباید وارد داده‌ی ساختاریافته شود.
+  const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE?.trim();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -75,6 +79,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       "@type": "Organization",
       name: "freewheel.ir",
       url: SITE.url,
+      ...(contactPhone
+        ? {
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: contactPhone,
+              contactType: "customer service",
+            },
+          }
+        : {}),
     },
   };
 

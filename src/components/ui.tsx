@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MoveUpLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { SHOPS } from "@/content/site";
+import { SHOPS, SITE } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion";
 
@@ -181,25 +181,44 @@ export function Callout({
 }
 
 export function Breadcrumbs({ items }: { items: { href: string; label: string }[] }) {
+  // داده‌ی ساختاریافته‌ی BreadcrumbList — موتورهای جست‌وجو مسیر صفحه را
+  // در نتایج نشان می‌دهند؛ آدرس‌ها باید مطلق باشند.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: new URL(item.href, SITE.url).toString(),
+    })),
+  };
+
   return (
-    <nav aria-label="مسیر صفحه" className="mb-6 flex flex-wrap items-center gap-2 text-[12px] text-fg-dim">
-      {items.map((item, index) => (
-        <span key={item.href} className="flex items-center gap-2">
-          {index > 0 ? <span className="text-line-2">/</span> : null}
-          {index === items.length - 1 ? (
-            <span className="text-fg-muted">{item.label}</span>
-          ) : (
-            <Link
-              href={item.href}
-              transitionTypes={["nav-back"]}
-              className="transition-colors hover:text-accent"
-            >
-              {item.label}
-            </Link>
-          )}
-        </span>
-      ))}
-    </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <nav aria-label="مسیر صفحه" className="mb-6 flex flex-wrap items-center gap-2 text-[12px] text-fg-dim">
+        {items.map((item, index) => (
+          <span key={item.href} className="flex items-center gap-2">
+            {index > 0 ? <span className="text-line-2">/</span> : null}
+            {index === items.length - 1 ? (
+              <span className="text-fg-muted">{item.label}</span>
+            ) : (
+              <Link
+                href={item.href}
+                transitionTypes={["nav-back"]}
+                className="transition-colors hover:text-accent"
+              >
+                {item.label}
+              </Link>
+            )}
+          </span>
+        ))}
+      </nav>
+    </>
   );
 }
 

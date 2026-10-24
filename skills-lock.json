@@ -31,6 +31,30 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "89496d5dd00f4810205f351759594fc2742bf8eea85a2f2b2d1de59f4bd91576"
     },
+    "seo": {
+      "source": "AgriciDaniel/claude-seo",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "2bf057d9877655f2cdb5e38f8f8867b6e48da39a48c53c8cdcb85bdffa47640a"
+    },
+    "seo-schema": {
+      "source": "AgriciDaniel/claude-seo",
+      "sourceType": "github",
+      "skillPath": "skills/seo-schema/SKILL.md",
+      "computedHash": "a9f778b644825876fb03626d7fc4b8c32eee3d3b09f8de6ec56ab92ab00d4600"
+    },
+    "seo-sitemap": {
+      "source": "AgriciDaniel/claude-seo",
+      "sourceType": "github",
+      "skillPath": "skills/seo-sitemap/SKILL.md",
+      "computedHash": "b19e75b55daf4460ed91648fa8c168d5c5913435f2eba651d4f0fb26af1abfee"
+    },
+    "seo-technical": {
+      "source": "AgriciDaniel/claude-seo",
+      "sourceType": "github",
+      "skillPath": "skills/seo-technical/SKILL.md",
+      "computedHash": "3665959837b60e4d99ba5d2f4236102c3bae140853332ada54c71901a2b2ec2e"
+    },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",

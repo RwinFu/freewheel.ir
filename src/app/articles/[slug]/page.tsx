@@ -8,6 +8,7 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { BuyNote, Breadcrumbs, Callout, Panel, RobotNote } from "@/components/ui";
 import { ARTICLES, getArticle } from "@/content/articles";
 import { SHOPS, SITE } from "@/content/site";
+import { jalaliDateToIso } from "@/lib/date";
 import { PageTransition, SharedText } from "@/components/page-transition";
 
 type Params = { slug: string };
@@ -25,6 +26,8 @@ export async function generateMetadata({
   const article = getArticle(slug);
   if (!article) return { title: "مقاله پیدا نشد" };
 
+  const publishedIso = jalaliDateToIso(article.date);
+
   return {
     title: article.title,
     description: article.dek,
@@ -34,6 +37,7 @@ export async function generateMetadata({
       title: article.title,
       description: article.dek,
       url: `${SITE.url}/articles/${article.slug}`,
+      ...(publishedIso ? { publishedTime: publishedIso } : {}),
     },
   };
 }
@@ -43,6 +47,9 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   const article = getArticle(slug);
   if (!article) notFound();
 
+  // تاریخ جلالی محتوا برای schema به ISO میلادی تبدیل می‌شود
+  const publishedIso = jalaliDateToIso(article.date);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
@@ -50,6 +57,10 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     description: article.dek,
     inLanguage: "fa-IR",
     articleSection: article.tag,
+    ...(publishedIso
+      ? { datePublished: publishedIso, dateModified: publishedIso }
+      : {}),
+    mainEntityOfPage: `${SITE.url}/articles/${article.slug}`,
     author: { "@type": "Organization", name: "freewheel.ir" },
     publisher: { "@type": "Organization", name: "freewheel.ir" },
   };
