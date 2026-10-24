@@ -1,0 +1,67 @@
+name: Deploy to VPS
+
+# با هر push روی main، از طریق SSH روی سرور `deploy/deploy.sh` را اجرا می‌کند
+# (pull ← نصب ← بیلد standalone ← ری‌استارت ← چک سلامت).
+#
+# راه‌اندازی (یک‌بار): این چهار Secret را در
+#   Settings → Secrets and variables → Actions
+# بسازید؛ تا وقتی ساخته نشده‌اند، این ورک‌فلو بی‌صدا رد می‌شود و خطا نمی‌دهد:
+#   VPS_HOST    آدرس IP یا هاست‌نیم سرور
+#   VPS_USER    کاربر SSH (مثلاً ubuntu)
+#   VPS_SSH_KEY کلید خصوصی SSH که کلید عمومی‌اش روی سرور در authorized_keys است
+#   VPS_PORT    (اختیاری) پورت SSH — پیش‌فرض 22
+#   VPS_APP_DIR (اختیاری) مسیر پروژه روی سرور — پیش‌فرض /var/www/freewheel.ir
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: none
+
+concurrency:
+  group: vps-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check VPS secrets
+        id: gate
+        env:
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+          KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$KEY" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::VPS secrets تنظیم نشده‌اند؛ استقرار رد شد (بدون خطا)."
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up SSH key
+        if: steps.gate.outputs.ready == 'true'
+        env:
+          KEY: ${{ secrets.VPS_SSH_KEY }}
+          HOST: ${{ secrets.VPS_HOST }}
+          PORT: ${{ secrets.VPS_PORT || 22 }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$PORT" -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Run deploy script on the server
+        if: steps.gate.outputs.ready == 'true'
+        env:
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+          PORT: ${{ secrets.VPS_PORT || 22 }}
+          APP_DIR: ${{ secrets.VPS_APP_DIR || '/var/www/freewheel.ir' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$PORT" \
+            -o BatchMode=yes -o ConnectTimeout=20 \
+            "$USER@$HOST" "cd '$APP_DIR' && bash deploy/deploy.sh"

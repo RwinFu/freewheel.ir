@@ -163,6 +163,41 @@ bash deploy/deploy.sh
 
 ---
 
+## ۸) دیپلوی خودکار با گیت‌هاب‌اکشن (اختیاری)
+
+ورک‌فلوی `.github/workflows/deploy-vps.yml` با هر push روی `main`، از طریق
+SSH همان `deploy/deploy.sh` را روی سرور اجرا می‌کند. راه‌اندازی یک‌باره:
+
+```bash
+# روی سیستم خودتان یک کلید مخصوص دیپلوی بسازید
+ssh-keygen -t ed25519 -f freewheel-deploy -N "" -C "github-actions"
+
+# کلید عمومی را روی سرور برای کاربر دیپلوی فعال کنید
+ssh-copy-id -i freewheel-deploy.pub VPS_USER@VPS_HOST
+```
+
+بعد در گیت‌هاب: **Settings → Secrets and variables → Actions** و این Secretها:
+
+| Secret | مقدار |
+|---|---|
+| `VPS_HOST` | IP یا هاست‌نیم سرور |
+| `VPS_USER` | کاربر SSH |
+| `VPS_SSH_KEY` | محتوای فایل کلید خصوصی (`freewheel-deploy`) |
+| `VPS_PORT` | اختیاری — پیش‌فرض ۲۲ |
+| `VPS_APP_DIR` | اختیاری — پیش‌فرض `/var/www/freewheel.ir` |
+
+> تا وقتی Secretها ساخته نشده‌اند، ورک‌فلو فقط رد می‌شود و قرمز نمی‌شود.
+
+نکته: مسیر PM2 به sudo نیاز ندارد. اگر از مسیر **systemd** استفاده می‌کنید،
+چون `deploy.sh` آخرش `sudo systemctl restart freewheel` می‌زند، به کاربر
+دیپلوی sudo بدون رمز فقط برای همین دستور بدهید:
+
+```bash
+echo 'VPS_USER ALL=(root) NOPASSWD: /usr/bin/systemctl restart freewheel' | sudo tee /etc/sudoers.d/freewheel
+```
+
+---
+
 ## عیب‌یابی سریع
 
 | علامت | علت محتمل | راه‌حل |
