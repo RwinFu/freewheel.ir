@@ -51,6 +51,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const ticking = useRef(false);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -78,20 +79,34 @@ export function SiteHeader() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  // لکه‌ی نور شیشه — مستقیم روی CSS varها می‌نویسد تا re-render ندهد
+  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    const el = headerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--lg-mx", `${event.clientX - rect.left}px`);
+    el.style.setProperty("--lg-sheen-opacity", "1");
+  }, []);
+
+  const handlePointerLeave = useCallback(() => {
+    headerRef.current?.style.setProperty("--lg-sheen-opacity", "0");
+  }, []);
+
   return (
     <div className="fixed top-0 right-0 left-0 z-50 pointer-events-none">
       <div className="flex justify-center px-3 sm:px-6 pt-3">
         <header
+          ref={headerRef}
+          data-scrolled={scrolled || undefined}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={handlePointerLeave}
           className={[
-            "pointer-events-auto w-full max-w-[1200px]",
+            "liquid-glass pointer-events-auto relative w-full max-w-[1200px]",
             "rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            scrolled
-              ? "bg-[#1A1410]/90 backdrop-blur-2xl shadow-[0_4px_40px_rgba(26,20,16,0.25),0_1px_4px_rgba(26,20,16,0.15)] border border-white/[0.06]"
-              : "bg-gradient-to-r from-[#1A1410]/75 via-[#2C2420]/65 to-[#1A1410]/75 backdrop-blur-xl border border-white/[0.08]",
           ].join(" ")}
         >
-          {/* subtle top highlight */}
-          <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+          {/* لکه‌ی نور روی سطح شیشه */}
+          <span className="liquid-glass-sheen" aria-hidden="true" />
 
           <div className="relative flex h-[64px] items-center justify-between gap-3 px-4 sm:px-6">
             <Wordmark onNavigate={() => setOpen(false)} />
@@ -110,12 +125,14 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            {/* CTA */}
+            {/* CTA — خودش هم یک تکه شیشه‌ی کوچک است: برق لبه‌ی بالا دارد */}
             <Link
               href="/contact"
               className="hidden lg:inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:scale-[1.02] active:scale-[0.98] group"
               style={{
                 background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.30)",
               }}
             >
               مشاوره‌ی فنی
@@ -135,11 +152,11 @@ export function SiteHeader() {
             </button>
           </div>
 
-          {/* Mobile panel */}
+          {/* Mobile panel — به‌جای زمینه‌ی مات، شیشه‌ی هدر از این‌جا هم دیده می‌شود */}
           <div
             id="mobile-navigation"
             hidden={!open}
-            className="relative border-t border-white/[0.06] bg-[#1A1410]/95 backdrop-blur-2xl px-4 pb-5 pt-3 lg:hidden"
+            className="relative border-t border-white/[0.08] bg-white/[0.04] px-4 pb-5 pt-3 lg:hidden"
           >
             {/* accent stripe */}
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
@@ -164,6 +181,8 @@ export function SiteHeader() {
                 className="mt-2.5 flex items-center justify-center gap-2 min-h-11 rounded-xl text-[14px] font-bold text-white transition-all hover:shadow-lg hover:shadow-accent/20 active:scale-[0.98]"
                 style={{
                   background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.25)",
                 }}
               >
                 مشاوره‌ی فنی
