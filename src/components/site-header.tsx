@@ -1,8 +1,10 @@
 "use client";
 
-import { Menu, MoveUpLeft, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+import { PartSearch } from "@/components/part-search";
 
 const NAV_LINKS = [
   { href: "/#intro", label: "معرفی" },
@@ -18,7 +20,7 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
     <Link
       href="/"
       onClick={onNavigate}
-      className="group flex shrink-0 items-center gap-2.5"
+      className="lg-wordmark group flex shrink-0 items-center gap-2.5"
       aria-label="صفحه‌ی اصلی freewheel.ir"
     >
       <span className="relative grid h-10 w-10 place-items-center rounded-xl overflow-hidden">
@@ -28,7 +30,10 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
         <svg viewBox="0 0 40 40" className="relative h-6 w-6" aria-hidden="true">
           <circle cx="20" cy="20" r="13" fill="none" stroke="white" strokeWidth="1.8" opacity="0.9" />
           <circle cx="20" cy="20" r="6" fill="none" stroke="white" strokeWidth="1.8" opacity="0.7" />
-          <path d="M20 6v5M34 20h-5M20 34v-5M6 20h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          {/* صلیب دنده‌ای، آرام می‌چرخد — فری‌ویل زنده‌ی لوگو */}
+          <g className="lg-ring-spin">
+            <path d="M20 6v5M34 20h-5M20 34v-5M6 20h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </g>
           <circle cx="20" cy="20" r="2" fill="white" />
         </svg>
       </span>
@@ -105,14 +110,14 @@ export function SiteHeader() {
             "rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
           ].join(" ")}
         >
-          {/* لکه‌ی نور روی سطح شیشه */}
+          {/* لکه‌ی نور روی سطح شیشه + نوار نور مورب عبوری */}
           <span className="liquid-glass-sheen" aria-hidden="true" />
 
-          <div className="relative flex h-[64px] items-center justify-between gap-3 px-4 sm:px-6">
+          <div className="lg-row relative flex items-center justify-between gap-3 px-4 sm:px-6">
             <Wordmark onNavigate={() => setOpen(false)} />
 
             {/* Desktop nav */}
-            <nav className="hidden items-center gap-0.5 lg:flex" aria-label="ناوبری اصلی">
+            <nav className="lg-nav hidden items-center gap-0.5 lg:flex" aria-label="ناوبری اصلی">
               {NAV_LINKS.map((item) => (
                 <Link
                   key={item.href}
@@ -125,19 +130,8 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            {/* CTA — خودش هم یک تکه شیشه‌ی کوچک است: برق لبه‌ی بالا دارد */}
-            <Link
-              href="/contact"
-              className="hidden lg:inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:scale-[1.02] active:scale-[0.98] group"
-              style={{
-                background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.30)",
-              }}
-            >
-              مشاوره‌ی فنی
-              <MoveUpLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5 group-hover:translate-y-0.5" />
-            </Link>
+            {/* سرچ‌بارِ کاتالوگ — جای CTA، درون کپسول شیشه‌ای */}
+            <PartSearch variant="glass" className="relative hidden w-52 lg:block" />
 
             {/* Mobile toggle */}
             <button
@@ -161,6 +155,8 @@ export function SiteHeader() {
             {/* accent stripe */}
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
             <nav className="mx-auto grid max-w-[1100px] gap-1.5" aria-label="ناوبری موبایل">
+              {/* سرچ‌بار در دراور موبایل، بالای فهرست */}
+              <PartSearch variant="glass" className="relative mb-2" />
               {NAV_LINKS.map((item, i) => (
                 <Link
                   key={item.href}
@@ -175,19 +171,6 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="mt-2.5 flex items-center justify-center gap-2 min-h-11 rounded-xl text-[14px] font-bold text-white transition-all hover:shadow-lg hover:shadow-accent/20 active:scale-[0.98]"
-                style={{
-                  background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.25)",
-                }}
-              >
-                مشاوره‌ی فنی
-                <MoveUpLeft className="h-4 w-4" />
-              </Link>
             </nav>
           </div>
         </header>
