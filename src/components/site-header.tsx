@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/#intro", label: "معرفی" },
-  { href: "/#mechanism", label: "سازوکار" },
-  { href: "/#applications", label: "کاربردها" },
-  { href: "/#families", label: "خانواده‌ها" },
-  { href: "/#drive-system", label: "درایو" },
-  { href: "/ringspann", label: "کاتالوگ" },
+  { href: "/#intro", label: "فری‌ویل چیست؟" },
+  { href: "/#mechanism", label: "چطور قفل می‌کند؟" },
+  { href: "/#applications", label: "کجای خط شما؟" },
+  { href: "/#families", label: "انواع فری‌ویل" },
+  { href: "/#drive-system", label: "ریشه‌ی اطمینان" },
+  { href: "/ringspann", label: "جدول ابعاد" },
 ];
 
 function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
@@ -43,7 +43,7 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
           freewheel<span className="text-accent-soft">.ir</span>
         </span>
         <span className="mt-0.5 block text-[10px] font-medium text-white/60">
-          راهکارهای انتقال قدرت
+          حرکت، فقط در یک جهت
         </span>
       </span>
     </Link>
@@ -138,7 +138,7 @@ export function SiteHeader() {
                   "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.30)",
               }}
             >
-              مشاوره‌ی فنی
+              استعلام قیمت
               <MoveUpLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5 group-hover:translate-y-0.5" />
             </Link>
 
@@ -188,7 +188,7 @@ export function SiteHeader() {
                     "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.25)",
                 }}
               >
-                مشاوره‌ی فنی
+                استعلام قیمت
                 <MoveUpLeft className="h-4 w-4" />
               </Link>
             </nav>
