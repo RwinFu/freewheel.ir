@@ -4,11 +4,9 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { LoadingScreen } from "@/components/loading-screen";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { SITE } from "@/content/site";
 import "./globals.css";
-import "./loading-screen.css";
 
 const vazir = localFont({
   src: [
@@ -87,7 +85,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LoadingScreen />
         <SmoothScroll />
         <a
           href="#main"
