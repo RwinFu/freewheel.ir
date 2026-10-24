@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نقشه سایت — freewheel.ir · تصویر</title>
+<style>
+  :root{--base:#FAF4EA;--panel:#FFFDF8;--line:#D4B88A;--fg:#1C1510;--muted:#6B5240;--dim:#9A8060;--accent:#E85D04}
+  *{box-sizing:border-box} body{margin:0;background:var(--base);color:var(--fg);font-family:Vazirmatn,system-ui,sans-serif;line-height:1.8}
+  header{max-width:1640px;margin:0 auto;padding:28px 20px 10px}
+  h1{margin:0;font-size:26px} .sub{color:var(--muted);font-size:13px;margin-top:8px;line-height:2}
+  .wrap{max-width:1640px;margin:0 auto;padding:12px 20px 32px}
+  .frame{background:white;border:1px solid var(--line);border-radius:16px;padding:10px;overflow:auto}
+  .frame object{width:100%;height:auto;display:block}
+  .actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-size:13px;text-decoration:none}
+  .btn.primary{background:#1C1510;color:white;border-color:#1C1510}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .card h3{margin:0 0 6px;font-size:14px} .card p{margin:0;color:var(--muted);font-size:13px;line-height:2}
+  footer{max-width:1640px;margin:0 auto;padding:16px 20px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);margin-top:12px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>نقشه سایت — freewheel.ir <span style="font-size:12px;color:var(--dim)">تصویر</span></h1>
+  <p class="sub">این تصویر سلسله‌مراتب واقعی سایت را نشان می‌دهد — هر باکس یک URL است، هر خط یک رابطه‌ی والد-فرزند از <code>src/app</code>. عدد داخل قرص = <code>sitemap priority</code>. ستاره ★ = پربازدیدترین صفحه‌ی هر بخش. <a href="illustrations/sitemap-diagram.svg" download>دانلود SVG</a> · <a href="sitemap-visual.html">نسخه تعاملی HTML</a> · <a href="illustrations/index.html">آناتومی فری‌ویل</a></p>
+</header>
+<div class="wrap">
+  <div class="frame">
+    <object data="illustrations/sitemap-diagram.svg" type="image/svg+xml" aria-label="نقشه سایت freewheel.ir — تصویر سلسله‌مراتبی">
+      <img src="illustrations/sitemap-diagram.svg" alt="نقشه سایت freewheel.ir — ۴۳ مسیر" style="width:100%;height:auto">
+    </object>
+  </div>
+  <div class="actions">
+    <a class="btn primary" href="illustrations/sitemap-diagram.svg" download>⬇ دانلود SVG (۲۷KB)</a>
+    <a class="btn" href="sitemap-visual.html">↗ نسخه تعاملی (کلیک‌پذیر)</a>
+    <a class="btn" href="sitemap.xml">sitemap.xml</a>
+    <a class="btn" href="illustrations/index.html">آناتومی فری‌ویل →</a>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>چطور بخوانیم</h3>
+      <p>از بالا (ROOT) به پایین: هر ستون یک شاخه‌ی اصلی از <code>NAV</code> در <code>src/content/site.ts</code> است. باکس‌های سفید = صفحه، باکس نارنجی = priority بالا، باکس سیاه = ROOT/API، خط‌چین = سیستمی (sitemap/robots/OG). رنگ داخل کاتالوگ = دسته‌بندی taxonomy (steel/mint/coral/ocean).</p>
+    </div>
+    <div class="card">
+      <h3>آمار کل</h3>
+      <p><b>۴۳ مسیر استاتیک</b> در build (SSG)، <b>۳۸ URL</b> در sitemap.xml (+ 3 API + 2 meta)، ۱۲ سری RINGSPANN، ۷ برند، ۶ کاربرد، ۵ مقاله. منبع حقیقت: <code>src/app/sitemap.ts</code> که هر گروه را از آرایه‌های محتوا می‌سازد؛ اگر slug جدیدی بدون دسته اضافه شود، build خطا می‌دهد.</p>
+    </div>
+  </div>
+</div>
+<footer>فایل تصویری: <code>public/illustrations/sitemap-diagram.svg</code> · نسخه تعاملی: <code>public/sitemap-visual.html</code> · داده: <code>src/app/sitemap.ts</code> · تولید: ۱۴۰۴/۰۸/۰۲</footer>
+</body>
+</html>
