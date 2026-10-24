@@ -38,6 +38,14 @@ $SKILLS_CLI add anthropics/skills \
   --skill algorithmic-art \
   -a "$AGENT" -y
 
+echo "-> seo (AgriciDaniel/claude-seo)"
+$SKILLS_CLI add AgriciDaniel/claude-seo \
+  --skill seo \
+  --skill seo-technical \
+  --skill seo-schema \
+  --skill seo-sitemap \
+  -a "$AGENT" -y
+
 echo "-> testing (anthropics/skills)"
 $SKILLS_CLI add anthropics/skills \
   --skill webapp-testing \

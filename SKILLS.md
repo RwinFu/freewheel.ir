@@ -29,6 +29,7 @@ npm run skills:update     # به‌روزرسانی به آخرین نسخه
 | [`obra/superpowers`](https://github.com/obra/superpowers) | ~۲۹۶٬۱۰۰ | چارچوب مهارت و روش کار؛ پراستفاده‌ترین مخزن مهارت |
 | [`anthropics/skills`](https://github.com/anthropics/skills) | ~۱۷۹٬۹۰۰ | مجموعه‌ی رسمی Anthropic؛ مرجع طراحی و تست |
 | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) | ~۳۲٬۰۰۰ | مجموعه‌ی رسمی Vercel؛ دقیقاً هم‌راستا با Next.js این پروژه |
+| [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo) | ~۱۹٬۹۵۳ | مجموعه‌ی تخصصی سئو؛ با کنوانسیون استاندارد SKILL.md سازگار |
 
 ستاره‌ها در زمان نوشتن این فایل از GitHub API خوانده شده‌اند و تقریبی‌اند.
 
@@ -86,6 +87,19 @@ npm run skills:update     # به‌روزرسانی به آخرین نسخه
 | مهارت | مبدأ | به چه کاری می‌آید |
 | --- | --- | --- |
 | `writing-guidelines` | vercel-labs/agent-skills | بازبینی متن‌ها: شفاف، کوتاه و بدون حشو؛ مبنای بازنویسی بخش «اصل کار» |
+
+### ۸. سئو
+
+| مهارت | مبدأ | به چه کاری می‌آید |
+| --- | --- | --- |
+| `seo` | AgriciDaniel/claude-seo | ارکسترِ ۲۶ زیرمهارت سئو (فنی، محتوا، GEO/AEO، خزنده‌های هوش مصنوعی و گزارش) |
+| `seo-technical` | AgriciDaniel/claude-seo | ممیزی فنی: خزش‌پذیری، ایندکس، canonical، رندر JS، Core Web Vitals، امنیت |
+| `seo-schema` | AgriciDaniel/claude-seo | تولید/اعتبارسنجی JSON-LD مطابق وضعیت به‌روز انواع schema (مثل کنار رفتن FAQPage) |
+| `seo-sitemap` | AgriciDaniel/claude-seo | بررسی و تولید نقشه‌ی سایت XML |
+
+با این مهارت‌ها ممیزی سئوی سایت انجام شد: BreadcrumbList به کامپوننت
+`Breadcrumbs` اضافه شد، تاریخ ISO به داده‌ی ساختاریافته‌ی مقاله‌ها رفت و
+`contactPoint` سازمان با متغیر محیطی شماره‌ی تماس واقعی پُر می‌شود.
 
 ## افزودن مهارت تازه
 
