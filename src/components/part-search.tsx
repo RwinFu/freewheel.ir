@@ -2,7 +2,8 @@
 
 import { Loader2, Search, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { searchCatalog } from "@/lib/catalog";
 
@@ -27,6 +28,7 @@ const skin = {
     empty: "text-fg-muted",
     rowBorder: "border-line",
     rowHover: "hover:bg-accent/8",
+    rowActive: "bg-accent/10",
     title: "text-fg",
     sub: "text-fg-dim",
     num: "text-fg-muted",
@@ -41,6 +43,7 @@ const skin = {
     empty: "text-white/70",
     rowBorder: "border-white/[0.08]",
     rowHover: "hover:bg-white/[0.07]",
+    rowActive: "bg-white/[0.12]",
     title: "text-white",
     sub: "text-white/55",
     num: "text-white/80",
@@ -60,7 +63,47 @@ export function PartSearch({
   const [results, setResults] = useState<Result[]>([]);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
+  const listId = useId();
+
+  /** رفتن به یک نتیجه و بستن دراپ‌داون — مشترک بین Enter، کلیک آیکون و کیبورد */
+  const goTo = (index: number) => {
+    const target = results[index];
+    if (!target) return;
+    setOpen(false);
+    router.push(target.href);
+  };
+
+  useEffect(() => {
+    // گزینه‌ی فعال در فهرست اسکرول‌دار همیشه دیده شود
+    if (active < 0) return;
+    document.getElementById(`${listId}-option-${active}`)?.scrollIntoView({ block: "nearest" });
+  }, [active, listId]);
+
+  const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (results.length > 0) {
+        setOpen(true);
+        setActive((i) => (i + 1) % results.length);
+      }
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (results.length > 0) {
+        setOpen(true);
+        setActive((i) => (i - 1 + results.length) % results.length);
+      }
+    } else if (event.key === "Enter") {
+      // Enter = رفتن به گزینه‌ی فعال (پیش‌فرض اولین نتیجه)
+      if (open && results.length > 0) {
+        event.preventDefault();
+        goTo(active >= 0 ? active : 0);
+      }
+    }
+  };
 
   useEffect(() => {
     const term = query.trim();
@@ -68,8 +111,11 @@ export function PartSearch({
     const controller = new AbortController();
 
     const timer = setTimeout(async () => {
+      // هر بار که نتایج عوض می‌شوند، گزینه‌ی فعال هم‌جا ریست می‌شود تا
+      // Enter و دکمه‌ی ذره‌بین همیشه روی اولین نتیجه‌ی تازه کار کنند.
       if (short) {
         setResults([]);
+        setActive(-1);
         setState("idle");
         return;
       }
@@ -77,7 +123,9 @@ export function PartSearch({
       try {
         if (process.env.NEXT_PUBLIC_STATIC_SITE === "1") {
           // GitHub Pages has no API; use the same catalog as the Node fallback.
-          setResults(searchCatalog(term));
+          const found = searchCatalog(term);
+          setResults(found);
+          setActive(found.length > 0 ? 0 : -1);
           setState("done");
           setOpen(true);
           return;
@@ -90,15 +138,19 @@ export function PartSearch({
         // «نتیجه‌ای نیست» با «جست‌وجو کار نمی‌کند» فرق دارد؛ پیام‌ها جداست.
         if (!response.ok || !data.ok) {
           setResults([]);
+          setActive(-1);
           setState("error");
         } else {
-          setResults(data.items ?? []);
+          const items = data.items ?? [];
+          setResults(items);
+          setActive(items.length > 0 ? 0 : -1);
           setState("done");
         }
         setOpen(true);
       } catch {
         if (controller.signal.aborted) return;
         setResults([]);
+        setActive(-1);
         setState("error");
         setOpen(true);
       }
@@ -128,14 +180,34 @@ export function PartSearch({
   return (
     <div ref={boxRef} className={className}>
       <div className={`flex items-center gap-2 border px-3 py-2 transition-colors ${t.box}`}>
-        <Search className={`h-4 w-4 shrink-0 ${t.icon}`} />
+        {/* ذره‌بین دیگر تزئینی نیست: کلیک = فوکوس/حرکت به اولین نتیجه */}
+        <button
+          type="button"
+          onClick={() => {
+            if (open && results.length > 0) {
+              goTo(active >= 0 ? active : 0);
+            } else {
+              inputRef.current?.focus();
+            }
+          }}
+          aria-label="جست‌وجو"
+          className={`shrink-0 transition-colors hover:scale-110 ${t.icon}`}
+        >
+          <Search className="h-4 w-4" />
+        </button>
         <input
+          ref={inputRef}
           type="search"
           name="partNumber"
           autoComplete="off"
           spellCheck={false}
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-activedescendant={active >= 0 ? `${listId}-option-${active}` : undefined}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={onInputKeyDown}
           onFocus={() => results.length > 0 && setOpen(true)}
           placeholder="جست‌وجوی کد، مثل FGR 45…"
           dir="ltr"
@@ -150,7 +222,9 @@ export function PartSearch({
             onClick={() => {
               setQuery("");
               setResults([]);
+              setActive(-1);
               setOpen(false);
+              inputRef.current?.focus();
             }}
             aria-label="پاک کردن"
             className={`shrink-0 transition-colors ${t.clear}`}
@@ -179,12 +253,22 @@ export function PartSearch({
               .
             </p>
           ) : (
-            <ul className="max-h-[320px] overflow-y-auto">
-              {results.map((item) => (
-                <li key={item.href} className={`border-b last:border-b-0 ${t.rowBorder}`}>
+            <ul role="listbox" id={listId} className="max-h-[320px] overflow-y-auto">
+              {results.map((item, index) => (
+                <li
+                  key={item.href}
+                  id={`${listId}-option-${index}`}
+                  role="option"
+                  aria-selected={index === active}
+                  onMouseEnter={() => setActive(index)}
+                  className={`border-b last:border-b-0 ${t.rowBorder} ${
+                    index === active ? t.rowActive : ""
+                  }`}
+                >
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    tabIndex={-1}
                     className={`flex items-center justify-between gap-4 px-4 py-3 transition-colors ${t.rowHover}`}
                   >
                     <span className="min-w-0">
