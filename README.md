@@ -35,6 +35,21 @@ npm run verify      # فیلتر دسته‌بندی را در jsdom واقعا�
 
 > `next-env.d.ts` را پاک نکنید؛ همین فایل تایپ‌های ماژول‌های تصویر (`*.jpg`) و مسیرها را به TypeScript می‌دهد. اگر نبود، با `npm run typegen` دوباره ساخته می‌شود.
 
+## استقرار روی VPS (دامنهٔ واقعی)
+
+این پروژه یک اپ Node.js است و روی هاست اشتراکی PHP بالا نمی‌آید؛ راهنمای
+کامل قدم‌به‌قدم (Node 22، PostgreSQL، Nginx، SSL، PM2 یا systemd و اسکریپت
+به‌روزرسانی خودکار) در **[deploy/README.md](deploy/README.md)** آمده است.
+خلاصه:
+
+```bash
+npm run build:standalone                 # خروجی خودکفا در .next/standalone
+pm2 start deploy/ecosystem.config.cjs    # یا: systemctl فایل deploy/freewheel.service
+```
+
+اطلاعات تماس نمایشی (تلفن، موبایل، ایمیل، آدرس) با متغیرهای
+`NEXT_PUBLIC_CONTACT_*` در `.env.local` تنظیم می‌شود؛ نمونه در `.env.example`.
+
 ## فناوری‌ها
 
 - Next.js App Router، React و TypeScript
