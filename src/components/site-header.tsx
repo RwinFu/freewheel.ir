@@ -1,16 +1,18 @@
 "use client";
 
-import { Menu, MoveUpLeft, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { PartSearch } from "@/components/part-search";
+
 const NAV_LINKS = [
-  { href: "/#intro", label: "فری‌ویل چیست؟" },
-  { href: "/#mechanism", label: "چطور قفل می‌کند؟" },
-  { href: "/#applications", label: "کجای خط شما؟" },
-  { href: "/#families", label: "انواع فری‌ویل" },
-  { href: "/#drive-system", label: "ریشه‌ی اطمینان" },
-  { href: "/ringspann", label: "جدول ابعاد" },
+  { href: "/#intro", label: "معرفی" },
+  { href: "/#mechanism", label: "سازوکار" },
+  { href: "/#applications", label: "کاربردها" },
+  { href: "/#families", label: "خانواده‌ها" },
+  { href: "/#drive-system", label: "درایو" },
+  { href: "/ringspann", label: "کاتالوگ" },
 ];
 
 function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
@@ -43,7 +45,7 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
           freewheel<span className="text-accent-soft">.ir</span>
         </span>
         <span className="mt-0.5 block text-[10px] font-medium text-white/60">
-          حرکت، فقط در یک جهت
+          راهکارهای انتقال قدرت
         </span>
       </span>
     </Link>
@@ -128,19 +130,8 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            {/* CTA — خودش هم یک تکه شیشه‌ی کوچک است: برق لبه‌ی بالا دارد */}
-            <Link
-              href="/contact"
-              className="hidden lg:inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:scale-[1.02] active:scale-[0.98] group"
-              style={{
-                background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.30)",
-              }}
-            >
-              استعلام قیمت
-              <MoveUpLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5 group-hover:translate-y-0.5" />
-            </Link>
+            {/* سرچ‌بارِ کاتالوگ — جای CTA، درون کپسول شیشه‌ای */}
+            <PartSearch variant="glass" className="relative hidden w-52 lg:block" />
 
             {/* Mobile toggle */}
             <button
@@ -164,6 +155,8 @@ export function SiteHeader() {
             {/* accent stripe */}
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
             <nav className="mx-auto grid max-w-[1100px] gap-1.5" aria-label="ناوبری موبایل">
+              {/* سرچ‌بار در دراور موبایل، بالای فهرست */}
+              <PartSearch variant="glass" className="relative mb-2" />
               {NAV_LINKS.map((item, i) => (
                 <Link
                   key={item.href}
@@ -178,19 +171,6 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="mt-2.5 flex items-center justify-center gap-2 min-h-11 rounded-xl text-[14px] font-bold text-white transition-all hover:shadow-lg hover:shadow-accent/20 active:scale-[0.98]"
-                style={{
-                  background: "linear-gradient(135deg, #D35400 0%, #E67E22 100%)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 10px rgba(211,84,0,0.25)",
-                }}
-              >
-                استعلام قیمت
-                <MoveUpLeft className="h-4 w-4" />
-              </Link>
             </nav>
           </div>
         </header>
