@@ -22,11 +22,13 @@ export const SHOPS = {
   },
 } as const;
 
+// اطلاعات تماس را بدون تغییر کد، با متغیرهای محیطی `.env.local` تنظیم کنید؛
+// نمونه‌ی نام متغیرها در `.env.example` و راهنمای استقرار در `deploy/README.md` آمده است.
 export const CONTACT = {
-  phone: "[شماره تماس]",
-  mobile: "[شماره موبایل]",
-  email: "[ایمیل]",
-  address: "[آدرس واقعی]",
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "[شماره تماس]",
+  mobile: process.env.NEXT_PUBLIC_CONTACT_MOBILE || "[شماره موبایل]",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "[ایمیل]",
+  address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "[آدرس واقعی]",
   hours: "شنبه تا چهارشنبه، ۸ تا ۱۷ — پنجشنبه ۸ تا ۱۳",
 } as const;
 

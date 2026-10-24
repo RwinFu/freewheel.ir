@@ -1,0 +1,27 @@
+# فایل سرویس systemd — جایگزین PM2.
+# ۱) این فایل را در /etc/systemd/system/freewheel.service کپی کنید
+# ۲) مسیرها و کاربر را با سرور خودتان هماهنگ کنید
+# ۳) sudo systemctl daemon-reload && sudo systemctl enable --now freewheel
+[Unit]
+Description=freewheel.ir Next.js server
+After=network.target
+
+[Service]
+Type=simple
+User=freewheel
+Group=freewheel
+WorkingDirectory=/var/www/freewheel.ir
+ExecStart=/usr/bin/node .next/standalone/server.js
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+# DATABASE_URL و متغیرهای NEXT_PUBLIC_* را این‌جا بگذارید، یا بهتر است
+# یک فایل محیطی جدا و امن بسازید و خط زیر را فعال کنید:
+# EnvironmentFile=/var/www/freewheel.ir/.env.production
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

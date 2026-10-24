@@ -14,7 +14,14 @@ const nextConfig: NextConfig = {
         // در `src/lib/asset.ts` همان پیشوند دستی اضافه می‌شود.
         env: { NEXT_PUBLIC_BASE_PATH: "/freewheel.ir" },
       } as const
-    : { env: { NEXT_PUBLIC_BASE_PATH: "" } }),
+    : {
+        // خروجی standalone برای استقرار روی VPS: یک سرور Node خودکفا در
+        // `.next/standalone` می‌سازد که بدون node_modules اصلی اجرا می‌شود.
+        // بعد از بیلد، `node scripts/prepare-standalone.mjs` را اجرا کنید
+        // (یا به‌جای `npm run build` از `npm run build:standalone`).
+        output: "standalone",
+        env: { NEXT_PUBLIC_BASE_PATH: "" },
+      }),
   // Allow the sandbox's proxied preview hostname to load Next dev assets.
   allowedDevOrigins: ["**.e2b.app"],
   // Keep the development-only Next.js badge out of the public-facing preview.
