@@ -1,31 +1,31 @@
 import type { StaticImageData } from "next/image";
 
-import fwAxis from "@/assets/images/part/fw-axis.jpg";
+import fwAxis from "@/assets/images/part/fw-axis.webp";
 import fwAxisBackdrop from "@/assets/images/part/fw-axis-backdrop.webp";
 import fwAxisFlange from "@/assets/images/part/fw-axis-flange.webp";
 import fwAxisHub from "@/assets/images/part/fw-axis-hub.webp";
 import fwAxisRace from "@/assets/images/part/fw-axis-race.webp";
-import typeRoller from "@/assets/images/part/type-roller.jpg";
-import typeSprag from "@/assets/images/part/type-sprag.jpg";
-import unitBackstop from "@/assets/images/part/unit-backstop.jpg";
-import unitSealed from "@/assets/images/part/unit-sealed.jpg";
-import unitSprag from "@/assets/images/part/unit-sprag.jpg";
-import fwBackstop from "@/assets/images/fw-backstop.jpg";
-import fwBackstopPng from "@/assets/images/fw-backstop.png";
-import fwLiftoffPng from "@/assets/images/fw-liftoff.png";
-import fwRollerPng from "@/assets/images/fw-roller.png";
-import fwSpragPng from "@/assets/images/fw-sprag.png";
-import fwDrawnCup from "@/assets/images/fw-drawncup.jpg";
-import fwInternal from "@/assets/images/fw-internal.jpg";
-import fwLeverSmall from "@/assets/images/fw-lever-small.jpg";
-import fwLiftoff from "@/assets/images/fw-liftoff.jpg";
-import fwRoller from "@/assets/images/fw-roller.jpg";
-import fwSealed from "@/assets/images/fw-sealed.jpg";
-import fwSprag from "@/assets/images/fw-sprag.jpg";
-import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.jpg";
-import fwCompactSprag from "@/assets/images/fw-compact-sprag.jpg";
-import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.jpg";
-import heroFreewheel from "@/assets/images/hero-freewheel.jpg";
+import typeRoller from "@/assets/images/part/type-roller.webp";
+import typeSprag from "@/assets/images/part/type-sprag.webp";
+import unitBackstop from "@/assets/images/part/unit-backstop.webp";
+import unitSealed from "@/assets/images/part/unit-sealed.webp";
+import unitSprag from "@/assets/images/part/unit-sprag.webp";
+import fwBackstop from "@/assets/images/fw-backstop.webp";
+import fwBackstopPng from "@/assets/images/fw-backstop.webp";
+import fwLiftoffPng from "@/assets/images/fw-liftoff.webp";
+import fwRollerPng from "@/assets/images/fw-roller.webp";
+import fwSpragPng from "@/assets/images/fw-sprag.webp";
+import fwDrawnCup from "@/assets/images/fw-drawncup.webp";
+import fwInternal from "@/assets/images/fw-internal.webp";
+import fwLeverSmall from "@/assets/images/fw-lever-small.webp";
+import fwLiftoff from "@/assets/images/fw-liftoff.webp";
+import fwRoller from "@/assets/images/fw-roller.webp";
+import fwSealed from "@/assets/images/fw-sealed.webp";
+import fwSprag from "@/assets/images/fw-sprag.webp";
+import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.webp";
+import fwCompactSprag from "@/assets/images/fw-compact-sprag.webp";
+import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.webp";
+import heroFreewheel from "@/assets/images/hero-ringspann-fxm.webp";
 
 /**
  * تصاویر استودیویی خودِ قطعه (فری‌ویل) به‌تفکیک خانواده‌ی محصول.
