@@ -30,6 +30,7 @@ npm run skills:update     # به‌روزرسانی به آخرین نسخه
 | [`anthropics/skills`](https://github.com/anthropics/skills) | ~۱۷۹٬۹۰۰ | مجموعه‌ی رسمی Anthropic؛ مرجع طراحی و تست |
 | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) | ~۳۲٬۰۰۰ | مجموعه‌ی رسمی Vercel؛ دقیقاً هم‌راستا با Next.js این پروژه |
 | [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo) | ~۱۹٬۹۵۳ | مجموعه‌ی تخصصی سئو؛ با کنوانسیون استاندارد SKILL.md سازگار |
+| [`Jeffallan/claude-skills`](https://github.com/Jeffallan/claude-skills) | ~۱۲٬۰۰۰ | ۶۷ مهارت تخصصی فول‌استک؛ امنیت، معماری و بازبینی کد |
 
 ستاره‌ها در زمان نوشتن این فایل از GitHub API خوانده شده‌اند و تقریبی‌اند.
 
@@ -100,6 +101,19 @@ npm run skills:update     # به‌روزرسانی به آخرین نسخه
 با این مهارت‌ها ممیزی سئوی سایت انجام شد: BreadcrumbList به کامپوننت
 `Breadcrumbs` اضافه شد، تاریخ ISO به داده‌ی ساختاریافته‌ی مقاله‌ها رفت و
 `contactPoint` سازمان با متغیر محیطی شماره‌ی تماس واقعی پُر می‌شود.
+
+### ۹. امنیت و بازبینی
+
+| مهارت | مبدأ | به چه کاری می‌آید |
+| --- | --- | --- |
+| `security-reviewer` | Jeffallan/claude-skills | ممیزی امنیت: SAST، وابستگی‌ها، اسرار، رتبه‌بندی یافته‌ها و راه‌حل |
+| `secure-code-guardian` | Jeffallan/claude-skills | پیاده‌سازی امن: هدرها، محدودیت نرخ، اعتبارسنجی ورودی (OWASP) |
+| `code-reviewer` | Jeffallan/claude-skills | بازبینی ساختاری کد با لیست‌شدگی شدت و پیشنهاد اصلاح |
+
+نتیجه‌ی استفاده: به‌روزرسانی امنیتی وابستگی‌ها (Next 16.4.3 و sharp 0.35.5؛
+`npm audit` صفر)، افزودن هدرهای امنیتی و `poweredByHeader: false` به پیکربندی،
+محدودیت نرخ و سقف اندازه‌ی بدنه برای `api/inquiry` و `api/search`، و مرزهای
+خطای `error.tsx` و `global-error.tsx` با API جدید Next 16 (`retry`).
 
 ## افزودن مهارت تازه
 

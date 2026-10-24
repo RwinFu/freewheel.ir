@@ -4,9 +4,26 @@ import { db, hasDatabase } from "@/db";
 import { ensureDatabase } from "@/db/bootstrap";
 import { inquiries } from "@/db/schema";
 import { SHOPS } from "@/content/site";
+import { allowRequest } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// فرم تماس: ۵ ثبت در هر ۱۰ دقیقه برای هر IP
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+// بدنه‌ی فرم کوچک است؛ بیشتر از ۱۶KB یعنی درخواست غیرعادی/حمله
+const MAX_BODY_BYTES = 16_000;
+
+function clientIp(request: Request): string {
+  // پشت Nginx هستیم: X-Forwarded-For / X-Real-IP را خود پروکسی می‌سازد.
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip =
+    forwarded?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip")?.trim() ||
+    "unknown";
+  return `inquiry:${ip}`;
+}
 
 type Payload = {
   name?: string;
@@ -27,6 +44,26 @@ function clean(value: unknown, max = 400): string {
 }
 
 export async function POST(request: Request) {
+  // سقف اندازه‌ی بدنه قبل از خواندن، تا حمله‌ی حافظه با JSON غول‌پیکر بی‌اثر شود.
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (contentLength > MAX_BODY_BYTES) {
+    return NextResponse.json(
+      { ok: false, error: "درخواست بزرگ‌تر از حد مجاز است." },
+      { status: 413 },
+    );
+  }
+
+  const rate = allowRequest(clientIp(request), RATE_LIMIT, RATE_WINDOW_MS);
+  if (!rate.allowed) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "تعداد درخواست‌ها از حد مجاز گذشت؛ چند دقیقه‌ی دیگر دوباره تلاش کنید.",
+      },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfterSeconds) } },
+    );
+  }
+
   let body: Payload;
   try {
     body = (await request.json()) as Payload;

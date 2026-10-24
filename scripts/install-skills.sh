@@ -46,6 +46,13 @@ $SKILLS_CLI add AgriciDaniel/claude-seo \
   --skill seo-sitemap \
   -a "$AGENT" -y
 
+echo "-> security & review (Jeffallan/claude-skills)"
+$SKILLS_CLI add Jeffallan/claude-skills \
+  --skill security-reviewer \
+  --skill secure-code-guardian \
+  --skill code-reviewer \
+  -a "$AGENT" -y
+
 echo "-> testing (anthropics/skills)"
 $SKILLS_CLI add anthropics/skills \
   --skill webapp-testing \

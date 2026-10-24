@@ -5,12 +5,36 @@ import { db, hasDatabase } from "@/db";
 import { ensureDatabase } from "@/db/bootstrap";
 import { catalogItems } from "@/db/schema";
 import { searchCatalog, type CatalogEntry } from "@/lib/catalog";
+import { allowRequest } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// جست‌وجو ارزان‌تر است ولی باز هم ربات نباید بتواند دیتابیس را خسته کند
+const RATE_LIMIT = 120;
+const RATE_WINDOW_MS = 60 * 1000;
+const MAX_QUERY_LENGTH = 120;
+
+function clientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  const ip =
+    forwarded?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip")?.trim() ||
+    "unknown";
+  return `search:${ip}`;
+}
+
 export async function GET(request: Request) {
-  const query = new URL(request.url).searchParams.get("q")?.trim() ?? "";
+  const rate = allowRequest(clientIp(request), RATE_LIMIT, RATE_WINDOW_MS);
+  if (!rate.allowed) {
+    return NextResponse.json(
+      { ok: false, error: "تعداد درخواست‌ها زیاد شد؛ کمی بعد دوباره امتحان کنید." },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfterSeconds) } },
+    );
+  }
+
+  const query =
+    new URL(request.url).searchParams.get("q")?.trim().slice(0, MAX_QUERY_LENGTH) ?? "";
 
   if (query.length < 2) {
     return NextResponse.json({ ok: true, items: [], source: "catalog" });

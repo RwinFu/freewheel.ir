@@ -126,12 +126,15 @@ export async function main() {
       label: s.designation,
       category: seriesCategory(s.slug),
     })),
+    // شمارش‌ها باید با SERIES_CATEGORY_BY_SLUG در src/content/taxonomy.ts
+    // هم‌خوان باشند: basic=۳ (fgr-r, fz, fxm)، sealed=۳ (bm-r, fb, er)،
+    // lever=۲ (frhn, fa-fav)، liftoff=۲ (fkh, fw) — جمعاً ۱۰ سری.
     [
-      ["پایه و داخلی", 2],
-      ["کامل و آب‌بندی‌شده", 2],
+      ["پایه و داخلی", 3],
+      ["کامل و آب‌بندی‌شده", 3],
       ["بک‌استاپ با اهرم", 2],
-      ["دور آزاد بالا و لیفت‌آف", 1],
-      ["همه", 7],
+      ["دور آزاد بالا و لیفت‌آف", 2],
+      ["همه", 10],
     ],
   );
 
