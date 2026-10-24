@@ -18,7 +18,7 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
     <Link
       href="/"
       onClick={onNavigate}
-      className="group flex shrink-0 items-center gap-2.5"
+      className="lg-wordmark group flex shrink-0 items-center gap-2.5"
       aria-label="صفحه‌ی اصلی freewheel.ir"
     >
       <span className="relative grid h-10 w-10 place-items-center rounded-xl overflow-hidden">
@@ -28,7 +28,10 @@ function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
         <svg viewBox="0 0 40 40" className="relative h-6 w-6" aria-hidden="true">
           <circle cx="20" cy="20" r="13" fill="none" stroke="white" strokeWidth="1.8" opacity="0.9" />
           <circle cx="20" cy="20" r="6" fill="none" stroke="white" strokeWidth="1.8" opacity="0.7" />
-          <path d="M20 6v5M34 20h-5M20 34v-5M6 20h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          {/* صلیب دنده‌ای، آرام می‌چرخد — فری‌ویل زنده‌ی لوگو */}
+          <g className="lg-ring-spin">
+            <path d="M20 6v5M34 20h-5M20 34v-5M6 20h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </g>
           <circle cx="20" cy="20" r="2" fill="white" />
         </svg>
       </span>
@@ -105,14 +108,14 @@ export function SiteHeader() {
             "rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
           ].join(" ")}
         >
-          {/* لکه‌ی نور روی سطح شیشه */}
+          {/* لکه‌ی نور روی سطح شیشه + نوار نور مورب عبوری */}
           <span className="liquid-glass-sheen" aria-hidden="true" />
 
-          <div className="relative flex h-[64px] items-center justify-between gap-3 px-4 sm:px-6">
+          <div className="lg-row relative flex items-center justify-between gap-3 px-4 sm:px-6">
             <Wordmark onNavigate={() => setOpen(false)} />
 
             {/* Desktop nav */}
-            <nav className="hidden items-center gap-0.5 lg:flex" aria-label="ناوبری اصلی">
+            <nav className="lg-nav hidden items-center gap-0.5 lg:flex" aria-label="ناوبری اصلی">
               {NAV_LINKS.map((item) => (
                 <Link
                   key={item.href}
