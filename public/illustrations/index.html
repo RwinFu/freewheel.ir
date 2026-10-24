@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Annotated Illustration — آناتومی فری‌ویل</title>
+<style>
+  :root{--base:#FAF4EA;--panel:#FFFDF8;--panel2:#F5EAD8;--line:#D4B88A;--line2:#B8905A;--fg:#1C1510;--muted:#6B5240;--dim:#9A8060;--accent:#E85D04;--accent2:#F48C06}
+  *{box-sizing:border-box} body{margin:0;background:var(--base);color:var(--fg);font-family:Vazirmatn, system-ui, sans-serif;line-height:1.8}
+  header{max-width:1180px;margin:0 auto;padding:28px 20px 10px}
+  h1{margin:0;font-size:26px;letter-spacing:-.02em} h2{margin:0 0 8px;font-size:18px}
+  .sub{color:var(--muted);font-size:13px;margin-top:8px;line-height:2}
+  .wrap{max-width:1180px;margin:0 auto;padding:14px 20px 36px}
+  .frame{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:auto}
+  .frame img, .frame object, .frame svg{max-width:100%}
+  svg{display:block;width:100%;height:auto}
+  .meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .card h3{margin:0 0 6px;font-size:14px} .card p{margin:0;color:var(--muted);font-size:13px;line-height:2}
+  .badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--dim);background:var(--panel2);margin-inline-start:8px}
+  .mono{font-family:ui-monospace, monospace;font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow:auto;direction:ltr;text-align:left}
+  footer{max-width:1180px;margin:0 auto;padding:16px 20px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+  @media(max-width:760px){.meta{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Annotated Illustration <span class="badge">اسکیل نصب‌شده</span></h1>
+  <p class="sub">این صفحه یک «برش توضیحی» (cutaway) از فری‌ویل رولری RINGSPANN FGR … R را با اسکیل <code>annotated-illustration</code> نمایش می‌دهد. طراحی طبق بودجه‌ی کانواس <span dir="ltr">1200×800 — gutters 240</span> ساخته شده، برچسب‌ها با <code>scripts/layout_callouts.py</code> بدون تداخل جانمایی شده و با <code>check_illustration.py</code> لینت شده است. <a href="freewheel-anatomy.svg" download>دانلود SVG</a> · <a href="../sitemap-visual.html">نقشه سایت →</a></p>
+</header>
+<div class="wrap">
+  <div class="frame">
+    <object data="freewheel-anatomy.svg" type="image/svg+xml" aria-label="آناتومی فری‌ویل — برش عرضی" style="width:100%;height:auto">
+      <img src="freewheel-anatomy.svg" alt="آناتومی فری‌ویل رولری — برش عرضی با ۸ برچسب">
+    </object>
+  </div>
+
+  <div class="meta">
+    <div class="card">
+      <h3>🎯 یک جمله که شکل آموزش می‌دهد</h3>
+      <p>«فری‌ویل رولری در جهت مجاز هرز می‌چرخد و در جهت مخالف با گیرکردن رولر در فضای گوه‌ای قفل می‌کند — بدون برق و فرمان.»</p>
+      <p style="margin-top:8px">این جمله caption شکل شد؛ هر برچسب فقط اجزایی را نام می‌برد که همان جمله را می‌سازند.</p>
+    </div>
+    <div class="card">
+      <h3>🔍 انتخاب view: برش یک‌چهارمی (Cutaway)</h3>
+      <p>برش انتخاب شد چون خواننده باید <em>هم بیرون و هم داخل</em> را باهم ببیند. لبه‌ی برش با دو خط موازی + هاشور ضخامت نشان می‌دهد که بدنه «ماده» است نه سوراخ. نمای انفجاری برای آموزش مونتاژ بهتر بود ولی این شکل درباره‌ی «چگونگی قفل» است.</p>
+    </div>
+    <div class="card">
+      <h3>📐 بودجه‌ی کانواس</h3>
+      <p>گاترها اول رزرو شدند (۲۴۰px هر طرف). سوژه داخل <span dir="ltr">[260,940]×[88,720]</span> جا گرفت. همین باعث شد هیچ برچسبی روی نقاشی نیفتد — رایج‌ترین شکست فرم‌های annotate.</p>
+      <p class="mono" style="margin-top:8px">viewBox 0 0 1200 800<br>gutters 240 · top 72 · bottom 64<br>accent #E85D04 · paper #FDFCFA</p>
+    </div>
+    <div class="card">
+      <h3>🏷️ لایه‌ی annotation (اسکریپت)</h3>
+      <p>هشت نقطه‌ی anchor → انتخاب گاتر نزدیک‌تر → بسته‌بندی عمودی با <em>isotonic regression</em> (PAVA) → فاصله‌ی امن بین برچسب‌ها → leader تک‌خم با سگمنت افقی ۲۴px. خط‌ها هرگز قطع نمی‌شوند.</p>
+      <p class="mono" style="margin-top:8px">python3 layout_callouts.py callouts.json &gt; ann.svg<br>python3 check_illustration.py figure.svg # 0 error</p>
+    </div>
+  </div>
+
+  <div style="margin-top:16px" class="card">
+    <h3>۸ برچسب — هر کدام یک داستان کوتاه</h3>
+    <p>۱) حلقه بیرونی — پوسته‌ی ثابت که گشتاور را می‌گیرد. ۲) آب‌بند — مانع ورود گردوغبار (مرگ فری‌ویل نساجی). ۳) بلبرینگ — نگه‌داشتن هم‌محوری. ۴) رولر — المان قفل‌کننده (تماس خطی). ۵) قفس — فاصله‌دهی رولرها. ۶) حلقه درونی — روی شفت با خار DIN 6885. ۷) جای خار — تنها سطحی که تلرانسش سرنوشت‌ساز است. ۸) فضای گوه‌ای — جایی که فیزیک اتفاق می‌افتد: هرچه بار بیشتر، گوه محکم‌تر.</p>
+  </div>
+
+  <div style="margin-top:14px" class="card">
+    <h3>استفاده در سایت اصلی</h3>
+    <p>این SVG خودکفاست (بدون فونت/عکس خارجی) و می‌تواند به‌عنوان <code>&lt;img&gt;</code> یا inline در صفحه‌ی <code>/ringspann/fgr-r</code> یا هرو <code>/articles/sprag-vs-roller</code> قرار گیرد. برای dark mode، پالت به‌صورت CSS custom properties تعریف شده و با <code>@media (prefers-color-scheme: dark)</code> سوئیچ می‌کند.</p>
+  </div>
+</div>
+<footer>
+  ساخته‌شده با اسکیل <code>annotated-illustration</code> (kiarashjam/crm) · لینت: 0 error, 1 warning (font sizes) · رندر: هر مرورگری SVG را به PNG تبدیل می‌کند — یا <code>node render.cjs figure.svg</code> با Playwright.
+</footer>
+</body>
+</html>

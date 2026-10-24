@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نقشه سایت — freewheel.ir</title>
+<style>
+  :root{
+    --base:#FAF4EA;--panel:#FFFDF8;--panel2:#F5EAD8;--line:#D4B88A;--line2:#B8905A;
+    --fg:#1C1510;--muted:#6B5240;--dim:#9A8060;--accent:#E85D04;--accent2:#F48C06;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--base);color:var(--fg);font-family:system-ui, Vazirmatn, sans-serif;line-height:1.7}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:#A04000;text-decoration:underline}
+  header{max-width:1240px;margin:0 auto;padding:32px 20px 12px}
+  h1{margin:0;font-size:28px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:14px;margin-top:8px;line-height:2}
+  .wrap{max-width:1240px;margin:0 auto;padding:12px 20px 40px}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
+  .card{grid-column:span 4;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px;transition:transform .25s, border-color .25s}
+  .card:hover{transform:translateY(-3px);border-color:var(--accent2)}
+  .card.wide{grid-column:span 12}
+  .card h2{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim);background:var(--panel2)}
+  .badge.hl{border-color:var(--accent);color:var(--accent);background:#FFF0E2}
+  .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+  .list li{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--base);font-size:13px}
+  .list li span:last-child{color:var(--dim);font-size:11px;white-space:nowrap}
+  .pill{font-size:11px;color:var(--dim);border:1px solid var(--line);padding:2px 7px;border-radius:999px;background:var(--panel)}
+  .hero{grid-column:span 12;background:linear-gradient(135deg, #1A1410 0%, #2E2620 100%);color:#FFFDF8;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .hero h2{margin:0;font-size:18px;color:#fff}
+  .hero p{margin:6px 0 0;color:rgba(255,255,255,.7);font-size:13px;max-width:60ch}
+  .hero a{color:var(--accent2);font-size:13px;border:1px solid rgba(244,140,6,.5);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+  .tree{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;overflow:auto}
+  .tree pre{margin:0;font-family:ui-monospace, monospace;font-size:12px;line-height:1.9;color:var(--fg);white-space:pre}
+  footer{max-width:1240px;margin:0 auto;padding:18px 20px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);margin-top:12px}
+  @media(max-width:900px){.card{grid-column:span 12}}
+</style>
+</head>
+<body>
+<header>
+  <h1>نقشه‌ی سایت — freewheel.ir</h1>
+  <p class="sub">۴۳ مسیر استاتیک + ۳ API · تولید از <code>src/app/sitemap.ts</code> و <code>src/content/site.ts</code> · دامنه: <span dir="ltr">https://freewheel.ir</span> · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/robots.txt">robots.txt</a></p>
+</header>
+<div class="wrap">
+  <div class="grid">
+    <div class="hero">
+      <div>
+        <h2>خانه <span style="color:var(--accent2)">/ </span><span style="font-weight:400;color:rgba(255,255,255,.6)">priority 1.0</span></h2>
+        <p>Hero سینمایی + سازوکار سه‌حالته + داستان ۱۲۰متری + کاربردها + خانواده‌ها + فرم استعلام — همه در یک صفحه‌ی اسکرول.</p>
+      </div>
+      <a href="/">رفتن به خانه →</a>
+    </div>
+
+    <div class="card">
+      <h2>RINGSPANN <span class="badge hl">0.95 FGR·R</span></h2>
+      <p style="margin:6px 0 0;color:var(--muted);font-size:13px;line-height:2">۱۲ سری با جدول ابعاد و گشتاور. FGR … R پربازدیدترین.</p>
+      <ul class="list">
+        <li><a href="/ringspann/fgr-r">FGR … R — پایه رولری</a><span>12–150 mm · 68k N·m</span></li>
+        <li><a href="/ringspann/fz">FZ — داخلی</a><span>تا 420 N·m</span></li>
+        <li><a href="/ringspann/bm-r">BM … R — کامل</a><span>تا 57.5k N·m</span></li>
+        <li><a href="/ringspann/fb">FB — کامل اسپراگ</a><span>تا 160k N·m</span></li>
+        <li><a href="/ringspann/frhn">FRHN — بک‌استاپ اهرمی</a><span>تا 503k N·m</span></li>
+        <li><a href="/ringspann/fkh">FKh — لیفت‌آف</a><span>تا 14k N·m</span></li>
+        <li><a href="/ringspann/fa-fav">FA / FAV — با اهرم</a><span>تا 2.5k N·m</span></li>
+        <li><a href="/ringspann/fw">FW — گریزازمرکز</a><span>لیفت‌آف مکانیکی</span></li>
+        <li><a href="/ringspann/er">ER — داخلی رولری</a><span>فشرده</span></li>
+        <li><a href="/ringspann/fxm">FXM — حلقه‌ای</a><span>قطر بزرگ</span></li>
+      </ul>
+      <p style="margin-top:10px"><a href="/ringspann">همه‌ی سری‌ها →</a> <span class="pill">priority 0.9</span></p>
+    </div>
+
+    <div class="card">
+      <h2>برندها <span class="badge">7 برند</span></h2>
+      <p style="margin:6px 0 0;color:var(--muted);font-size:13px;line-height:2">RINGSPANN محور؛ ۶ برند دیگر با دسته‌بندی کاپ/بلبرینگ/خودرو.</p>
+      <ul class="list">
+        <li><a href="/brands/ringspann">RINGSPANN — آلمان</a><span>0.85</span></li>
+        <li><a href="/brands/ina">INA — Schaeffler</a><span>HF / HFL</span></li>
+        <li><a href="/brands/skf">SKF — سوئد</a><span>بلبرینگ‌ساز</span></li>
+        <li><a href="/brands/stieber">Stieber — آلمان</a><span>کاپ کشیده</span></li>
+        <li><a href="/brands/koyo">Koyo — ژاپن</a><span>JTEKT</span></li>
+        <li><a href="/brands/luk">LUK — آلمان</a><span>خودرو</span></li>
+        <li><a href="/brands/niko">NIKO</a><span>اقتصادی</span></li>
+      </ul>
+      <p style="margin-top:10px"><a href="/brands">همه‌ی برندها →</a> <span class="pill">priority 0.8</span></p>
+    </div>
+
+    <div class="card">
+      <h2>کاربردها <span class="badge">6 سناریو</span></h2>
+      <p style="margin:6px 0 0;color:var(--muted);font-size:13px;line-height:2">هر کاربرد با recommendation سری + failure modes.</p>
+      <ul class="list">
+        <li><a href="/applications/conveyor">نوار نقاله و بک‌استاپ</a><span>اصلی ★</span></li>
+        <li><a href="/applications/textile">نساجی و ریسندگی</a><span>گردوغبار</span></li>
+        <li><a href="/applications/food">صنایع غذایی</a><span>بهداشتی</span></li>
+        <li><a href="/applications/packaging">بسته‌بندی</a><span>ایندکسینگ</span></li>
+        <li><a href="/applications/printing">چاپ و کاغذ</a><span>اورانینگ</span></li>
+        <li><a href="/applications/mining">معدن و سنگ‌شکن</a><span>گشتاور بالا</span></li>
+      </ul>
+      <p style="margin-top:10px"><a href="/applications">همه‌ی کاربردها →</a> <span class="pill">priority 0.8</span></p>
+    </div>
+
+    <div class="card">
+      <h2>مقالات فنی <span class="badge">5 مقاله</span></h2>
+      <ul class="list">
+        <li><a href="/articles/sprag-vs-roller">اسپراگ vs رولری</a><span>اصول انتخاب</span></li>
+        <li><a href="/articles/freewheel-sizing">سایزبندی فری‌ویل</a><span>مهندسی</span></li>
+        <li><a href="/articles/why-textile-conveyor-burned">چرا نوار نساجی سوخت</a><span>مطالعه موردی</span></li>
+        <li><a href="/articles/lift-off-explained">لیفت‌آف چیست</a><span>دور آزاد</span></li>
+        <li><a href="/articles/backstop-mounting">نصب بک‌استاپ</a><span>نصب</span></li>
+      </ul>
+      <p style="margin-top:10px"><a href="/articles">همه‌ی مقالات →</a> <span class="pill">priority 0.8</span></p>
+    </div>
+
+    <div class="card">
+      <h2>رسانه و صفحات ایستا</h2>
+      <ul class="list">
+        <li><a href="/media">/media — فیلم و گیف</a><span>.webm / .mp4</span></li>
+        <li><a href="/about">/about — درباره ما</a><span>yearly 0.5</span></li>
+        <li><a href="/contact">/contact — تماس و فرم</a><span>yearly 0.6</span></li>
+        <li><a href="/sitemap.xml">/sitemap.xml</a><span>داینامیک</span></li>
+        <li><a href="/robots.txt">/robots.txt</a><span>allow /</span></li>
+        <li><a href="/opengraph-image">/opengraph-image</a><span>1200×630</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>API <span class="badge">فقط روی هاست Node</span></h2>
+      <ul class="list">
+        <li><span dir="ltr">GET /api/health</span><span>catalog / db</span></li>
+        <li><span dir="ltr">GET /api/search?q=…</span><span>fallback به catalog</span></li>
+        <li><span dir="ltr">POST /api/inquiry</span><span>503 اگر DB نباشد</span></li>
+      </ul>
+      <p style="color:var(--dim);font-size:12px;margin-top:10px;line-height:1.9">در نسخه‌ی <code>build:pages</code> برای GH Pages این سه مسیر حذف می‌شوند و جستجو در مرورگر انجام می‌شود.</p>
+    </div>
+
+    <div class="card wide tree">
+      <h2 style="margin-bottom:10px">نمای درختی کامل</h2>
+<pre>/ (1.0)
+├─ /ringspann (0.9)
+│  ├─ /ringspann/fgr-r (0.95) ★
+│  ├─ /ringspann/fz
+│  ├─ /ringspann/bm-r
+│  ├─ /ringspann/fb
+│  ├─ /ringspann/frhn
+│  ├─ /ringspann/fkh
+│  ├─ /ringspann/fa-fav
+│  ├─ /ringspann/fw
+│  ├─ /ringspann/er
+│  ├─ /ringspann/fxm
+│  ├─ /ringspann/fso
+│  └─ /ringspann/sm
+├─ /brands (0.8)
+│  ├─ /brands/ringspann (0.85)
+│  ├─ /brands/ina
+│  ├─ /brands/skf
+│  ├─ /brands/stieber
+│  ├─ /brands/koyo
+│  ├─ /brands/luk
+│  └─ /brands/niko
+├─ /applications (0.8)
+│  ├─ /applications/conveyor
+│  ├─ /applications/textile
+│  ├─ /applications/food
+│  ├─ /applications/packaging
+│  ├─ /applications/printing
+│  └─ /applications/mining
+├─ /articles (0.8)
+│  ├─ /articles/sprag-vs-roller
+│  ├─ /articles/freewheel-sizing
+│  ├─ /articles/why-textile-conveyor-burned
+│  ├─ /articles/lift-off-explained
+│  └─ /articles/backstop-mounting
+├─ /media (0.6)
+├─ /about (0.5)
+├─ /contact (0.6)
+├─ /sitemap.xml
+├─ /robots.txt
+└─ /opengraph-image
+</pre>
+    </div>
+  </div>
+</div>
+<footer>
+  تولیدشده: ۱۴۰۴/۰۸/۰۲ · منبع: <code>src/app/sitemap.ts</code> + <code>src/content/site.ts</code> · برای دیدن نسخه‌ی تعاملی <code>npm run dev</code> و باز کردن همین فایل کافی است.
+</footer>
+</body>
+</html>

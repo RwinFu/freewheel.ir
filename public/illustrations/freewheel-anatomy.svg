@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="figTitle figDesc" font-family="Vazirmatn, Inter, 'Helvetica Neue', Arial, sans-serif">
+<title id="figTitle">آناتومی فری‌ویل رولری — برش عرضی</title>
+<desc id="figDesc">یک برش یک‌چهارمی از فری‌ویل پایه‌ی RINGSPANN FGR … R که نشان می‌دهد چطور رولر در فضای گوه‌ای بین دو حلقه قفل می‌کند؛ هر برچسب با leader نارنجی به بخش مربوطه وصل است.</desc>
+<style>
+  :root { --paper:#FDFCFA; --ink:#1A1A1A; --mid:#6B6B6B; --hair:#D4D4D4; --accent:#E85D04; --panel:#FAF4EA; --line:#D4B88A; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#1C1510; --ink:#F5EAD8; --mid:#9A8060; --hair:#4A3F35; --accent:#F48C06; --panel:#2E2620; --line:#6B5240; }
+  }
+  .paper { fill: var(--paper); }
+  .ink { stroke: var(--ink); }
+  .mid { stroke: var(--mid); }
+  .hair { stroke: var(--hair); }
+  .accent { stroke: var(--accent); }
+  .label { fill: var(--ink); font-family: inherit; }
+  .caption { fill: var(--mid); }
+  .badge { fill: var(--accent); }
+  .hatch { stroke: var(--hair); stroke-width:1; }
+</style>
+
+<!-- Paper -->
+<rect x="0" y="0" width="1200" height="800" class="paper" rx="18"/>
+<!-- subtle border -->
+<rect x="0.5" y="0.5" width="1199" height="799" fill="none" stroke="#D4B88A" stroke-opacity="0.35" rx="18"/>
+
+<!-- ===== Frame bands ===== -->
+<g id="frame">
+  <!-- top title band -->
+  <text x="600" y="44" text-anchor="middle" font-size="18" font-weight="700" fill="#1C1510" style="fill:var(--ink)">آناتومی فری‌ویل رولری — برش عرضی</text>
+  <text x="600" y="62" text-anchor="middle" font-size="11.5" font-weight="400" class="caption">Cutaway view — RINGSPANN FGR … R · گشتاور تا ۶۸٬۰۰۰ N·m · قطر سوراخ ۱۲–۱۵۰ mm</text>
+  <line x1="260" y1="72" x2="940" y2="72" stroke="var(--line)" stroke-width="1" opacity="0.6"/>
+  <!-- bottom caption band -->
+  <line x1="260" y1="736" x2="940" y2="736" stroke="var(--line)" stroke-width="1" opacity="0.6"/>
+  <text x="600" y="760" text-anchor="middle" font-size="11" class="caption">یک برش یک‌چهارمی: بدنه‌ی بیرونی برداشته شده تا المان‌های داخلی دیده شوند. نقطه‌های نارنجی = محل تماس برچسب‌ها.</text>
+  <text x="600" y="776" text-anchor="middle" font-size="10" class="caption" opacity="0.8">freewheel.ir · مرجع فنی فری‌ویل صنعتی — اعداد از کاتالوگ RINGSPANN</text>
+</g>
+
+<!-- ===== Subject: Freewheel cutaway ===== -->
+<!-- centered at 600,400 ; outer radius 175, inner bore radius 62 -->
+<g id="subject">
+
+  <!-- Outer ring — thick ink outline, with cut edge showing thickness -->
+  <!-- Full outer ring background faint -->
+  <circle cx="600" cy="400" r="175" fill="none" class="hair" stroke-width="1.2" opacity="0.25"/>
+  <!-- Outer ring main body (3/4 visible, 1/4 cutaway) -->
+  <!-- Create outer ring as filled donut with cut -->
+  <g id="outer-ring">
+    <!-- Outer edge -->
+    <path d="M 600 225 A 175 175 0 1 1 425 400 L 445 400 A 155 155 0 1 0 600 245 Z" fill="var(--panel)" stroke="var(--ink)" stroke-width="2" />
+    <!-- cut edge thickness (hatched) -->
+    <path d="M 425 400 L 405 400 A 175 175 0 0 0 600 225 L 600 245 A 155 155 0 0 1 425 400" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+    <!-- hatch on cut thickness -->
+    <g class="hatch" opacity="0.4">
+      <line x1="418" y1="382" x2="430" y2="394"/>
+      <line x1="425" y1="368" x2="438" y2="381"/>
+      <line x1="438" y1="356" x2="451" y2="369"/>
+      <line x1="455" y1="344" x2="468" y2="357"/>
+      <line x1="472" y1="332" x2="485" y2="345"/>
+      <line x1="492" y1="322" x2="505" y2="335"/>
+      <line x1="514" y1="315" x2="524" y2="325"/>
+      <line x1="536" y1="308" x2="546" y2="318"/>
+      <line x1="560" y1="303" x2="569" y2="313"/>
+    </g>
+    <!-- outer ring detail: bolt circle / chamfer -->
+    <circle cx="600" cy="400" r="165" fill="none" class="mid" stroke-width="1.25" opacity="0.35"/>
+  </g>
+
+  <!-- Seal — thin ring between outer and bearing -->
+  <g id="seal" opacity="0.9">
+    <circle cx="600" cy="400" r="148" fill="none" stroke="#9A8060" stroke-width="6" stroke-opacity="0.18"/>
+    <circle cx="600" cy="400" r="148" fill="none" class="mid" stroke-width="1.1" stroke-dasharray="6 4"/>
+    <text x="600" y="260" text-anchor="middle" font-size="8" fill="#9A8060" opacity="0.7" letter-spacing="0.06em">SEAL</text>
+  </g>
+
+  <!-- Bearing balls (simplified) — 8 balls -->
+  <g id="bearing" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.4">
+    <circle cx="600" cy="279" r="10"/>
+    <circle cx="685" cy="315" r="10"/>
+    <circle cx="715" cy="400" r="10"/>
+    <circle cx="683" cy="483" r="10"/>
+    <circle cx="517" cy="483" r="10"/>
+    <circle cx="485" cy="400" r="10"/>
+    <circle cx="515" cy="317" r="10"/>
+    <!-- one hidden behind cut -->
+    <circle cx="600" cy="279" r="3.5" fill="var(--mid)" stroke="none"/>
+    <circle cx="685" cy="315" r="3.5" fill="var(--mid)" stroke="none"/>
+    <circle cx="715" cy="400" r="3.5" fill="var(--mid)" stroke="none"/>
+  </g>
+  <!-- bearing race lines -->
+  <circle cx="600" cy="400" r="132" fill="none" class="hair" stroke-width="1"/>
+  <circle cx="600" cy="400" r="112" fill="none" class="hair" stroke-width="1"/>
+
+  <!-- Rollers — 6 rollers in wedge gaps (the stars) -->
+  <g id="rollers" stroke="var(--ink)" stroke-width="1.6">
+    <!-- wedge shape is: outer race ramp + roller + spring -->
+    <!-- Roller 1 — top (engaged) -->
+    <ellipse cx="620" cy="310" rx="11" ry="16" fill="#FFF7ED" stroke="#1A1A1A"/>
+    <line x1="620" y1="294" x2="620" y2="326" stroke="#E85D04" stroke-width="1.4" opacity="0.9"/>
+    <!-- spring -->
+    <path d="M 632 310 q 5 -6 10 0 q 5 6 10 0" fill="none" stroke="#6B6B6B" stroke-width="1.1"/>
+    <!-- Roller 2 -->
+    <ellipse cx="682" cy="360" rx="11" ry="16" transform="rotate(52 682 360)" fill="#FFF7ED"/>
+    <!-- Roller 3 — right (free) -->
+    <ellipse cx="700" cy="400" rx="11" ry="16" fill="#E8D5B0" stroke="#B8905A" stroke-width="1.3"/>
+    <line x1="691" y1="392" x2="709" y2="408" stroke="#E85D04" stroke-width="1" opacity="0.5" stroke-dasharray="3 2"/>
+    <!-- Roller 4 -->
+    <ellipse cx="672" cy="463" rx="11" ry="16" transform="rotate(-38 672 463)" fill="#FFF7ED"/>
+    <!-- Roller 5 — bottom -->
+    <ellipse cx="600" cy="498" rx="16" ry="11" fill="#FFF7ED"/>
+    <!-- Roller 6 — left (in cutaway — ghosted) -->
+    <ellipse cx="520" cy="400" rx="11" ry="16" fill="none" stroke="#9A8060" stroke-width="1.1" opacity="0.45" stroke-dasharray="5 3"/>
+  </g>
+
+  <!-- Cage — thin ring connecting rollers -->
+  <g id="cage" fill="none" stroke="#6B6B6B" stroke-width="1.25" opacity="0.9">
+    <circle cx="600" cy="400" r="100" stroke-dasharray="2 7"/>
+    <!-- cage windows -->
+    <rect x="613" y="302" width="14" height="8" rx="1.5" fill="var(--paper)" stroke="#6B6B6B" stroke-width="1"/>
+    <rect x="676" y="352" width="14" height="8" rx="1.5" fill="var(--paper)" stroke="#6B6B6B" stroke-width="1" transform="rotate(52 683 360)"/>
+    <rect x="693" y="396" width="14" height="8" rx="1.5" fill="var(--paper)" stroke="#6B6B6B" stroke-width="1"/>
+    <text x="652" y="448" font-size="7.5" fill="#6B6B6B" opacity="0.7">CAGE</text>
+  </g>
+
+  <!-- Inner race — with keyway -->
+  <g id="inner-race">
+    <circle cx="600" cy="400" r="72" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/>
+    <circle cx="600" cy="400" r="58" fill="var(--paper)" stroke="var(--mid)" stroke-width="1.25"/>
+    <!-- bore -->
+    <circle cx="600" cy="400" r="38" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+    <!-- keyway -->
+    <path d="M 592 362 L 608 362 L 608 382 L 592 382 Z" fill="#1A1A1A" stroke="none"/>
+    <path d="M 594 364 L 606 364 L 606 380 L 594 380" fill="none" stroke="#D4B88A" stroke-width="0.7" opacity="0.6"/>
+    <!-- shaft center cross -->
+    <g stroke="#9A8060" stroke-width="0.9" opacity="0.35">
+      <line x1="588" y1="400" x2="612" y2="400"/>
+      <line x1="600" y1="388" x2="600" y2="412"/>
+    </g>
+    <text x="600" y="422" text-anchor="middle" font-size="7" fill="#9A8060" opacity="0.9">Ø bore</text>
+  </g>
+
+  <!-- Direction arrows — free vs lock -->
+  <g id="direction" font-size="11" font-weight="600">
+    <!-- free direction (green-ish, but we keep ink) -->
+    <path d="M 600 225 A 175 175 0 0 1 720 300" fill="none" stroke="#6B6B6B" stroke-width="1.6" marker-end="url(#arrowHair)" opacity="0.7"/>
+    <text x="670" y="255" fill="#6B6B6B" font-size="10">آزاد ↻</text>
+    <!-- lock direction -->
+    <path d="M 480 300 A 175 175 0 0 0 600 225" fill="none" stroke="#E85D04" stroke-width="1.8" marker-end="url(#arrowAccent)" />
+    <text x="510" y="270" fill="#E85D04" font-size="10" font-weight="700">قفل ↺</text>
+  </g>
+
+  <!-- Detail inset callout box for wedge -->
+  <g id="detail-marker" opacity="0.9">
+    <rect x="495" y="378" width="42" height="28" rx="7" fill="none" stroke="#E85D04" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <line x1="516" y1="378" x2="516" y2="366" stroke="#E85D04" stroke-width="0.9"/>
+  </g>
+
+  <defs>
+    <marker id="arrowHair" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B6B6B"/>
+    </marker>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E85D04"/>
+    </marker>
+  </defs>
+
+</g>
+
+<!-- ===== Annotations (generated via layout_callouts.py) ===== -->
+  <g id="annotations">
+    <g class="callout" data-label="Wedge gap — فضای">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 465.0 400.0 L 236.0 268.6 L 208.0 268.6"/>
+      <circle cx="465.0" cy="400.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="200.0" y="265.2" text-anchor="end" font-size="14" font-weight="500">
+        <tspan x="200.0" dy="0">Wedge gap — فضای</tspan>
+        <tspan x="200.0" dy="17">گوه‌ای</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Outer race — حلقه">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 600.0 168.0 L 964.0 163.0 L 992.0 163.0"/>
+      <circle cx="600.0" cy="168.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="159.6" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Outer race — حلقه</tspan>
+        <tspan x="1000.0" dy="17">بیرونی</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Seal — آب‌بند">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 600.0 254.0 L 964.0 236.1 L 992.0 236.1"/>
+      <circle cx="600.0" cy="254.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="236.1" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Seal — آب‌بند</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Bearing — بلبرینگ">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 680.0 312.0 L 964.0 309.2 L 992.0 309.2"/>
+      <circle cx="680.0" cy="312.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="309.2" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Bearing — بلبرینگ</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Roller — المان رولری">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 710.0 400.0 L 964.0 382.3 L 992.0 382.3"/>
+      <circle cx="710.0" cy="400.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="382.3" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Roller — المان رولری</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Cage — قفس">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 700.0 478.0 L 964.0 455.3 L 992.0 455.3"/>
+      <circle cx="700.0" cy="478.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="455.3" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Cage — قفس</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Inner race — حلقه">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 600.0 548.0 L 964.0 528.4 L 992.0 528.4"/>
+      <circle cx="600.0" cy="548.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="524.9" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Inner race — حلقه</tspan>
+        <tspan x="1000.0" dy="17">درونی</tspan>
+      </text>
+    </g>
+    <g class="callout" data-label="Keyway — جای خار">
+      <path class="leader" fill="none" stroke="var(--accent, #E85D04)" stroke-width="1" d="M 600.0 612.0 L 964.0 601.5 L 992.0 601.5"/>
+      <circle cx="600.0" cy="612.0" r="3" fill="var(--accent, #E85D04)"/>
+      <text class="label" x="1000.0" y="601.5" text-anchor="start" font-size="14" font-weight="500">
+        <tspan x="1000.0" dy="0">Keyway — جای خار</tspan>
+      </text>
+    </g>
+  </g>
+
+</svg>

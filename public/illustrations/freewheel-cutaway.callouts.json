@@ -1,0 +1,19 @@
+{
+  "width": 1200,
+  "height": 800,
+  "gutter": 240,
+  "top": 88,
+  "bottom": 736,
+  "accent": "#E85D04",
+  "font_size": 14,
+  "callouts": [
+    {"x": 600, "y": 168, "text": "Outer race — حلقه بیرونی"},
+    {"x": 600, "y": 254, "text": "Seal — آب‌بند"},
+    {"x": 680, "y": 312, "text": "Bearing — بلبرینگ"},
+    {"x": 710, "y": 400, "text": "Roller — المان رولری"},
+    {"x": 700, "y": 478, "text": "Cage — قفس"},
+    {"x": 600, "y": 548, "text": "Inner race — حلقه درونی"},
+    {"x": 600, "y": 612, "text": "Keyway — جای خار"},
+    {"x": 465, "y": 400, "text": "Wedge gap — فضای گوه‌ای"}
+  ]
+}

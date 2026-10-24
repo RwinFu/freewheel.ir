@@ -48,12 +48,24 @@ $SKILLS_CLI add obra/superpowers \
   --skill verification-before-completion \
   --skill systematic-debugging \
   --skill brainstorming \
+  --skill test-driven-development \
+  --skill writing-plans \
+  --skill subagent-driven-development \
+  --skill finishing-a-development-branch \
   -a "$AGENT" -y
 
 echo "-> authoring skills (anthropics/skills)"
 $SKILLS_CLI add anthropics/skills \
   --skill skill-creator \
   -a "$AGENT" -y
+
+echo "-> optimization (vercel-labs/agent-skills)"
+$SKILLS_CLI add vercel-labs/agent-skills \
+  --skill vercel-optimize \
+  -a "$AGENT" -y
+
+echo "-> annotated illustration (kiarashjam/crm) — manual copy, not in skills registry"
+echo "   (already copied to .claude/skills/annotated-illustration; see SKILLS.md)"
 
 echo
 echo "installed:"
