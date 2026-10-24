@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-import quarryConveyor from "@/assets/images/quarry-conveyor.jpg";
+import quarryConveyor from "@/assets/images/quarry-conveyor.webp";
 import { PART_IMAGE, SERIES_IMAGE, type ProductImage } from "@/content/product-images";
 
 /**

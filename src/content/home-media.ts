@@ -1,27 +1,27 @@
 import type { StaticImageData } from "next/image";
 
-import heroFreewheel from "@/assets/images/hero-ringspann-fxm.jpg";
-import fwBackstop from "@/assets/images/fw-backstop.jpg";
-import fwDrawnCup from "@/assets/images/fw-drawncup.jpg";
-import fwInternal from "@/assets/images/fw-internal.jpg";
-import fwLeverSmall from "@/assets/images/fw-lever-small.jpg";
-import fwLiftoff from "@/assets/images/fw-liftoff.jpg";
-import fwRoller from "@/assets/images/fw-roller.jpg";
-import fwSealed from "@/assets/images/fw-sealed.jpg";
-import fwSprag from "@/assets/images/fw-sprag.jpg";
-import fwCompactSprag from "@/assets/images/fw-compact-sprag.jpg";
-import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.jpg";
-import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.jpg";
-import axis from "@/assets/images/part/fw-axis.jpg";
-import typeRoller from "@/assets/images/part/type-roller.jpg";
-import typeSprag from "@/assets/images/part/type-sprag.jpg";
-import unitBackstop from "@/assets/images/part/unit-backstop.jpg";
-import unitSealed from "@/assets/images/part/unit-sealed.jpg";
-import unitSprag from "@/assets/images/part/unit-sprag.jpg";
-import conveyorMill from "@/assets/images/conveyor-mill.jpg";
-import packagingLine from "@/assets/images/packaging-line.jpg";
-import quarryConveyor from "@/assets/images/quarry-conveyor.jpg";
-import textileMill from "@/assets/images/textile-mill.jpg";
+import heroFreewheel from "@/assets/images/hero-ringspann-fxm.webp";
+import fwBackstop from "@/assets/images/fw-backstop.webp";
+import fwDrawnCup from "@/assets/images/fw-drawncup.webp";
+import fwInternal from "@/assets/images/fw-internal.webp";
+import fwLeverSmall from "@/assets/images/fw-lever-small.webp";
+import fwLiftoff from "@/assets/images/fw-liftoff.webp";
+import fwRoller from "@/assets/images/fw-roller.webp";
+import fwSealed from "@/assets/images/fw-sealed.webp";
+import fwSprag from "@/assets/images/fw-sprag.webp";
+import fwCompactSprag from "@/assets/images/fw-compact-sprag.webp";
+import fwLiftoffCentrifugal from "@/assets/images/fw-liftoff-centrifugal.webp";
+import fwMiniatureSprag from "@/assets/images/fw-miniature-sprag.webp";
+import axis from "@/assets/images/part/fw-axis.webp";
+import typeRoller from "@/assets/images/part/type-roller.webp";
+import typeSprag from "@/assets/images/part/type-sprag.webp";
+import unitBackstop from "@/assets/images/part/unit-backstop.webp";
+import unitSealed from "@/assets/images/part/unit-sealed.webp";
+import unitSprag from "@/assets/images/part/unit-sprag.webp";
+import conveyorMill from "@/assets/images/conveyor-mill.webp";
+import packagingLine from "@/assets/images/packaging-line.webp";
+import quarryConveyor from "@/assets/images/quarry-conveyor.webp";
+import textileMill from "@/assets/images/textile-mill.webp";
 
 /**
  * تصاویر صفحه‌ی اصلی، از مجموعه‌ی موجود در `src/assets/images`.

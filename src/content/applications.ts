@@ -1,11 +1,11 @@
 import type { StaticImageData } from "next/image";
 
-import conveyorMill from "@/assets/images/conveyor-mill.jpg";
-import foodProcessing from "@/assets/images/food-processing.jpg";
-import packagingLine from "@/assets/images/packaging-line.jpg";
-import printingPress from "@/assets/images/printing-press.jpg";
-import quarryConveyor from "@/assets/images/quarry-conveyor.jpg";
-import textileMill from "@/assets/images/textile-mill.jpg";
+import conveyorMill from "@/assets/images/conveyor-mill.webp";
+import foodProcessing from "@/assets/images/food-processing.webp";
+import packagingLine from "@/assets/images/packaging-line.webp";
+import printingPress from "@/assets/images/printing-press.webp";
+import quarryConveyor from "@/assets/images/quarry-conveyor.webp";
+import textileMill from "@/assets/images/textile-mill.webp";
 
 export type Application = {
   slug: string;

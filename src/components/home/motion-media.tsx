@@ -49,7 +49,7 @@ export function MotionImage({
   delay = 0,
   className,
   imgClassName,
-  sheen = true,
+  sheen = false,
 }: MotionImageProps) {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -115,7 +115,7 @@ export function MotionImage({
         fill
         sizes={sizes}
         priority={priority}
-        placeholder={priority ? "empty" : "blur"}
+        placeholder="empty"
         className={cn("fw-mm-img", imgClassName)}
       />
       {sheen ? <span className="fw-mm-sheen" aria-hidden="true" /> : null}
