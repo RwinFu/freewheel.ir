@@ -114,7 +114,7 @@ export function SiteHeader() {
           {/* لکه‌ی نور روی سطح شیشه + نوار نور مورب عبوری */}
           <span className="liquid-glass-sheen" aria-hidden="true" />
 
-          <div className="lg-row relative flex items-center justify-between gap-3 px-4 sm:px-6">
+          <div className="lg-row relative flex items-center justify-between gap-2 px-3 sm:px-4 xl:px-6">
             <Wordmark onNavigate={() => setOpen(false)} />
 
             {/* Desktop nav */}
@@ -123,7 +123,7 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative rounded-full px-3.5 py-2 text-[12.5px] font-semibold text-white/60 transition-all duration-300 hover:text-white hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent group"
+                  className="relative rounded-full px-2.5 py-2 text-[11.5px] font-semibold text-white/60 transition-all duration-300 hover:text-white hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent group xl:px-3 xl:text-[12px]"
                 >
                   <span className="relative z-10">{item.label}</span>
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -134,7 +134,7 @@ export function SiteHeader() {
             {/* جست‌وجوی کاتالوگ و دسترسی مستقیم به استعلام خرید */}
             <PartSearch
               variant="glass"
-              className="header-catalog-search relative hidden w-44 xl:w-52 lg:block"
+              className="header-catalog-search relative hidden w-40 xl:w-48 lg:block"
             />
             <a
               href={SHOPS.bearing.url}
