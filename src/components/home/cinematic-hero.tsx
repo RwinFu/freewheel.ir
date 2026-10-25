@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowUpLeft } from "lucide-react";
+
+import { SHOPS } from "@/content/site";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -138,12 +141,21 @@ export function CinematicHero() {
         </p>
 
         <div className="cinema-hero-actions">
-          <Link href="/#intro" className="cinema-btn cinema-btn-solid">
+          <Link href="/#intro" className="cinema-btn cinema-btn-ghost">
             ورود به داستان
           </Link>
           <Link href="/ringspann" className="cinema-btn cinema-btn-ghost">
             کاتالوگ مدل‌ها
           </Link>
+          <a
+            href={SHOPS.bearing.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cinema-btn cinema-btn-solid"
+          >
+            استعلام قیمت
+            <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+          </a>
         </div>
       </div>
 

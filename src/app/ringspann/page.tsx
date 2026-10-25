@@ -73,8 +73,19 @@ export default function RingspannPage() {
             </p>
           </Reveal>
 
-          <div className="mt-7 max-w-xl">
-            <PartSearch className="relative w-full" />
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="w-full max-w-xl flex-1">
+              <PartSearch className="relative w-full" />
+            </div>
+            <a
+              href={SHOPS.bearing.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-accent/30 bg-ocean px-5 py-3 text-[13px] font-semibold text-white shadow-lg shadow-ocean/10 transition-colors hover:bg-ocean-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              استعلام قیمت و خرید آنلاین
+              <MoveUpLeft className="h-4 w-4 text-accent-soft" aria-hidden="true" />
+            </a>
           </div>
 
           <Reveal delay={0.15}>
@@ -182,6 +193,20 @@ export default function RingspannPage() {
                         <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
                           {series.tagline}
                         </p>
+                        <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line/70 pt-4">
+                          <div>
+                            <dt className="text-[10.5px] text-fg-dim">حداکثر گشتاور</dt>
+                            <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
+                              {num(series.maxTorqueNm)} N·m
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-[10.5px] text-fg-dim">حداکثر قطر شفت</dt>
+                            <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
+                              {series.maxBoreMm} mm
+                            </dd>
+                          </div>
+                        </dl>
                       </div>
                       <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
                         مشخصات و جدول ابعاد
