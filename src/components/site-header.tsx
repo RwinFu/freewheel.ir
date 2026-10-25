@@ -1,10 +1,11 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ArrowUpLeft, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { PartSearch } from "@/components/part-search";
+import { SHOPS } from "@/content/site";
 
 const NAV_LINKS = [
   { href: "/#intro", label: "معرفی" },
@@ -130,8 +131,20 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            {/* سرچ‌بارِ کاتالوگ — جای CTA، درون کپسول شیشه‌ای */}
-            <PartSearch variant="glass" className="relative hidden w-52 lg:block" />
+            {/* جست‌وجوی کاتالوگ و دسترسی مستقیم به استعلام خرید */}
+            <PartSearch
+              variant="glass"
+              className="header-catalog-search relative hidden w-44 xl:w-52 lg:block"
+            />
+            <a
+              href={SHOPS.bearing.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="header-quote-cta relative hidden shrink-0 items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-[11.5px] font-bold text-white shadow-lg shadow-accent/20 transition-colors hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:inline-flex"
+            >
+              استعلام قیمت
+              <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
 
             {/* Mobile toggle */}
             <button
@@ -171,6 +184,16 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
+              <a
+                href={SHOPS.bearing.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="mt-2 flex min-h-12 items-center justify-between rounded-xl bg-accent px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                استعلام قیمت و خرید از bearingonline.ir
+                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+              </a>
             </nav>
           </div>
         </header>

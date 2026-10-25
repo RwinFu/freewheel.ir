@@ -16,6 +16,7 @@ import {
 import { HorizontalPanorama, PlanTimeline } from "@/components/home/panoramas";
 import { FadeUp, ScrollPercent, SectionRail, WordReveal } from "@/components/home/kit";
 import { PageTransition } from "@/components/page-transition";
+import { SHOPS } from "@/content/site";
 import styles from "./home.module.css";
 import "./home-cinema.css";
 
@@ -156,7 +157,16 @@ export default function HomePage() {
               </div>
             </div>
             <div className={styles.finalActions}>
-              <Link href="/ringspann" className="cinema-btn cinema-btn-solid">
+              <a
+                href={SHOPS.bearing.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cinema-btn cinema-btn-solid"
+              >
+                استعلام قیمت و خرید
+                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <Link href="/ringspann" className="cinema-btn cinema-btn-line">
                 مدل‌ها و ابعاد
               </Link>
               <Link href="/brands" className="cinema-btn cinema-btn-line">

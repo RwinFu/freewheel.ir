@@ -983,6 +983,15 @@ html:not(.lenis) .reveal-item {
   font-size: 11.5px;
 }
 
+/* کپسول باریک هنگام اسکرول: کاتالوگ و خرید را نگه می‌داریم، جزئیات را به منو می‌سپاریم. */
+.liquid-glass[data-scrolled="true"] .header-catalog-search {
+  display: none;
+}
+
+.liquid-glass[data-scrolled="true"] .lg-nav > a:not(:last-child) {
+  display: none;
+}
+
 /* صلیب چرخان روی نشان — فری‌ویلِ زندهی لوگو */
 .lg-ring-spin {
   transform-box: fill-box;
