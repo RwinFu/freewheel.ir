@@ -153,67 +153,105 @@ export default function RingspannPage() {
               label="فیلتر سری‌ها بر اساس شکل تأمین"
             />
           </div>
+          <div className="mt-6 flex flex-col gap-4 border border-accent/25 bg-ocean px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <div>
+              <p className="text-[16px] font-bold">مدل را پیدا کردید؟ خرید را از این‌جا ادامه دهید.</p>
+              <p className="mt-1.5 text-[12.5px] leading-6 text-white/70">
+                برای استعلام قیمت و خرید فری‌ویل، به فروشگاه آنلاین
+                <span dir="ltr" className="mx-1.5 inline-block font-semibold text-accent-soft">
+                  bearingonline.ir
+                </span>
+                بروید.
+              </p>
+            </div>
+            <a
+              href={SHOPS.bearing.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 bg-accent px-5 py-3 text-[13px] font-bold text-white transition-colors hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              استعلام قیمت و خرید
+              <MoveUpLeft className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
           <div data-filter-grid className="mt-7 grid gap-5 lg:grid-cols-3">
             {RINGSPANN_SERIES.map((series) => {
               const category = categoryById(SERIES_CATEGORIES, seriesCategory(series.slug));
               const product = SERIES_IMAGE[series.slug];
               return (
                 <CategoryItem key={series.slug} category={seriesCategory(series.slug)}>
-                  <Link
-                    href={`/ringspann/${series.slug}`}
-                    transitionTypes={["nav-forward"]}
-                    className="group flex h-full flex-col border border-line bg-panel transition-colors hover:border-accent/50"
-                  >
-                    {product ? (
-                      <SharedElement name={`series-image-${series.slug}`}>
-                        <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-ocean">
-                          <Image
-                            src={product.src}
-                            alt={product.alt}
-                            fill
-                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover opacity-90 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
-                          />
-                          <span
-                            className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#2A1E18]/85 to-transparent"
-                            aria-hidden="true"
-                          />
-                          {category ? (
-                            <CategoryTag category={category} className="absolute right-3 top-3" />
-                          ) : null}
+                  <article className="group/card flex h-full flex-col overflow-hidden border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_18px_50px_rgba(28,21,16,0.12)]">
+                    <Link
+                      href={`/ringspann/${series.slug}`}
+                      transitionTypes={["nav-forward"]}
+                      className="group/item flex flex-1 flex-col"
+                    >
+                      {product ? (
+                        <SharedElement name={`series-image-${series.slug}`}>
+                          <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-ocean">
+                            <Image
+                              src={product.src}
+                              alt={product.alt}
+                              fill
+                              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                              className="object-cover opacity-90 transition-all duration-700 group-hover/item:scale-[1.06] group-hover/item:opacity-100"
+                            />
+                            <span
+                              className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#2A1E18]/85 to-transparent"
+                              aria-hidden="true"
+                            />
+                            {category ? (
+                              <CategoryTag category={category} className="absolute right-3 top-3" />
+                            ) : null}
+                          </div>
+                        </SharedElement>
+                      ) : null}
+                      <div className="flex flex-1 flex-col justify-between p-6">
+                        <div>
+                          <span dir="ltr" className="text-[18px] font-semibold text-fg">
+                            {series.designation}
+                          </span>
+                          <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
+                          <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
+                            {series.tagline}
+                          </p>
+                          <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line/70 pt-4">
+                            <div>
+                              <dt className="text-[10.5px] text-fg-dim">حداکثر گشتاور</dt>
+                              <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
+                                {num(series.maxTorqueNm)} N·m
+                              </dd>
+                            </div>
+                            <div>
+                              <dt className="text-[10.5px] text-fg-dim">حداکثر قطر شفت</dt>
+                              <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
+                                {series.maxBoreMm} mm
+                              </dd>
+                            </div>
+                          </dl>
                         </div>
-                      </SharedElement>
-                    ) : null}
-                    <div className="flex flex-1 flex-col justify-between p-6">
-                      <div>
-                        <span dir="ltr" className="text-[18px] font-semibold text-fg">
-                          {series.designation}
+                        <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover/item:text-accent">
+                          مشخصات و جدول ابعاد
+                          <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
                         </span>
-                        <p className="mt-2 text-[12.5px] text-fg-dim">{series.family}</p>
-                        <p className="mt-3 text-[13.5px] leading-7 text-fg-muted">
-                          {series.tagline}
-                        </p>
-                        <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line/70 pt-4">
-                          <div>
-                            <dt className="text-[10.5px] text-fg-dim">حداکثر گشتاور</dt>
-                            <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
-                              {num(series.maxTorqueNm)} N·m
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="text-[10.5px] text-fg-dim">حداکثر قطر شفت</dt>
-                            <dd className="tnum mt-1 text-[12px] font-semibold text-fg" dir="ltr">
-                              {series.maxBoreMm} mm
-                            </dd>
-                          </div>
-                        </dl>
                       </div>
-                      <span className="mt-5 flex items-center gap-2 border-t border-line pt-4 text-[12.5px] text-fg-dim transition-colors group-hover:text-accent">
-                        مشخصات و جدول ابعاد
-                        <ArrowUpLeft className="h-3.5 w-3.5" />
+                    </Link>
+                    <a
+                      href={SHOPS.bearing.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`استعلام قیمت ${series.designation} در bearingonline.ir`}
+                      className="mx-4 mb-4 mt-1 flex min-h-14 items-center justify-between gap-3 bg-ocean px-4 py-3 text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
+                      <span>
+                        <span className="block text-[12.5px] font-bold">استعلام قیمت و خرید</span>
+                        <span dir="ltr" className="mt-1 block text-[10.5px] text-accent-soft">
+                          bearingonline.ir
+                        </span>
                       </span>
-                    </div>
-                  </Link>
+                      <ArrowUpLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
+                    </a>
+                  </article>
                 </CategoryItem>
               );
             })}
