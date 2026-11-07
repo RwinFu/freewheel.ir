@@ -41,6 +41,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: 104px;
     overflow-x: clip;
   }
 
@@ -887,186 +888,624 @@ html:not(.lenis) .reveal-item {
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* -------------------------------- Liquid Glass header --------------------------------
-   «کپسول فرماندهی شیشه‌ای»: بالای صفحه یک صفحه‌ی شیشه‌ای پهن و بلند است و با
-   اسکرول به کپسول باریک مورف می‌شود (تغییر واقعی اندازه و شکل). متریال: بلور
-   و اشباع بالا، لبه‌ی کروماتیک (پراکندگی نور روی قاب)، برق specular بالا،
-   شکست نور داخلی، سایه‌ی شناور، نوار نور مورب که آرام می‌گذرد و لکه‌ی نور
-   دنبال‌رَوِ اشاره‌گر. */
-.liquid-glass {
-  --lg-w: 1240px;
-  --lg-h: 66px;
-  --lg-r: 20px;
-  --lg-bg: 0.42;
-  --lg-sheen: 0.13;
-  max-width: var(--lg-w);
-  border-radius: var(--lg-r);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, var(--lg-sheen)) 0%, rgba(255, 255, 255, 0.04) 34%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(115deg, rgba(232, 93, 4, 0.12) 0%, rgba(255, 255, 255, 0) 40%),
-    rgba(26, 20, 16, var(--lg-bg));
-  backdrop-filter: blur(26px) saturate(180%);
-  -webkit-backdrop-filter: blur(26px) saturate(180%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -1px 0 rgba(8, 6, 4, 0.38),
-    inset 1px 0 0 rgba(255, 255, 255, 0.08),
-    inset -1px 0 0 rgba(255, 255, 255, 0.08),
-    0 2px 6px rgba(26, 20, 16, 0.10),
-    0 16px 44px rgba(26, 20, 16, 0.22);
+/* -------------------------------- Site header --------------------------------
+   کپسول فرماندهی صنعتی: سطح گرافیتی خوانا روی هر پس‌زمینه، نشان غلتکی
+   فری‌ویل، ناوبری لینک‌محور و جست‌وجوی واقعی کاتالوگ. حرکت فقط در پاسخ به
+   کاربر است و هدر در حالت اسکرول بدون تغییر اندازه‌ی کنترل‌ها جمع‌وجور می‌شود. */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-left: max(12px, env(safe-area-inset-left));
+  pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* لبه‌ی کروماتیک — حلقه‌ی گرادیانی مثل پراکندگی نور در قاب شیشه */
-.liquid-glass::after {
+.site-header-frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1280px);
+  margin-inline: auto;
+  pointer-events: auto;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header.is-scrolled .site-header-frame {
+  transform: translateY(-4px);
+}
+
+.site-header-shell {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(255, 239, 216, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 58%),
+    rgba(24, 20, 17, 0.92);
+  color: #fff8ee;
+  color-scheme: dark;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+    0 12px 36px rgba(24, 18, 13, 0.18),
+    0 2px 8px rgba(24, 18, 13, 0.12);
+  backdrop-filter: blur(22px) saturate(145%);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.site-header-shell::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from 140deg at 50% -10%,
-    rgba(255, 196, 140, 0.55),
-    rgba(255, 255, 255, 0.10) 25%,
-    rgba(150, 190, 255, 0.22) 50%,
-    rgba(255, 255, 255, 0.08) 72%,
-    rgba(255, 214, 168, 0.38) 100%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
+  inset: 0 28px auto;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 244, 226, 0.32), transparent);
   pointer-events: none;
 }
 
-.liquid-glass[data-scrolled="true"] {
-  /* Keep every desktop destination visible; the capsule expands instead of hiding navigation. */
-  --lg-w: 1200px;
-  --lg-h: 46px;
-  --lg-r: 999px;
-  --lg-bg: 0.74;
-  --lg-sheen: 0.08;
-  backdrop-filter: blur(30px) saturate(190%);
-  -webkit-backdrop-filter: blur(30px) saturate(190%);
+.site-header.is-scrolled .site-header-shell {
+  border-color: rgba(244, 140, 6, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 62%),
+    rgba(24, 20, 17, 0.97);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 42px rgba(24, 18, 13, 0.25),
+    0 2px 8px rgba(24, 18, 13, 0.14);
+}
+
+.site-header-main {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  gap: 16px;
+  padding-inline: 14px 12px;
+}
+
+.fw-wordmark {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 11px;
+  border-radius: 14px;
+  color: #fff8ee;
+  text-decoration: none;
+}
+
+.fw-mark {
+  position: relative;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 235, 207, 0.24);
+  border-radius: 13px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 45%),
+    linear-gradient(135deg, var(--color-accent-soft), #cf4b00 78%);
+  color: #fff9ef;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    inset 0 -1px 0 rgba(8, 6, 4, 0.38),
-    inset 1px 0 0 rgba(255, 255, 255, 0.07),
-    inset -1px 0 0 rgba(255, 255, 255, 0.07),
-    0 2px 8px rgba(26, 20, 16, 0.14),
-    0 18px 50px rgba(26, 20, 16, 0.30);
+    0 8px 20px -10px rgba(232, 93, 4, 0.75);
 }
 
-/* وقتی منوی موبایل باز است، شکل کپسولی کوچک رعایت نشود تا فهرست جا بگیرد */
-.liquid-glass[data-scrolled="true"]:has(#mobile-navigation:not([hidden])) {
-  --lg-r: 20px;
-  --lg-w: 100%;
+.fw-mark::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  pointer-events: none;
 }
 
-/* ارتفاع ردیف داخلی از متغیر متریال می‌آید تا کل کپسول هم‌زمان مورف شود */
-.lg-row {
-  height: var(--lg-h);
-  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+.fw-mark svg {
+  width: 34px;
+  height: 34px;
 }
 
-/* لوگو در حالت کپسول کمی کوچک‌تر می‌شود (به لبه‌ی راست متصل می‌ماند) */
-.liquid-glass .lg-wordmark {
-  transform-origin: right center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.liquid-glass[data-scrolled="true"] .lg-wordmark {
-  transform: scale(0.88);
-}
-
-/* لینک‌های ناوبری در حالت کپسول فشرده‌تر می‌شوند */
-.liquid-glass[data-scrolled="true"] .lg-nav > a {
-  padding: 0.3rem 0.6rem;
-  font-size: 11.5px;
-}
-
-/* صلیب چرخان روی نشان — فری‌ویلِ زندهی لوگو */
-.lg-ring-spin {
+.fw-mark-rotor {
   transform-box: fill-box;
   transform-origin: center;
-  animation: lg-spin 14s linear infinite;
-}
-@keyframes lg-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* لکه‌ی نور شیشه — با حرکت اشاره‌گر روی سطح سر می‌خورد */
-.liquid-glass-sheen {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  overflow: hidden;
+.fw-wordmark:hover .fw-mark-rotor,
+.fw-wordmark:focus-visible .fw-mark-rotor {
+  transform: rotate(30deg);
 }
 
-.liquid-glass-sheen::before {
+.fw-wordmark-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.fw-wordmark-name {
+  color: #fffaf2;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.fw-wordmark-name > span {
+  color: var(--color-accent-soft);
+}
+
+.fw-wordmark-caption {
+  margin-top: 6px;
+  color: rgba(255, 244, 229, 0.56);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-inline: auto;
+}
+
+.site-nav-link {
+  position: relative;
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding-inline: 11px;
+  color: rgba(255, 246, 233, 0.66);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.site-nav-link::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    420px 130px at var(--lg-mx, 50%) -30px,
-    rgba(255, 255, 255, 0.17),
-    transparent 70%
-  );
-  opacity: var(--lg-sheen-opacity, 0);
-  transition: opacity 0.45s ease;
+  right: 11px;
+  bottom: 4px;
+  left: 11px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* نوار نور مورب که هر چند ثانیه به‌آرامی از روی شیشه می‌گذرد */
-.liquid-glass-sheen::after {
-  content: "";
-  position: absolute;
-  top: -45%;
-  bottom: -45%;
-  left: -45%;
-  width: 34%;
-  transform: skewX(-14deg);
-  background: linear-gradient(
-    100deg,
-    transparent,
-    rgba(255, 255, 255, 0.06) 45%,
-    rgba(255, 255, 255, 0.11) 52%,
-    rgba(255, 255, 255, 0.06) 60%,
-    transparent
-  );
-  animation: lg-caustic 9s ease-in-out infinite;
-}
-@keyframes lg-caustic {
-  0%,
-  100% {
-    left: -45%;
-  }
-  50% {
-    left: 110%;
-  }
+.site-nav-link:hover {
+  background: rgba(255, 255, 255, 0.055);
+  color: #fffaf2;
 }
 
-/* بدون پشتیبانی از بلور: نسخه‌ی مات و خوانا */
+.site-nav-link:hover::after {
+  transform: scaleX(0.42);
+}
+
+.site-nav-link[data-current="true"] {
+  background: rgba(232, 93, 4, 0.09);
+  color: #fffaf2;
+}
+
+.site-nav-link[data-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.site-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-catalog-search {
+  position: relative;
+  width: 190px;
+}
+
+.part-search-input:placeholder-shown {
+  direction: rtl;
+  text-align: right;
+}
+
+.part-search-input:not(:placeholder-shown) {
+  direction: ltr;
+  text-align: left;
+}
+
+.part-search-input::-webkit-search-cancel-button,
+.part-search-input::-webkit-search-decoration {
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.header-quote-cta {
+  display: inline-flex;
+  min-height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 225, 193, 0.16);
+  border-radius: 12px;
+  background: var(--color-accent);
+  padding-inline: 15px;
+  color: #fffaf2;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 9px 24px -12px rgba(232, 93, 4, 0.9);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.header-quote-cta svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s ease;
+}
+
+.header-quote-cta:hover {
+  background: var(--color-accent-soft);
+  transform: translateY(-1px);
+}
+
+.header-quote-cta:hover svg {
+  transform: translate(-2px, -2px);
+}
+
+.header-quote-cta:active {
+  transform: translateY(0);
+}
+
+.site-header a,
+.site-header button {
+  touch-action: manipulation;
+}
+
+.site-header a:focus-visible,
+.site-header button:focus-visible {
+  outline-color: var(--color-accent-soft);
+  outline-offset: 3px;
+}
+
+.mobile-menu-toggle,
+.mobile-navigation,
+.site-header-backdrop {
+  display: none;
+}
+
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .liquid-glass {
-    --lg-bg: 0.94;
+  .site-header-shell {
+    background: #181411;
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .liquid-glass {
-    --lg-bg: 0.94;
+  .site-header-shell {
+    background: #181411;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .liquid-glass-sheen {
+@media (max-width: 1180px) and (min-width: 1024px) {
+  .site-header-main {
+    gap: 10px;
+  }
+
+  .site-nav-link {
+    padding-inline: 9px;
+    font-size: 12px;
+  }
+
+  .site-nav-link::after {
+    right: 9px;
+    left: 9px;
+  }
+
+  .header-catalog-search {
+    width: 160px;
+  }
+
+  .header-quote-cta {
+    padding-inline: 12px;
+    font-size: 12px;
+  }
+
+  .fw-wordmark-name {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-top: 92px;
+  }
+
+  .site-header {
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .site-header-frame {
+    width: min(100%, 760px);
+  }
+
+  .site-header-shell {
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 60%),
+      rgba(24, 20, 17, 0.97);
+  }
+
+  .site-header-main {
+    min-height: 68px;
+    justify-content: space-between;
+    gap: 12px;
+    padding-inline: 12px;
+  }
+
+  .site-nav,
+  .header-catalog-search,
+  .header-quote-cta {
     display: none;
   }
-  .lg-ring-spin {
+
+  .fw-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .fw-mark svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fw-wordmark-name {
+    font-size: 16px;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.055);
+    padding-inline: 12px;
+    color: rgba(255, 248, 238, 0.82);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .mobile-menu-toggle:hover,
+  .mobile-menu-toggle[aria-expanded="true"] {
+    border-color: rgba(244, 140, 6, 0.38);
+    background: rgba(232, 93, 4, 0.12);
+    color: #fffaf2;
+  }
+
+  .mobile-menu-toggle svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mobile-menu-label {
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .site-header-backdrop {
+    position: fixed;
+    inset: 0;
+    display: block;
+    border: 0;
+    background: rgba(12, 9, 7, 0.5);
+    padding: 0;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    pointer-events: auto;
+    animation: site-backdrop-in 0.2s ease-out both;
+  }
+
+  .mobile-navigation:not([hidden]) {
+    display: block;
+    max-height: calc(100dvh - 96px - env(safe-area-inset-top));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    padding: 12px;
+    animation: mobile-menu-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .mobile-catalog-search {
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .mobile-nav {
+    display: grid;
+    gap: 4px;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-radius: 11px;
+    padding-inline: 14px;
+    color: rgba(255, 246, 233, 0.76);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .mobile-nav-link svg {
+    width: 17px;
+    height: 17px;
+    color: rgba(255, 255, 255, 0.28);
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .mobile-nav-link:hover {
+    background: rgba(255, 255, 255, 0.055);
+    color: #fffaf2;
+  }
+
+  .mobile-nav-link:hover svg {
+    color: var(--color-accent-soft);
+    transform: translateX(-2px);
+  }
+
+  .mobile-nav-link[data-current="true"] {
+    background: rgba(232, 93, 4, 0.11);
+    color: #fffaf2;
+    box-shadow: inset -2px 0 0 var(--color-accent-soft);
+  }
+
+  .mobile-quote-cta {
+    display: flex;
+    min-height: 58px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 12px;
+    border: 1px solid rgba(255, 229, 202, 0.18);
+    border-radius: 13px;
+    background: var(--color-accent);
+    padding: 9px 15px;
+    color: #fffaf2;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobile-quote-cta:hover {
+    background: var(--color-accent-soft);
+  }
+
+  .mobile-quote-cta > svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  .mobile-quote-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mobile-quote-copy strong {
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+
+  .mobile-quote-copy small {
+    color: rgba(255, 250, 242, 0.7);
+    font-size: 10.5px;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .mobile-menu-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 4px 2px;
+    color: rgba(255, 244, 229, 0.48);
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .mobile-menu-note > span {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+  }
+}
+
+@media (max-width: 359px) {
+  .fw-wordmark-caption,
+  .mobile-menu-label {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    width: 44px;
+    padding-inline: 0;
+  }
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes site-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header-frame,
+  .fw-mark-rotor,
+  .site-nav-link,
+  .site-nav-link::after,
+  .header-quote-cta,
+  .header-quote-cta svg,
+  .mobile-menu-toggle,
+  .mobile-nav-link,
+  .mobile-nav-link svg,
+  .mobile-quote-cta {
+    transition: none;
+  }
+
+  .mobile-navigation:not([hidden]),
+  .site-header-backdrop {
     animation: none;
   }
 }
