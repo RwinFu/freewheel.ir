@@ -11,7 +11,7 @@
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/brainstorming/SKILL.md",
-      "computedHash": "759eaa3b4b3d06d9e1c98c24bcd58eeb4d2faf724b3239f81e8559aa41e28fdd"
+      "computedHash": "b344a85378eb5e5da192bceb0f9c0c15a4820a3ee8b5ad867e3a70ef3c691e3d"
     },
     "brand-guidelines": {
       "source": "anthropics/skills",
@@ -29,7 +29,7 @@
       "source": "Jeffallan/claude-skills",
       "sourceType": "github",
       "skillPath": "skills/code-reviewer/SKILL.md",
-      "computedHash": "fc6facf2a998be2cf8b87d4a0b209d7dc69f233287b699baf44cbeaf6ea4087f"
+      "computedHash": "3fd9082cd005b58bd5e7adb981615f7ddaeae6e9043988b80bc55df58f3e05f0"
     },
     "frontend-design": {
       "source": "anthropics/skills",
@@ -47,7 +47,7 @@
       "source": "Jeffallan/claude-skills",
       "sourceType": "github",
       "skillPath": "skills/security-reviewer/SKILL.md",
-      "computedHash": "3e7b25e4c400c33e2de06ebdd735ca40ce3b856b2007138da4e01bafffec2085"
+      "computedHash": "03911232e1ab28f56961cf8febc901963bf2a5f2e0fb459eab97cd77226ac833"
     },
     "seo": {
       "source": "AgriciDaniel/claude-seo",
@@ -83,7 +83,7 @@
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/systematic-debugging/SKILL.md",
-      "computedHash": "276fb0aadb002ab930cc2a56de89e16995a2e3e70b33587652bf0a5fb123148d"
+      "computedHash": "b7b6e98c3bffe371893bdb69845ec61124a65b6a96313dc8d6a2bce4437b13eb"
     },
     "theme-factory": {
       "source": "anthropics/skills",
@@ -107,7 +107,7 @@
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/react-view-transitions/SKILL.md",
-      "computedHash": "73fddafed488c308ee0799178432801fe10aa338451948ea05f4200541053040"
+      "computedHash": "6c9169eb561dcdea32408e2525a2eb5375d709dd8dbb3412b895e6c58a8dc22e"
     },
     "verification-before-completion": {
       "source": "obra/superpowers",

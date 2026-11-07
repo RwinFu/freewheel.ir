@@ -35,11 +35,11 @@ const skin = {
     accent: "text-accent hover:underline",
   },
   glass: {
-    box: "rounded-full border-white/[0.16] bg-white/[0.08] focus-within:border-white/40 focus-within:bg-white/[0.14]",
-    icon: "text-white/50",
+    box: "h-[42px] rounded-xl border-white/[0.14] bg-black/20 focus-within:border-accent-soft/70 focus-within:bg-black/30 focus-within:ring-2 focus-within:ring-accent/20",
+    icon: "text-white/55 hover:text-accent-soft",
     input: "text-white placeholder:text-white/45",
     clear: "text-white/50 hover:text-white",
-    drop: "rounded-2xl border-white/[0.14] bg-[#1d1610]/95 backdrop-blur-2xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.55)] overflow-hidden",
+    drop: "overflow-hidden rounded-[14px] border-white/[0.14] bg-[#181410] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.65)] backdrop-blur-2xl max-lg:inset-x-0 lg:left-0 lg:right-auto lg:w-[380px]",
     empty: "text-white/70",
     rowBorder: "border-white/[0.08]",
     rowHover: "hover:bg-white/[0.07]",
@@ -54,9 +54,11 @@ const skin = {
 export function PartSearch({
   className,
   variant = "panel",
+  onNavigate,
 }: {
   className?: string;
   variant?: keyof typeof skin;
+  onNavigate?: () => void;
 }) {
   const t = skin[variant];
   const [query, setQuery] = useState("");
@@ -74,6 +76,7 @@ export function PartSearch({
     const target = results[index];
     if (!target) return;
     setOpen(false);
+    onNavigate?.();
     router.push(target.href);
   };
 
@@ -191,9 +194,9 @@ export function PartSearch({
             }
           }}
           aria-label="جست‌وجو"
-          className={`shrink-0 transition-colors hover:scale-110 ${t.icon}`}
+          className={`grid h-7 w-7 shrink-0 place-items-center rounded-md transition-colors ${t.icon}`}
         >
-          <Search className="h-4 w-4" />
+          <Search className="h-4 w-4" aria-hidden="true" />
         </button>
         <input
           ref={inputRef}
@@ -209,13 +212,13 @@ export function PartSearch({
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={onInputKeyDown}
           onFocus={() => results.length > 0 && setOpen(true)}
-          placeholder="جست‌وجوی کد، مثل FGR 45…"
+          placeholder="جست‌وجوی کد قطعه…"
           dir="ltr"
-          className={`tnum w-full bg-transparent text-[13px] outline-none ${t.input}`}
+          className={`part-search-input tnum w-full bg-transparent text-[12.5px] outline-none ${t.input}`}
           aria-label="جست‌وجوی کد قطعه در کاتالوگ"
         />
         {state === "loading" ? (
-          <Loader2 className={`h-3.5 w-3.5 shrink-0 animate-spin ${t.icon}`} />
+          <Loader2 className={`h-3.5 w-3.5 shrink-0 animate-spin ${t.icon}`} aria-hidden="true" />
         ) : query ? (
           <button
             type="button"
@@ -227,19 +230,29 @@ export function PartSearch({
               inputRef.current?.focus();
             }}
             aria-label="پاک کردن"
-            className={`shrink-0 transition-colors ${t.clear}`}
+            className={`grid h-7 w-7 shrink-0 place-items-center rounded-md transition-colors ${t.clear}`}
           >
-            <X className="h-3.5 w-3.5" />
+            <X className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
         ) : null}
       </div>
+
+      <span className="sr-only" role="status" aria-live="polite">
+        {state === "loading"
+          ? "در حال جست‌وجوی کاتالوگ…"
+          : state === "error"
+            ? "جست‌وجوی کاتالوگ در دسترس نیست."
+            : state === "done" && query.trim().length >= 2
+              ? `${results.length} نتیجه پیدا شد.`
+              : ""}
+      </span>
 
       {open && query.trim().length >= 2 ? (
         <div className={`absolute inset-x-0 top-full z-50 mt-1.5 border ${t.drop}`}>
           {state === "error" ? (
             <p className={`px-4 py-4 text-[13px] leading-7 ${t.empty}`}>
               جست‌وجوی کاتالوگ فعلاً در دسترس نیست. کد قطعه را در{" "}
-              <Link href="/ringspann" className={t.accent}>
+              <Link href="/ringspann" className={t.accent} onClick={onNavigate}>
                 جدول سری‌ها
               </Link>{" "}
               ببینید یا کد را برای ما بفرستید.
@@ -247,7 +260,7 @@ export function PartSearch({
           ) : results.length === 0 ? (
             <p className={`px-4 py-4 text-[13px] leading-7 ${t.empty}`}>
               چیزی پیدا نشد. کد کامل را بنویسید یا{" "}
-              <Link href="/contact" className={t.accent}>
+              <Link href="/contact" className={t.accent} onClick={onNavigate}>
                 مشخصات را برای ما بفرستید
               </Link>
               .
@@ -267,7 +280,10 @@ export function PartSearch({
                 >
                   <Link
                     href={item.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      onNavigate?.();
+                    }}
                     tabIndex={-1}
                     className={`flex items-center justify-between gap-4 px-4 py-3 transition-colors ${t.rowHover}`}
                   >

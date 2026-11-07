@@ -1,200 +1,238 @@
 "use client";
 
-import { ArrowUpLeft, Menu, X } from "lucide-react";
+import { ArrowUpLeft, ChevronLeft, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { PartSearch } from "@/components/part-search";
 import { SHOPS } from "@/content/site";
 
-const NAV_LINKS = [
-  { href: "/#intro", label: "معرفی" },
-  { href: "/#mechanism", label: "سازوکار" },
-  { href: "/#applications", label: "کاربردها" },
-  { href: "/#families", label: "خانواده‌ها" },
-  { href: "/#drive-system", label: "درایو" },
-  { href: "/ringspann", label: "کاتالوگ" },
-];
+type NavLink = {
+  href: string;
+  label: string;
+  match?: string;
+};
 
-function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
+const NAV_LINKS: readonly NavLink[] = [
+  { href: "/#intro", label: "آشنایی" },
+  { href: "/applications", label: "کاربردها", match: "/applications" },
+  { href: "/brands", label: "برندها", match: "/brands" },
+  { href: "/ringspann", label: "کاتالوگ", match: "/ringspann" },
+  { href: "/articles", label: "مقالات فنی", match: "/articles" },
+] as const;
+
+const MARK_ROLLERS = [0, 60, 120, 180, 240, 300] as const;
+
+function FreewheelMark() {
+  return (
+    <span className="fw-mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="20.25" stroke="currentColor" strokeWidth="1.25" opacity="0.52" />
+        <g className="fw-mark-rotor">
+          <circle cx="24" cy="24" r="11.75" stroke="currentColor" strokeWidth="1.35" opacity="0.82" />
+          {MARK_ROLLERS.map((angle) => (
+            <g key={angle} transform={`rotate(${angle} 24 24)`}>
+              <path d="M24 6.75v4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.8" />
+              <circle cx="24" cy="15" r="1.85" fill="currentColor" opacity="0.9" />
+            </g>
+          ))}
+          <path
+            d="m24 18.25 4.75 5.75-4.75 5.75-4.75-5.75 4.75-5.75Z"
+            stroke="currentColor"
+            strokeWidth="1.35"
+            strokeLinejoin="round"
+          />
+        </g>
+        <circle cx="24" cy="24" r="1.8" fill="currentColor" />
+      </svg>
+    </span>
+  );
+}
+
+function Wordmark({ onNavigate }: { onNavigate: () => void }) {
   return (
     <Link
       href="/"
       onClick={onNavigate}
-      className="lg-wordmark group flex shrink-0 items-center gap-2.5"
-      aria-label="صفحه‌ی اصلی freewheel.ir"
+      className="fw-wordmark"
+      aria-label="freewheel.ir — صفحه‌ی اصلی"
     >
-      <span className="relative grid h-10 w-10 place-items-center rounded-xl overflow-hidden">
-        {/* gradient background */}
-        <span className="absolute inset-0 bg-gradient-to-br from-accent to-[#A04000] shadow-lg shadow-accent/30" />
-        <span className="absolute inset-[1px] rounded-[10px] bg-gradient-to-br from-accent-soft/40 to-transparent" />
-        <svg viewBox="0 0 40 40" className="relative h-6 w-6" aria-hidden="true">
-          <circle cx="20" cy="20" r="13" fill="none" stroke="white" strokeWidth="1.8" opacity="0.9" />
-          <circle cx="20" cy="20" r="6" fill="none" stroke="white" strokeWidth="1.8" opacity="0.7" />
-          {/* صلیب دنده‌ای، آرام می‌چرخد — فری‌ویل زنده‌ی لوگو */}
-          <g className="lg-ring-spin">
-            <path d="M20 6v5M34 20h-5M20 34v-5M6 20h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          </g>
-          <circle cx="20" cy="20" r="2" fill="white" />
-        </svg>
-      </span>
-      <span className="leading-tight">
-        <span
-          className="block text-[15px] font-black tracking-tight text-white"
-          dir="ltr"
-        >
-          freewheel<span className="text-accent-soft">.ir</span>
+      <FreewheelMark />
+      <span className="fw-wordmark-copy">
+        <span className="fw-wordmark-name" dir="ltr" translate="no">
+          freewheel<span>.ir</span>
         </span>
-        <span className="mt-0.5 block text-[10px] font-medium text-white/60">
-          راهکارهای انتقال قدرت
-        </span>
+        <span className="fw-wordmark-caption">مرجع فنی فری‌ویل صنعتی</span>
       </span>
     </Link>
   );
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const ticking = useRef(false);
-  const headerRef = useRef<HTMLElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const handleScroll = useCallback(() => {
-    const y = window.scrollY;
-    setScrolled(y > 20);
-    ticking.current = false;
+  const closeMenu = () => setOpen(false);
+  const isCurrent = (match?: string) =>
+    match ? pathname === match || pathname.startsWith(`${match}/`) : false;
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      setScrolled(window.scrollY > 16);
+      frame = 0;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    frame = window.requestAnimationFrame(update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (!ticking.current) {
-        window.requestAnimationFrame(handleScroll);
-        ticking.current = true;
-      }
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [handleScroll]);
+    desktop.addEventListener("change", onDesktop);
+    return () => desktop.removeEventListener("change", onDesktop);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const main = document.getElementById("main");
+    const footer = document.querySelector("footer");
+    document.body.style.overflow = "hidden";
+    main?.setAttribute("inert", "");
+    footer?.setAttribute("inert", "");
+
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      main?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
+      document.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
-  // لکه‌ی نور شیشه — مستقیم روی CSS varها می‌نویسد تا re-render ندهد
-  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLElement>) => {
-    const el = headerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--lg-mx", `${event.clientX - rect.left}px`);
-    el.style.setProperty("--lg-sheen-opacity", "1");
-  }, []);
-
-  const handlePointerLeave = useCallback(() => {
-    headerRef.current?.style.setProperty("--lg-sheen-opacity", "0");
-  }, []);
-
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 pointer-events-none">
-      <div className="flex justify-center px-3 sm:px-6 pt-3">
-        <header
-          ref={headerRef}
-          data-scrolled={scrolled || undefined}
-          onPointerMove={handlePointerMove}
-          onPointerLeave={handlePointerLeave}
-          className={[
-            "liquid-glass pointer-events-auto relative w-full max-w-[1200px]",
-            "rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          ].join(" ")}
-        >
-          {/* لکه‌ی نور روی سطح شیشه + نوار نور مورب عبوری */}
-          <span className="liquid-glass-sheen" aria-hidden="true" />
+    <div className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+      {open ? (
+        <button
+          type="button"
+          className="site-header-backdrop"
+          onClick={closeMenu}
+          tabIndex={-1}
+          aria-hidden="true"
+        />
+      ) : null}
 
-          <div className="lg-row relative flex items-center justify-between gap-2 px-3 sm:px-4 xl:px-6">
-            <Wordmark onNavigate={() => setOpen(false)} />
+      <div className="site-header-frame">
+        <header className="site-header-shell" data-open={open || undefined}>
+          <div className="site-header-main">
+            <Wordmark onNavigate={closeMenu} />
 
-            {/* Desktop nav */}
-            <nav className="lg-nav hidden items-center gap-0.5 lg:flex" aria-label="ناوبری اصلی">
-              {NAV_LINKS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="relative rounded-full px-2.5 py-2 text-[11.5px] font-semibold text-white/60 transition-all duration-300 hover:text-white hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent group xl:px-3 xl:text-[12px]"
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
-              ))}
+            <nav className="site-nav" aria-label="ناوبری اصلی">
+              {NAV_LINKS.map((item) => {
+                const current = isCurrent(item.match);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="site-nav-link"
+                    data-current={current ? "true" : undefined}
+                    aria-current={current ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* جست‌وجوی کاتالوگ و دسترسی مستقیم به استعلام خرید */}
-            <PartSearch
-              variant="glass"
-              className="header-catalog-search relative hidden w-40 xl:w-48 lg:block"
-            />
-            <a
-              href={SHOPS.bearing.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="header-quote-cta relative hidden shrink-0 items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-[11.5px] font-bold text-white shadow-lg shadow-accent/20 transition-colors hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:inline-flex"
-            >
-              استعلام قیمت
-              <ArrowUpLeft className="h-3.5 w-3.5" aria-hidden="true" />
-            </a>
-
-            {/* Mobile toggle */}
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              className="grid h-9 w-9 place-items-center rounded-xl bg-white/[0.06] text-white/70 transition-all hover:bg-white/[0.12] hover:text-white lg:hidden"
-              aria-label={open ? "بستن منو" : "باز کردن منو"}
-              aria-expanded={open}
-              aria-controls="mobile-navigation"
-            >
-              {open ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
-            </button>
-          </div>
-
-          {/* Mobile panel — به‌جای زمینه‌ی مات، شیشه‌ی هدر از این‌جا هم دیده می‌شود */}
-          <div
-            id="mobile-navigation"
-            hidden={!open}
-            className="relative border-t border-white/[0.08] bg-white/[0.04] px-4 pb-5 pt-3 lg:hidden"
-          >
-            {/* accent stripe */}
-            <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
-            <nav className="mx-auto grid max-w-[1100px] gap-1.5" aria-label="ناوبری موبایل">
-              {/* سرچ‌بار در دراور موبایل، بالای فهرست */}
-              <PartSearch variant="glass" className="relative mb-2" />
-              {NAV_LINKS.map((item, i) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] font-semibold text-white/75 transition-all hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  style={{ animationDelay: `${i * 40}ms` }}
-                >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-[11px] font-bold text-accent">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {item.label}
-                </Link>
-              ))}
+            <div className="site-header-actions">
+              <PartSearch variant="glass" className="header-catalog-search" />
               <a
                 href={SHOPS.bearing.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="mt-2 flex min-h-12 items-center justify-between rounded-xl bg-accent px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="header-quote-cta"
               >
-                استعلام قیمت و خرید از bearingonline.ir
-                <ArrowUpLeft className="h-4 w-4" aria-hidden="true" />
+                استعلام قیمت
+                <ArrowUpLeft aria-hidden="true" />
               </a>
+              <button
+                ref={menuButtonRef}
+                type="button"
+                onClick={() => setOpen((value) => !value)}
+                className="mobile-menu-toggle"
+                aria-label={open ? "بستن منو" : "باز کردن منو"}
+                aria-expanded={open}
+                aria-controls="mobile-navigation"
+              >
+                <span className="mobile-menu-label">{open ? "بستن" : "منو"}</span>
+                {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="mobile-navigation"
+            hidden={!open}
+            className="mobile-navigation"
+          >
+            <PartSearch variant="glass" className="mobile-catalog-search" onNavigate={closeMenu} />
+            <nav className="mobile-nav" aria-label="ناوبری موبایل">
+              {NAV_LINKS.map((item) => {
+                const current = isCurrent(item.match);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="mobile-nav-link"
+                    data-current={current ? "true" : undefined}
+                    aria-current={current ? "page" : undefined}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronLeft aria-hidden="true" />
+                  </Link>
+                );
+              })}
             </nav>
+            <a
+              href={SHOPS.bearing.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMenu}
+              className="mobile-quote-cta"
+            >
+              <span className="mobile-quote-copy">
+                <strong>استعلام قیمت و خرید</strong>
+                <small dir="ltr" translate="no">bearingonline.ir</small>
+              </span>
+              <ArrowUpLeft aria-hidden="true" />
+            </a>
+            <p className="mobile-menu-note">
+              <span aria-hidden="true" />
+              برای انتخاب دقیق، با کد روی قطعه شروع کنید.
+            </p>
           </div>
         </header>
       </div>
